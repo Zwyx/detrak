@@ -10,5 +10,12 @@
 		"source.organizeImports": true
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"cSpell.words": ["Detrak"]
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"cSpell.words": ["Detrak"],
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"editor.quickSuggestions": {
+		"strings": true
+	}
 }
