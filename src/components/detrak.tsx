@@ -4,12 +4,6 @@ import { cn } from "~/lib/utils";
 
 const caveat = Caveat({ subsets: ["latin"] });
 
-export const Symbol0: FC<{ bgColor: string }> = ({ bgColor }) => (
-	<div className="flex aspect-square w-[55%] items-center justify-center rounded-full bg-foreground">
-		<div className={cn("aspect-square w-[77%] rounded-full", bgColor)} />
-	</div>
-);
-
 export const Symbol1: FC = () => (
 	<div className="h-[6%] w-[55%] -rotate-45 rounded-full bg-foreground" />
 );
@@ -46,28 +40,50 @@ export const Symbol5: FC = () => (
 	</>
 );
 
-interface CellProps {
-	x: number;
-	y: number;
-	value: number;
-}
-
-const Cell: FC<CellProps> = ({ x, y, value }) => {
-	return (
+export const Symbol6: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
+	<div className="flex aspect-square w-[55%] items-center justify-center rounded-full bg-foreground">
 		<div
 			className={cn(
-				"relative flex aspect-square flex-1 items-center justify-center",
-				x >= 1 && y >= 1 && "shadow-grid",
-				x + y === 6 && "bg-accent",
+				"aspect-square w-[77%] rounded-full",
+				bgColor || "bg-background",
 			)}
+		/>
+	</div>
+);
+
+interface CellProps {
+	x?: number;
+	y?: number;
+	value: number;
+	start?: boolean;
+	onClick?: () => void;
+}
+
+export const Cell: FC<CellProps> = ({
+	x = 1,
+	y = 1,
+	value,
+	start,
+	onClick,
+}) => {
+	const symbol = x >= 1 && x <= 5 && y >= 1 && y <= 5;
+	const canPlay = symbol && onClick && (value === 0 || start);
+	const bgColor = x + y === 6 && "bg-accent";
+
+	return (
+		<button
+			className={cn(
+				"relative flex aspect-square flex-1 items-center justify-center outline-none",
+				x >= 1 && y >= 1 && "shadow-grid",
+				canPlay &&
+					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
+				bgColor,
+			)}
+			disabled={!canPlay}
+			onClick={onClick}
 		>
-			{x >= 1 &&
-				x <= 5 &&
-				y >= 1 &&
-				y <= 5 &&
-				(value === 0 ? (
-					<Symbol0 bgColor={x + y === 6 ? "bg-accent" : "bg-background"} />
-				) : value === 1 ? (
+			{symbol &&
+				(value === 1 ? (
 					<Symbol1 />
 				) : value === 2 ? (
 					<Symbol2 />
@@ -75,29 +91,48 @@ const Cell: FC<CellProps> = ({ x, y, value }) => {
 					<Symbol3 />
 				) : value === 4 ? (
 					<Symbol4 />
-				) : (
+				) : value === 5 ? (
 					<Symbol5 />
+				) : (
+					value === 6 && <Symbol6 bgColor={bgColor} />
 				))}
 
-			{(x === 6 || y === 6) && (
+			{(x === 6 || y === 6) && value !== 0 && (
 				<span className={cn(caveat.className, "mr-3 text-7xl")}>{value}</span>
 			)}
-		</div>
+		</button>
 	);
 };
 
 interface GridProps {
 	content: number[][];
+	firstMoveCoords?: { x: number; y: number };
+	onClick?: (x: number, y: number) => void;
 }
 
-export const Grid: FC<GridProps> = ({ content }) => {
+export const Grid: FC<GridProps> = ({ content, firstMoveCoords, onClick }) => {
 	return (
 		<div className="relative flex w-full min-w-[300px] max-w-[700px] flex-col">
 			{content.map((row, y) => (
 				// it's ok to use the index as key, as the size of the array will never and items will never be reordered
 				<div key={y} className="flex flex-1">
 					{row.map((value, x) => (
-						<Cell key={x} x={x} y={y} value={value} />
+						<Cell
+							key={x}
+							x={x}
+							y={y}
+							value={value}
+							onClick={
+								onClick &&
+								(!firstMoveCoords ||
+									(x === firstMoveCoords.x && y === firstMoveCoords.y - 1) ||
+									(x === firstMoveCoords.x && y === firstMoveCoords.y + 1) ||
+									(x === firstMoveCoords.x - 1 && y === firstMoveCoords.y) ||
+									(x === firstMoveCoords.x + 1 && y === firstMoveCoords.y))
+									? () => onClick(x, y)
+									: undefined
+							}
+						/>
 					))}
 				</div>
 			))}

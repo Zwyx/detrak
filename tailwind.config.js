@@ -57,6 +57,8 @@ module.exports = {
 			},
 			boxShadow: {
 				grid: "0 0 1px 1px hsl(var(--muted-foreground)), inset 0 0 1px 1px hsl(var(--muted-foreground))",
+				"grid-focus":
+					"0 0 1px 1px hsl(var(--muted-foreground)), inset 0 0 1px 1px hsl(var(--muted-foreground)), inset 0 0 5px 2px hsl(var(--accent-foreground))",
 			},
 			keyframes: {
 				"accordion-down": {
