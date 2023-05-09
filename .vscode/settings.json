@@ -11,7 +11,7 @@
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"cSpell.words": ["Detrak"],
+	"cSpell.words": ["Detrak", "staticrypt"],
 	"files.associations": {
 		"*.css": "tailwindcss"
 	},

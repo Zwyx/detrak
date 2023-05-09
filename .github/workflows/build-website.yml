@@ -1,0 +1,54 @@
+# The site is built on branch `dist`, in folder `docs`,
+# which makes the build compatible with Github Pages and Netlify
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+name: Build website
+
+jobs:
+  build-website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - run: echo "nvmrc=$(cat .nvmrc)" >> $GITHUB_ENV
+        id: nvmrc
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "${{ env.nvmrc }}"
+          cache: npm
+
+      - run: |
+          npm ci
+          npm run build
+
+      - env:
+          STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
+          # The first line is temporary, see https://github.com/robinmoisson/staticrypt/pull/177
+        run: |
+          npm run staticrypt -- docs/index.html
+          npm run staticrypt -- docs/index.html --share
+          mv -v encrypted/index.html docs/index.html
+
+      - run: |
+          git fetch
+          git switch --orphan dist
+          git add docs
+          git config user.name "Zwyx - GitHub Actions"
+          git config user.email "29386932+Zwyx@users.noreply.github.com>"
+          git commit -m "Build website"
+          git push --set-upstream origin --force dist
+      #
+      # - name: Setup tmate session
+      #   if: ${{ always() }}
+      #   timeout-minutes: 30 # Run `sudo shutdown -h now` to terminate the session
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   uses: mxschmitt/action-tmate@v3

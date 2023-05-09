@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
+		"staticrypt": "staticrypt",
 		"start": "next start",
 		"lint": "next lint",
 		"eslint": "eslint .",
@@ -27,6 +28,7 @@
 		"postcss": "8.4.23",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"staticrypt": "^3.3.0",
 		"tailwind-merge": "^1.12.0",
 		"tailwindcss": "3.3.2",
 		"tailwindcss-animate": "^1.0.5",
