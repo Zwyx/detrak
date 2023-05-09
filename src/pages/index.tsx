@@ -42,21 +42,18 @@ const getLineScore = (line: TLine): number => {
 };
 
 export default function Home() {
-	// console.log(`-5: ${getLineScore([null, 1, 2, 3, 4, 5, null])}`);
-	// console.log(`-5: ${getLineScore([1, 1, 2, 3, 4, 5, 5])}`);
-	// console.log(`2: ${getLineScore([null, 1, 2, 3, 3, 5, null])}`);
-	// console.log(`4: ${getLineScore([null, 1, 1, 3, 3, 5, null])}`);
-	// console.log(`4: ${getLineScore([1, 1, 1, 5, 3, 3, 5])}`);
-	// console.log(`3: ${getLineScore([1, 1, 1, 1, 4, 3, 5])}`);
-	// console.log(`5: ${getLineScore([1, 1, 1, 1, 3, 3, 5])}`);
-	// console.log(`8: ${getLineScore([1, 1, 1, 1, 1, 3, 5])}`);
-	// console.log(`10: ${getLineScore([1, 1, 1, 1, 1, 1, 5])}`);
-	// console.log(`3: ${getLineScore([1, 1, 1, 1, null, 1, 5])}`);
+	const initialGrid = Array(7)
+		.fill(0)
+		.map(() => Array(7).fill(null));
 
 	const gridReducer = (
 		prevGrid: TGrid,
 		{ x, y, newValue }: { x: number; y: number; newValue: TCell },
 	): TGrid => {
+		if (x < 0 || y < 0) {
+			return initialGrid;
+		}
+
 		const grid = prevGrid.map((row, r) =>
 			row.map((value, c) => (r === y && c === x ? newValue : value)),
 		);
@@ -83,21 +80,38 @@ export default function Home() {
 			columnScores.reduce<number>((a, b) => (a || 0) + (b || 0), 0) +
 			diagonalScore * 2;
 
+		const emptyCells = grid
+			.flatMap((row, r) =>
+				row.map((cell, c) =>
+					r >= 1 && r <= 5 && c >= 1 && c <= 5 && cell === null ? [r, c] : null,
+				),
+			)
+			.filter(Array.isArray);
+
+		const consecutiveEmptyCellsRemaining = emptyCells
+			.map(
+				([r, c]) =>
+					(r > 1 && grid[r - 1][c] === null) ||
+					(r < 5 && grid[r + 1][c] === null) ||
+					(c > 1 && grid[r][c - 1] === null) ||
+					(c < 5 && grid[r][c + 1] === null),
+			)
+			.includes(true);
+
+		const endOfGame =
+			emptyCells.length === 0 ||
+			(emptyCells.length % 2 === 0 && !consecutiveEmptyCellsRemaining);
+
 		return grid.map((row, index) =>
 			index === 0
-				? [...row.slice(0, -1), diagonalScore]
+				? [endOfGame ? 0 : null, ...row.slice(1, -1), diagonalScore]
 				: index >= 1 && index <= 5
 				? [...row.slice(0, -1), rowScores[index]]
 				: [diagonalScore, ...columnScores.slice(1, -1), totalScore],
 		);
 	};
 
-	const [grid, updateGrid] = useReducer(
-		gridReducer,
-		Array(7)
-			.fill(0)
-			.map(() => Array(7).fill(null)),
-	);
+	const [grid, updateGrid] = useReducer(gridReducer, initialGrid);
 
 	const [dices, setDices] = useState<TCell[]>([null, null]);
 	const [move, setMove] = useState(-1);
@@ -106,8 +120,9 @@ export default function Home() {
 	);
 
 	return (
+		// is `min-h-screen` necessary to have the header bar? it create an unnecessary scroll on mobile
 		<main
-			className={`flex min-h-screen flex-col items-center justify-between p-4 ${inter.className}`}
+			className={`min-h-screen_DEACTIVATED flex flex-col items-center justify-between p-4 ${inter.className}`}
 		>
 			<div className="m-10 flex h-[200px] w-full flex-col items-center justify-center">
 				{grid[1][1] === null && (
@@ -143,7 +158,7 @@ export default function Home() {
 									setMove(0);
 									setMovesCoords([]);
 								}}
-								disabled={move === 0 || move === 1}
+								disabled={move === 0 || move === 1 || grid[0][0] !== null}
 							>
 								Roll the dices!
 							</Button>
@@ -163,16 +178,36 @@ export default function Home() {
 							</Button>
 						</div>
 
-						<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
-							<div className="flex-[2]" />
-							<Cell value={dices[0]} />
+						{grid[0][0] === null ? (
+							<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
+								<div className="flex-[2]" />
+								<Cell value={dices[0]} />
 
-							<div className="flex-1" />
+								<div className="flex-1" />
 
-							<Cell value={dices[1]} />
+								<Cell value={dices[1]} />
 
-							<div className="flex-[2]" />
-						</div>
+								<div className="flex-[2]" />
+							</div>
+						) : (
+							<div className="flex flex-col gap-4">
+								<span>
+									Finished! Your score is <b>{grid[6][6]}</b>
+								</span>
+
+								<Button
+									onClick={() => {
+										updateGrid({ x: -1, y: -1, newValue: null });
+										setDices([null, null]);
+										setMove(-1);
+										setMovesCoords([]);
+									}}
+									disabled={move !== 1 && move !== 2}
+								>
+									Start a new game
+								</Button>
+							</div>
+						)}
 					</>
 				)}
 			</div>
