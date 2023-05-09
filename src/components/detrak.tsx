@@ -2,20 +2,24 @@ import { Caveat } from "next/font/google";
 import { FC } from "react";
 import { cn } from "~/lib/utils";
 
+export type TCell = number | null;
+export type TLine = TCell[];
+export type TGrid = TLine[];
+
 const caveat = Caveat({ subsets: ["latin"] });
 
-export const Symbol1: FC = () => (
+export const Symbol0: FC = () => (
 	<div className="h-[6%] w-[55%] -rotate-45 rounded-full bg-foreground" />
 );
 
-export const Symbol2: FC = () => (
+export const Symbol1: FC = () => (
 	<>
 		<div className="absolute h-[6%] w-[55%] rotate-45 rounded-full bg-foreground" />
 		<div className="absolute h-[6%] w-[55%] -rotate-45 rounded-full bg-foreground" />
 	</>
 );
 
-export const Symbol3: FC = () => (
+export const Symbol2: FC = () => (
 	<>
 		<div className="mr-[12%] h-[55%] w-[6%] rounded-full bg-foreground" />
 		<div className="h-[55%] w-[6%] rounded-full bg-foreground" />
@@ -23,7 +27,7 @@ export const Symbol3: FC = () => (
 	</>
 );
 
-export const Symbol4: FC = () => (
+export const Symbol3: FC = () => (
 	<>
 		<div className="absolute mb-[18%] h-[6%] w-[55%] rounded-full bg-foreground" />
 		<div className="absolute mt-[18%] h-[6%] w-[55%] rounded-full bg-foreground" />
@@ -32,7 +36,7 @@ export const Symbol4: FC = () => (
 	</>
 );
 
-export const Symbol5: FC = () => (
+export const Symbol4: FC = () => (
 	<>
 		<div className="absolute mt-[30%] h-[6%] w-[55%]  rounded-full bg-foreground" />
 		<div className="absolute mb-[14%] mr-[26%] h-[6%] w-[55%] rotate-[120deg]  rounded-full bg-foreground" />
@@ -40,7 +44,7 @@ export const Symbol5: FC = () => (
 	</>
 );
 
-export const Symbol6: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
+export const Symbol5: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
 	<div className="flex aspect-square w-[55%] items-center justify-center rounded-full bg-foreground">
 		<div
 			className={cn(
@@ -54,7 +58,7 @@ export const Symbol6: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
 interface CellProps {
 	x?: number;
 	y?: number;
-	value: number;
+	value: number | null;
 	start?: boolean;
 	onClick?: () => void;
 }
@@ -67,7 +71,7 @@ export const Cell: FC<CellProps> = ({
 	onClick,
 }) => {
 	const symbol = x >= 1 && x <= 5 && y >= 1 && y <= 5;
-	const canPlay = symbol && onClick && (value === 0 || start);
+	const canPlay = symbol && onClick && (value === null || start);
 	const bgColor = x + y === 6 && "bg-accent";
 
 	return (
@@ -83,7 +87,9 @@ export const Cell: FC<CellProps> = ({
 			onClick={onClick}
 		>
 			{symbol &&
-				(value === 1 ? (
+				(value === 0 ? (
+					<Symbol0 />
+				) : value === 1 ? (
 					<Symbol1 />
 				) : value === 2 ? (
 					<Symbol2 />
@@ -91,13 +97,11 @@ export const Cell: FC<CellProps> = ({
 					<Symbol3 />
 				) : value === 4 ? (
 					<Symbol4 />
-				) : value === 5 ? (
-					<Symbol5 />
 				) : (
-					value === 6 && <Symbol6 bgColor={bgColor} />
+					value === 5 && <Symbol5 bgColor={bgColor} />
 				))}
 
-			{(x === 6 || y === 6) && value !== 0 && (
+			{(x === 6 || y === 6) && value !== null && (
 				<span className={cn(caveat.className, "mr-3 text-7xl")}>{value}</span>
 			)}
 		</button>
@@ -105,15 +109,15 @@ export const Cell: FC<CellProps> = ({
 };
 
 interface GridProps {
-	content: number[][];
+	grid: TGrid;
 	firstMoveCoords?: { x: number; y: number };
 	onClick?: (x: number, y: number) => void;
 }
 
-export const Grid: FC<GridProps> = ({ content, firstMoveCoords, onClick }) => {
+export const Grid: FC<GridProps> = ({ grid, firstMoveCoords, onClick }) => {
 	return (
 		<div className="relative flex w-full min-w-[300px] max-w-[700px] flex-col">
-			{content.map((row, y) => (
+			{grid.map((row, y) => (
 				// it's ok to use the index as key, as the size of the array will never and items will never be reordered
 				<div key={y} className="flex flex-1">
 					{row.map((value, x) => (
