@@ -77,7 +77,7 @@ export const Cell: FC<CellProps> = ({
 	return (
 		<button
 			className={cn(
-				"relative flex aspect-square flex-1 items-center justify-center outline-none",
+				"relative flex aspect-square flex-1 items-center justify-center overflow-hidden outline-none",
 				x >= 1 && y >= 1 && "shadow-grid",
 				canPlay &&
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
@@ -102,7 +102,14 @@ export const Cell: FC<CellProps> = ({
 				))}
 
 			{(x === 6 || y === 6) && value !== null && (
-				<span className={cn(caveat.className, "mr-3 text-7xl")}>{value}</span>
+				<span
+					className={cn(
+						caveat.className,
+						"mr-3 text-6xl max-[700px]:text-[8vw]",
+					)}
+				>
+					{value}
+				</span>
 			)}
 		</button>
 	);
