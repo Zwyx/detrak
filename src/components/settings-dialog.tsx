@@ -52,6 +52,31 @@ export function SettingsDialog() {
 						</div>
 					</label>
 				</div>
+
+				<div className="flex gap-2">
+					<Checkbox
+						id="autoRollDice"
+						checked={settings.autoRollDice}
+						onCheckedChange={(checked) =>
+							updateSettings({ autoRollDice: !!checked })
+						}
+					/>
+
+					<label
+						htmlFor="autoRollDice"
+						className="grid cursor-pointer select-none gap-1.5 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+					>
+						<div className="text-sm font-medium leading-none">
+							Automatically roll the dice
+						</div>
+
+						<div className="text-sm text-muted-foreground">
+							Dice will be rolled automatically once a move is complete (when
+							the two symbols are placed on the grid). This removes the ability
+							to undo the second symbol placement.
+						</div>
+					</label>
+				</div>
 			</DialogContent>
 		</Dialog>
 	);

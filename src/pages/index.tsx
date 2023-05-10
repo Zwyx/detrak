@@ -3,6 +3,7 @@ import { useEffect, useReducer, useState } from "react";
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
 import { Button } from "~/components/ui/button";
 import { HIGHEST_SCORE_KEY } from "~/lib/keys";
+import { useSettingsContext } from "~/lib/settings-context";
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -41,6 +42,8 @@ const getLineScore = (line: TLine): number => {
 };
 
 export default function Home() {
+	const { settings } = useSettingsContext();
+
 	const initialGrid = Array(7)
 		.fill(0)
 		.map(() => Array(7).fill(null));
@@ -112,7 +115,7 @@ export default function Home() {
 
 	const [grid, updateGrid] = useReducer(gridReducer, initialGrid);
 
-	const [dices, setDices] = useState<TCell[]>([null, null]);
+	const [dice, setDice] = useState<TCell[]>([null, null]);
 	const [move, setMove] = useState(-1);
 	const [movesCoords, setMovesCoords] = useState<{ x: number; y: number }[]>(
 		[],
@@ -142,6 +145,20 @@ export default function Home() {
 		}
 	}, [grid, highestScore]);
 
+	const canRollDice = move !== 0 && move !== 1 && grid[0][0] === null;
+
+	const rollDice = () => {
+		setDice([Math.floor(Math.random() * 6), Math.floor(Math.random() * 6)]);
+		setMove(0);
+		setMovesCoords([]);
+	};
+
+	useEffect(() => {
+		if (settings.autoRollDice && canRollDice) {
+			rollDice();
+		}
+	}, [settings.autoRollDice, canRollDice]);
+
 	return (
 		<>
 			<div className="my-10 flex h-[200px] w-full flex-col items-center justify-center overflow-hidden">
@@ -169,19 +186,11 @@ export default function Home() {
 				{grid[1][1] !== null && (
 					<>
 						<div className="mb-8 flex gap-4">
-							<Button
-								onClick={() => {
-									setDices([
-										Math.floor(Math.random() * 6),
-										Math.floor(Math.random() * 6),
-									]);
-									setMove(0);
-									setMovesCoords([]);
-								}}
-								disabled={move === 0 || move === 1 || grid[0][0] !== null}
-							>
-								Roll the dices!
-							</Button>
+							{!settings.autoRollDice && (
+								<Button onClick={rollDice} disabled={!canRollDice}>
+									Roll the dice!
+								</Button>
+							)}
 
 							<Button
 								onClick={() => {
@@ -201,11 +210,11 @@ export default function Home() {
 						{grid[0][0] === null ? (
 							<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
 								<div className="flex-[2]" />
-								<Cell value={dices[0]} />
+								<Cell value={dice[0]} />
 
 								<div className="flex-1" />
 
-								<Cell value={dices[1]} />
+								<Cell value={dice[1]} />
 
 								<div className="flex-[2]" />
 							</div>
@@ -218,7 +227,7 @@ export default function Home() {
 								<Button
 									onClick={() => {
 										updateGrid({ x: -1, y: -1, newValue: null });
-										setDices([null, null]);
+										setDice([null, null]);
 										setMove(-1);
 										setMovesCoords([]);
 									}}
@@ -239,7 +248,7 @@ export default function Home() {
 					onClick={
 						move > -1 && move < 2
 							? (x, y) => {
-									updateGrid({ x, y, newValue: dices[move] });
+									updateGrid({ x, y, newValue: dice[move] });
 									setMovesCoords([...movesCoords, { x, y }]);
 									setMove(move + 1);
 							  }

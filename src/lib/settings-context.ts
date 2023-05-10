@@ -2,10 +2,12 @@ import { Dispatch, createContext, useContext } from "react";
 
 export interface Settings {
 	alwaysShowScore: boolean;
+	autoRollDice: boolean;
 }
 
-export const defaultSettings = {
+export const defaultSettings: Settings = {
 	alwaysShowScore: false,
+	autoRollDice: false,
 };
 
 export const SettingsContext = createContext<
