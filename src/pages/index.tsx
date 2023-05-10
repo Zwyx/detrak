@@ -1,9 +1,7 @@
-import { Inter } from "next/font/google";
 import { useEffect, useReducer, useState } from "react";
+
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
 import { Button } from "~/components/ui/button";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const HIGHEST_SCORE_KEY = "highestScore";
 
@@ -146,11 +144,8 @@ export default function Home() {
 	}, [grid, highestScore]);
 
 	return (
-		// is `min-h-screen` necessary to have the header bar? it create an unnecessary scroll on mobile
-		<main
-			className={`min-h-screen_DEACTIVATED flex flex-col items-center justify-between p-4 ${inter.className}`}
-		>
-			<div className="m-10 flex h-[200px] w-full flex-col items-center justify-center">
+		<>
+			<div className="my-10 flex h-[200px] w-full flex-col items-center justify-center overflow-hidden">
 				{grid[1][1] === null && (
 					<>
 						<span className="mb-10">Click a symbol to start</span>
@@ -238,19 +233,21 @@ export default function Home() {
 				)}
 			</div>
 
-			<Grid
-				grid={grid}
-				firstMoveCoords={movesCoords[0]}
-				onClick={
-					move > -1 && move < 2
-						? (x, y) => {
-								updateGrid({ x, y, newValue: dices[move] });
-								setMovesCoords([...movesCoords, { x, y }]);
-								setMove(move + 1);
-						  }
-						: undefined
-				}
-			/>
+			<div className="m-auto flex w-full justify-center overflow-hidden p-2">
+				<Grid
+					grid={grid}
+					firstMoveCoords={movesCoords[0]}
+					onClick={
+						move > -1 && move < 2
+							? (x, y) => {
+									updateGrid({ x, y, newValue: dices[move] });
+									setMovesCoords([...movesCoords, { x, y }]);
+									setMove(move + 1);
+							  }
+							: undefined
+					}
+				/>
+			</div>
 
 			{typeof highestScore === "number" && (
 				<div className="mt-4">
@@ -259,6 +256,6 @@ export default function Home() {
 			)}
 
 			<div className="flex-1" />
-		</main>
+		</>
 	);
 }
