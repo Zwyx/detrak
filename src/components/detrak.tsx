@@ -1,5 +1,6 @@
 import { Caveat } from "next/font/google";
 import { FC } from "react";
+import { useSettingsContext } from "~/lib/settings-context";
 import { cn } from "~/lib/utils";
 
 export type TCell = number | null;
@@ -59,7 +60,8 @@ interface CellProps {
 	x?: number;
 	y?: number;
 	value: number | null;
-	start?: boolean;
+	startOfGame?: boolean;
+	endOfGame?: boolean;
 	onClick?: () => void;
 }
 
@@ -67,11 +69,14 @@ export const Cell: FC<CellProps> = ({
 	x = 1,
 	y = 1,
 	value,
-	start,
+	startOfGame,
+	endOfGame,
 	onClick,
 }) => {
+	const { settings } = useSettingsContext();
+
 	const symbol = x >= 1 && x <= 5 && y >= 1 && y <= 5;
-	const canPlay = symbol && onClick && (value === null || start);
+	const canPlay = symbol && onClick && (value === null || startOfGame);
 	const bgColor = x + y === 6 && "bg-accent";
 
 	return (
@@ -101,7 +106,7 @@ export const Cell: FC<CellProps> = ({
 					value === 5 && <Symbol5 bgColor={bgColor} />
 				))}
 
-			{(x === 6 || y === 6) && value !== null && (
+			{(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && (
 				<span
 					className={cn(
 						caveat.className,
@@ -133,6 +138,7 @@ export const Grid: FC<GridProps> = ({ grid, firstMoveCoords, onClick }) => {
 							x={x}
 							y={y}
 							value={value}
+							endOfGame={grid[0][0] !== null}
 							onClick={
 								onClick &&
 								(!firstMoveCoords ||

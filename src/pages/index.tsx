@@ -2,8 +2,7 @@ import { useEffect, useReducer, useState } from "react";
 
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
 import { Button } from "~/components/ui/button";
-
-const HIGHEST_SCORE_KEY = "highestScore";
+import { HIGHEST_SCORE_KEY } from "~/lib/keys";
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -104,7 +103,7 @@ export default function Home() {
 
 		return grid.map((row, index) =>
 			index === 0
-				? [endOfGame ? 0 : null, ...row.slice(1, -1), diagonalScore]
+				? [endOfGame ? 1 : null, ...row.slice(1, -1), diagonalScore]
 				: index >= 1 && index <= 5
 				? [...row.slice(0, -1), rowScores[index]]
 				: [diagonalScore, ...columnScores.slice(1, -1), totalScore],
@@ -158,7 +157,7 @@ export default function Home() {
 									<Cell
 										key={i}
 										value={i}
-										start
+										startOfGame
 										onClick={() => updateGrid({ x: 1, y: 1, newValue: i })}
 									/>
 								))}
