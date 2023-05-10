@@ -77,7 +77,7 @@ export const Cell: FC<CellProps> = ({
 	return (
 		<button
 			className={cn(
-				"relative flex aspect-square flex-1 items-center justify-center overflow-hidden outline-none",
+				"relative flex aspect-square flex-1 select-none items-center justify-center overflow-hidden outline-none",
 				x >= 1 && y >= 1 && "shadow-grid",
 				canPlay &&
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",

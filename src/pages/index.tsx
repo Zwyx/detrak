@@ -1,9 +1,11 @@
 import { Inter } from "next/font/google";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
 import { Button } from "~/components/ui/button";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const HIGHEST_SCORE_KEY = "highestScore";
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -119,6 +121,30 @@ export default function Home() {
 		[],
 	);
 
+	const [highestScore, setHighestScore] = useState<number | undefined>();
+
+	useEffect(() => {
+		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
+
+		if (storedHighestScore !== null) {
+			setHighestScore(Number(storedHighestScore));
+		}
+	}, []);
+
+	useEffect(() => {
+		if (grid[0][0] !== null) {
+			const score = grid[6][6];
+
+			if (
+				typeof score === "number" &&
+				(typeof highestScore !== "number" || score > highestScore)
+			) {
+				localStorage.setItem(HIGHEST_SCORE_KEY, score.toString());
+				setHighestScore(score);
+			}
+		}
+	}, [grid, highestScore]);
+
 	return (
 		// is `min-h-screen` necessary to have the header bar? it create an unnecessary scroll on mobile
 		<main
@@ -225,6 +251,12 @@ export default function Home() {
 						: undefined
 				}
 			/>
+
+			{typeof highestScore === "number" && (
+				<div className="mt-4">
+					Your highest score is <b>{highestScore}</b>
+				</div>
+			)}
 
 			<div className="flex-1" />
 		</main>
