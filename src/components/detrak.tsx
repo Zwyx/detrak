@@ -90,6 +90,15 @@ export const Cell: FC<CellProps> = ({
 			)}
 			disabled={!canPlay}
 			onClick={onClick}
+			onContextMenu={
+				onClick &&
+				((e) => {
+					if (matchMedia("(hover: none) and (pointer: coarse)").matches) {
+						e.preventDefault();
+						onClick();
+					}
+				})
+			}
 		>
 			{symbol &&
 				(value === 0 ? (
