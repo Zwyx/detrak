@@ -1,9 +1,11 @@
+import { Dices, Undo2 } from "lucide-react";
 import { useEffect, useReducer, useState } from "react";
 
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
 import { Button } from "~/components/ui/button";
 import { HIGHEST_SCORE_KEY } from "~/lib/keys";
 import { useSettingsContext } from "~/lib/settings-context";
+import { cn } from "~/lib/utils";
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -120,8 +122,13 @@ export default function Home() {
 	const [movesCoords, setMovesCoords] = useState<{ x: number; y: number }[]>(
 		[],
 	);
-
 	const [highestScore, setHighestScore] = useState<number | undefined>();
+
+	const startOfGame = grid[1][1] === null;
+	const endOfGame = grid[0][0] !== null;
+	const score = grid[6][6];
+	const canRollDice = move !== 0 && move !== 1 && !startOfGame && !endOfGame;
+	const canUndoMove = move === 1 || move === 2;
 
 	useEffect(() => {
 		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
@@ -132,9 +139,7 @@ export default function Home() {
 	}, []);
 
 	useEffect(() => {
-		if (grid[0][0] !== null) {
-			const score = grid[6][6];
-
+		if (endOfGame) {
 			if (
 				typeof score === "number" &&
 				(typeof highestScore !== "number" || score > highestScore)
@@ -143,9 +148,7 @@ export default function Home() {
 				setHighestScore(score);
 			}
 		}
-	}, [grid, highestScore]);
-
-	const canRollDice = move !== 0 && move !== 1 && grid[0][0] === null;
+	}, [endOfGame, score, highestScore]);
 
 	const rollDice = () => {
 		setDice([Math.floor(Math.random() * 6), Math.floor(Math.random() * 6)]);
@@ -161,55 +164,46 @@ export default function Home() {
 
 	return (
 		<>
-			<div className="my-10 flex h-[200px] w-full flex-col items-center justify-center overflow-hidden">
-				{grid[1][1] === null && (
-					<>
-						<span className="mb-10">Click a symbol to start</span>
-
-						<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
-							<div className="flex-[0.5]" />
-							{Array(6)
-								.fill(0)
-								.map((_, i) => (
-									<Cell
-										key={i}
-										value={i}
-										startOfGame
-										onClick={() => updateGrid({ x: 1, y: 1, newValue: i })}
-									/>
-								))}
-							<div className="flex-[0.5]" />
-						</div>
-					</>
+			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
+				{startOfGame && (
+					<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
+						<div className="flex-[0.5]" />
+						{Array(6)
+							.fill(0)
+							.map((_, i) => (
+								<Cell
+									key={i}
+									value={i}
+									startOfGame
+									onClick={() => updateGrid({ x: 1, y: 1, newValue: i })}
+								/>
+							))}
+						<div className="flex-[0.5]" />
+					</div>
 				)}
 
-				{grid[1][1] !== null && (
+				{!startOfGame && (
 					<>
-						<div className="mb-8 flex gap-4">
-							{!settings.autoRollDice && (
-								<Button onClick={rollDice} disabled={!canRollDice}>
-									Roll the dice!
+						{!endOfGame ? (
+							<div className="relative flex w-full min-w-[300px] max-w-[700px] items-center ">
+								<Button
+									onClick={() => {
+										updateGrid({
+											...movesCoords[movesCoords.length - 1],
+											newValue: null,
+										});
+										setMovesCoords(movesCoords.slice(0, -1));
+										setMove(move - 1);
+									}}
+									disabled={!canUndoMove}
+									title="Undo this move"
+									className="h-14"
+								>
+									<Undo2 />
 								</Button>
-							)}
 
-							<Button
-								onClick={() => {
-									updateGrid({
-										...movesCoords[movesCoords.length - 1],
-										newValue: null,
-									});
-									setMovesCoords(movesCoords.slice(0, -1));
-									setMove(move - 1);
-								}}
-								disabled={move !== 1 && move !== 2}
-							>
-								Undo this move
-							</Button>
-						</div>
-
-						{grid[0][0] === null ? (
-							<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
 								<div className="flex-[2]" />
+
 								<Cell value={dice[0]} />
 
 								<div className="flex-1" />
@@ -217,11 +211,19 @@ export default function Home() {
 								<Cell value={dice[1]} />
 
 								<div className="flex-[2]" />
+
+								<Button
+									onClick={rollDice}
+									disabled={!canRollDice}
+									className={cn("h-14", settings.autoRollDice && "invisible")}
+								>
+									<Dices />
+								</Button>
 							</div>
 						) : (
 							<div className="flex flex-col gap-4">
 								<span>
-									Finished! Your score is <b>{grid[6][6]}</b>
+									Finished! Your score is <b>{score}</b>
 								</span>
 
 								<Button
@@ -244,6 +246,7 @@ export default function Home() {
 			<div className="m-auto flex w-full justify-center overflow-hidden p-2">
 				<Grid
 					grid={grid}
+					startOfGame={startOfGame}
 					firstMoveCoords={movesCoords[0]}
 					onClick={
 						move > -1 && move < 2

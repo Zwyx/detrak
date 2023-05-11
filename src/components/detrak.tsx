@@ -131,13 +131,24 @@ export const Cell: FC<CellProps> = ({
 
 interface GridProps {
 	grid: TGrid;
+	startOfGame: boolean;
 	firstMoveCoords?: { x: number; y: number };
 	onClick?: (x: number, y: number) => void;
 }
 
-export const Grid: FC<GridProps> = ({ grid, firstMoveCoords, onClick }) => {
+export const Grid: FC<GridProps> = ({
+	grid,
+	startOfGame,
+	firstMoveCoords,
+	onClick,
+}) => {
 	return (
-		<div className="relative flex w-full min-w-[300px] max-w-[700px] flex-col">
+		<div
+			className={cn(
+				"relative flex w-full min-w-[300px] max-w-[700px] flex-col",
+				startOfGame && "opacity-30 blur-sm",
+			)}
+		>
 			{grid.map((row, y) => (
 				// it's ok to use the index as key, as the size of the array will never and items will never be reordered
 				<div key={y} className="flex flex-1">
