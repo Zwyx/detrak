@@ -9,18 +9,21 @@ export type TGrid = TLine[];
 
 const caveat = Caveat({ subsets: ["latin"] });
 
-export const Symbol0: FC = () => (
+// Front: /
+export const SymbolFront: FC = () => (
 	<div className="h-[6%] w-[55%] -rotate-45 rounded-full bg-foreground" />
 );
 
-export const Symbol1: FC = () => (
+// Top: X
+export const SymbolTop: FC = () => (
 	<>
 		<div className="absolute h-[6%] w-[55%] rotate-45 rounded-full bg-foreground" />
 		<div className="absolute h-[6%] w-[55%] -rotate-45 rounded-full bg-foreground" />
 	</>
 );
 
-export const Symbol2: FC = () => (
+// Right: ///
+export const SymbolRight: FC = () => (
 	<>
 		<div className="mr-[12%] h-[55%] w-[6%] rounded-full bg-foreground" />
 		<div className="h-[55%] w-[6%] rounded-full bg-foreground" />
@@ -28,7 +31,8 @@ export const Symbol2: FC = () => (
 	</>
 );
 
-export const Symbol3: FC = () => (
+// Left: #
+export const SymbolLeft: FC = () => (
 	<>
 		<div className="absolute mb-[18%] h-[6%] w-[55%] rounded-full bg-foreground" />
 		<div className="absolute mt-[18%] h-[6%] w-[55%] rounded-full bg-foreground" />
@@ -37,7 +41,8 @@ export const Symbol3: FC = () => (
 	</>
 );
 
-export const Symbol4: FC = () => (
+// Bottom /\
+export const SymbolBottom: FC = () => (
 	<>
 		<div className="absolute mt-[30%] h-[6%] w-[55%]  rounded-full bg-foreground" />
 		<div className="absolute mb-[14%] mr-[26%] h-[6%] w-[55%] rotate-[120deg]  rounded-full bg-foreground" />
@@ -45,7 +50,8 @@ export const Symbol4: FC = () => (
 	</>
 );
 
-export const Symbol5: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
+// Back: O
+export const SymbolBack: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
 	<div className="flex aspect-square w-[55%] items-center justify-center rounded-full bg-foreground">
 		<div
 			className={cn(
@@ -59,6 +65,7 @@ export const Symbol5: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
 interface CellProps {
 	x?: number;
 	y?: number;
+	rounded?: boolean;
 	value: number | null;
 	startOfGame?: boolean;
 	endOfGame?: boolean;
@@ -69,6 +76,7 @@ export const Cell: FC<CellProps> = ({
 	x = 1,
 	y = 1,
 	value,
+	rounded,
 	startOfGame,
 	endOfGame,
 	onClick,
@@ -84,6 +92,7 @@ export const Cell: FC<CellProps> = ({
 			className={cn(
 				"relative flex aspect-square flex-1 select-none items-center justify-center overflow-hidden outline-none",
 				x >= 1 && y >= 1 && "shadow-grid",
+				rounded && "rounded-lg",
 				canPlay &&
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
 				bgColor,
@@ -102,17 +111,17 @@ export const Cell: FC<CellProps> = ({
 		>
 			{symbol &&
 				(value === 0 ? (
-					<Symbol0 />
+					<SymbolFront />
 				) : value === 1 ? (
-					<Symbol1 />
+					<SymbolTop />
 				) : value === 2 ? (
-					<Symbol2 />
+					<SymbolRight />
 				) : value === 3 ? (
-					<Symbol3 />
+					<SymbolLeft />
 				) : value === 4 ? (
-					<Symbol4 />
+					<SymbolBottom />
 				) : (
-					value === 5 && <Symbol5 bgColor={bgColor} />
+					value === 5 && <SymbolBack bgColor={bgColor} />
 				))}
 
 			{(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && (

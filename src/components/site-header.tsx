@@ -10,9 +10,9 @@ export function SiteHeader() {
 			<div className="container flex h-14 items-center gap-4 p-6">
 				<MobileNav />
 
-				<span className="font-bold">Detrak</span>
+				<span className="flex-[10] text-center font-bold">Detrak</span>
 
-				<nav className="flex flex-1 items-center justify-end gap-1">
+				<nav className="flex flex-[1] items-center justify-end gap-1">
 					<SettingsDialog />
 					<ModeToggle />
 				</nav>

@@ -2,6 +2,7 @@ import { Dices, Undo2 } from "lucide-react";
 import { useEffect, useReducer, useState } from "react";
 
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
+import { Dice } from "~/components/dice";
 import { Button } from "~/components/ui/button";
 import { HIGHEST_SCORE_KEY } from "~/lib/keys";
 import { useSettingsContext } from "~/lib/settings-context";
@@ -165,7 +166,7 @@ export default function Home() {
 	return (
 		<>
 			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
-				{startOfGame && (
+				{/* {startOfGame && (
 					<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
 						<div className="flex-[0.5]" />
 						{Array(6)
@@ -180,7 +181,9 @@ export default function Home() {
 							))}
 						<div className="flex-[0.5]" />
 					</div>
-				)}
+				)} */}
+
+				<Dice />
 
 				{!startOfGame && (
 					<>
@@ -204,11 +207,13 @@ export default function Home() {
 
 								<div className="flex-[2]" />
 
-								<Cell value={dice[0]} />
+								<Cell value={dice[0]} rounded />
 
 								<div className="flex-1" />
 
-								<Cell value={dice[1]} />
+								<Cell value={dice[1]} rounded />
+
+								<div className="flex-[2]" />
 
 								<div className="flex-[2]" />
 
