@@ -9,21 +9,21 @@
 }
 
 .top {
-	transform: rotateX(90deg) translateZ(50px);
+	transform: rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 50px);
 }
 
 .right {
-	transform: rotateY(90deg) translateZ(50px);
+	transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 50px);
 }
 
 .left {
-	transform: rotateY(-90deg) translateZ(50px);
+	transform: rotate3d(0, 1, 0, -90deg) translate3d(0, 0, 50px);
 }
 
 .bottom {
-	transform: rotateX(-90deg) translateZ(50px);
+	transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 50px);
 }
 
 .back {
-	transform: rotateX(180deg) translateZ(50px);
+	transform: rotate3d(1, 0, 0, 180deg) translate3d(0, 0, 50px);
 }

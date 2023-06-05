@@ -178,23 +178,26 @@ export const Dice: FC<DiceProps> = ({ value, timestamp }) => {
 						<div
 							key={face}
 							className={cn(
-								"absolute flex h-[100px] w-[100px] items-center justify-center rounded-xl border-[5px] border-secondary bg-secondary",
+								styles.preserve3d,
+								"absolute h-[100px] w-[100px] border-[5px] border-background bg-background",
 								styles[face],
 							)}
 						>
-							{face === "front" ? (
-								<SymbolFront />
-							) : face === "top" ? (
-								<SymbolTop />
-							) : face === "right" ? (
-								<SymbolRight />
-							) : face === "left" ? (
-								<SymbolLeft />
-							) : face === "bottom" ? (
-								<SymbolBottom />
-							) : (
-								face === "back" && <SymbolBack bgColor={"bg-secondary"} />
-							)}
+							<div className="absolute flex h-full w-full items-center justify-center rounded-2xl bg-dice">
+								{face === "front" ? (
+									<SymbolFront />
+								) : face === "top" ? (
+									<SymbolTop />
+								) : face === "right" ? (
+									<SymbolRight />
+								) : face === "left" ? (
+									<SymbolLeft />
+								) : face === "bottom" ? (
+									<SymbolBottom />
+								) : (
+									face === "back" && <SymbolBack bgColor={"bg-dice"} />
+								)}
+							</div>
 						</div>
 					))}
 				</div>
