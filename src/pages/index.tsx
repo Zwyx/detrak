@@ -1,5 +1,5 @@
 import { Dices, Undo2 } from "lucide-react";
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
 import { Dice } from "~/components/dice";
@@ -120,6 +120,7 @@ export default function Home() {
 
 	const [dice, setDice] = useState<TCell[]>([null, null]);
 	const [diceTimestamp, setDiceTimestamp] = useState<number>(0);
+	const [diceRolling, setDiceRolling] = useState(false);
 	const [move, setMove] = useState(-1);
 	const [movesCoords, setMovesCoords] = useState<{ x: number; y: number }[]>(
 		[],
@@ -127,6 +128,7 @@ export default function Home() {
 	const [highestScore, setHighestScore] = useState<number | undefined>();
 
 	const startOfGame = grid[1][1] === null;
+	const [middleOfGame, setMiddleOfGame] = useState(false);
 	const endOfGame = grid[0][0] !== null;
 	const score = grid[6][6];
 	const canRollDice = move !== 0 && move !== 1 && !startOfGame && !endOfGame;
@@ -152,18 +154,23 @@ export default function Home() {
 		}
 	}, [endOfGame, score, highestScore]);
 
-	const rollDice = () => {
+	const rollDice = useCallback(() => {
 		setDice([Math.floor(Math.random() * 6), Math.floor(Math.random() * 6)]);
 		setDiceTimestamp(Date.now());
 		setMove(0);
 		setMovesCoords([]);
-	};
+
+		if (settings.animateDice) {
+			setDiceRolling(true);
+			setTimeout(() => setDiceRolling(false), 2000);
+		}
+	}, [settings.animateDice]);
 
 	useEffect(() => {
 		if (settings.autoRollDice && canRollDice) {
 			rollDice();
 		}
-	}, [settings.autoRollDice, canRollDice]);
+	}, [settings.autoRollDice, canRollDice, rollDice]);
 
 	return (
 		<>
@@ -190,7 +197,7 @@ export default function Home() {
 						{!endOfGame ? (
 							<div className="relative flex w-full min-w-[300px] max-w-[700px] items-center ">
 								<Button
-									className="h-14"
+									className={cn("h-14", !middleOfGame && "invisible")}
 									title="Undo this move"
 									disabled={!canUndoMove}
 									onClick={() => {
@@ -240,6 +247,7 @@ export default function Home() {
 										setDice([null, null]);
 										setMove(-1);
 										setMovesCoords([]);
+										setMiddleOfGame(false);
 									}}
 								>
 									Start a new game
@@ -256,11 +264,12 @@ export default function Home() {
 					startOfGame={startOfGame}
 					firstMoveCoords={movesCoords[0]}
 					onClick={
-						move > -1 && move < 2
+						move > -1 && move < 2 && !diceRolling
 							? (x, y) => {
 									updateGrid({ x, y, newValue: dice[move] });
 									setMovesCoords([...movesCoords, { x, y }]);
 									setMove(move + 1);
+									setMiddleOfGame(true);
 							  }
 							: undefined
 					}
