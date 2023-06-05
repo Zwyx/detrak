@@ -1,5 +1,6 @@
-import { FC, useRef } from "react";
-import { cn } from "~/lib/utils";
+import { FC, useEffect, useRef } from "react";
+import { useSettingsContext } from "~/lib/settings-context";
+import { cn, usePrevious } from "~/lib/utils";
 import {
 	SymbolBack,
 	SymbolBottom,
@@ -13,43 +14,59 @@ import styles from "./dice.module.css";
 const faces = ["front", "top", "right", "left", "bottom", "back"] as const;
 type Face = (typeof faces)[number];
 
-const animationOptions: KeyframeAnimationOptions = {
-	duration: 2000,
-	easing: "ease-out",
-	fill: "forwards",
-};
-
 interface DiceProps {
-	placeholder?: string;
+	value: number;
+	timestamp: number;
 }
 
-export const Dice: FC<DiceProps> = () => {
+export const Dice: FC<DiceProps> = ({ value, timestamp }) => {
+	const { settings } = useSettingsContext();
+
 	const containerZ = useRef<HTMLDivElement>(null);
 	const containerY = useRef<HTMLDivElement>(null);
 	const containerX = useRef<HTMLDivElement>(null);
 
-	const face = useRef<Face>("front");
+	const previousTimestamp = usePrevious(timestamp);
 
-	const randomDice = () => {
-		if (!containerZ.current || !containerY.current || !containerX.current) {
+	const previousFace: Face = faces[usePrevious(value) || 0];
+	const newFace: Face = faces[value];
+
+	useEffect(() => {
+		if (
+			timestamp === previousTimestamp ||
+			!containerZ.current ||
+			!containerY.current ||
+			!containerX.current
+		) {
 			return;
 		}
 
-		const newFace = faces[Math.floor(Math.random() * 6)];
+		const animationOptions: KeyframeAnimationOptions = {
+			duration: settings.animateDice ? 1500 + Math.random() * 1000 : 0,
+			easing: "ease-out",
+			fill: "forwards",
+		};
 
 		const previousY =
-			face.current === "front" ||
-			face.current === "top" ||
-			face.current === "bottom"
+			previousFace === "front" ||
+			previousFace === "top" ||
+			previousFace === "bottom"
 				? { transform: `rotate3d(0, 0, 0, 0deg)` }
-				: face.current === "right"
+				: previousFace === "right"
 				? { transform: `rotate3d(0, 1, 0, -90deg)` }
-				: face.current === "left"
+				: previousFace === "left"
 				? { transform: `rotate3d(0, 1, 0, 90deg)` }
 				: { transform: `rotate3d(0, 1, 0, 180deg)` };
 
 		containerZ.current.animate(
-			[{}, { transform: `rotate3d(0, 0, 1, ${Math.random() * 60 - 30}deg)` }],
+			[
+				{},
+				{
+					transform: `rotate3d(0, 0, 1, ${
+						settings.animateDice ? Math.random() * 60 - 30 : 0
+					}deg)`,
+				},
+			],
 			animationOptions,
 		);
 
@@ -142,64 +159,44 @@ export const Dice: FC<DiceProps> = () => {
 				);
 				break;
 		}
-
-		face.current = newFace;
-	};
+	}, [
+		previousTimestamp,
+		timestamp,
+		previousFace,
+		newFace,
+		settings.animateDice,
+	]);
 
 	return (
-		<div ref={containerZ} className={styles.preserve3d} onClick={randomDice}>
+		<div ref={containerZ} className={styles.preserve3d}>
 			<div ref={containerY} className={styles.preserve3d}>
 				<div
 					ref={containerX}
 					className={cn(styles.preserve3d, "h-[100px] w-[100px]")}
 				>
-					{faces.map((face_) => (
+					{faces.map((face) => (
 						<div
-							key={face_}
+							key={face}
 							className={cn(
 								"absolute flex h-[100px] w-[100px] items-center justify-center rounded-xl border-[5px] border-secondary bg-secondary",
-								styles[face_],
+								styles[face],
 							)}
 						>
-							{face_ === "front" ? (
+							{face === "front" ? (
 								<SymbolFront />
-							) : face_ === "top" ? (
+							) : face === "top" ? (
 								<SymbolTop />
-							) : face_ === "right" ? (
+							) : face === "right" ? (
 								<SymbolRight />
-							) : face_ === "left" ? (
+							) : face === "left" ? (
 								<SymbolLeft />
-							) : face_ === "bottom" ? (
+							) : face === "bottom" ? (
 								<SymbolBottom />
 							) : (
-								face_ === "back" && <SymbolBack bgColor={"bg-secondary"} />
+								face === "back" && <SymbolBack bgColor={"bg-secondary"} />
 							)}
 						</div>
 					))}
-					{/* <div
-						className={cn(
-							styles.face,
-							"flex items-center justify-center",
-							styles.front,
-						)}
-					>
-						<Symbol0 />
-					</div>
-					<div className={cn(styles.face, "bg-background", styles.top)}>
-						top
-					</div>
-					<div className={cn(styles.face, "bg-background", styles.right)}>
-						right
-					</div>
-					<div className={cn(styles.face, "bg-background", styles.left)}>
-						left
-					</div>
-					<div className={cn(styles.face, "bg-background", styles.bottom)}>
-						bottom
-					</div>
-					<div className={cn(styles.face, "bg-background", styles.back)}>
-						back
-					</div> */}
 				</div>
 			</div>
 		</div>

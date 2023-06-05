@@ -10,11 +10,13 @@ import { SETTINGS_KEY } from "./keys";
 
 export interface Settings {
 	alwaysShowScore: boolean;
+	animateDice: boolean;
 	autoRollDice: boolean;
 }
 
 export const defaultSettings: Settings = {
 	alwaysShowScore: false,
+	animateDice: true,
 	autoRollDice: false,
 };
 

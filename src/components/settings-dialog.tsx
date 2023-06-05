@@ -55,6 +55,29 @@ export function SettingsDialog() {
 
 				<div className="flex gap-2">
 					<Checkbox
+						id="animateDice"
+						checked={settings.animateDice}
+						onCheckedChange={(checked) =>
+							updateSettings({ animateDice: !!checked })
+						}
+					/>
+
+					<label
+						htmlFor="animateDice"
+						className="grid cursor-pointer select-none gap-1.5 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+					>
+						<div className="text-sm font-medium leading-none">
+							Animate rolling dice
+						</div>
+
+						<div className="text-sm text-muted-foreground">
+							Roll dice with a 3D animation.
+						</div>
+					</label>
+				</div>
+
+				<div className="flex gap-2">
+					<Checkbox
 						id="autoRollDice"
 						checked={settings.autoRollDice}
 						onCheckedChange={(checked) =>

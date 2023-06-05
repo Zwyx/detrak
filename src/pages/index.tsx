@@ -119,6 +119,7 @@ export default function Home() {
 	const [grid, updateGrid] = useReducer(gridReducer, initialGrid);
 
 	const [dice, setDice] = useState<TCell[]>([null, null]);
+	const [diceTimestamp, setDiceTimestamp] = useState<number>(0);
 	const [move, setMove] = useState(-1);
 	const [movesCoords, setMovesCoords] = useState<{ x: number; y: number }[]>(
 		[],
@@ -153,6 +154,7 @@ export default function Home() {
 
 	const rollDice = () => {
 		setDice([Math.floor(Math.random() * 6), Math.floor(Math.random() * 6)]);
+		setDiceTimestamp(Date.now());
 		setMove(0);
 		setMovesCoords([]);
 	};
@@ -166,7 +168,7 @@ export default function Home() {
 	return (
 		<>
 			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
-				{/* {startOfGame && (
+				{startOfGame && (
 					<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
 						<div className="flex-[0.5]" />
 						{Array(6)
@@ -181,15 +183,16 @@ export default function Home() {
 							))}
 						<div className="flex-[0.5]" />
 					</div>
-				)} */}
-
-				<Dice />
+				)}
 
 				{!startOfGame && (
 					<>
 						{!endOfGame ? (
 							<div className="relative flex w-full min-w-[300px] max-w-[700px] items-center ">
 								<Button
+									className="h-14"
+									title="Undo this move"
+									disabled={!canUndoMove}
 									onClick={() => {
 										updateGrid({
 											...movesCoords[movesCoords.length - 1],
@@ -198,29 +201,28 @@ export default function Home() {
 										setMovesCoords(movesCoords.slice(0, -1));
 										setMove(move - 1);
 									}}
-									disabled={!canUndoMove}
-									title="Undo this move"
-									className="h-14"
 								>
 									<Undo2 />
 								</Button>
 
 								<div className="flex-[2]" />
 
-								<Cell value={dice[0]} rounded />
+								{dice[0] !== null && (
+									<Dice value={dice[0] || 0} timestamp={diceTimestamp} />
+								)}
 
 								<div className="flex-1" />
 
-								<Cell value={dice[1]} rounded />
-
-								<div className="flex-[2]" />
+								{dice[1] !== null && (
+									<Dice value={dice[1] || 0} timestamp={diceTimestamp} />
+								)}
 
 								<div className="flex-[2]" />
 
 								<Button
-									onClick={rollDice}
-									disabled={!canRollDice}
 									className={cn("h-14", settings.autoRollDice && "invisible")}
+									disabled={!canRollDice}
+									onClick={rollDice}
 								>
 									<Dices />
 								</Button>
@@ -232,13 +234,13 @@ export default function Home() {
 								</span>
 
 								<Button
+									disabled={move !== 1 && move !== 2}
 									onClick={() => {
 										updateGrid({ x: -1, y: -1, newValue: null });
 										setDice([null, null]);
 										setMove(-1);
 										setMovesCoords([]);
 									}}
-									disabled={move !== 1 && move !== 2}
 								>
 									Start a new game
 								</Button>

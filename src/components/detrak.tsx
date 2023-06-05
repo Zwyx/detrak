@@ -65,7 +65,6 @@ export const SymbolBack: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
 interface CellProps {
 	x?: number;
 	y?: number;
-	rounded?: boolean;
 	value: number | null;
 	startOfGame?: boolean;
 	endOfGame?: boolean;
@@ -76,7 +75,6 @@ export const Cell: FC<CellProps> = ({
 	x = 1,
 	y = 1,
 	value,
-	rounded,
 	startOfGame,
 	endOfGame,
 	onClick,
@@ -92,7 +90,6 @@ export const Cell: FC<CellProps> = ({
 			className={cn(
 				"relative flex aspect-square flex-1 select-none items-center justify-center overflow-hidden outline-none",
 				x >= 1 && y >= 1 && "shadow-grid",
-				rounded && "rounded-lg",
 				canPlay &&
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
 				bgColor,
