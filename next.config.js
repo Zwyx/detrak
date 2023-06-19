@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	output: "export",
-	distDir: "docs",
+	// was used to host the app on GitHub Pages; not necessary with Netlify
+	// output: "export",
+	// distDir: "docs",
 };
 
 module.exports = nextConfig;

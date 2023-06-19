@@ -2,9 +2,10 @@
 # which makes the build compatible with Github Pages and Netlify
 
 on:
-  push:
-    branches:
-      - main
+  # was used to host the app on GitHub Pages; not necessary with Netlify
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 name: Build website
