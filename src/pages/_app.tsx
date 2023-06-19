@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 		<div>
 			<Head>
 				<title>Detrak</title>
+				<link rel="icon" href="dices.png" type="image/png" />
 			</Head>
 
 			<ThemeProvider attribute="class">
