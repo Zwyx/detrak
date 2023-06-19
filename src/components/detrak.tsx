@@ -2,6 +2,7 @@ import { Caveat } from "next/font/google";
 import { FC } from "react";
 import { useSettingsContext } from "~/lib/settings-context";
 import { cn } from "~/lib/utils";
+import { HelpStep, HelpTooltip } from "./help-tooltip";
 
 export type TCell = number | null;
 export type TLine = TCell[];
@@ -22,7 +23,7 @@ export const SymbolTop: FC = () => (
 	</>
 );
 
-// Right: ///
+// Right: |||
 export const SymbolRight: FC = () => (
 	<>
 		<div className="mr-[12%] h-[55%] w-[6%] rounded-full bg-foreground" />
@@ -68,6 +69,9 @@ interface CellProps {
 	value: number | null;
 	startOfGame?: boolean;
 	endOfGame?: boolean;
+	left?: boolean;
+	right?: boolean;
+	helpStep?: HelpStep;
 	onClick?: () => void;
 }
 
@@ -77,6 +81,9 @@ export const Cell: FC<CellProps> = ({
 	value,
 	startOfGame,
 	endOfGame,
+	left,
+	right,
+	helpStep,
 	onClick,
 }) => {
 	const { settings } = useSettingsContext();
@@ -89,6 +96,8 @@ export const Cell: FC<CellProps> = ({
 		<button
 			className={cn(
 				"relative flex aspect-square flex-1 select-none items-center justify-center overflow-hidden outline-none",
+				left && "rounded-l-xl",
+				right && "rounded-r-xl",
 				x >= 1 && y >= 1 && "shadow-grid",
 				canPlay &&
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
@@ -125,11 +134,45 @@ export const Cell: FC<CellProps> = ({
 				<span
 					className={cn(
 						caveat.className,
-						"mr-3 text-6xl max-[700px]:text-[8vw]",
+						"mr-3 text-6xl max-[550px]:text-[8vw]",
 					)}
 				>
 					{value}
 				</span>
+			)}
+
+			{y === 1 && x === 3 && (
+				<div className="absolute h-full">
+					<HelpTooltip open={helpStep === "clickGrid1"} side="top">
+						Choose an empty cell in the grid to insert the symbol of the first
+						dice. <b>The goal is to group identical symbols together.</b>
+					</HelpTooltip>
+
+					<HelpTooltip open={helpStep === "clickGrid2"} side="top">
+						Choose another empty cell for the second symbol.{" "}
+						<b>It must be directly next to the first one.</b>
+					</HelpTooltip>
+				</div>
+			)}
+
+			{y === 4 && x === 6 && (
+				<div className="absolute flex w-[85%]">
+					<HelpTooltip open={helpStep === "rollDice2"} side="left">
+						Scores will be displayed in the right-most column, and the
+						bottom-most row.
+					</HelpTooltip>
+				</div>
+			)}
+
+			{y === 6 && x === 0 && (
+				<div className="absolute flex w-[35%] justify-end">
+					<HelpTooltip open={helpStep === "rollDice2"} side="right">
+						The diagonal&apos; score appears on both ends, so it is counted
+						twice!
+						<br />
+						<b>Roll the dice again to continue the game.</b>
+					</HelpTooltip>
+				</div>
 			)}
 		</button>
 	);
@@ -139,44 +182,94 @@ interface GridProps {
 	grid: TGrid;
 	startOfGame: boolean;
 	firstMoveCoords?: { x: number; y: number };
+	helpStep?: HelpStep;
 	onClick?: (x: number, y: number) => void;
 }
+
+const ScoreHelp: FC<{ value: string; score: string }> = ({ value, score }) => (
+	<div className={caveat.className}>
+		<span className="text-[14px] xsm:text-[16px]">{value}</span>
+		<span className="text-[20px] xsm:text-[24px]">{score}</span>
+	</div>
+);
 
 export const Grid: FC<GridProps> = ({
 	grid,
 	startOfGame,
 	firstMoveCoords,
+	helpStep,
 	onClick,
 }) => {
+	const { settings } = useSettingsContext();
+
 	return (
 		<div
 			className={cn(
-				"relative flex w-full min-w-[300px] max-w-[700px] flex-col",
+				"relative flex w-full min-w-[300px] max-w-[550px] flex-col",
 				startOfGame && "opacity-30 blur-sm",
 			)}
 		>
 			{grid.map((row, y) => (
 				// it's ok to use the index as key, as the size of the array will never and items will never be reordered
 				<div key={y} className="flex flex-1">
-					{row.map((value, x) => (
-						<Cell
-							key={x}
-							x={x}
-							y={y}
-							value={value}
-							endOfGame={grid[0][0] !== null}
-							onClick={
-								onClick &&
-								(!firstMoveCoords ||
-									(x === firstMoveCoords.x && y === firstMoveCoords.y - 1) ||
-									(x === firstMoveCoords.x && y === firstMoveCoords.y + 1) ||
-									(x === firstMoveCoords.x - 1 && y === firstMoveCoords.y) ||
-									(x === firstMoveCoords.x + 1 && y === firstMoveCoords.y))
-									? () => onClick(x, y)
-									: undefined
-							}
-						/>
-					))}
+					{row.map((value, x) =>
+						y === 0 &&
+						x === 3 &&
+						settings.showScoreLegend &&
+						helpStep !== "welcome" &&
+						helpStep !== "rollDice1" &&
+						helpStep !== "diceRolling1" &&
+						helpStep !== "clickGrid1" &&
+						helpStep !== "clickGrid2" ? (
+							<div key={x} className="flex flex-1 select-none justify-center">
+								<div className="absolute flex gap-2 xsm:gap-6">
+									<div className="text-right leading-[16px] xsm:leading-[24px]">
+										<ScoreHelp value="□ □ " score="=2" />
+										<ScoreHelp value="□ □ □ " score="=3" />
+									</div>
+
+									<div className="relative text-right leading-[16px] xsm:leading-[24px]">
+										{/* eslint-disable-next-line no-irregular-whitespace */}
+										<ScoreHelp value="□ □ □ □ " score="=8  " />
+										<ScoreHelp value="□ □ □ □ □ " score="=10" />
+
+										<div className="absolute w-[35%]">
+											<HelpTooltip open={helpStep === "rollDice2"}>
+												This is the legend for the score. For instance, five
+												identical symbols on a row, a column or the diagonal,
+												give 10 points.
+											</HelpTooltip>
+										</div>
+									</div>
+
+									<div className="leading-[16px] xsm:leading-[24px]">
+										{/* eslint-disable-next-line no-irregular-whitespace */}
+										<ScoreHelp value=" " score="" />
+										<ScoreHelp value="" score="0=-5" />
+									</div>
+								</div>
+							</div>
+						) : (
+							<Cell
+								key={x}
+								x={x}
+								y={y}
+								value={value}
+								endOfGame={grid[0][0] !== null}
+								helpStep={helpStep}
+								onClick={
+									onClick &&
+									(!firstMoveCoords ||
+										(x === firstMoveCoords.x && y === firstMoveCoords.y - 1) ||
+										(x === firstMoveCoords.x && y === firstMoveCoords.y + 1) ||
+										(x === firstMoveCoords.x - 1 && y === firstMoveCoords.y) ||
+										(x === firstMoveCoords.x + 1 && y === firstMoveCoords.y))
+										? () => onClick(x, y)
+										: undefined
+								}
+							/>
+						),
+					)}
 				</div>
 			))}
 

@@ -1,4 +1,5 @@
-import { Settings } from "lucide-react";
+import { Settings as SettingIcon } from "lucide-react";
+import { FC } from "react";
 
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -9,16 +10,41 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "~/components/ui/dialog";
-import { useSettingsContext } from "~/lib/settings-context";
+import { Settings, useSettingsContext } from "~/lib/settings-context";
 
-export function SettingsDialog() {
+const SettingCheckbox: FC<{
+	name: keyof Settings;
+	title: string;
+	description: string;
+}> = ({ name, title, description }) => {
 	const { settings, updateSettings } = useSettingsContext();
 
+	return (
+		<div className="mt-2 flex gap-2">
+			<Checkbox
+				id={name}
+				checked={settings[name]}
+				onCheckedChange={(checked) => updateSettings({ [name]: !!checked })}
+			/>
+
+			<label
+				htmlFor={name}
+				className="grid cursor-pointer select-none gap-1.5 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+			>
+				<div className="text-sm font-medium leading-none">{title}</div>
+
+				<div className="text-sm text-muted-foreground">{description}</div>
+			</label>
+		</div>
+	);
+};
+
+export function SettingsDialog() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="ghost" size="sm" className="w-9 px-0">
-					<Settings />
+					<SettingIcon />
 					<span className="sr-only">Settings</span>
 				</Button>
 			</DialogTrigger>
@@ -29,77 +55,35 @@ export function SettingsDialog() {
 					{/* <DialogDescription></DialogDescription> */}
 				</DialogHeader>
 
-				<div className="mt-2 flex gap-2">
-					<Checkbox
-						id="alwaysShowScore"
-						checked={settings.alwaysShowScore}
-						onCheckedChange={(checked) =>
-							updateSettings({ alwaysShowScore: !!checked })
-						}
-					/>
+				<SettingCheckbox
+					name="alwaysShowScore"
+					title="Always show the score"
+					description="Checking this box will allow you to see your current score during the game, instead of only at the end."
+				/>
 
-					<label
-						htmlFor="alwaysShowScore"
-						className="grid cursor-pointer select-none gap-1.5 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-					>
-						<div className="text-sm font-medium leading-none">
-							Always show the score
-						</div>
+				<SettingCheckbox
+					name="showScoreLegend"
+					title="Show the score legend"
+					description="The legend placed above the grid."
+				/>
 
-						<div className="text-sm text-muted-foreground">
-							Checking this box will allow you to see your current score during
-							the game, instead of only at the end.
-						</div>
-					</label>
-				</div>
+				<SettingCheckbox
+					name="animateDice"
+					title="Animate rolling dice"
+					description="Roll dice with a 3D animation."
+				/>
 
-				<div className="flex gap-2">
-					<Checkbox
-						id="animateDice"
-						checked={settings.animateDice}
-						onCheckedChange={(checked) =>
-							updateSettings({ animateDice: !!checked })
-						}
-					/>
+				<SettingCheckbox
+					name="autoRollDice"
+					title="Automatically roll the dice"
+					description="Dice will be rolled automatically once a move is complete (when the two symbols are placed on the grid). This removes the ability to undo the second symbol placement."
+				/>
 
-					<label
-						htmlFor="animateDice"
-						className="grid cursor-pointer select-none gap-1.5 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-					>
-						<div className="text-sm font-medium leading-none">
-							Animate rolling dice
-						</div>
-
-						<div className="text-sm text-muted-foreground">
-							Roll dice with a 3D animation.
-						</div>
-					</label>
-				</div>
-
-				<div className="flex gap-2">
-					<Checkbox
-						id="autoRollDice"
-						checked={settings.autoRollDice}
-						onCheckedChange={(checked) =>
-							updateSettings({ autoRollDice: !!checked })
-						}
-					/>
-
-					<label
-						htmlFor="autoRollDice"
-						className="grid cursor-pointer select-none gap-1.5 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-					>
-						<div className="text-sm font-medium leading-none">
-							Automatically roll the dice
-						</div>
-
-						<div className="text-sm text-muted-foreground">
-							Dice will be rolled automatically once a move is complete (when
-							the two symbols are placed on the grid). This removes the ability
-							to undo the second symbol placement.
-						</div>
-					</label>
-				</div>
+				<SettingCheckbox
+					name="showConfetti"
+					title="Show confetti"
+					description="Show confetti explosion when you beat your highest score."
+				/>
 			</DialogContent>
 		</Dialog>
 	);

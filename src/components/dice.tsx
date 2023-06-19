@@ -172,14 +172,17 @@ export const Dice: FC<DiceProps> = ({ value, timestamp }) => {
 			<div ref={containerY} className={styles.preserve3d}>
 				<div
 					ref={containerX}
-					className={cn(styles.preserve3d, "h-[100px] w-[100px]")}
+					className={cn(
+						styles.preserve3d,
+						"h-[60px] w-[60px] xsm:h-[86px] xsm:w-[86px]",
+					)}
 				>
 					{faces.map((face) => (
 						<div
 							key={face}
 							className={cn(
 								styles.preserve3d,
-								"absolute h-[100px] w-[100px] border-[5px] border-background bg-background",
+								"absolute aspect-square w-full border-[6px] border-background bg-background xsm:border-[9px]",
 								styles[face],
 							)}
 						>

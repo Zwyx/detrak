@@ -10,14 +10,20 @@ import { SETTINGS_KEY } from "./keys";
 
 export interface Settings {
 	alwaysShowScore: boolean;
+	showScoreLegend: boolean;
 	animateDice: boolean;
 	autoRollDice: boolean;
+	showConfetti: boolean;
 }
 
 export const defaultSettings: Settings = {
 	alwaysShowScore: false,
+	showScoreLegend: true,
 	animateDice: true,
 	autoRollDice: false,
+	showConfetti:
+		typeof window !== "undefined" &&
+		!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches,
 };
 
 export const SettingsContext = createContext<

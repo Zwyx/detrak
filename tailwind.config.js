@@ -15,6 +15,9 @@ module.exports = {
 			},
 		},
 		extend: {
+			screens: {
+				xsm: "520px",
+			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
@@ -49,6 +52,7 @@ module.exports = {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				info: "hsl(var(--info))",
 				dice: "hsl(var(--dice))",
 			},
 			borderRadius: {

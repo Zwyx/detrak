@@ -1,12 +1,18 @@
 import { Dices, Undo2 } from "lucide-react";
+import { Caveat } from "next/font/google";
 import { useCallback, useEffect, useReducer, useState } from "react";
 
 import { Cell, Grid, TCell, TGrid, TLine } from "~/components/detrak";
 import { Dice } from "~/components/dice";
+import { HelpStep, HelpTooltip } from "~/components/help-tooltip";
 import { Button } from "~/components/ui/button";
-import { HIGHEST_SCORE_KEY } from "~/lib/keys";
+import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "~/lib/keys";
 import { useSettingsContext } from "~/lib/settings-context";
 import { cn } from "~/lib/utils";
+
+import { Confetti } from "~/lib/confetti.min.js";
+
+const caveat = Caveat({ subsets: ["latin"] });
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -126,6 +132,9 @@ export default function Home() {
 		[],
 	);
 	const [highestScore, setHighestScore] = useState<number | undefined>();
+	const [newHighestScore, setNewHighestScore] = useState<boolean>(false);
+
+	const [helpStep, setHelpStep] = useState<HelpStep>(null);
 
 	const startOfGame = grid[1][1] === null;
 	const [middleOfGame, setMiddleOfGame] = useState(false);
@@ -135,7 +144,12 @@ export default function Home() {
 	const canUndoMove = move === 1 || move === 2;
 
 	useEffect(() => {
+		const helpShown = localStorage.getItem(HELP_SHOWN_KEY);
 		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
+
+		if (!helpShown) {
+			setHelpStep("welcome");
+		}
 
 		if (storedHighestScore !== null) {
 			setHighestScore(Number(storedHighestScore));
@@ -149,10 +163,43 @@ export default function Home() {
 				(typeof highestScore !== "number" || score > highestScore)
 			) {
 				localStorage.setItem(HIGHEST_SCORE_KEY, score.toString());
+
 				setHighestScore(score);
+				setNewHighestScore(true);
+
+				if (settings.showConfetti) {
+					setTimeout(() => {
+						const confetti = new Confetti("confetti");
+
+						confetti.setCount(75);
+						confetti.setSize(1);
+						confetti.setPower(25);
+						confetti.setFade(false);
+						confetti.destroyTarget(false);
+
+						setTimeout(() => {
+							const confettiElement = document.getElementById("confetti");
+
+							if (confettiElement) {
+								const boundingClientRect =
+									confettiElement.getBoundingClientRect();
+
+								confettiElement.dispatchEvent(
+									new PointerEvent("click", {
+										clientX:
+											boundingClientRect.x + boundingClientRect.width / 2,
+										clientY: boundingClientRect.y,
+									}),
+								);
+							}
+						}, 100);
+					}, 100);
+				}
+			} else {
+				setNewHighestScore(false);
 			}
 		}
-	}, [endOfGame, score, highestScore]);
+	}, [endOfGame, score, highestScore, settings.showConfetti]);
 
 	const rollDice = useCallback(() => {
 		setDice([Math.floor(Math.random() * 6), Math.floor(Math.random() * 6)]);
@@ -162,7 +209,34 @@ export default function Home() {
 
 		if (settings.animateDice) {
 			setDiceRolling(true);
-			setTimeout(() => setDiceRolling(false), 2000);
+
+			setHelpStep((prevHelpStep) =>
+				prevHelpStep === "rollDice1"
+					? "diceRolling1"
+					: prevHelpStep === "rollDice2"
+					? "diceRolling2"
+					: null,
+			);
+
+			setTimeout(() => {
+				setDiceRolling(false);
+
+				setHelpStep((prevHelpStep) =>
+					prevHelpStep === "diceRolling1"
+						? "clickGrid1"
+						: prevHelpStep === "diceRolling2"
+						? "afterDiceRolling2"
+						: null,
+				);
+			}, 2000);
+		} else {
+			setHelpStep((prevHelpStep) =>
+				prevHelpStep === "rollDice1"
+					? "clickGrid1"
+					: prevHelpStep === "rollDice2"
+					? "afterDiceRolling2"
+					: null,
+			);
 		}
 	}, [settings.animateDice]);
 
@@ -176,28 +250,51 @@ export default function Home() {
 		<>
 			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
 				{startOfGame && (
-					<div className="relative flex w-full min-w-[300px] max-w-[700px] ">
-						<div className="flex-[0.5]" />
-						{Array(6)
-							.fill(0)
-							.map((_, i) => (
-								<Cell
-									key={i}
-									value={i}
-									startOfGame
-									onClick={() => updateGrid({ x: 1, y: 1, newValue: i })}
-								/>
-							))}
-						<div className="flex-[0.5]" />
-					</div>
+					<>
+						<div className="relative flex w-full min-w-[300px] max-w-[550px] ">
+							<div className="flex-[0.5]" />
+							{Array(6)
+								.fill(0)
+								.map((_, i, a) => (
+									<Cell
+										key={i}
+										value={i}
+										startOfGame
+										left={i === 0}
+										right={i === a.length - 1}
+										onClick={() => {
+											updateGrid({ x: 1, y: 1, newValue: i });
+											if (helpStep === "welcome") {
+												setHelpStep("rollDice1");
+											}
+										}}
+									/>
+								))}
+							<div className="flex-[0.5]" />
+						</div>
+
+						<HelpTooltip open={helpStep === "welcome"}>
+							<b>Welcome to Detrak!</b>
+							<br />
+							Start by choosing one of the six symbols above.
+						</HelpTooltip>
+					</>
 				)}
 
 				{!startOfGame && (
 					<>
 						{!endOfGame ? (
-							<div className="relative flex w-full min-w-[300px] max-w-[700px] items-center ">
+							<div className="relative flex w-full min-w-[300px] max-w-[550px] items-center ">
 								<Button
-									className={cn("h-14", !middleOfGame && "invisible")}
+									className={cn(
+										"ml-2 h-14 sm:ml-0",
+										(!middleOfGame ||
+											helpStep === "clickGrid2" ||
+											helpStep === "rollDice2" ||
+											helpStep === "diceRolling2" ||
+											helpStep === "afterDiceRolling2") &&
+											"invisible",
+									)}
 									title="Undo this move"
 									disabled={!canUndoMove}
 									onClick={() => {
@@ -218,7 +315,7 @@ export default function Home() {
 									<Dice value={dice[0] || 0} timestamp={diceTimestamp} />
 								)}
 
-								<div className="flex-1" />
+								<div className="flex-[2] xsm:flex-1" />
 
 								{dice[1] !== null && (
 									<Dice value={dice[1] || 0} timestamp={diceTimestamp} />
@@ -226,8 +323,16 @@ export default function Home() {
 
 								<div className="flex-[2]" />
 
+								<HelpTooltip open={helpStep === "rollDice1"} side="left">
+									The symbol you have selected has been inserted in the grid
+									below. <b>Now, roll the dice!</b>
+								</HelpTooltip>
+
 								<Button
-									className={cn("h-14", settings.autoRollDice && "invisible")}
+									className={cn(
+										"mr-2 h-14 sm:mr-0",
+										settings.autoRollDice && "invisible",
+									)}
 									disabled={!canRollDice}
 									onClick={rollDice}
 								>
@@ -235,10 +340,16 @@ export default function Home() {
 								</Button>
 							</div>
 						) : (
-							<div className="flex flex-col gap-4">
-								<span>
-									Finished! Your score is <b>{score}</b>
-								</span>
+							<div className="flex flex-col items-center gap-4">
+								<div
+									className={cn(caveat.className, "mt-1 text-center text-3xl")}
+								>
+									{newHighestScore
+										? "Well done! Your new highest score is "
+										: "Finished! Your score is "}
+
+									{score}
+								</div>
 
 								<Button
 									disabled={move !== 1 && move !== 2}
@@ -258,11 +369,14 @@ export default function Home() {
 				)}
 			</div>
 
+			<div id="confetti" className="pointer-events-none m-auto" />
+
 			<div className="m-auto flex w-full justify-center overflow-hidden p-2">
 				<Grid
 					grid={grid}
 					startOfGame={startOfGame}
 					firstMoveCoords={movesCoords[0]}
+					helpStep={helpStep}
 					onClick={
 						move > -1 && move < 2 && !diceRolling
 							? (x, y) => {
@@ -270,6 +384,15 @@ export default function Home() {
 									setMovesCoords([...movesCoords, { x, y }]);
 									setMove(move + 1);
 									setMiddleOfGame(true);
+
+									if (helpStep === "clickGrid1") {
+										setHelpStep("clickGrid2");
+									} else if (helpStep === "clickGrid2") {
+										setHelpStep("rollDice2");
+									} else if (helpStep === "afterDiceRolling2") {
+										setHelpStep(null);
+										localStorage.setItem(HELP_SHOWN_KEY, "true");
+									}
 							  }
 							: undefined
 					}
@@ -277,8 +400,8 @@ export default function Home() {
 			</div>
 
 			{typeof highestScore === "number" && (
-				<div className="mt-4">
-					Your highest score is <b>{highestScore}</b>
+				<div className={cn(caveat.className, "mt-1 text-center text-3xl")}>
+					Your highest score: {highestScore}
 				</div>
 			)}
 
