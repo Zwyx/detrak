@@ -1,4 +1,4 @@
-import { Dices, Undo2 } from "lucide-react";
+import { LucideDices, LucideUndo2 } from "lucide-react";
 import { Caveat } from "next/font/google";
 import { useCallback, useEffect, useReducer, useState } from "react";
 
@@ -327,7 +327,7 @@ export default function Home() {
 											setMove(move - 1);
 										}}
 									>
-										<Undo2 />
+										<LucideUndo2 />
 									</Button>
 
 									<div className="flex-[2]" />
@@ -357,7 +357,7 @@ export default function Home() {
 										disabled={!canRollDice}
 										onClick={rollDice}
 									>
-										<Dices />
+										<LucideDices />
 									</Button>
 								</div>
 

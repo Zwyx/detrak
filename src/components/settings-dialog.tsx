@@ -1,4 +1,4 @@
-import { Settings as SettingIcon } from "lucide-react";
+import { LucideSettings } from "lucide-react";
 import { FC } from "react";
 
 import { Button } from "~/components/ui/button";
@@ -48,7 +48,7 @@ export function SettingsDialog() {
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="ghost" size="sm" className="w-9 px-0">
-					<SettingIcon />
+					<LucideSettings />
 					<span className="sr-only">Settings</span>
 				</Button>
 			</DialogTrigger>

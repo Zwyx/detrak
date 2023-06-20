@@ -17,6 +17,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
 				<link rel="icon" href="/dices.png" type="image/png" />
 
+				<meta name="description" content="The Detrak dice game" />
+
 				<meta property="og:title" content="Detrak" />
 				<meta property="og:description" content="The Detrak dice game" />
 				<meta property="og:image" content="/dices.png" />

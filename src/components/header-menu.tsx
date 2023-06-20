@@ -1,6 +1,6 @@
 // https://github.com/shadcn/ui/blob/main/apps/www/components/mobile-nav.tsx
 
-import { Menu } from "lucide-react";
+import { LucideMenu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import * as React from "react";
@@ -10,7 +10,7 @@ import { ScrollArea } from "~/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import { cn } from "~/lib/utils";
 
-export function MobileNav() {
+export function HeaderMenu() {
 	const [open, setOpen] = React.useState(false);
 
 	return (
@@ -20,7 +20,7 @@ export function MobileNav() {
 					variant="ghost"
 					className="mr-2 flex-1 justify-start px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
 				>
-					<Menu className="h-6 w-6" />
+					<LucideMenu className="h-6 w-6" />
 					<span className="sr-only">Toggle Menu</span>
 				</Button>
 			</SheetTrigger>
