@@ -14,9 +14,10 @@ import { Settings, useSettingsContext } from "~/lib/settings-context";
 
 const SettingCheckbox: FC<{
 	name: keyof Settings;
+	disabled?: boolean;
 	title: string;
 	description: string;
-}> = ({ name, title, description }) => {
+}> = ({ name, disabled, title, description }) => {
 	const { settings, updateSettings } = useSettingsContext();
 
 	return (
@@ -24,6 +25,7 @@ const SettingCheckbox: FC<{
 			<Checkbox
 				id={name}
 				checked={settings[name]}
+				disabled={disabled}
 				onCheckedChange={(checked) => updateSettings({ [name]: !!checked })}
 			/>
 
@@ -40,6 +42,8 @@ const SettingCheckbox: FC<{
 };
 
 export function SettingsDialog() {
+	const { numberOfGames } = useSettingsContext();
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -75,14 +79,17 @@ export function SettingsDialog() {
 
 				<SettingCheckbox
 					name="autoRollDice"
-					title="Automatically roll the dice"
+					disabled={numberOfGames === 0}
+					title={`Automatically roll the dice${
+						numberOfGames === 0 ? " (not available during the first game)" : ""
+					}`}
 					description="Dice will be rolled automatically once a move is complete (when the two symbols are placed on the grid). This removes the ability to undo the second symbol placement."
 				/>
 
 				<SettingCheckbox
 					name="showConfetti"
 					title="Show confetti"
-					description="Show confetti explosion when you beat your highest score."
+					description="Show a confetti explosion when you beat your highest score!"
 				/>
 			</DialogContent>
 		</Dialog>

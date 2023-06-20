@@ -51,7 +51,8 @@ const getLineScore = (line: TLine): number => {
 };
 
 export default function Home() {
-	const { settings } = useSettingsContext();
+	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
+		useSettingsContext();
 
 	const initialGrid = Array(7)
 		.fill(0)
@@ -131,10 +132,10 @@ export default function Home() {
 	const [movesCoords, setMovesCoords] = useState<{ x: number; y: number }[]>(
 		[],
 	);
-	const [highestScore, setHighestScore] = useState<number | undefined>();
-	const [newHighestScore, setNewHighestScore] = useState<boolean>(false);
 
 	const [helpStep, setHelpStep] = useState<HelpStep>(null);
+	const [highestScore, setHighestScore] = useState<number | undefined>();
+	const [newHighestScore, setNewHighestScore] = useState<boolean>(false);
 
 	const startOfGame = grid[1][1] === null;
 	const [middleOfGame, setMiddleOfGame] = useState(false);
@@ -158,14 +159,23 @@ export default function Home() {
 
 	useEffect(() => {
 		if (endOfGame) {
+			incrementNumberOfGames();
+		}
+	}, [endOfGame, incrementNumberOfGames]);
+
+	useEffect(() => {
+		if (endOfGame) {
 			if (
 				typeof score === "number" &&
 				(typeof highestScore !== "number" || score > highestScore)
 			) {
+				if (typeof highestScore === "number") {
+					setNewHighestScore(true);
+				}
+
 				localStorage.setItem(HIGHEST_SCORE_KEY, score.toString());
 
 				setHighestScore(score);
-				setNewHighestScore(true);
 
 				if (settings.showConfetti) {
 					setTimeout(() => {
@@ -195,8 +205,6 @@ export default function Home() {
 						}, 100);
 					}, 100);
 				}
-			} else {
-				setNewHighestScore(false);
 			}
 		}
 	}, [endOfGame, score, highestScore, settings.showConfetti]);
@@ -235,6 +243,8 @@ export default function Home() {
 					? "clickGrid1"
 					: prevHelpStep === "rollDice2"
 					? "afterDiceRolling2"
+					: prevHelpStep === "autoRollDice"
+					? "autoRollDice"
 					: null,
 			);
 		}
@@ -264,8 +274,18 @@ export default function Home() {
 										right={i === a.length - 1}
 										onClick={() => {
 											updateGrid({ x: 1, y: 1, newValue: i });
+
 											if (helpStep === "welcome") {
 												setHelpStep("rollDice1");
+											}
+
+											if (numberOfGames === 1) {
+												updateSettings({
+													animateDice: false,
+													autoRollDice: true,
+												});
+
+												setHelpStep("autoRollDice");
 											}
 										}}
 									/>
@@ -284,61 +304,68 @@ export default function Home() {
 				{!startOfGame && (
 					<>
 						{!endOfGame ? (
-							<div className="relative flex w-full min-w-[300px] max-w-[550px] items-center ">
-								<Button
-									className={cn(
-										"ml-2 h-14 sm:ml-0",
-										(!middleOfGame ||
-											helpStep === "clickGrid2" ||
-											helpStep === "rollDice2" ||
-											helpStep === "diceRolling2" ||
-											helpStep === "afterDiceRolling2") &&
-											"invisible",
+							<>
+								<div className="relative flex w-full min-w-[300px] max-w-[550px] items-center ">
+									<Button
+										className={cn(
+											"ml-2 h-14 sm:ml-0",
+											(!middleOfGame ||
+												helpStep === "clickGrid2" ||
+												helpStep === "rollDice2" ||
+												helpStep === "diceRolling2" ||
+												helpStep === "afterDiceRolling2") &&
+												"invisible",
+										)}
+										title="Undo this move"
+										disabled={!canUndoMove}
+										onClick={() => {
+											updateGrid({
+												...movesCoords[movesCoords.length - 1],
+												newValue: null,
+											});
+											setMovesCoords(movesCoords.slice(0, -1));
+											setMove(move - 1);
+										}}
+									>
+										<Undo2 />
+									</Button>
+
+									<div className="flex-[2]" />
+
+									{dice[0] !== null && (
+										<Dice value={dice[0] || 0} timestamp={diceTimestamp} />
 									)}
-									title="Undo this move"
-									disabled={!canUndoMove}
-									onClick={() => {
-										updateGrid({
-											...movesCoords[movesCoords.length - 1],
-											newValue: null,
-										});
-										setMovesCoords(movesCoords.slice(0, -1));
-										setMove(move - 1);
-									}}
-								>
-									<Undo2 />
-								</Button>
 
-								<div className="flex-[2]" />
+									<div className="flex-[2] xsm:flex-1" />
 
-								{dice[0] !== null && (
-									<Dice value={dice[0] || 0} timestamp={diceTimestamp} />
-								)}
+									{dice[1] !== null && (
+										<Dice value={dice[1] || 0} timestamp={diceTimestamp} />
+									)}
 
-								<div className="flex-[2] xsm:flex-1" />
+									<div className="flex-[2]" />
 
-								{dice[1] !== null && (
-									<Dice value={dice[1] || 0} timestamp={diceTimestamp} />
-								)}
+									<HelpTooltip open={helpStep === "rollDice1"} side="left">
+										The symbol you have selected has been inserted in the grid
+										below. <b>Now, roll the dice!</b>
+									</HelpTooltip>
 
-								<div className="flex-[2]" />
+									<Button
+										className={cn(
+											"mr-2 h-14 sm:mr-0",
+											settings.autoRollDice && "invisible",
+										)}
+										disabled={!canRollDice}
+										onClick={rollDice}
+									>
+										<Dices />
+									</Button>
+								</div>
 
-								<HelpTooltip open={helpStep === "rollDice1"} side="left">
-									The symbol you have selected has been inserted in the grid
-									below. <b>Now, roll the dice!</b>
+								<HelpTooltip open={helpStep === "autoRollDice"}>
+									Dice are now unanimated and rolled automatically to allow you
+									to play quicker. You can change this in the settings dialog.
 								</HelpTooltip>
-
-								<Button
-									className={cn(
-										"mr-2 h-14 sm:mr-0",
-										settings.autoRollDice && "invisible",
-									)}
-									disabled={!canRollDice}
-									onClick={rollDice}
-								>
-									<Dices />
-								</Button>
-							</div>
+							</>
 						) : (
 							<div className="flex flex-col items-center gap-4">
 								<div
@@ -359,6 +386,7 @@ export default function Home() {
 										setMove(-1);
 										setMovesCoords([]);
 										setMiddleOfGame(false);
+										setNewHighestScore(false);
 									}}
 								>
 									Start a new game
@@ -389,7 +417,10 @@ export default function Home() {
 										setHelpStep("clickGrid2");
 									} else if (helpStep === "clickGrid2") {
 										setHelpStep("rollDice2");
-									} else if (helpStep === "afterDiceRolling2") {
+									} else if (
+										helpStep === "afterDiceRolling2" ||
+										helpStep === "autoRollDice"
+									) {
 										setHelpStep(null);
 										localStorage.setItem(HELP_SHOWN_KEY, "true");
 									}
@@ -401,7 +432,8 @@ export default function Home() {
 
 			{typeof highestScore === "number" && (
 				<div className={cn(caveat.className, "mt-1 text-center text-3xl")}>
-					Your highest score: {highestScore}
+					{numberOfGames} game
+					{numberOfGames !== 1 ? "s" : ""} – best: {highestScore}
 				</div>
 			)}
 

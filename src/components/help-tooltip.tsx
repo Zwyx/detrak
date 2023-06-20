@@ -11,7 +11,8 @@ export type HelpStep =
 	| "clickGrid2"
 	| "rollDice2"
 	| "diceRolling2"
-	| "afterDiceRolling2";
+	| "afterDiceRolling2"
+	| "autoRollDice";
 
 interface HelpTooltipProps extends PropsWithChildren {
 	open: boolean;

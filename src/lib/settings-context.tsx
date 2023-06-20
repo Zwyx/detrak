@@ -2,11 +2,14 @@ import {
 	Dispatch,
 	ReactNode,
 	createContext,
+	useCallback,
 	useContext,
 	useEffect,
 	useReducer,
+	useState,
 } from "react";
-import { SETTINGS_KEY } from "./keys";
+import { NUMBER_OF_GAMES_KEY, SETTINGS_KEY } from "./keys";
+import { isBrowser } from "./utils";
 
 export interface Settings {
 	alwaysShowScore: boolean;
@@ -19,10 +22,12 @@ export interface Settings {
 export const defaultSettings: Settings = {
 	alwaysShowScore: false,
 	showScoreLegend: true,
-	animateDice: true,
+	animateDice:
+		isBrowser() &&
+		!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches,
 	autoRollDice: false,
 	showConfetti:
-		typeof window !== "undefined" &&
+		isBrowser() &&
 		!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches,
 };
 
@@ -30,6 +35,8 @@ export const SettingsContext = createContext<
 	| {
 			settings: Settings;
 			updateSettings: Dispatch<Partial<Settings>>;
+			numberOfGames: number;
+			incrementNumberOfGames: () => void;
 	  }
 	| undefined
 >(undefined);
@@ -55,8 +62,21 @@ export const SettingsContextProvider = ({
 		defaultSettings,
 	);
 
+	const [numberOfGames, setNumberOfGames] = useState(0);
+
+	const incrementNumberOfGames = useCallback(() => {
+		setNumberOfGames((prevNumberOfGames) => {
+			const newNumberOfGames = prevNumberOfGames + 1;
+
+			localStorage.setItem(NUMBER_OF_GAMES_KEY, newNumberOfGames.toString());
+
+			return newNumberOfGames;
+		});
+	}, []);
+
 	useEffect(() => {
 		const storedSettings = localStorage.getItem(SETTINGS_KEY);
+		const storedNumberOfGames = localStorage.getItem(NUMBER_OF_GAMES_KEY);
 
 		if (storedSettings !== null) {
 			try {
@@ -65,10 +85,21 @@ export const SettingsContextProvider = ({
 				//
 			}
 		}
+
+		if (storedNumberOfGames !== null) {
+			setNumberOfGames(Number(storedNumberOfGames));
+		}
 	}, []);
 
 	return (
-		<SettingsContext.Provider value={{ settings, updateSettings }}>
+		<SettingsContext.Provider
+			value={{
+				settings,
+				updateSettings,
+				numberOfGames,
+				incrementNumberOfGames,
+			}}
+		>
 			{children}
 		</SettingsContext.Provider>
 	);
