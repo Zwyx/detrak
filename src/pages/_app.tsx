@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<ThemeProvider attribute="class">
 				<SettingsContextProvider>
 					<div
-						className={`flex min-h-screen flex-col items-center justify-between ${inter.className}`}
+						className={`flex flex-col items-center justify-between ${inter.className}`}
 					>
 						<SiteHeader />
 						<Component {...pageProps} />
