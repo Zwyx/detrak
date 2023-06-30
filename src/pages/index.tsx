@@ -127,6 +127,7 @@ export default function Home() {
 
 	const [dice, setDice] = useState<TCell[]>([null, null]);
 	const [diceTimestamp, setDiceTimestamp] = useState<number>(0);
+	const [diceHidden, setDiceHidden] = useState(false);
 	const [diceRolling, setDiceRolling] = useState(false);
 	const [move, setMove] = useState(-1);
 	const [movesCoords, setMovesCoords] = useState<{ x: number; y: number }[]>(
@@ -209,9 +210,10 @@ export default function Home() {
 		}
 	}, [endOfGame, score, highestScore, settings.showConfetti]);
 
-	const rollDice = useCallback(() => {
+	const rollDiceNow = useCallback(() => {
 		setDice([Math.floor(Math.random() * 6), Math.floor(Math.random() * 6)]);
 		setDiceTimestamp(Date.now());
+		setDiceHidden(false);
 		setMove(0);
 		setMovesCoords([]);
 
@@ -249,6 +251,18 @@ export default function Home() {
 			);
 		}
 	}, [settings.animateDice]);
+
+	const rollDice = useCallback(() => {
+		if (
+			settings.animateDice ||
+			window.matchMedia("(prefers-reduced-motion: reduce)").matches
+		) {
+			rollDiceNow();
+		} else {
+			setDiceHidden(true);
+			setTimeout(rollDiceNow, 100);
+		}
+	}, [rollDiceNow, settings.animateDice]);
 
 	useEffect(() => {
 		if (settings.autoRollDice && canRollDice) {
@@ -333,13 +347,21 @@ export default function Home() {
 									<div className="flex-[2]" />
 
 									{dice[0] !== null && (
-										<Dice value={dice[0] || 0} timestamp={diceTimestamp} />
+										<Dice
+											value={dice[0] || 0}
+											timestamp={diceTimestamp}
+											hidden={diceHidden}
+										/>
 									)}
 
 									<div className="flex-[2] xsm:flex-1" />
 
 									{dice[1] !== null && (
-										<Dice value={dice[1] || 0} timestamp={diceTimestamp} />
+										<Dice
+											value={dice[1] || 0}
+											timestamp={diceTimestamp}
+											hidden={diceHidden}
+										/>
 									)}
 
 									<div className="flex-[2]" />

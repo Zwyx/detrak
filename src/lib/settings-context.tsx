@@ -24,11 +24,11 @@ export const defaultSettings: Settings = {
 	showScoreLegend: true,
 	animateDice:
 		isBrowser() &&
-		!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches,
+		!window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 	autoRollDice: false,
 	showConfetti:
 		isBrowser() &&
-		!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches,
+		!window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 };
 
 export const SettingsContext = createContext<

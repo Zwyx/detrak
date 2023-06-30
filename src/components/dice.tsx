@@ -17,9 +17,10 @@ type Face = (typeof faces)[number];
 interface DiceProps {
 	value: number;
 	timestamp: number;
+	hidden?: boolean;
 }
 
-export const Dice: FC<DiceProps> = ({ value, timestamp }) => {
+export const Dice: FC<DiceProps> = ({ value, timestamp, hidden }) => {
 	const { settings } = useSettingsContext();
 
 	const containerZ = useRef<HTMLDivElement>(null);
@@ -168,7 +169,14 @@ export const Dice: FC<DiceProps> = ({ value, timestamp }) => {
 	]);
 
 	return (
-		<div ref={containerZ} className={styles.preserve3d}>
+		<div
+			ref={containerZ}
+			className={cn(
+				styles.preserve3d,
+				"transition-opacity duration-200",
+				hidden && "opacity-0",
+			)}
+		>
 			<div ref={containerY} className={styles.preserve3d}>
 				<div
 					ref={containerX}
