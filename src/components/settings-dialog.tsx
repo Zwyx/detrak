@@ -10,7 +10,8 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "~/components/ui/dialog";
-import { Settings, useSettingsContext } from "~/lib/settings-context";
+import { Settings } from "~/lib/settings-context";
+import { useSettingsContext } from "~/lib/settings-context.const";
 
 const SettingCheckbox: FC<{
 	name: keyof Settings;

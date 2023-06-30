@@ -1,7 +1,6 @@
 // https://github.com/shadcn/ui/blob/main/apps/www/components/mode-toggle.tsx
 
 import { LucideLaptop, LucideMoon, LucideSunMedium } from "lucide-react";
-import { useTheme } from "next-themes";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -10,9 +9,10 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { useThemeContext } from "~/lib/theme-context.const";
 
 export function ModeToggle() {
-	const { setTheme } = useTheme();
+	const { updateTheme } = useThemeContext();
 
 	return (
 		<DropdownMenu>
@@ -27,17 +27,29 @@ export function ModeToggle() {
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem onClick={() => setTheme("light")}>
+				<DropdownMenuItem
+					onClick={() => {
+						updateTheme("light");
+					}}
+				>
 					<LucideSunMedium className="mr-2 h-4 w-4" />
 					<span>Light</span>
 				</DropdownMenuItem>
 
-				<DropdownMenuItem onClick={() => setTheme("dark")}>
+				<DropdownMenuItem
+					onClick={() => {
+						updateTheme("dark");
+					}}
+				>
 					<LucideMoon className="mr-2 h-4 w-4" />
 					<span>Dark</span>
 				</DropdownMenuItem>
 
-				<DropdownMenuItem onClick={() => setTheme("system")}>
+				<DropdownMenuItem
+					onClick={() => {
+						updateTheme("system");
+					}}
+				>
 					<LucideLaptop className="mr-2 h-4 w-4" />
 					<span>Same as device</span>
 				</DropdownMenuItem>

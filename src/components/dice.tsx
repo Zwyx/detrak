@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from "react";
-import { useSettingsContext } from "~/lib/settings-context";
+import { useSettingsContext } from "~/lib/settings-context.const";
 import { cn, usePrevious } from "~/lib/utils";
 import {
 	SymbolBack,

@@ -3,13 +3,11 @@ import {
 	ReactNode,
 	createContext,
 	useCallback,
-	useContext,
 	useEffect,
 	useReducer,
 	useState,
 } from "react";
 import { NUMBER_OF_GAMES_KEY, SETTINGS_KEY } from "./keys";
-import { isBrowser } from "./utils";
 
 export interface Settings {
 	alwaysShowScore: boolean;
@@ -19,16 +17,12 @@ export interface Settings {
 	showConfetti: boolean;
 }
 
-export const defaultSettings: Settings = {
+const defaultSettings: Settings = {
 	alwaysShowScore: false,
 	showScoreLegend: true,
-	animateDice:
-		isBrowser() &&
-		!window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+	animateDice: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 	autoRollDice: false,
-	showConfetti:
-		isBrowser() &&
-		!window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+	showConfetti: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 };
 
 export const SettingsContext = createContext<
@@ -103,14 +97,4 @@ export const SettingsContextProvider = ({
 			{children}
 		</SettingsContext.Provider>
 	);
-};
-
-export const useSettingsContext = () => {
-	const context = useContext(SettingsContext);
-
-	if (context === undefined) {
-		throw new Error("useSettingsContext must be within SettingsContext");
-	}
-
-	return context;
 };

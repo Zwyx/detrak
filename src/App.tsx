@@ -7,7 +7,7 @@ import { HelpStep, HelpTooltip } from "./components/help-tooltip";
 import { SiteHeader } from "./components/site-header";
 import { Button } from "./components/ui/button";
 import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/keys";
-import { useSettingsContext } from "./lib/settings-context";
+import { useSettingsContext } from "./lib/settings-context.const";
 import { cn } from "./lib/utils";
 
 const getLineScore = (line: TLine): number => {

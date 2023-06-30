@@ -12,6 +12,24 @@
 		<meta property="og:image" content="/dices.svg" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<script type="text/javascript">
+			// This script sets the CSS class for the theme as soon as possible
+			// to prevent a flash of the wrong theme
+
+			var lightThemeName = "light";
+			var darkThemeName = "dark";
+
+			var theme;
+
+			try {
+				theme = localStorage.getItem("detrakTheme");
+			} catch {}
+
+			if (theme === lightThemeName || theme === darkThemeName) {
+				document.documentElement.classList.add(theme);
+			}
+		</script>
 	</head>
 	<body>
 		<div id="root"></div>

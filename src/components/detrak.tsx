@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useSettingsContext } from "~/lib/settings-context";
+import { useSettingsContext } from "~/lib/settings-context.const";
 import { cn } from "~/lib/utils";
 import { HelpStep, HelpTooltip } from "./help-tooltip";
 
