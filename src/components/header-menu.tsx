@@ -1,14 +1,11 @@
 // https://github.com/shadcn/ui/blob/main/apps/www/components/mobile-nav.tsx
 
 import { LucideMenu } from "lucide-react";
-import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
 import * as React from "react";
 
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
-import { cn } from "~/lib/utils";
 
 export function HeaderMenu() {
 	const [open, setOpen] = React.useState(false);
@@ -25,18 +22,10 @@ export function HeaderMenu() {
 				</Button>
 			</SheetTrigger>
 
-			<SheetContent size="content" position="left">
-				<MobileLink
-					href="/"
-					className="flex items-center"
-					onOpenChange={setOpen}
-				>
-					<span className="font-bold">Detrak</span>
-				</MobileLink>
+			<SheetContent side="left" className="w-auto">
+				<span className="font-bold">Detrak</span>
 
 				<ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
-					{/* <RulesDialog /> */}
-
 					<div className="flex flex-col space-y-3">
 						<Button
 							variant="link"
@@ -57,34 +46,5 @@ export function HeaderMenu() {
 				</ScrollArea>
 			</SheetContent>
 		</Sheet>
-	);
-}
-
-interface MobileLinkProps extends LinkProps {
-	onOpenChange?: (open: boolean) => void;
-	children: React.ReactNode;
-	className?: string;
-}
-
-function MobileLink({
-	href,
-	onOpenChange,
-	className,
-	children,
-	...props
-}: MobileLinkProps) {
-	const router = useRouter();
-	return (
-		<Link
-			href={href}
-			onClick={() => {
-				router.push(href.toString());
-				onOpenChange?.(false);
-			}}
-			className={cn(className)}
-			{...props}
-		>
-			{children}
-		</Link>
 	);
 }

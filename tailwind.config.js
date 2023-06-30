@@ -13,6 +13,9 @@ export default {
 			},
 		},
 		extend: {
+			screens: {
+				xsm: "520px",
+			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
@@ -47,11 +50,18 @@ export default {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				info: "hsl(var(--info))",
+				dice: "hsl(var(--dice))",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
 				sm: "calc(var(--radius) - 4px)",
+			},
+			boxShadow: {
+				grid: "0 0 1px 1px hsl(var(--muted-foreground)), inset 0 0 1px 1px hsl(var(--muted-foreground))",
+				"grid-focus":
+					"0 0 1px 1px hsl(var(--muted-foreground)), inset 0 0 1px 1px hsl(var(--muted-foreground)), inset 0 0 5px 2px hsl(var(--accent-foreground))",
 			},
 			keyframes: {
 				"accordion-down": {
