@@ -1,6 +1,21 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
- 
+import { ClassValue, clsx } from "clsx";
+import { useEffect, useRef } from "react";
+import { twMerge } from "tailwind-merge";
+
+export function isBrowser() {
+	return typeof window !== "undefined";
+}
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+	return twMerge(clsx(inputs));
+}
+
+export function usePrevious<T>(newValue: T) {
+	const previousRef = useRef<T>();
+
+	useEffect(() => {
+		previousRef.current = newValue;
+	});
+
+	return previousRef.current;
 }
