@@ -1,8 +1,11 @@
+import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { Confetti } from "~/lib/confetti.min.js";
-import { Cell, TCell, TGrid, TLine } from "./components/detrak";
-import { HelpStep } from "./components/help-tooltip";
+import { Cell, Grid, TCell, TGrid, TLine } from "./components/detrak";
+import { Dice } from "./components/dice";
+import { HelpStep, HelpTooltip } from "./components/help-tooltip";
 import { SiteHeader } from "./components/site-header";
+import { Button } from "./components/ui/button";
 import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/keys";
 import { useSettingsContext } from "./lib/settings-context";
 import { cn } from "./lib/utils";
