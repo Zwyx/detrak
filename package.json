@@ -1,49 +1,28 @@
 {
-	"name": "detrak",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"staticrypt": "staticrypt",
-		"start": "next start",
-		"lint": "next lint",
-		"eslint": "eslint .",
-		"eslint:print-active-rules": "eslint --print-config src/pages/_app.tsx",
-		"prettier": "prettier -w ."
-	},
-	"dependencies": {
-		"@radix-ui/react-checkbox": "^1.0.3",
-		"@radix-ui/react-dialog": "^1.0.3",
-		"@radix-ui/react-dropdown-menu": "^2.0.4",
-		"@radix-ui/react-hover-card": "^1.0.6",
-		"@radix-ui/react-scroll-area": "^1.0.3",
-		"@radix-ui/react-slot": "^1.0.1",
-		"@types/node": "20.1.0",
-		"@types/react": "18.2.5",
-		"@types/react-dom": "18.2.4",
-		"autoprefixer": "10.4.14",
-		"class-variance-authority": "^0.6.0",
-		"clsx": "^1.2.1",
-		"eslint": "8.40.0",
-		"eslint-config-next": "13.4.1",
-		"lucide-react": "^0.214.0",
-		"next": "13.4.1",
-		"next-themes": "^0.2.1",
-		"postcss": "8.4.23",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"staticrypt": "^3.3.0",
-		"tailwind-merge": "^1.12.0",
-		"tailwindcss": "3.3.2",
-		"tailwindcss-animate": "^1.0.5",
-		"typescript": "5.0.4"
-	},
-	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.59.2",
-		"@typescript-eslint/parser": "^5.59.2",
-		"eslint-config-prettier": "^8.8.0",
-		"prettier": "2.8.8",
-		"prettier-plugin-tailwindcss": "0.2.8"
-	}
+  "name": "detrak",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
+  }
 }
