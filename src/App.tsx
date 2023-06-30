@@ -267,9 +267,7 @@ export const App = () => {
 	}, [settings.autoRollDice, canRollDice, rollDice]);
 
 	return (
-		<div
-			className={`flex flex-col items-center justify-between ${inter.className}`}
-		>
+		<div className="flex flex-col items-center justify-between font-[inter]">
 			<SiteHeader />
 
 			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
@@ -390,9 +388,7 @@ export const App = () => {
 							</>
 						) : (
 							<div className="flex flex-col items-center gap-4">
-								<div
-									className={cn(caveat.className, "mt-1 text-center text-3xl")}
-								>
+								<div className="font-[caveat] mt-1 text-center text-3xl">
 									{newHighestScore
 										? "Well done! Your new highest score is "
 										: "Finished! Your score is "}
@@ -453,7 +449,7 @@ export const App = () => {
 			</div>
 
 			{typeof highestScore === "number" && (
-				<div className={cn(caveat.className, "mt-1 text-center text-3xl")}>
+				<div className="font-[caveat] mt-1 text-center text-3xl">
 					{numberOfGames} game
 					{numberOfGames !== 1 ? "s" : ""} – best: {highestScore}
 				</div>
