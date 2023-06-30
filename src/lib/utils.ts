@@ -2,10 +2,6 @@ import { ClassValue, clsx } from "clsx";
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export function isBrowser() {
-	return typeof window !== "undefined";
-}
-
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
