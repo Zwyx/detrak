@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { useSettingsContext } from "~/lib/settings-context.const";
 import { cn } from "~/lib/utils";
 import { HelpStep, HelpTooltip } from "./help-tooltip";
@@ -83,6 +84,8 @@ export const Cell: FC<CellProps> = ({
 	helpStep,
 	onClick,
 }) => {
+	const { t } = useTranslation(["detrak"]);
+
 	const { settings } = useSettingsContext();
 
 	const symbol = x >= 1 && x <= 5 && y >= 1 && y <= 5;
@@ -136,13 +139,11 @@ export const Cell: FC<CellProps> = ({
 			{y === 1 && x === 3 && (
 				<div className="absolute h-full">
 					<HelpTooltip open={helpStep === "clickGrid1"} side="top">
-						Choose an empty cell in the grid to insert the symbol of the first
-						dice. <b>The goal is to group identical symbols together.</b>
+						{t("clickGrid1.part1")} <strong>{t("clickGrid1.part2")}</strong>
 					</HelpTooltip>
 
 					<HelpTooltip open={helpStep === "clickGrid2"} side="top">
-						Choose another empty cell for the second symbol.{" "}
-						<b>It must be directly next to the first one.</b>
+						{t("clickGrid2.part1")} <strong>{t("clickGrid2.part2")}</strong>
 					</HelpTooltip>
 				</div>
 			)}
@@ -150,8 +151,7 @@ export const Cell: FC<CellProps> = ({
 			{y === 4 && x === 6 && (
 				<div className="absolute flex w-[85%]">
 					<HelpTooltip open={helpStep === "rollDice2"} side="left">
-						Scores will be displayed in the right-most column, and the
-						bottom-most row.
+						{t("rollDice2.left")}
 					</HelpTooltip>
 				</div>
 			)}
@@ -159,10 +159,9 @@ export const Cell: FC<CellProps> = ({
 			{y === 6 && x === 0 && (
 				<div className="absolute flex w-[35%] justify-end">
 					<HelpTooltip open={helpStep === "rollDice2"} side="right">
-						The diagonal&apos; score appears on both ends, so it is counted
-						twice!
+						{t("rollDice2.right.part1")}
 						<br />
-						<b>Roll the dice again to continue the game.</b>
+						<strong>{t("rollDice2.right.part2")}</strong>
 					</HelpTooltip>
 				</div>
 			)}
@@ -192,6 +191,8 @@ export const Grid: FC<GridProps> = ({
 	helpStep,
 	onClick,
 }) => {
+	const { t } = useTranslation(["detrak"]);
+
 	const { settings } = useSettingsContext();
 
 	return (
@@ -221,21 +222,17 @@ export const Grid: FC<GridProps> = ({
 									</div>
 
 									<div className="relative text-right leading-[16px] xsm:leading-[24px]">
-										{/* eslint-disable-next-line no-irregular-whitespace */}
 										<ScoreHelp value="□ □ □ □ " score="=8  " />
 										<ScoreHelp value="□ □ □ □ □ " score="=10" />
 
 										<div className="absolute w-[35%]">
 											<HelpTooltip open={helpStep === "rollDice2"}>
-												This is the legend for the score. For instance, five
-												identical symbols on a row, a column or the diagonal,
-												give 10 points.
+												{t("rollDice2.legend")}
 											</HelpTooltip>
 										</div>
 									</div>
 
 									<div className="leading-[16px] xsm:leading-[24px]">
-										{/* eslint-disable-next-line no-irregular-whitespace */}
 										<ScoreHelp value=" " score="" />
 										<ScoreHelp value="" score="0=-5" />
 									</div>

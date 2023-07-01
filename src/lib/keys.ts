@@ -1,3 +1,4 @@
+export const LOCALE_KEY = "detrakLocale";
 export const THEME_KEY = "detrakTheme";
 export const SETTINGS_KEY = "detrakSettings";
 export const HELP_SHOWN_KEY = "detrakHelpShown";

@@ -1,5 +1,6 @@
 import { LucideSettings } from "lucide-react";
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -13,12 +14,18 @@ import {
 import { Settings } from "~/lib/settings-context";
 import { useSettingsContext } from "~/lib/settings-context.const";
 
-const SettingCheckbox: FC<{
+interface SettingCheckboxProps extends PropsWithChildren {
 	name: keyof Settings;
 	disabled?: boolean;
 	title: string;
-	description: string;
-}> = ({ name, disabled, title, description }) => {
+}
+
+const SettingCheckbox: FC<SettingCheckboxProps> = ({
+	name,
+	disabled,
+	title,
+	children,
+}) => {
 	const { settings, updateSettings } = useSettingsContext();
 
 	return (
@@ -36,13 +43,15 @@ const SettingCheckbox: FC<{
 			>
 				<div className="text-sm font-medium leading-none">{title}</div>
 
-				<div className="text-sm text-muted-foreground">{description}</div>
+				<div className="text-sm text-muted-foreground">{children}</div>
 			</label>
 		</div>
 	);
 };
 
 export function SettingsDialog() {
+	const { t } = useTranslation(["settingsDialog"]);
+
 	const { numberOfGames } = useSettingsContext();
 
 	return (
@@ -50,48 +59,49 @@ export function SettingsDialog() {
 			<DialogTrigger asChild>
 				<Button variant="ghost" size="sm" className="w-9 px-0">
 					<LucideSettings />
-					<span className="sr-only">Settings</span>
+					<span className="sr-only">{t("openSettingsDialog")}</span>
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Settings</DialogTitle>
+					<DialogTitle>{t("settings")}</DialogTitle>
 					{/* <DialogDescription></DialogDescription> */}
 				</DialogHeader>
 
 				<SettingCheckbox
 					name="alwaysShowScore"
-					title="Always show the score"
-					description="Checking this box will allow you to see your current score during the game, instead of only at the end."
-				/>
+					title={t("alwaysShowScore.title")}
+				>
+					{t("alwaysShowScore.description")}
+				</SettingCheckbox>
 
 				<SettingCheckbox
 					name="showScoreLegend"
-					title="Show the score legend"
-					description="The legend placed above the grid."
-				/>
+					title={t("showScoreLegend.title")}
+				>
+					{t("showScoreLegend.description")}
+				</SettingCheckbox>
 
-				<SettingCheckbox
-					name="animateDice"
-					title="Animate rolling dice"
-					description="Roll dice with a 3D animation."
-				/>
+				<SettingCheckbox name="animateDice" title={t("animateDice.title")}>
+					{t("animateDice.description")}
+				</SettingCheckbox>
 
 				<SettingCheckbox
 					name="autoRollDice"
 					disabled={numberOfGames === 0}
-					title={`Automatically roll the dice${
-						numberOfGames === 0 ? " (not available during the first game)" : ""
+					title={`${t("autoRollDice.title")} ${
+						numberOfGames === 0
+							? t("autoRollDice.notAvailableDuringTheFirstGame")
+							: ""
 					}`}
-					description="Dice will be rolled automatically once a move is complete (when the two symbols are placed on the grid). This removes the ability to undo the second symbol placement."
-				/>
+				>
+					{t("autoRollDice.description")}
+				</SettingCheckbox>
 
-				<SettingCheckbox
-					name="showConfetti"
-					title="Show confetti"
-					description="Show a confetti explosion when you beat your highest score!"
-				/>
+				<SettingCheckbox name="showConfetti" title={t("showConfetti.title")}>
+					{t("showConfetti.description")}
+				</SettingCheckbox>
 			</DialogContent>
 		</Dialog>
 	);

@@ -16,7 +16,7 @@ module.exports = {
 		ecmaVersion: "latest",
 		sourceType: "module",
 	},
-	plugins: ["react-refresh"],
+	plugins: ["react-refresh", "i18next"],
 	settings: {
 		react: {
 			version: "detect",
@@ -93,5 +93,9 @@ module.exports = {
 
 		// Check rules of Hooks — https://reactjs.org/docs/hooks-rules.html
 		"react-hooks/rules-of-hooks": "error",
+
+		// ---------- i18next ----------
+
+		"i18next/no-literal-string": "warn",
 	},
 };
