@@ -17,8 +17,10 @@ const isLocaleCode = (value: unknown): value is I18nLocaleCode =>
 const storedLocaleCode = localStorage.getItem(LOCALE_KEY);
 
 i18n.use(initReactI18next).init({
+	// debug: true,
 	lng: isLocaleCode(storedLocaleCode) ? storedLocaleCode : navigator.language,
 	fallbackLng: "en",
+	ns: Object.keys(resources.en),
 	resources,
 	interpolation: {
 		escapeValue: false, // not needed for react as it escapes by default
