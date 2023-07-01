@@ -2,12 +2,15 @@
 
 import { LucideMenu } from "lucide-react";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 
 export function HeaderMenu() {
+	const { t } = useTranslation(["headerMenu"]);
+
 	const [open, setOpen] = React.useState(false);
 
 	return (
@@ -18,12 +21,12 @@ export function HeaderMenu() {
 					className="mr-2 flex-1 justify-start px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
 				>
 					<LucideMenu className="h-6 w-6" />
-					<span className="sr-only">Toggle Menu</span>
+					<span className="sr-only">{t("toggleMenu")}</span>
 				</Button>
 			</SheetTrigger>
 
 			<SheetContent side="left" className="w-auto">
-				<span className="font-bold">Detrak</span>
+				<span className="font-bold">{t("detrak")}</span>
 
 				<ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
 					<div className="flex flex-col space-y-3">
@@ -39,7 +42,7 @@ export function HeaderMenu() {
 								rel="noreferrer nofollow"
 								className="text-sm font-medium"
 							>
-								Go to the editor&apos;s website
+								{t("goToEditorWebsite")}
 							</a>
 						</Button>
 					</div>

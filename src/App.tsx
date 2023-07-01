@@ -1,5 +1,6 @@
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Confetti } from "~/lib/confetti.min.js";
 import { Cell, Grid, TCell, TGrid, TLine } from "./components/detrak";
 import { Dice } from "./components/dice";
@@ -47,6 +48,8 @@ const getLineScore = (line: TLine): number => {
 };
 
 export const App = () => {
+	const { t } = useTranslation(["app"]);
+
 	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
 		useSettingsContext();
 
@@ -306,9 +309,9 @@ export const App = () => {
 						</div>
 
 						<HelpTooltip open={helpStep === "welcome"}>
-							<b>Welcome to Detrak!</b>
+							<strong>{t("welcome.title")}</strong>
 							<br />
-							Start by choosing one of the six symbols above.
+							{t("welcome.text")}
 						</HelpTooltip>
 					</>
 				)}
@@ -365,8 +368,8 @@ export const App = () => {
 									<div className="flex-[2]" />
 
 									<HelpTooltip open={helpStep === "rollDice1"} side="left">
-										The symbol you have selected has been inserted in the grid
-										below. <b>Now, roll the dice!</b>
+										{t("rollDice1.part1")}{" "}
+										<strong>{t("rollDice1.part2")}</strong>
 									</HelpTooltip>
 
 									<Button
@@ -382,17 +385,15 @@ export const App = () => {
 								</div>
 
 								<HelpTooltip open={helpStep === "autoRollDice"}>
-									Dice are now unanimated and rolled automatically to allow you
-									to play quicker. You can change this in the settings dialog.
+									{t("autoRollDice")}
 								</HelpTooltip>
 							</>
 						) : (
 							<div className="flex flex-col items-center gap-4">
 								<div className="font-[caveat] mt-1 text-center text-3xl">
 									{newHighestScore
-										? "Well done! Your new highest score is "
-										: "Finished! Your score is "}
-
+										? t("endOnGameWithNewScore")
+										: t("endOnGame")}{" "}
 									{score}
 								</div>
 
@@ -407,7 +408,7 @@ export const App = () => {
 										setNewHighestScore(false);
 									}}
 								>
-									Start a new game
+									{t("startNewGame")}
 								</Button>
 							</div>
 						)}
@@ -450,8 +451,8 @@ export const App = () => {
 
 			{typeof highestScore === "number" && (
 				<div className="font-[caveat] mt-1 text-center text-3xl">
-					{numberOfGames} game
-					{numberOfGames !== 1 ? "s" : ""} – best: {highestScore}
+					{t("numberOfGames", { count: numberOfGames })} – {t("bestScore")}{" "}
+					{highestScore}
 				</div>
 			)}
 

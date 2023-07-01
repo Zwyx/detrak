@@ -5,9 +5,10 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
-		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"build": "npm run lint && tsc && vite build",
+		"lint": "eslint src --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
+		"eslint:print-active-rules": "eslint --print-config src/index.ts",
 		"prettier": "prettier -w ."
 	},
 	"dependencies": {
@@ -21,9 +22,11 @@
 		"@radix-ui/react-slot": "^1.0.2",
 		"class-variance-authority": "^0.6.1",
 		"clsx": "^1.2.1",
+		"i18next": "^23.2.6",
 		"lucide-react": "^0.257.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-i18next": "^13.0.1",
 		"tailwind-merge": "^1.13.2",
 		"tailwindcss-animate": "^1.0.6"
 	},
@@ -36,6 +39,7 @@
 		"autoprefixer": "^10.4.14",
 		"eslint": "^8.38.0",
 		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-i18next": "6.0.3",
 		"eslint-plugin-jsx-a11y": "^6.7.1",
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
