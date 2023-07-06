@@ -2,13 +2,13 @@ import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Confetti } from "~/lib/confetti.min.js";
-import { Cell, Grid, TCell, TGrid, TLine } from "./components/detrak";
-import { Dice } from "./components/dice";
-import { HelpStep, HelpTooltip } from "./components/help-tooltip";
-import { SiteHeader } from "./components/site-header";
+import { Cell, Grid, TCell, TGrid, TLine } from "./components/Detrak";
+import { Dice } from "./components/Dice";
+import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
+import { SiteHeader } from "./components/SiteHeader";
 import { Button } from "./components/ui/button";
+import { useSettingsContext } from "./lib/SettingsContext.const";
 import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/keys";
-import { useSettingsContext } from "./lib/settings-context.const";
 import { cn } from "./lib/utils";
 
 const getLineScore = (line: TLine): number => {

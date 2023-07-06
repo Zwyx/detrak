@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSettingsContext } from "~/lib/settings-context.const";
+import { useSettingsContext } from "~/lib/SettingsContext.const";
 import { cn } from "~/lib/utils";
-import { HelpStep, HelpTooltip } from "./help-tooltip";
+import { HelpStep, HelpTooltip } from "./HelpTooltip";
 
 export type TCell = number | null;
 export type TLine = TCell[];

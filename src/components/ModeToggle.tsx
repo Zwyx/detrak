@@ -10,7 +10,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { useThemeContext } from "~/lib/theme-context.const";
+import { useThemeContext } from "~/lib/ThemeContext.const";
 
 export function ModeToggle() {
 	const { t } = useTranslation(["modeToggle"]);

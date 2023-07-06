@@ -1,9 +1,9 @@
 // https://github.com/shadcn/ui/blob/main/apps/www/components/site-header.tsx
 
-import { HeaderMenu } from "~/components/header-menu";
-import { ModeToggle } from "~/components/mode-toggle";
-import { SettingsDialog } from "~/components/settings-dialog";
-import { LanguageToggle } from "./language-toggle";
+import { HeaderMenu } from "~/components/HeaderMenu";
+import { ModeToggle } from "~/components/ModeToggle";
+import { SettingsDialog } from "~/components/SettingsDialog";
+import { LanguageToggle } from "./LanguageToggle";
 
 export function SiteHeader() {
 	return (
