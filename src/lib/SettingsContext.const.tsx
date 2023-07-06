@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SettingsContext } from "./settings-context";
+import { SettingsContext } from "./SettingsContext";
 
 // This was extracted from the neighbouring file following the ESLint warning
 // `react-refresh/only-export-components`

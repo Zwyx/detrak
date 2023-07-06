@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from "react";
-import { useSettingsContext } from "~/lib/settings-context.const";
+import { useSettingsContext } from "~/lib/SettingsContext.const";
 import { cn, usePrevious } from "~/lib/utils";
 import {
 	SymbolBack,
@@ -8,7 +8,7 @@ import {
 	SymbolLeft,
 	SymbolRight,
 	SymbolTop,
-} from "./detrak";
+} from "./Detrak";
 import styles from "./dice.module.css";
 
 const faces = ["front", "top", "right", "left", "bottom", "back"] as const;

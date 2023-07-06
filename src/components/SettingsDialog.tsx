@@ -11,8 +11,8 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "~/components/ui/dialog";
-import { Settings } from "~/lib/settings-context";
-import { useSettingsContext } from "~/lib/settings-context.const";
+import { Settings } from "~/lib/SettingsContext";
+import { useSettingsContext } from "~/lib/SettingsContext.const";
 
 interface SettingCheckboxProps extends PropsWithChildren {
 	name: keyof Settings;

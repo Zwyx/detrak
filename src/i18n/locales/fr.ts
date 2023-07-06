@@ -7,8 +7,8 @@ export const fr: I18nLocale = {
 		bestScore: "meilleur score :",
 		endOnGame: "Terminé! Votre score est",
 		endOnGameWithNewScore: "Bravo! Votre nouveau record est",
-		numberOfGames_one: "{{count}} jeu",
-		numberOfGames_other: "{{count}} jeux",
+		numberOfGames_one: "{{count}} partie",
+		numberOfGames_other: "{{count}} parties",
 		rollDice1: {
 			part1: "Le symbole sélectionné a été placé dans la grille ci-dessous.",
 			part2: "Maintenant, lancez les dés !",

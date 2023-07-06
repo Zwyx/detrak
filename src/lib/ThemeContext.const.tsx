@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ThemeContext } from "./theme-context";
+import { ThemeContext } from "./ThemeContext";
 
 // This was extracted from the neighbouring file following the ESLint warning
 // `react-refresh/only-export-components`
