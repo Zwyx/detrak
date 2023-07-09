@@ -40,6 +40,8 @@ jobs:
       - run: |
           git fetch
           git switch --orphan dist
+          git checkout main netlify.toml
+          git add netlify.toml
           git add docs
           git config user.name "Zwyx - GitHub Actions"
           git config user.email "29386932+Zwyx@users.noreply.github.com>"
