@@ -8,6 +8,7 @@
 		"build": "npm run lint && tsc && vite build",
 		"lint": "eslint src --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
+		"pwa-asset-generator": "npx pwa-asset-generator --opaque false --favicon --type png res/dices.svg public",
 		"eslint:print-active-rules": "eslint --print-config src/index.ts",
 		"prettier": "prettier -w ."
 	},
