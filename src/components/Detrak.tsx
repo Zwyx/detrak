@@ -131,7 +131,7 @@ export const Cell: FC<CellProps> = ({
 				))}
 
 			{(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && (
-				<span className="font-[caveat] mr-3 text-6xl max-[550px]:text-[8vw]">
+				<span className="mr-3 font-[caveat] text-6xl max-[550px]:text-[8vw]">
 					{value}
 				</span>
 			)}
