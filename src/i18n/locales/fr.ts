@@ -41,9 +41,15 @@ export const fr: I18nLocale = {
 		},
 	},
 	headerMenu: {
+		aboutTheDeveloper: "À propos du dévelopeur",
 		detrak: "Detrak",
 		goToEditorWebsite: "Aller sur le site de l'éditeur",
+		heyImAlex1: "Je suis ",
+		heyImAlex2: "Alex",
+		heyImAlex3: ", un dévelopeur web australien.",
+		hopeEnjoyDetrak: "J'espère que vous apréciez Détrak !",
 		toggleMenu: "Ouvrir le menu",
+		writeToMe: "Écrivez-moi à ",
 	},
 	languageToggle: { chooseLanguage: "Choisir la langue" },
 	modeToggle: {

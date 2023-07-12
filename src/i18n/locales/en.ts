@@ -44,9 +44,15 @@ export const en = {
 	},
 
 	headerMenu: {
+		aboutTheDeveloper: "About the developer",
 		detrak: "Detrak",
 		goToEditorWebsite: "Go to the editor's website",
+		heyImAlex1: "Hey I'm ",
+		heyImAlex2: "Alex",
+		heyImAlex3: ", a web developer from Australia.",
+		hopeEnjoyDetrak: "I hope you enjoy Detrak!",
 		toggleMenu: "Toggle menu",
+		writeToMe: "Feel free to write to me at ",
 	},
 
 	languageToggle: {
