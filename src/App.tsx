@@ -276,7 +276,7 @@ export const App = () => {
 			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
 				{startOfGame && (
 					<>
-						<div className="relative flex w-full min-w-[300px] max-w-[550px] ">
+						<div className="relative flex w-full min-w-[300px] max-w-[550px]">
 							<div className="flex-[0.5]" />
 							{Array(6)
 								.fill(0)
@@ -390,7 +390,7 @@ export const App = () => {
 							</>
 						) : (
 							<div className="flex flex-col items-center gap-4">
-								<div className="font-[caveat] mt-1 text-center text-3xl">
+								<div className="mt-1 text-center font-[caveat] text-3xl">
 									{newHighestScore
 										? t("endOnGameWithNewScore")
 										: t("endOnGame")}{" "}
@@ -450,7 +450,7 @@ export const App = () => {
 			</div>
 
 			{typeof highestScore === "number" && (
-				<div className="font-[caveat] mt-1 text-center text-3xl">
+				<div className="mt-1 text-center font-[caveat] text-3xl">
 					{t("numberOfGames", { count: numberOfGames })} – {t("bestScore")}{" "}
 					{highestScore}
 				</div>
