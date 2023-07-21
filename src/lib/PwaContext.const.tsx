@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { ThemeContext } from "./ThemeContext";
+import { PwaContext } from "./PwaContext";
 
 // Was extracted from the main context file because of the ESLint warning `react-refresh/only-export-components`
 
-export const useThemeContext = () => {
-	const context = useContext(ThemeContext);
+export const usePwaContext = () => {
+	const context = useContext(PwaContext);
 
 	if (context === undefined) {
-		throw new Error("useThemeContext must be within ThemeContext");
+		throw new Error("usePwaContext must be within PwaContext");
 	}
 
 	return context;

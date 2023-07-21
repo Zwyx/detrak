@@ -7,6 +7,7 @@ import { Dice } from "./components/Dice";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
 import { SiteHeader } from "./components/SiteHeader";
 import { Button } from "./components/ui/button";
+import { usePwaContext } from "./lib/PwaContext.const";
 import { useSettingsContext } from "./lib/SettingsContext.const";
 import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/keys";
 import { cn } from "./lib/utils";
@@ -48,10 +49,11 @@ const getLineScore = (line: TLine): number => {
 };
 
 export const App = () => {
-	const { t } = useTranslation(["app"]);
-
+	const { pwaNeedsRefresh, pwaRefresh } = usePwaContext();
 	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
 		useSettingsContext();
+
+	const { t } = useTranslation(["app"]);
 
 	const initialGrid = Array(7)
 		.fill(0)
@@ -400,6 +402,11 @@ export const App = () => {
 								<Button
 									disabled={move !== 1 && move !== 2}
 									onClick={() => {
+										if (pwaNeedsRefresh && pwaRefresh) {
+											pwaRefresh();
+											return;
+										}
+
 										updateGrid({ x: -1, y: -1, newValue: null });
 										setDice([null, null]);
 										setMove(-1);
