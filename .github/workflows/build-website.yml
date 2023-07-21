@@ -1,13 +1,20 @@
 # The site is built on branch `dist`, in folder `docs`,
 # which makes the build compatible with Github Pages and Netlify
 
+name: Build website
+
 on:
   push:
     branches:
       - main
   workflow_dispatch:
 
-name: Build website
+permissions:
+  contents: write
+
+concurrency:
+  group: "build-website"
+  cancel-in-progress: true
 
 jobs:
   build-website:

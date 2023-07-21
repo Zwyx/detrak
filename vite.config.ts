@@ -13,6 +13,10 @@ export default defineConfig({
 			registerType: "prompt",
 			manifestFilename: "manifest.json",
 			manifest: {
+				name: "Detrak",
+				description: "The Detrak dice game",
+				theme_color: "#020817",
+				background_color: "#020817",
 				icons: [
 					{
 						src: "manifest-icon-192.maskable.png",
@@ -40,6 +44,8 @@ export default defineConfig({
 					},
 				],
 			},
+			// We'll probably need that for the assets
+			// includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
 			// We'll probably need that for the fonts
 			// workbox: {
 			// 	globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2}"],
