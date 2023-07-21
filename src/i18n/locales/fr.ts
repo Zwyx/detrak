@@ -9,6 +9,7 @@ export const fr: I18nLocale = {
 		endOnGameWithNewScore: "Bravo! Votre nouveau record est",
 		numberOfGames_one: "{{count}} partie",
 		numberOfGames_other: "{{count}} parties",
+		rollDice: "lancer les dés",
 		rollDice1: {
 			part1: "Le symbole sélectionné a été placé dans la grille ci-dessous.",
 			part2: "Maintenant, lancez les dés !",
@@ -20,6 +21,11 @@ export const fr: I18nLocale = {
 		},
 	},
 	detrak: {
+		ariaLabel: {
+			column: "colonne",
+			empty: "vide",
+			row: "ligne",
+		},
 		clickGrid1: {
 			part1:
 				"Choisissez une cellule vide dans la grille pour y insérer le symbole du premier dé.",
@@ -38,6 +44,14 @@ export const fr: I18nLocale = {
 					"Le score de la diagonale apparaît aux deux extrémités — il est compté deux fois !",
 				part2: "Lancez à nouveau les dés pour continuer le jeu.",
 			},
+		},
+		symbolNames: {
+			bar: "barre",
+			circle: "cercle",
+			cross: "croix",
+			sharp: "dièse",
+			triangle: "triangle",
+			tripleBar: "triple barre",
 		},
 	},
 	headerMenu: {

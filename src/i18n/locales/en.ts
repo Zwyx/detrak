@@ -9,6 +9,7 @@ export const en = {
 		endOnGameWithNewScore: "Well done! Your new highest score is",
 		numberOfGames_one: "{{count}} game",
 		numberOfGames_other: "{{count}} games",
+		rollDice: "roll dice",
 		rollDice1: {
 			part1:
 				"The symbol you have selected has been inserted in the grid below.",
@@ -22,6 +23,11 @@ export const en = {
 	},
 
 	detrak: {
+		ariaLabel: {
+			column: "column",
+			empty: "empty",
+			row: "row",
+		},
 		clickGrid1: {
 			part1:
 				"Choose an empty cell in the grid to insert the symbol of the first dice.",
@@ -40,6 +46,14 @@ export const en = {
 					"The diagonal's score appears on both ends, so it is counted twice!",
 				part2: "Roll the dice again to continue the game.",
 			},
+		},
+		symbolNames: {
+			bar: "bar",
+			circle: "circle",
+			cross: "cross",
+			sharp: "sharp",
+			triangle: "triangle",
+			tripleBar: "triple bar",
 		},
 	},
 
