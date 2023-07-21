@@ -85,7 +85,7 @@ export function HeaderMenu() {
 					</div>
 				</ScrollArea>
 
-				<div className="text-right text-sm text-muted-foreground">
+				<div className="text-right text-xs font-bold text-muted-foreground">
 					{import.meta.env.VITE_APP_VERSION}
 				</div>
 			</SheetContent>

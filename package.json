@@ -1,11 +1,11 @@
 {
 	"name": "detrak",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
-		"build": "npm run lint && tsc && vite build",
+		"dev": "VITE_APP_VERSION=$(jq -r '.version' package.json) vite",
+		"build": "npm run lint && tsc && VITE_APP_VERSION=$(jq -r '.version' package.json) vite build",
 		"lint": "eslint src --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"pwa-asset-generator": "npx pwa-asset-generator --opaque false --favicon --type png res/dices.svg public",
