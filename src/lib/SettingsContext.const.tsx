@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { SettingsContext } from "./SettingsContext";
 
-// This was extracted from the neighbouring file following the ESLint warning
-// `react-refresh/only-export-components`
+// Was extracted from the main context file because of the ESLint warning `react-refresh/only-export-components`
 
 export const useSettingsContext = () => {
 	const context = useContext(SettingsContext);
