@@ -333,7 +333,7 @@ export const App = () => {
 												helpStep === "afterDiceRolling2") &&
 												"invisible",
 										)}
-										title="Undo this move"
+										aria-label="Undo this move"
 										disabled={!canUndoMove}
 										onClick={() => {
 											updateGrid({
@@ -379,6 +379,7 @@ export const App = () => {
 											"mr-2 h-14 sm:mr-0",
 											settings.autoRollDice && "invisible",
 										)}
+										aria-label={t("rollDice")}
 										disabled={!canRollDice}
 										onClick={rollDice}
 									>
