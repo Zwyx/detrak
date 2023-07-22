@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - staging/**
   workflow_dispatch:
 
 permissions:
@@ -22,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: main
+          fetch-depth: 0
 
       - run: echo "nvmrc=$(cat .nvmrc)" >> $GITHUB_ENV
         id: nvmrc
@@ -37,15 +38,16 @@ jobs:
           npm run build
 
       - run: |
-          git fetch
-          git switch --orphan dist
+          branch=$([[ "$(git branch --show-current)" == "main" ]] && echo "dist" || echo "staging/dist")
+          git switch --orphan $branch
+          [[ "$(git branch --show-current)" != "main" ]] && git branch main remotes/origin/main
           git checkout main netlify.toml
           git add netlify.toml
           git add docs
           git config user.name "Zwyx - GitHub Actions"
           git config user.email "29386932+Zwyx@users.noreply.github.com>"
           git commit -m "Build website"
-          git push --set-upstream origin --force dist
+          git push --set-upstream origin --force $branch
       #
       # - name: Setup tmate session
       #   if: ${{ always() }}
