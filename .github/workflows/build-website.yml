@@ -36,14 +36,6 @@ jobs:
           npm ci
           npm run build
 
-      # - env:
-      #     STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
-      #     # The first line is temporary, see https://github.com/robinmoisson/staticrypt/pull/177
-      #   run: |
-      #     npm run staticrypt -- docs/index.html
-      #     npm run staticrypt -- docs/index.html --share
-      #     mv -v encrypted/index.html docs/index.html
-
       - run: |
           git fetch
           git switch --orphan dist
