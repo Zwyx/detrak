@@ -34,7 +34,7 @@ export function HeaderMenu() {
 			<SheetContent side="left" className="w-auto">
 				<span className="font-bold">{t("detrak")}</span>
 
-				<ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
+				<ScrollArea className="my-4 h-[calc(100dvh-8rem)] pb-10 pl-6">
 					<div className="flex h-full flex-col items-start gap-3">
 						<Button
 							variant="link"
