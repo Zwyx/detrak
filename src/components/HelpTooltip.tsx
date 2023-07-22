@@ -29,7 +29,11 @@ export const HelpTooltip: FC<HelpTooltipProps> = ({
 	children,
 }) => (
 	<HoverCard open={open}>
-		<HoverCardTrigger />
+		{/* `asChild` and `div` are only to fix the SEO warning in Lighthouse */}
+		<HoverCardTrigger asChild>
+			<div />
+		</HoverCardTrigger>
+
 		<HoverCardContent
 			className="border-none bg-info p-2 text-center text-sm"
 			side={side}

@@ -9,7 +9,7 @@ import {
 	SymbolRight,
 	SymbolTop,
 } from "./Detrak";
-import styles from "./dice.module.css";
+import styles from "./Dice.module.css";
 
 const faces = ["front", "top", "right", "left", "bottom", "back"] as const;
 type Face = (typeof faces)[number];

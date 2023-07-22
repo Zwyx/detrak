@@ -92,6 +92,15 @@ export const Cell: FC<CellProps> = ({
 	const canPlay = symbol && onClick && (value === null || startOfGame);
 	const bgColor = x + y === 6 && "bg-accent";
 
+	const symbolNames = [
+		t("symbolNames.bar"),
+		t("symbolNames.cross"),
+		t("symbolNames.tripleBar"),
+		t("symbolNames.sharp"),
+		t("symbolNames.triangle"),
+		t("symbolNames.circle"),
+	];
+
 	return (
 		<button
 			className={cn(
@@ -103,6 +112,15 @@ export const Cell: FC<CellProps> = ({
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
 				bgColor,
 			)}
+			aria-label={
+				startOfGame && typeof value === "number"
+					? symbolNames[value]
+					: `${t("ariaLabel.row")} ${y} ${t("ariaLabel.column")} ${x} ${
+							typeof value === "number"
+								? symbolNames[value]
+								: t("ariaLabel.empty")
+					  }`
+			}
 			disabled={!canPlay}
 			onClick={onClick}
 			onContextMenu={
@@ -131,7 +149,7 @@ export const Cell: FC<CellProps> = ({
 				))}
 
 			{(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && (
-				<span className="font-[caveat] mr-3 text-6xl max-[550px]:text-[8vw]">
+				<span className="mr-3 font-[caveat] text-6xl max-[550px]:text-[8vw]">
 					{value}
 				</span>
 			)}
