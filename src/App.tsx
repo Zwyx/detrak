@@ -49,7 +49,7 @@ const getLineScore = (line: TLine): number => {
 };
 
 export const App = () => {
-	const { pwaNeedsRefresh, pwaRefresh } = usePwaContext();
+	const pwa = usePwaContext();
 	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
 		useSettingsContext();
 
@@ -403,8 +403,8 @@ export const App = () => {
 								<Button
 									disabled={move !== 1 && move !== 2}
 									onClick={() => {
-										if (pwaNeedsRefresh && pwaRefresh) {
-											pwaRefresh();
+										if (pwa.needsRefresh && pwa.refresh) {
+											pwa.refresh();
 											return;
 										}
 

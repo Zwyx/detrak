@@ -14,6 +14,7 @@ export default defineConfig({
 			manifestFilename: "manifest.json",
 			manifest: {
 				name: "Detrak",
+				short_name: "Detrak",
 				description: "The Detrak dice game",
 				theme_color: "#020817",
 				background_color: "#020817",

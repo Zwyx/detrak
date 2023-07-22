@@ -3,8 +3,8 @@ import { registerSW } from "virtual:pwa-register";
 
 export const PwaContext = createContext<
 	| {
-			pwaNeedsRefresh: boolean;
-			pwaRefresh: (() => void) | undefined;
+			needsRefresh: boolean;
+			refresh: (() => void) | undefined;
 	  }
 	| undefined
 >(undefined);
@@ -16,15 +16,15 @@ export const PwaContextProvider = ({ children }: { children: ReactNode }) => {
 	useEffect(() => {
 		setRefresh(() =>
 			registerSW({
+				onRegisteredSW: (_, r) =>
+					r && setInterval(() => r.update(), 60 * 60 * 1000),
 				onNeedRefresh: () => setNeedsRefresh(true),
 			}),
 		);
 	}, []);
 
 	return (
-		<PwaContext.Provider
-			value={{ pwaNeedsRefresh: needsRefresh, pwaRefresh: refresh }}
-		>
+		<PwaContext.Provider value={{ needsRefresh, refresh }}>
 			{children}
 		</PwaContext.Provider>
 	);
