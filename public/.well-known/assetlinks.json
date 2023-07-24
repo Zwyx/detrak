@@ -1,8 +1,13 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "net.detrak.twa",
-        "sha256_cert_fingerprints": ["D9:EA:06:32:92:FD:1E:24:13:89:0E:45:58:CA:63:7C:7B:99:CD:16:5F:13:91:3B:FE:57:58:F0:C7:34:7C:4E"]
-      }
-    }]
+[
+	{
+		"relation": ["delegate_permission/common.handle_all_urls"],
+		"target": {
+			"namespace": "android_app",
+			"package_name": "net.detrak.twa",
+			"sha256_cert_fingerprints": [
+				"D9:EA:06:32:92:FD:1E:24:13:89:0E:45:58:CA:63:7C:7B:99:CD:16:5F:13:91:3B:FE:57:58:F0:C7:34:7C:4E",
+				"65:9E:69:22:AB:3A:58:C7:01:25:9C:90:8C:4E:DF:23:80:6D:CD:13:BD:00:92:55:D3:1A:B4:9E:F6:28:69:E8"
+			]
+		}
+	}
+]
