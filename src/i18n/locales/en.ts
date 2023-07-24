@@ -58,15 +58,25 @@ export const en = {
 	},
 
 	headerMenu: {
-		aboutTheDeveloper: "About the developer",
 		detrak: "Detrak",
-		goToEditorWebsite: "Go to the editor's website",
-		heyImAlex1: "Hey I'm ",
-		heyImAlex2: "Alex",
-		heyImAlex3: ", a web developer from Australia.",
-		hopeEnjoyDetrak: "I hope you enjoy Detrak!",
+		digitalVersion: {
+			madeBy: "This digital version has been made by me, ",
+			webDeveloper:
+				", an independent web developper from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
+		},
+		gigamicGame: "Detrak is a copyrighted game published by ",
+		privacyPolicy: {
+			title: "Privacy policy",
+			content: "No user data is collected.",
+		},
+		termsAndConditions: {
+			title: "Terms and conditions",
+			content:
+				"The software is provided “as is”, without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.",
+		},
 		toggleMenu: "Toggle menu",
-		writeToMe: "Feel free to write to me at ",
+		version: "version",
+		writeToMe: "I hope you're enjoying it! Feel free to write to me at ",
 	},
 
 	languageToggle: {
@@ -112,6 +122,10 @@ export const en = {
 			description:
 				"Show a confetti explosion when you beat your highest score!",
 		},
+	},
+
+	siteHeader: {
+		detrakFanMade: "Detrak – Fan made",
 	},
 } as const;
 

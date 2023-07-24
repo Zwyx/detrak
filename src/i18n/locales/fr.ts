@@ -16,7 +16,7 @@ export const fr: I18nLocale = {
 		},
 		startNewGame: "Rejouer",
 		welcome: {
-			title: "Bienvenu dans le jeu Detrak !",
+			title: "Bienvenu dans le jeu Détrak !",
 			text: "Commencez par sélectionner l'un des six symboles ci-dessus.",
 		},
 	},
@@ -55,15 +55,26 @@ export const fr: I18nLocale = {
 		},
 	},
 	headerMenu: {
-		aboutTheDeveloper: "À propos du dévelopeur",
-		detrak: "Detrak",
-		goToEditorWebsite: "Aller sur le site de l'éditeur",
-		heyImAlex1: "Je suis ",
-		heyImAlex2: "Alex",
-		heyImAlex3: ", un dévelopeur web australien.",
-		hopeEnjoyDetrak: "J'espère que vous apréciez Détrak !",
+		detrak: "Détrak",
+		digitalVersion: {
+			madeBy: "Cette version numérique a été créée pas moi, ",
+			webDeveloper:
+				", un développeur web australien, avec l'accord de Gigamic. Merci encore, Gigamic !",
+		},
+		gigamicGame: "Détrak est un jeu protégé par copyrighted et publié par ",
+		privacyPolicy: {
+			title: "Politique de confidentialité",
+			content: "Aucune donnée utilisateur n'est collectée.",
+		},
+		termsAndConditions: {
+			title: "Termes et conditions",
+			content:
+				"Le logiciel est fourni « tel quel », sans garantie d'aucune sorte. En aucun cas, les auteurs ou titulaires du droit d'auteur ne seront responsables de tout dommage, réclamation ou autre responsabilité, que ce soit dans le cadre d'un contrat, d'un délit ou autre, en provenance de, consécutif à ou en relation avec le logiciel ou son utilisation, ou avec d'autres éléments du logiciel.",
+		},
 		toggleMenu: "Ouvrir le menu",
-		writeToMe: "Écrivez-moi à ",
+		version: "version",
+		writeToMe:
+			"J'espère que vous apréciez Détrak ! N'hésitez pas à m'écrire à ",
 	},
 	languageToggle: { chooseLanguage: "Choisir la langue" },
 	modeToggle: {
@@ -100,5 +111,9 @@ export const fr: I18nLocale = {
 			description:
 				"Jeter des confettis quand vous établissez un nouveau record !",
 		},
+	},
+
+	siteHeader: {
+		detrakFanMade: "Détrak – Fan made",
 	},
 } as const;

@@ -5,12 +5,12 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "~/components/ui/button";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
 } from "./ui/dialog";
 
@@ -31,62 +31,116 @@ export function HeaderMenu() {
 				</Button>
 			</SheetTrigger>
 
-			<SheetContent side="left" className="w-auto">
+			<SheetContent
+				side="left"
+				className="flex h-full w-auto flex-col items-start gap-0 overflow-auto"
+			>
 				<span className="font-bold">{t("detrak")}</span>
 
-				<ScrollArea className="my-4 h-[calc(100dvh-8rem)] pb-10 pl-6">
-					<div className="flex h-full flex-col items-start gap-3">
+				<div className="mt-4">
+					{t("gigamicGame")}
+					<a
+						href="https://www.gigamic.com/jeu/detrak"
+						target="_blank"
+						rel="noreferrer nofollow"
+						className="font-bold"
+					>
+						{"Gigamic"}
+					</a>
+					.
+				</div>
+
+				<div className="mt-4">
+					{t("digitalVersion.madeBy")}
+					<a
+						href="https://zwyx.dev"
+						target="_blank"
+						rel="noreferrer nofollow"
+						className="font-bold"
+					>
+						{"Alex"}
+					</a>
+					{t("digitalVersion.webDeveloper")}
+				</div>
+
+				<div className="mt-4">
+					{t("writeToMe")}
+					<a href="mailto:alex@detrak.net" className="font-bold">
+						{"alex@detrak.net"}
+					</a>
+				</div>
+
+				<div className="flex-1" />
+
+				<Dialog>
+					<DialogTrigger asChild>
 						<Button
 							variant="link"
 							size="sm"
-							className="hover:no-underline"
-							asChild
+							className="mt-2 h-fit p-0 text-right text-xs font-bold text-muted-foreground hover:no-underline"
 						>
-							<a
-								href="https://www.gigamic.com/jeu/detrak"
-								target="_blank"
-								rel="noreferrer nofollow"
-								className="text-sm font-medium"
-							>
-								{t("goToEditorWebsite")}
-							</a>
+							{t("privacyPolicy.title")}
 						</Button>
+					</DialogTrigger>
 
-						<Dialog>
-							<DialogTrigger asChild>
-								<Button variant="link" size="sm" className="hover:no-underline">
-									{t("aboutTheDeveloper")}
-								</Button>
-							</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>{t("privacyPolicy.title")}</DialogTitle>
+						</DialogHeader>
 
-							<DialogContent>
-								<DialogHeader />
+						<div>{t("privacyPolicy.content")}</div>
+					</DialogContent>
+				</Dialog>
 
-								<div>
-									{t("heyImAlex1")}
-									<a
-										href="https://zwyx.dev"
-										target="_blank"
-										rel="noreferrer nofollow"
-									>
-										{t("heyImAlex2")}
-									</a>
-									{t("heyImAlex3")}
-								</div>
+				<Dialog>
+					<DialogTrigger asChild>
+						<Button
+							variant="link"
+							size="sm"
+							className="mt-2 h-fit p-0 text-right text-xs font-bold text-muted-foreground hover:no-underline"
+						>
+							{t("termsAndConditions.title")}
+						</Button>
+					</DialogTrigger>
 
-								{t("hopeEnjoyDetrak")}
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>{t("termsAndConditions.title")}</DialogTitle>
+						</DialogHeader>
 
-								<div>
-									{t("writeToMe")}
-									<a href="mailto:alex@detrak.net">{"alex@detrak.net"}</a>.
-								</div>
-							</DialogContent>
-						</Dialog>
-					</div>
-				</ScrollArea>
+						<div>{t("termsAndConditions.content")}</div>
+					</DialogContent>
+				</Dialog>
 
-				<div className="text-right text-xs font-bold text-muted-foreground">
-					{import.meta.env.VITE_APP_VERSION}
+				<div className="mt-4 w-full border" />
+
+				<div className="mt-4 w-full text-xs text-muted-foreground">
+					{"Original game © "}
+					<a
+						href="https://www.gigamic.com"
+						target="_blank"
+						rel="noreferrer nofollow"
+						className="font-bold"
+					>
+						{"Gigamic"}
+					</a>
+				</div>
+
+				<div className="mt-1 w-full text-xs text-muted-foreground">
+					{"Digital version © "}
+					<a
+						href="https://zwyx.dev"
+						target="_blank"
+						rel="noreferrer nofollow"
+						className="font-bold"
+					>
+						{"Zwyx.dev"}
+					</a>
+				</div>
+
+				<div className="mt-1 w-full text-right text-xs text-muted-foreground">
+					{t("version")}{" "}
+					<span className="font-bold">{import.meta.env.VITE_APP_VERSION}</span>
 				</div>
 			</SheetContent>
 		</Sheet>
