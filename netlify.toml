@@ -1,13 +1,6 @@
 [build]
 	publish = "docs"
 
-# Suggested in Vite-PWA's docs: https://vite-pwa-org.netlify.app/deployment/netlify.html
-# but I find it unnecessary
-# [[redirects]]
-# 	from = "/*"
-# 	to = "/index.html"
-# 	status = 200
-
 [[headers]]
 	for = "/assets/*"
 	[headers.values]
