@@ -9,6 +9,7 @@ export const fr: I18nLocale = {
 		endOnGameWithNewScore: "Bravo! Votre nouveau record est",
 		numberOfGames_one: "{{count}} partie",
 		numberOfGames_other: "{{count}} parties",
+		rollDice: "lancer les dés",
 		rollDice1: {
 			part1: "Le symbole sélectionné a été placé dans la grille ci-dessous.",
 			part2: "Maintenant, lancez les dés !",
@@ -20,6 +21,11 @@ export const fr: I18nLocale = {
 		},
 	},
 	detrak: {
+		ariaLabel: {
+			column: "colonne",
+			empty: "vide",
+			row: "ligne",
+		},
 		clickGrid1: {
 			part1:
 				"Choisissez une cellule vide dans la grille pour y insérer le symbole du premier dé.",
@@ -39,11 +45,25 @@ export const fr: I18nLocale = {
 				part2: "Lancez à nouveau les dés pour continuer le jeu.",
 			},
 		},
+		symbolNames: {
+			bar: "barre",
+			circle: "cercle",
+			cross: "croix",
+			sharp: "dièse",
+			triangle: "triangle",
+			tripleBar: "triple barre",
+		},
 	},
 	headerMenu: {
+		aboutTheDeveloper: "À propos du dévelopeur",
 		detrak: "Detrak",
 		goToEditorWebsite: "Aller sur le site de l'éditeur",
+		heyImAlex1: "Je suis ",
+		heyImAlex2: "Alex",
+		heyImAlex3: ", un dévelopeur web australien.",
+		hopeEnjoyDetrak: "J'espère que vous apréciez Détrak !",
 		toggleMenu: "Ouvrir le menu",
+		writeToMe: "Écrivez-moi à ",
 	},
 	languageToggle: { chooseLanguage: "Choisir la langue" },
 	modeToggle: {

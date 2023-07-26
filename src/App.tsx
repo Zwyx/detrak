@@ -7,6 +7,7 @@ import { Dice } from "./components/Dice";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
 import { SiteHeader } from "./components/SiteHeader";
 import { Button } from "./components/ui/button";
+import { usePwaContext } from "./lib/PwaContext.const";
 import { useSettingsContext } from "./lib/SettingsContext.const";
 import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/keys";
 import { cn } from "./lib/utils";
@@ -48,10 +49,11 @@ const getLineScore = (line: TLine): number => {
 };
 
 export const App = () => {
-	const { t } = useTranslation(["app"]);
-
+	const pwa = usePwaContext();
 	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
 		useSettingsContext();
+
+	const { t } = useTranslation(["app"]);
 
 	const initialGrid = Array(7)
 		.fill(0)
@@ -276,7 +278,7 @@ export const App = () => {
 			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
 				{startOfGame && (
 					<>
-						<div className="relative flex w-full min-w-[300px] max-w-[550px] ">
+						<div className="relative flex w-full min-w-[300px] max-w-[550px]">
 							<div className="flex-[0.5]" />
 							{Array(6)
 								.fill(0)
@@ -331,7 +333,7 @@ export const App = () => {
 												helpStep === "afterDiceRolling2") &&
 												"invisible",
 										)}
-										title="Undo this move"
+										aria-label="Undo this move"
 										disabled={!canUndoMove}
 										onClick={() => {
 											updateGrid({
@@ -377,6 +379,7 @@ export const App = () => {
 											"mr-2 h-14 sm:mr-0",
 											settings.autoRollDice && "invisible",
 										)}
+										aria-label={t("rollDice")}
 										disabled={!canRollDice}
 										onClick={rollDice}
 									>
@@ -390,7 +393,7 @@ export const App = () => {
 							</>
 						) : (
 							<div className="flex flex-col items-center gap-4">
-								<div className="font-[caveat] mt-1 text-center text-3xl">
+								<div className="mt-1 text-center font-[caveat] text-3xl">
 									{newHighestScore
 										? t("endOnGameWithNewScore")
 										: t("endOnGame")}{" "}
@@ -400,6 +403,11 @@ export const App = () => {
 								<Button
 									disabled={move !== 1 && move !== 2}
 									onClick={() => {
+										if (pwa.needsRefresh && pwa.refresh) {
+											pwa.refresh();
+											return;
+										}
+
 										updateGrid({ x: -1, y: -1, newValue: null });
 										setDice([null, null]);
 										setMove(-1);
@@ -450,7 +458,7 @@ export const App = () => {
 			</div>
 
 			{typeof highestScore === "number" && (
-				<div className="font-[caveat] mt-1 text-center text-3xl">
+				<div className="mt-1 text-center font-[caveat] text-3xl">
 					{t("numberOfGames", { count: numberOfGames })} – {t("bestScore")}{" "}
 					{highestScore}
 				</div>
