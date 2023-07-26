@@ -16,6 +16,7 @@ export default defineConfig({
 				name: "Detrak",
 				short_name: "Detrak",
 				description: "The Detrak dice game",
+				categories: ["game", "casual game", "dice game"],
 				theme_color: "#0f1c2e",
 				background_color: "#0f1c2e",
 				icons: [
