@@ -67,7 +67,8 @@ export const en = {
 		gigamicGame: "Detrak is a copyrighted game published by ",
 		privacyPolicy: {
 			title: "Privacy policy",
-			content: "No user data is collected.",
+			content:
+				"No personal user data is collected. Google Analytics is used in no-storage mode (no cookies) to report statistics such as the number of users.",
 		},
 		termsAndConditions: {
 			title: "Terms and conditions",

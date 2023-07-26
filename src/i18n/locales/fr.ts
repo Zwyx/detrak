@@ -57,14 +57,15 @@ export const fr: I18nLocale = {
 	headerMenu: {
 		detrak: "Détrak",
 		digitalVersion: {
-			madeBy: "Cette version numérique a été créée pas moi, ",
+			madeBy: "Cette version numérique a été créée par moi-même, ",
 			webDeveloper:
 				", un développeur web australien, avec l'accord de Gigamic. Merci encore, Gigamic !",
 		},
 		gigamicGame: "Détrak est un jeu protégé par copyrighted et publié par ",
 		privacyPolicy: {
 			title: "Politique de confidentialité",
-			content: "Aucune donnée utilisateur n'est collectée.",
+			content:
+				"Aucune donnée personnelle utilisateur n'est collectée. Google Analytics est utilisé en mode 'sans cookies' pour rapporter des statistiques comme le nombre d'utilisateurs.",
 		},
 		termsAndConditions: {
 			title: "Termes et conditions",
