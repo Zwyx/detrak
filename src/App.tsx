@@ -352,6 +352,7 @@ export const App = () => {
 									{dice[0] !== null && (
 										<Dice
 											value={dice[0] || 0}
+											marked={!diceRolling && move === 0}
 											timestamp={diceTimestamp}
 											hidden={diceHidden}
 										/>
@@ -362,6 +363,7 @@ export const App = () => {
 									{dice[1] !== null && (
 										<Dice
 											value={dice[1] || 0}
+											marked={!diceRolling && move === 1}
 											timestamp={diceTimestamp}
 											hidden={diceHidden}
 										/>

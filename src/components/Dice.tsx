@@ -1,3 +1,4 @@
+import { LucideChevronUp } from "lucide-react";
 import { FC, useEffect, useRef } from "react";
 import { useSettingsContext } from "~/lib/SettingsContext.const";
 import { cn, usePrevious } from "~/lib/utils";
@@ -16,11 +17,12 @@ type Face = (typeof faces)[number];
 
 interface DiceProps {
 	value: number;
+	marked: boolean;
 	timestamp: number;
 	hidden?: boolean;
 }
 
-export const Dice: FC<DiceProps> = ({ value, timestamp, hidden }) => {
+export const Dice: FC<DiceProps> = ({ value, marked, timestamp, hidden }) => {
 	const { settings } = useSettingsContext();
 
 	const containerZ = useRef<HTMLDivElement>(null);
@@ -169,50 +171,58 @@ export const Dice: FC<DiceProps> = ({ value, timestamp, hidden }) => {
 	]);
 
 	return (
-		<div
-			ref={containerZ}
-			className={cn(
-				styles.preserve3d,
-				"transition-opacity duration-200",
-				hidden && "opacity-0",
-			)}
-		>
-			<div ref={containerY} className={styles.preserve3d}>
-				<div
-					ref={containerX}
-					className={cn(
-						styles.preserve3d,
-						"h-[60px] w-[60px] xsm:h-[86px] xsm:w-[86px]",
-					)}
-				>
-					{faces.map((face) => (
-						<div
-							key={face}
-							className={cn(
-								styles.preserve3d,
-								"absolute aspect-square w-full border-[6px] border-background bg-background xsm:border-[9px]",
-								styles[face],
-							)}
-						>
-							<div className="absolute flex h-full w-full items-center justify-center rounded-2xl bg-dice">
-								{face === "front" ? (
-									<SymbolFront />
-								) : face === "top" ? (
-									<SymbolTop />
-								) : face === "right" ? (
-									<SymbolRight />
-								) : face === "left" ? (
-									<SymbolLeft />
-								) : face === "bottom" ? (
-									<SymbolBottom />
-								) : (
-									face === "back" && <SymbolBack bgColor={"bg-dice"} />
+		<div>
+			<div
+				ref={containerZ}
+				className={cn(
+					styles.preserve3d,
+					"transition-opacity duration-200",
+					hidden && "opacity-0",
+				)}
+			>
+				<div ref={containerY} className={styles.preserve3d}>
+					<div
+						ref={containerX}
+						className={cn(
+							styles.preserve3d,
+							"h-[60px] w-[60px] xsm:h-[86px] xsm:w-[86px]",
+						)}
+					>
+						{faces.map((face) => (
+							<div
+								key={face}
+								className={cn(
+									styles.preserve3d,
+									"absolute aspect-square w-full border-[6px] border-background bg-background xsm:border-[9px]",
+									styles[face],
 								)}
+							>
+								<div className="absolute flex h-full w-full items-center justify-center rounded-2xl bg-dice">
+									{face === "front" ? (
+										<SymbolFront />
+									) : face === "top" ? (
+										<SymbolTop />
+									) : face === "right" ? (
+										<SymbolRight />
+									) : face === "left" ? (
+										<SymbolLeft />
+									) : face === "bottom" ? (
+										<SymbolBottom />
+									) : (
+										face === "back" && <SymbolBack bgColor={"bg-dice"} />
+									)}
+								</div>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</div>
+
+			{marked && (
+				<div className="absolute mt-1 flex h-[60px] w-[60px] justify-center xsm:h-[86px] xsm:w-[86px]">
+					<LucideChevronUp />
+				</div>
+			)}
 		</div>
 	);
 };
