@@ -14,6 +14,7 @@ export interface Settings {
 	showScoreLegend: boolean;
 	animateDice: boolean;
 	autoRollDice: boolean;
+	showDiceMarker: boolean;
 	showConfetti: boolean;
 }
 
@@ -22,6 +23,7 @@ const defaultSettings: Settings = {
 	showScoreLegend: true,
 	animateDice: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 	autoRollDice: false,
+	showDiceMarker: true,
 	showConfetti: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 };
 

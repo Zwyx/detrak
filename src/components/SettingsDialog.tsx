@@ -63,7 +63,7 @@ export function SettingsDialog() {
 				</Button>
 			</DialogTrigger>
 
-			<DialogContent>
+			<DialogContent className="max-h-full overflow-auto">
 				<DialogHeader>
 					<DialogTitle>{t("settings")}</DialogTitle>
 					{/* <DialogDescription></DialogDescription> */}
@@ -97,6 +97,13 @@ export function SettingsDialog() {
 					}`}
 				>
 					{t("autoRollDice.description")}
+				</SettingCheckbox>
+
+				<SettingCheckbox
+					name="showDiceMarker"
+					title={t("showDiceMarker.title")}
+				>
+					{t("showDiceMarker.description")}
 				</SettingCheckbox>
 
 				<SettingCheckbox name="showConfetti" title={t("showConfetti.title")}>

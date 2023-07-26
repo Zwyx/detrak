@@ -86,19 +86,23 @@ export const fr: I18nLocale = {
 	settingsDialog: {
 		openSettingsDialog: "Ouvrir la boîte de dialog des paramètres",
 		settings: "Paramètres",
+
 		alwaysShowScore: {
 			title: "Toujours afficher le score",
 			description:
 				"Vous permettra de voir votre score en temps réel, au lieu de seulement à la fin de la partie.",
 		},
+
 		showScoreLegend: {
 			title: "Afficher la légende du score",
 			description: "La légende placée au dessus de la grille de jeu.",
 		},
+
 		animateDice: {
 			title: "Animer les lancés de dés",
 			description: "Lancer les dés avec une animation 3D.",
 		},
+
 		autoRollDice: {
 			title: "Lancer les dés automatiquement",
 			notAvailableDuringTheFirstGame:
@@ -106,6 +110,13 @@ export const fr: I18nLocale = {
 			description:
 				"Les dés sont lancés automatiquement dès qu'un coup est complet (lorsque les deux symboles sont placés sur la grille). Ceci empêche l'annulation du placement du deuxième symbole.",
 		},
+
+		showDiceMarker: {
+			title: "Afficher un marqueur sous les dés",
+			description:
+				"Afficher un marquer sous le dé dont le symbole est celui sur le point d'être placé dans la grille.",
+		},
+
 		showConfetti: {
 			title: "Confettis",
 			description:

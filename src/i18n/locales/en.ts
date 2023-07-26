@@ -97,7 +97,7 @@ export const en = {
 		alwaysShowScore: {
 			title: "Always show the score",
 			description:
-				"Will allow you to see your current score during the game, instead of only at the end.",
+				"Allow you to see your current score during the game, instead of only at the end.",
 		},
 
 		showScoreLegend: {
@@ -115,6 +115,12 @@ export const en = {
 			notAvailableDuringTheFirstGame: "(not available during the first game)",
 			description:
 				"Dice will be rolled automatically once a move is complete (when the two symbols are placed on the grid). This removes the ability to undo the second symbol placement.",
+		},
+
+		showDiceMarker: {
+			title: "Show dice marker",
+			description:
+				"Show a marker below the dice, the symbol of which you are about to play.",
 		},
 
 		showConfetti: {
