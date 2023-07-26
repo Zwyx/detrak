@@ -9,28 +9,28 @@
 	/* variables for light theme */
 
 	--background: 0 0% 100%;
-	--foreground: 222.2 84% 4.9%;
+	--foreground: 216 50% 20%;
 
 	--muted: 210 40% 96.1%;
-	--muted-foreground: 215.4 16.3% 46.9%;
+	--muted-foreground: 216 50% 30%;
 
 	--popover: 0 0% 100%;
-	--popover-foreground: 222.2 84% 4.9%;
+	--popover-foreground: 216 50% 20%;
 
 	--card: 0 0% 100%;
-	--card-foreground: 222.2 84% 4.9%;
+	--card-foreground: 216 50% 20%;
 
 	--border: 214.3 31.8% 91.4%;
 	--input: 214.3 31.8% 91.4%;
 
-	--primary: 222.2 47.4% 11.2%;
+	--primary: 216 50% 20%;
 	--primary-foreground: 210 40% 98%;
 
 	--secondary: 210 40% 96.1%;
-	--secondary-foreground: 222.2 47.4% 11.2%;
+	--secondary-foreground: 216 50% 20%;
 
 	--accent: 210 40% 96.1%;
-	--accent-foreground: 222.2 47.4% 11.2%;
+	--accent-foreground: 216 50% 30%;
 
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 210 40% 98%;
@@ -48,16 +48,16 @@
 	:root:not(.light) {
 		/* variables for dark theme */
 
-		--background: 216 50% 11.8%; /* #020817 */
+		--background: 216 50% 12%; /* #0f1c2e */
 		--foreground: 210 6% 80%;
 
 		--muted: 217.2 32.6% 17.5%;
 		--muted-foreground: 215 20.2% 65.1%;
 
-		--popover: 222.2 84% 4.9%;
+		--popover: 216 50% 11.8%;
 		--popover-foreground: 210 6% 80%;
 
-		--card: 222.2 84% 4.9%;
+		--card: 216 50% 11.8%;
 		--card-foreground: 210 6% 80%;
 
 		--border: 217.2 32.6% 17.5%;
