@@ -79,16 +79,20 @@ export function HeaderMenu() {
 							size="sm"
 							className="mt-2 h-fit p-0 text-right text-xs font-bold text-muted-foreground hover:no-underline"
 						>
-							{t("privacyPolicy.title")}
+							{"Privacy policy"}
 						</Button>
 					</DialogTrigger>
 
 					<DialogContent>
 						<DialogHeader>
-							<DialogTitle>{t("privacyPolicy.title")}</DialogTitle>
+							<DialogTitle>{"Privacy policy"}</DialogTitle>
 						</DialogHeader>
 
-						<div>{t("privacyPolicy.content")}</div>
+						<div>
+							{
+								"No personal user data is collected. Google Analytics is used in no-storage mode (no cookies) to report statistics such as the number of users."
+							}
+						</div>
 					</DialogContent>
 				</Dialog>
 
@@ -99,16 +103,20 @@ export function HeaderMenu() {
 							size="sm"
 							className="mt-2 h-fit p-0 text-right text-xs font-bold text-muted-foreground hover:no-underline"
 						>
-							{t("termsAndConditions.title")}
+							{"Terms and conditions"}
 						</Button>
 					</DialogTrigger>
 
 					<DialogContent>
 						<DialogHeader>
-							<DialogTitle>{t("termsAndConditions.title")}</DialogTitle>
+							<DialogTitle>{"Terms and conditions"}</DialogTitle>
 						</DialogHeader>
 
-						<div>{t("termsAndConditions.content")}</div>
+						<div>
+							{
+								"The software is provided “as is”, without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software."
+							}
+						</div>
 					</DialogContent>
 				</Dialog>
 

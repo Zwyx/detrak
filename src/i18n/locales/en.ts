@@ -65,16 +65,6 @@ export const en = {
 				", an independent web developper from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
 		},
 		gigamicGame: "Detrak is a copyrighted game published by ",
-		privacyPolicy: {
-			title: "Privacy policy",
-			content:
-				"No personal user data is collected. Google Analytics is used in no-storage mode (no cookies) to report statistics such as the number of users.",
-		},
-		termsAndConditions: {
-			title: "Terms and conditions",
-			content:
-				"The software is provided “as is”, without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.",
-		},
 		toggleMenu: "Toggle menu",
 		version: "version",
 		writeToMe: "I hope you're enjoying it! Feel free to write to me at ",

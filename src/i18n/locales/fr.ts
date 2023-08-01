@@ -62,16 +62,6 @@ export const fr: I18nLocale = {
 				", un développeur web australien, avec l'accord de Gigamic. Merci encore, Gigamic !",
 		},
 		gigamicGame: "Détrak est un jeu protégé par copyrighted et publié par ",
-		privacyPolicy: {
-			title: "Politique de confidentialité",
-			content:
-				"Aucune donnée personnelle utilisateur n'est collectée. Google Analytics est utilisé en mode 'sans cookies' pour rapporter des statistiques comme le nombre d'utilisateurs.",
-		},
-		termsAndConditions: {
-			title: "Termes et conditions",
-			content:
-				"Le logiciel est fourni « tel quel », sans garantie d'aucune sorte. En aucun cas, les auteurs ou titulaires du droit d'auteur ne seront responsables de tout dommage, réclamation ou autre responsabilité, que ce soit dans le cadre d'un contrat, d'un délit ou autre, en provenance de, consécutif à ou en relation avec le logiciel ou son utilisation, ou avec d'autres éléments du logiciel.",
-		},
 		toggleMenu: "Ouvrir le menu",
 		version: "version",
 		writeToMe:

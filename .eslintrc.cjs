@@ -22,12 +22,15 @@ module.exports = {
 			version: "detect",
 		},
 	},
+	ignorePatterns: ["src/components/ui", "src/lib/confetti.min.js"],
 	overrides: [
 		{
-			// to prevent `'module' is not defined` at the top of this file
-			files: ["**/*.cjs"],
+			files: [".eslintrc.{js,cjs}"],
 			env: {
 				node: true,
+			},
+			parserOptions: {
+				sourceType: "script",
 			},
 		},
 	],
@@ -62,6 +65,9 @@ module.exports = {
 
 		// Disallow renaming import, export, and destructured assignments to the same name; example: prevent `const { a: a } = b;` in favour of `const { a } = b;`
 		"no-useless-rename": "warn",
+
+		// Disallow throwing anything else than the `Error object`
+		"no-throw-literal": "error",
 
 		// Require method and property shorthand syntax for object literals; example: prevent `a = { b: b };` in favour of `a = { b };`
 		"object-shorthand": "warn",
