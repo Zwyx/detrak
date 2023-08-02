@@ -1,4 +1,4 @@
-import "@fontsource/caveat";
+import "@fontsource/caveat"; // See docs.gitignore
 import "@fontsource/inter";
 import * as Sentry from "@sentry/react";
 import React from "react";

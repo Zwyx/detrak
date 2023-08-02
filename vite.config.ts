@@ -9,7 +9,7 @@ export default defineConfig({
 		react(),
 		VitePWA({
 			devOptions: {
-				enabled: true,
+				// enabled: true,
 			},
 			registerType: "prompt",
 			manifestFilename: "manifest.json",
@@ -68,6 +68,6 @@ export default defineConfig({
 	},
 	build: {
 		outDir: "docs",
-		sourcemap: true,
+		sourcemap: true, // Sourcemaps are sent to Sentry but not included in the bundle
 	},
 });

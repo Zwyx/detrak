@@ -1,0 +1,13 @@
+# Sourcemaps are generated and sent to Sentry, but not included in the bundle
+*.map
+
+# At https://fontsource.org/docs/getting-started/subsets it is said that
+# it's not recommended to specify a subset when importing fonts. But I
+# still want to keep only necessary font files, as all font files are
+# downloaded by the service worker on everyone's machines. So instead
+# of importing specific subsets, I only include the necessary one in
+# the bundle
+*.woff
+*.woff2
+!inter-latin-400-normal*.woff2
+!caveat-latin-400-normal*.woff2

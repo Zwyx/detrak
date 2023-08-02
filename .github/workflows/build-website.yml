@@ -48,8 +48,9 @@ jobs:
           [[ "$(git branch --show-current)" != "main" ]] && git branch main remotes/origin/main
           git switch --orphan $branch
           git checkout main netlify.toml
-          git add netlify.toml
-          git add docs ':!*.map'
+          git checkout staging/test-sentry docs.gitignore
+          mv docs.gitignore .gitignore
+          git add .gitignore netlify.toml docs
           git config user.name "Zwyx - GitHub Actions"
           git config user.email "29386932+Zwyx@users.noreply.github.com>"
           git commit -m "Build website"
