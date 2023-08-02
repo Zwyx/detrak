@@ -33,9 +33,15 @@ jobs:
           node-version: "${{ env.nvmrc }}"
           cache: npm
 
-      - run: |
-          npm ci
-          npm run build
+      - run: npm ci
+
+      - run: echo "appVersion=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+        id: appVersion
+
+      - run: npm run build
+        env:
+          SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
+          SENTRY_RELEASE: "${{ env.appVersion }}"
 
       - run: |
           branch=$([[ "$(git branch --show-current)" == "main" ]] && echo "dist" || echo "staging/dist")
@@ -43,7 +49,7 @@ jobs:
           git switch --orphan $branch
           git checkout main netlify.toml
           git add netlify.toml
-          git add docs
+          git add docs ':!*.map'
           git config user.name "Zwyx - GitHub Actions"
           git config user.email "29386932+Zwyx@users.noreply.github.com>"
           git commit -m "Build website"
