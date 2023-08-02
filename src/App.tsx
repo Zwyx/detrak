@@ -470,6 +470,14 @@ export const App = () => {
 				</div>
 			)}
 
+			<button
+				onClick={() => {
+					throw new Error("Test Sentry");
+				}}
+			>
+				{"Test error"}
+			</button>
+
 			<div className="flex-1" />
 		</div>
 	);

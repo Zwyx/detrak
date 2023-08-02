@@ -88,11 +88,7 @@ export function HeaderMenu() {
 							<DialogTitle>{"Privacy policy"}</DialogTitle>
 						</DialogHeader>
 
-						<div>
-							{
-								"No personal user data is collected. Google Analytics is used in no-storage mode (no cookies) to report statistics such as the number of users."
-							}
-						</div>
+						<div>{"No personal user data is collected."}</div>
 					</DialogContent>
 				</Dialog>
 
