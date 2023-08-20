@@ -22,7 +22,7 @@ module.exports = {
 			version: "detect",
 		},
 	},
-	ignorePatterns: ["src/components/ui", "src/lib/confetti.min.js"],
+	ignorePatterns: ["/src/components/ui", "/src/lib/confetti.min.js"],
 	overrides: [
 		{
 			files: [".eslintrc.{js,cjs}"],

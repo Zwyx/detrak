@@ -47,8 +47,7 @@ jobs:
           branch=$([[ "$(git branch --show-current)" == "main" ]] && echo "dist" || echo "staging/dist")
           [[ "$(git branch --show-current)" != "main" ]] && git branch main remotes/origin/main
           git switch --orphan $branch
-          git checkout main netlify.toml
-          git checkout staging/test-sentry docs.gitignore
+          git checkout main netlify.toml docs.gitignore
           mv docs.gitignore .gitignore
           git add .gitignore netlify.toml docs
           git config user.name "Zwyx - GitHub Actions"

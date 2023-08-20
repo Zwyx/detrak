@@ -88,7 +88,22 @@ export function HeaderMenu() {
 							<DialogTitle>{"Privacy policy"}</DialogTitle>
 						</DialogHeader>
 
-						<div>{"No personal user data is collected."}</div>
+						<div>
+							{"No personal user data is collected by Detrak. "}
+							<a
+								href="https://sentry.io"
+								target="_blank"
+								rel="noreferrer nofollow"
+								className="font-bold"
+							>
+								{"Sentry"}
+							</a>
+							{" is used for error reporting."}
+
+							{
+								"This service is GDPR and CCPA compliant — it doesn't store any cookies and respects user privacy."
+							}
+						</div>
 					</DialogContent>
 				</Dialog>
 
