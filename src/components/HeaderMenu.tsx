@@ -98,10 +98,17 @@ export function HeaderMenu() {
 							>
 								{"Sentry"}
 							</a>
-							{" is used for error reporting."}
-
+							{" is used for error reporting, and "}
+							<a
+								href="https://plausible.io"
+								target="_blank"
+								rel="noreferrer nofollow"
+								className="font-bold"
+							>
+								{"Plausible"}
+							</a>
 							{
-								"This service is GDPR and CCPA compliant — it doesn't store any cookies and respects user privacy."
+								" is used for analytics. These two services are both GDPR and CCPA compliant, they don't store any cookies and respect user privacy."
 							}
 						</div>
 					</DialogContent>
