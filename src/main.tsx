@@ -1,5 +1,9 @@
-import "@fontsource/caveat"; // See docs.gitignore
-import "@fontsource/inter";
+// At https://fontsource.org/docs/getting-started/subsets it is said that
+// it's not recommended to specify a subset when importing fonts, but I still
+// want to do it because the service worker downloads all font files on
+// everyone's machines; specifying the subsets saves transfering about 300kB
+import "@fontsource/caveat/latin-400.css";
+import "@fontsource/inter/latin-400.css";
 import * as Sentry from "@sentry/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
