@@ -59,9 +59,9 @@ export const fr: I18nLocale = {
 		digitalVersion: {
 			madeBy: "Cette version numérique a été créée par moi-même, ",
 			webDeveloper:
-				", un développeur web australien, avec l'accord de Gigamic. Merci encore, Gigamic !",
+				", développeur web, avec l'accord de Gigamic. Merci encore, Gigamic !",
 		},
-		gigamicGame: "Détrak est un jeu protégé par copyrighted et publié par ",
+		gigamicGame: "Détrak est un jeu protégé par copyright et publié par ",
 		toggleMenu: "Ouvrir le menu",
 		version: "version",
 		writeToMe:
