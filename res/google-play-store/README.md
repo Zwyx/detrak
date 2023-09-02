@@ -1,3 +1,12 @@
+# PWA Builder
+
+- Package ID: `net.detrak.twa`
+- App name: `Detrak – Fan Made`
+- Short name: `Detrak`
+- Version: `twa-5`
+- Version code: `5`
+- Colors: `#0f1c2e`
+
 # App name
 
 ## en, fr
