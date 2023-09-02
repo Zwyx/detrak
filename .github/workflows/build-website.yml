@@ -38,22 +38,28 @@ jobs:
       - run: echo "appVersion=$(jq -r '.version' package.json)" >> $GITHUB_ENV
         id: appVersion
 
-      - run: npm run build
-        env:
+      - run: echo "BRANCH=$([[ "$(git branch --show-current)" == "main" ]] && echo "dist" || echo "staging/dist")" >> $GITHUB_ENV
+        id: BRANCH
+
+      - run: echo "SENTRY_ENVIRONMENT=$([[ "${{ env.BRANCH }}" == "dist" ]] && echo "production" || echo "staging")" >> $GITHUB_ENV
+        id: SENTRY_ENVIRONMENT
+
+      - env:
           SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
           SENTRY_RELEASE: "${{ env.appVersion }}"
+          SENTRY_ENVIRONMENT: "${{ env.SENTRY_ENVIRONMENT }}"
+        run: npm run build
 
       - run: |
-          branch=$([[ "$(git branch --show-current)" == "main" ]] && echo "dist" || echo "staging/dist")
-          [[ "$(git branch --show-current)" != "main" ]] && git branch main remotes/origin/main
-          git switch --orphan $branch
+          [[ "${{ env.BRANCH }}" != "dist" ]] && git branch main remotes/origin/main
+          git switch --orphan ${{ env.BRANCH }}
           git checkout main netlify.toml docs.gitignore
           mv docs.gitignore .gitignore
           git add .gitignore netlify.toml docs
           git config user.name "Zwyx - GitHub Actions"
           git config user.email "29386932+Zwyx@users.noreply.github.com>"
           git commit -m "Build website"
-          git push --set-upstream origin --force $branch
+          git push --set-upstream origin --force ${{ env.BRANCH }}
       #
       # - name: Setup tmate session
       #   if: ${{ always() }}
