@@ -35,8 +35,8 @@ jobs:
 
       - run: npm ci
 
-      - run: echo "appVersion=$(jq -r '.version' package.json)" >> $GITHUB_ENV
-        id: appVersion
+      - run: echo "APP_VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+        id: APP_VERSION
 
       - run: echo "BRANCH=$([[ "$(git branch --show-current)" == "main" ]] && echo "dist" || echo "staging/dist")" >> $GITHUB_ENV
         id: BRANCH
@@ -46,7 +46,7 @@ jobs:
 
       - env:
           SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
-          SENTRY_RELEASE: "${{ env.appVersion }}"
+          SENTRY_RELEASE: "${{ env.APP_VERSION }}"
           SENTRY_ENVIRONMENT: "${{ env.SENTRY_ENVIRONMENT }}"
         run: npm run build
 

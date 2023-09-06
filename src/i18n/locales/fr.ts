@@ -38,7 +38,7 @@ export const fr: I18nLocale = {
 		rollDice2: {
 			left: "Les scores s'afficheront dans la colonne de droite et la ligne du bas.",
 			legend:
-				"Ceci est la légende du score. Exemple : cinq symbols identique sur une ligne, une colonne, ou la diagonale, donne 10 points.",
+				"Ceci est la légende du score. Exemple : cinq symboles identiques sur une ligne, une colonne, ou la diagonale, donne 10 points.",
 			right: {
 				part1:
 					"Le score de la diagonale apparaît aux deux extrémités — il est compté deux fois !",

@@ -34,21 +34,21 @@ Le jeu de dés Détrak !
 ## en
 
 ```
-Roll the dice and note the symbols obtained in your grid to score as many points as possible.
-To win, you will have to keep an eye on all the rows and columns and try to create sequences of 2, 3, 4 or even 5 identical symbols.
+Roll the dice and note the symbols in your grid to score as many points as possible!
+To win, you will have to keep an eye on all the rows and columns and try to create sequences of 2, 3, 4 or even 5 identical symbols!
 
 Detrak is a Gigamic game – https://www.gigamic.com/jeu/detrak
 Copyright © Gigamic for the original game
-Copyright © Zwyx.dev for the digital version
+This digital version has been made with their approval. Thank you, Gigamic!
 ```
 
 ## fr
 
 ```
-Lancez les dés et notez les symboles obtenus dans votre grille pour marquer le plus possible de points.
-Pour gagner, il faudra garder un œil sur toutes les lignes et toutes les colonnes et tenter de créer des suites de 2, 3, 4 ou même 5 symboles identiques.
+Lancez les dés et notez les symboles obtenus dans votre grille pour marquer le plus de points possible !
+Pour gagner, il vous faudra garder un œil sur toutes les lignes et colonnes et tenter de créer des suites de 2, 3, 4 ou même 5 symboles identiques !
 
 Détrak est un jeu Gigamic – https://www.gigamic.com/jeu/detrak
-Copyright © Gigamic pour le jeu original
-Copyright © Zwyx.dev pour la version numérique
+Copyright © Gigamic pour le jeu original.
+Cette version numérique a été créée avec leur accord. Merci Gigamic !
 ```
