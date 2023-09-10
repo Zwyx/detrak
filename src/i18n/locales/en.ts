@@ -65,16 +65,16 @@ export const en = {
 				", an independent web developper from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
 		},
 		gigamicGame: "Detrak is a copyrighted game published by ",
-		toggleMenu: "Toggle menu",
+		openMenu: "Open menu",
 		version: "version",
 		writeToMe: "I hope you're enjoying it! Feel free to write to me at ",
 	},
 
-	languageToggle: {
+	languageSelector: {
 		chooseLanguage: "Choose language",
 	},
 
-	themeToggle: {
+	themeSelector: {
 		chooseTheme: "Choose theme",
 		dark: "Dark",
 		light: "Light",

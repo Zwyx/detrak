@@ -170,8 +170,7 @@
 		/>
 
 		<script type="text/javascript">
-			// This script sets the CSS class for the theme as soon as possible
-			// to prevent a flash of the wrong theme
+			// Set the theme's class as soon as possible to prevent a flash of the wrong theme
 
 			var lightThemeName = "light";
 			var darkThemeName = "dark";
@@ -184,6 +183,10 @@
 
 			if (theme === lightThemeName || theme === darkThemeName) {
 				document.documentElement.classList.add(theme);
+			} else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+				document.documentElement.classList.add(darkThemeName);
+			} else {
+				document.documentElement.classList.add(lightThemeName);
 			}
 		</script>
 

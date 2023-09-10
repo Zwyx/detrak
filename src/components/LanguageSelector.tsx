@@ -11,8 +11,8 @@ import {
 import { I18nLocaleCode } from "~/i18n/i18n";
 import { LOCALE_KEY } from "~/lib/keys";
 
-export function LanguageToggle() {
-	const { t, i18n } = useTranslation(["languageToggle"]);
+export function LanguageSelector() {
+	const { t, i18n } = useTranslation(["languageSelector"]);
 
 	const changeLanguage = (localeCode: I18nLocaleCode) => {
 		i18n.changeLanguage(localeCode);
