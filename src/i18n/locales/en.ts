@@ -74,7 +74,7 @@ export const en = {
 		chooseLanguage: "Choose language",
 	},
 
-	modeToggle: {
+	themeToggle: {
 		chooseTheme: "Choose theme",
 		dark: "Dark",
 		light: "Light",

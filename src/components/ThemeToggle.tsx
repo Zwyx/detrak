@@ -12,8 +12,8 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { useThemeContext } from "~/lib/ThemeContext.const";
 
-export function ModeToggle() {
-	const { t } = useTranslation(["modeToggle"]);
+export function ThemeToggle() {
+	const { t } = useTranslation(["themeToggle"]);
 
 	const { updateTheme } = useThemeContext();
 
