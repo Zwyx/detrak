@@ -62,13 +62,13 @@ export const fr: I18nLocale = {
 				", développeur web, avec l'accord de Gigamic. Merci encore, Gigamic !",
 		},
 		gigamicGame: "Détrak est un jeu protégé par copyright et publié par ",
-		toggleMenu: "Ouvrir le menu",
+		openMenu: "Ouvrir le menu",
 		version: "version",
 		writeToMe:
 			"J'espère que vous apréciez Détrak ! N'hésitez pas à m'écrire à ",
 	},
-	languageToggle: { chooseLanguage: "Choisir la langue" },
-	themeToggle: {
+	languageSelector: { chooseLanguage: "Choisir la langue" },
+	themeSelector: {
 		chooseTheme: "Choisir le thème",
 		dark: "Foncé",
 		light: "Clair",

@@ -8,54 +8,95 @@ import {
 } from "react";
 import { THEME_KEY } from "./keys";
 
-const themes = ["light", "dark", "system"] as const;
-type Theme = (typeof themes)[number];
-const isTheme = (value: unknown): value is Theme =>
-	typeof value === "string" && themes.includes(value as Theme);
+const themeSchemes = ["light", "dark"] as const;
+type ThemeScheme = (typeof themeSchemes)[number];
+const isThemeScheme = (value: unknown): value is ThemeScheme =>
+	typeof value === "string" && themeSchemes.includes(value as ThemeScheme);
 
-const defaultTheme: Theme = "system";
+const themeChoices = [...themeSchemes, "system"] as const;
+type ThemeChoice = (typeof themeChoices)[number];
+const isThemeChoice = (value: unknown): value is ThemeChoice =>
+	typeof value === "string" && themeChoices.includes(value as ThemeChoice);
+
+const lightThemeName: ThemeScheme = "light";
+const darkThemeName: ThemeScheme = "dark";
+const defaultThemeChoice: ThemeChoice = "system";
 
 export const ThemeContext = createContext<
 	| {
-			theme: Theme;
-			updateTheme: Dispatch<Theme>;
+			themeChoice: ThemeChoice;
+			themeScheme: ThemeScheme;
+			updateThemeChoice: Dispatch<ThemeChoice>;
 	  }
 	| undefined
 >(undefined);
 
+const storedThemeChoice = localStorage.getItem(THEME_KEY);
+
+const getStartupThemeChoice: ThemeChoice = isThemeChoice(storedThemeChoice)
+	? storedThemeChoice
+	: defaultThemeChoice;
+
+const getThemeSchemeFromChoice = (themeChoice: ThemeChoice): ThemeScheme =>
+	isThemeScheme(themeChoice)
+		? themeChoice
+		: matchMedia("(prefers-color-scheme: dark)").matches
+		? "dark"
+		: "light";
+
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
-	const [theme, setTheme] = useState<Theme>(defaultTheme);
+	const [themeChoice, setThemeChoice] = useState<ThemeChoice>(
+		getStartupThemeChoice,
+	);
+
+	const [themeScheme, setThemeScheme] = useState<ThemeScheme>(() =>
+		getThemeSchemeFromChoice(getStartupThemeChoice),
+	);
 
 	useEffect(() => {
-		const storedTheme = localStorage.getItem(THEME_KEY);
+		const setThemeSchemeFromChoice = () =>
+			setThemeScheme(getThemeSchemeFromChoice(themeChoice));
 
-		if (storedTheme !== null) {
-			if (isTheme(storedTheme)) {
-				setTheme(storedTheme);
+		setThemeSchemeFromChoice();
+
+		const colorSchemeMediaQuery = matchMedia("(prefers-color-scheme: dark)");
+
+		colorSchemeMediaQuery.addEventListener("change", setThemeSchemeFromChoice);
+
+		return () =>
+			colorSchemeMediaQuery.removeEventListener(
+				"change",
+				setThemeSchemeFromChoice,
+			);
+	}, [themeChoice]);
+
+	useEffect(() => {
+		if (themeScheme === "light") {
+			if (!document.documentElement.classList.contains(lightThemeName)) {
+				document.documentElement.classList.add(lightThemeName);
+			}
+			if (document.documentElement.classList.contains(darkThemeName)) {
+				document.documentElement.classList.remove(darkThemeName);
+			}
+		} else {
+			if (!document.documentElement.classList.contains(darkThemeName)) {
+				document.documentElement.classList.add(darkThemeName);
+			}
+			if (document.documentElement.classList.contains(lightThemeName)) {
+				document.documentElement.classList.remove(lightThemeName);
 			}
 		}
-	}, []);
+	}, [themeScheme]);
 
-	const updateTheme = useCallback((newTheme: Theme) => {
-		localStorage.setItem(THEME_KEY, newTheme);
-
-		setTheme(newTheme);
-
-		if (newTheme !== "light") {
-			document.documentElement.classList.remove("light");
-		}
-
-		if (newTheme !== "dark") {
-			document.documentElement.classList.remove("dark");
-		}
-
-		if (newTheme === "light" || newTheme === "dark") {
-			document.documentElement.classList.add(newTheme);
-		}
+	const updateThemeChoice = useCallback((newThemeChoice: ThemeChoice) => {
+		localStorage.setItem(THEME_KEY, newThemeChoice);
+		setThemeChoice(newThemeChoice);
 	}, []);
 
 	return (
-		<ThemeContext.Provider value={{ theme, updateTheme }}>
+		<ThemeContext.Provider
+			value={{ themeChoice, themeScheme, updateThemeChoice }}
+		>
 			{children}
 		</ThemeContext.Provider>
 	);

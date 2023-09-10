@@ -4,10 +4,7 @@
 
 /* Although it seems to be working well here, this has broken dark theme in the past, and seems unnecessary */
 /* @layer base { */
-.light,
-:root:not(.dark) {
-	/* variables for light theme */
-
+:root {
 	--background: 0 0% 100%;
 	--foreground: 216 50% 20%;
 
@@ -44,50 +41,7 @@
 	--radius: 0.5rem;
 }
 
-@media only screen and (prefers-color-scheme: dark) {
-	:root:not(.light) {
-		/* variables for dark theme */
-
-		--background: 216 50% 12%; /* #0f1c2e */
-		--foreground: 210 6% 80%;
-
-		--muted: 217.2 32.6% 17.5%;
-		--muted-foreground: 215 20.2% 65.1%;
-
-		--popover: 216 50% 11.8%;
-		--popover-foreground: 210 6% 80%;
-
-		--card: 216 50% 11.8%;
-		--card-foreground: 210 6% 80%;
-
-		--border: 217.2 32.6% 17.5%;
-		--input: 217.2 32.6% 17.5%;
-
-		--primary: 210 6% 80%;
-		--primary-foreground: 222.2 47.4% 11.2%;
-
-		--secondary: 217.2 32.6% 17.5%;
-		--secondary-foreground: 210 6% 80%;
-
-		--accent: 217.2 32.6% 17.5%;
-		--accent-foreground: 210 6% 80%;
-
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 0 85.7% 97.3%;
-
-		--info: 211 86% 27%;
-
-		--dice: 211 90% 30%;
-
-		--ring: 217.2 32.6% 17.5%;
-
-		--radius: 0.5rem;
-	}
-}
-
-.dark {
-	/* variables for dark theme */
-
+:root.dark {
 	--background: 216 50% 11.8%;
 	--foreground: 210 6% 80%;
 

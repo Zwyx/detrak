@@ -11,11 +11,11 @@
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"cSpell.words": ["Detrak", "gigamic", "staticrypt"],
 	"files.associations": {
 		"*.css": "tailwindcss"
 	},
 	"editor.quickSuggestions": {
 		"strings": true
-	}
+	},
+	"cSpell.words": ["Detrak", "gigamic", "staticrypt"]
 }
