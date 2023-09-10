@@ -51,9 +51,10 @@ jobs:
       - run: |
           [[ "${{ env.BRANCH }}" != "dist" ]] && git fetch && git branch main remotes/origin/main
           git switch --orphan ${{ env.BRANCH }}
-          git checkout main netlify.toml docs.gitignore
-          mv docs.gitignore .gitignore
-          git add .gitignore netlify.toml docs
+          git checkout main docs.gitignore netlify.toml
+          mv -v docs.gitignore .gitignore
+          git rm docs.gitignore
+          git add .gitignore docs
           git config user.name "Zwyx - GitHub Actions"
           git config user.email "29386932+Zwyx@users.noreply.github.com>"
           git commit -m "Build website"
