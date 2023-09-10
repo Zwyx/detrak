@@ -49,7 +49,7 @@ jobs:
         run: npm run build
 
       - run: |
-          [[ "${{ env.BRANCH }}" != "dist" ]] && git branch main remotes/origin/main
+          [[ "${{ env.BRANCH }}" != "dist" ]] && git fetch && git branch main remotes/origin/main
           git switch --orphan ${{ env.BRANCH }}
           git checkout main netlify.toml docs.gitignore
           mv docs.gitignore .gitignore
