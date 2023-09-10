@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 import { HeaderMenu } from "~/components/HeaderMenu";
-import { ModeToggle } from "~/components/ModeToggle";
 import { SettingsDialog } from "~/components/SettingsDialog";
+import { ThemeToggle } from "~/components/ThemeToggle";
 import { LanguageToggle } from "./LanguageToggle";
 
 export function SiteHeader() {
@@ -20,7 +20,7 @@ export function SiteHeader() {
 
 				<nav className="flex flex-[1] items-center justify-end gap-1">
 					<SettingsDialog />
-					<ModeToggle />
+					<ThemeToggle />
 					<LanguageToggle />
 				</nav>
 			</div>

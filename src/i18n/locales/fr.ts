@@ -68,7 +68,7 @@ export const fr: I18nLocale = {
 			"J'espère que vous apréciez Détrak ! N'hésitez pas à m'écrire à ",
 	},
 	languageToggle: { chooseLanguage: "Choisir la langue" },
-	modeToggle: {
+	themeToggle: {
 		chooseTheme: "Choisir le thème",
 		dark: "Foncé",
 		light: "Clair",

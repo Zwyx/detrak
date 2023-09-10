@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Although it seems to be working well here, this has broken dark mode in the past, and seems unnecessary */
+/* Although it seems to be working well here, this has broken dark theme in the past, and seems unnecessary */
 /* @layer base { */
 .light,
 :root:not(.dark) {
