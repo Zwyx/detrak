@@ -272,7 +272,7 @@ export const App = () => {
 	}, [settings.autoRollDice, canRollDice, rollDice]);
 
 	return (
-		<div className="flex flex-col items-center justify-between font-[inter]">
+		<div className="flex flex-col items-center font-[inter]">
 			<SiteHeader />
 
 			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
