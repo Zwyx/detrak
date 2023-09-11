@@ -62,7 +62,7 @@ export const en = {
 		digitalVersion: {
 			madeBy: "This digital version has been made by me, ",
 			webDeveloper:
-				", an independent web developper from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
+				", an independent web developer from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
 		},
 		gigamicGame: "Detrak is a copyrighted game published by ",
 		openMenu: "Open menu",
