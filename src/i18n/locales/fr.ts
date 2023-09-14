@@ -20,6 +20,7 @@ export const fr: I18nLocale = {
 			text: "Commencez par sélectionner l'un des six symboles ci-dessus.",
 		},
 	},
+
 	detrak: {
 		ariaLabel: {
 			column: "colonne",
@@ -54,6 +55,7 @@ export const fr: I18nLocale = {
 			tripleBar: "triple barre",
 		},
 	},
+
 	headerMenu: {
 		detrak: "Détrak",
 		digitalVersion: {
@@ -67,13 +69,18 @@ export const fr: I18nLocale = {
 		writeToMe:
 			"J'espère que vous apréciez Détrak ! N'hésitez pas à m'écrire à ",
 	},
-	languageSelector: { chooseLanguage: "Choisir la langue" },
+
+	languageSelector: {
+		chooseLanguage: "Choisir la langue",
+	},
+
 	themeSelector: {
 		chooseTheme: "Choisir le thème",
 		dark: "Foncé",
 		light: "Clair",
 		sameAsDevice: "Identique à l'appareil",
 	},
+
 	settingsDialog: {
 		openSettingsDialog: "Ouvrir la boîte de dialog des paramètres",
 		settings: "Paramètres",
@@ -116,6 +123,6 @@ export const fr: I18nLocale = {
 	},
 
 	siteHeader: {
-		detrakFanMade: "Détrak – Fan made",
+		detrak: "Détrak",
 	},
 } as const;

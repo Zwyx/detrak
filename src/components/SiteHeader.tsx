@@ -6,7 +6,7 @@ import { SettingsDialog } from "~/components/SettingsDialog";
 import { ThemeSelector } from "~/components/ThemeSelector";
 import { LanguageSelector } from "./LanguageSelector";
 
-export function SiteHeader() {
+export const SiteHeader = () => {
 	const { t } = useTranslation(["siteHeader"]);
 
 	return (
@@ -14,9 +14,7 @@ export function SiteHeader() {
 			<div className="container flex h-14 items-center gap-4 p-6">
 				<HeaderMenu />
 
-				<span className="flex-[10] text-center font-bold">
-					{t("detrakFanMade")}
-				</span>
+				<span className="flex-[10] text-center font-bold">{t("detrak")}</span>
 
 				<nav className="flex flex-[1] items-center justify-end gap-1">
 					<SettingsDialog />
@@ -26,4 +24,4 @@ export function SiteHeader() {
 			</div>
 		</header>
 	);
-}
+};

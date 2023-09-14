@@ -1,6 +1,5 @@
 import { LucideLaptop, LucideMoon, LucideSunMedium } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
 import { Button } from "~/components/ui/button";
 import {
 	DropdownMenu,
@@ -10,7 +9,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { useThemeContext } from "~/lib/ThemeContext.const";
 
-export function ThemeSelector() {
+export const ThemeSelector = () => {
 	const { t } = useTranslation(["themeSelector"]);
 
 	const { updateThemeChoice } = useThemeContext();
@@ -55,4 +54,4 @@ export function ThemeSelector() {
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
-}
+};

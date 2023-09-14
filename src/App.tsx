@@ -322,7 +322,7 @@ export const App = () => {
 					<>
 						{!endOfGame ? (
 							<>
-								<div className="relative flex w-full min-w-[300px] max-w-[550px] items-center ">
+								<div className="relative flex w-full min-w-[300px] max-w-[550px] items-center">
 									<Button
 										className={cn(
 											"ml-2 h-14 sm:ml-0",

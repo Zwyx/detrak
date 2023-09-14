@@ -122,7 +122,7 @@ export const en = {
 	},
 
 	siteHeader: {
-		detrakFanMade: "Detrak – Fan made",
+		detrak: "Detrak",
 	},
 } as const;
 

@@ -3,7 +3,6 @@
 import { LucideMenu } from "lucide-react";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-
 import { Button } from "~/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import {
@@ -14,7 +13,7 @@ import {
 	DialogTrigger,
 } from "./ui/dialog";
 
-export function HeaderMenu() {
+export const HeaderMenu = () => {
 	const { t } = useTranslation(["headerMenu"]);
 
 	const [open, setOpen] = React.useState(false);
@@ -55,7 +54,7 @@ export function HeaderMenu() {
 					<a
 						href="https://zwyx.dev"
 						target="_blank"
-						rel="noreferrer nofollow"
+						rel="noreferrer"
 						className="font-bold"
 					>
 						{"Alex"}
@@ -157,18 +156,30 @@ export function HeaderMenu() {
 					<a
 						href="https://zwyx.dev"
 						target="_blank"
-						rel="noreferrer nofollow"
+						rel="noreferrer"
 						className="font-bold"
 					>
 						{"Zwyx.dev"}
 					</a>
 				</div>
 
-				<div className="mt-1 w-full text-right text-xs text-muted-foreground">
+				<div className="mt-1 w-full text-xs text-muted-foreground">
+					{"Source code available at "}
+					<a
+						href="https://github.com/zwyx/detrak"
+						target="_blank"
+						rel="noreferrer"
+						className="font-bold"
+					>
+						{"github.com/zwyx/detrak"}
+					</a>
+				</div>
+
+				<div className="mt-2 w-full text-right text-xs text-muted-foreground">
 					{t("version")}{" "}
 					<span className="font-bold">{import.meta.env.VITE_APP_VERSION}</span>
 				</div>
 			</SheetContent>
 		</Sheet>
 	);
-}
+};
