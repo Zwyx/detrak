@@ -1,7 +1,6 @@
 import { LucideSettings } from "lucide-react";
 import { FC, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
-
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import {
@@ -49,7 +48,7 @@ const SettingCheckbox: FC<SettingCheckboxProps> = ({
 	);
 };
 
-export function SettingsDialog() {
+export const SettingsDialog = () => {
 	const { t } = useTranslation(["settingsDialog"]);
 
 	const { numberOfGames } = useSettingsContext();
@@ -112,4 +111,4 @@ export function SettingsDialog() {
 			</DialogContent>
 		</Dialog>
 	);
-}
+};

@@ -22,11 +22,11 @@ const pwa = document.referrer.startsWith("android-app://")
 
 if (import.meta.env.PROD) {
 	Sentry.init({
-		dsn: "https://3950b60e0cc71f3547461566a56e84c6@o4505630552227840.ingest.sentry.io/4505630556356608",
+		dsn: import.meta.env.VITE_SENTRY_DSN,
 		environment: import.meta.env.VITE_SENTRY_ENVIRONMENT,
 		integrations: [
 			new Sentry.BrowserTracing({
-				tracePropagationTargets: ["https://detrak.net"],
+				tracePropagationTargets: [`https://${import.meta.env.VITE_DOMAIN}`],
 			}),
 			new Sentry.Replay(),
 		],

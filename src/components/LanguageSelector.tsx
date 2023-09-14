@@ -1,6 +1,5 @@
 import { LucideLanguages } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
 import { Button } from "~/components/ui/button";
 import {
 	DropdownMenu,
@@ -11,7 +10,7 @@ import {
 import { I18nLocaleCode } from "~/i18n/i18n";
 import { LOCALE_KEY } from "~/lib/keys";
 
-export function LanguageSelector() {
+export const LanguageSelector = () => {
 	const { t, i18n } = useTranslation(["languageSelector"]);
 
 	const changeLanguage = (localeCode: I18nLocaleCode) => {
@@ -29,16 +28,14 @@ export function LanguageSelector() {
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent align="end">
-				{/* eslint-disable-next-line i18next/no-literal-string */}
 				<DropdownMenuItem onClick={() => changeLanguage("en")}>
-					English
+					{"English"}
 				</DropdownMenuItem>
 
-				{/* eslint-disable-next-line i18next/no-literal-string */}
 				<DropdownMenuItem onClick={() => changeLanguage("fr")}>
-					Français
+					{"Français"}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
-}
+};
