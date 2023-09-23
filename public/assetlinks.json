@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "net.detrak.twa",
+        "sha256_cert_fingerprints": ["D9:EA:06:32:92:FD:1E:24:13:89:0E:45:58:CA:63:7C:7B:99:CD:16:5F:13:91:3B:FE:57:58:F0:C7:34:7C:4E"]
+      }
+    }]
