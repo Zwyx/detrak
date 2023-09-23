@@ -1,4 +1,3 @@
-import { Caveat } from "next/font/google";
 import { FC } from "react";
 import { useSettingsContext } from "~/lib/settings-context";
 import { cn } from "~/lib/utils";
@@ -7,8 +6,6 @@ import { HelpStep, HelpTooltip } from "./help-tooltip";
 export type TCell = number | null;
 export type TLine = TCell[];
 export type TGrid = TLine[];
-
-const caveat = Caveat({ subsets: ["latin"] });
 
 // Front: /
 export const SymbolFront: FC = () => (
@@ -131,12 +128,7 @@ export const Cell: FC<CellProps> = ({
 				))}
 
 			{(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && (
-				<span
-					className={cn(
-						caveat.className,
-						"mr-3 text-6xl max-[550px]:text-[8vw]",
-					)}
-				>
+				<span className="font-[caveat] mr-3 text-6xl max-[550px]:text-[8vw]">
 					{value}
 				</span>
 			)}
@@ -187,7 +179,7 @@ interface GridProps {
 }
 
 const ScoreHelp: FC<{ value: string; score: string }> = ({ value, score }) => (
-	<div className={caveat.className}>
+	<div className="font-[caveat]">
 		<span className="text-[14px] xsm:text-[16px]">{value}</span>
 		<span className="text-[20px] xsm:text-[24px]">{score}</span>
 	</div>
