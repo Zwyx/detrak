@@ -41,7 +41,7 @@ Detrak is a Gigamic game – https://www.gigamic.com/jeu/detrak
 This digital version has been made with their approval. Thank you, Gigamic!
 Copyright © Gigamic for the original game
 Copyright © Zwyx.dev for this app
-The source code is available at https://github.com/Zwyx/detrak
+The source code is available at https://github.com/zwyx/detrak
 ```
 
 ## fr
@@ -54,5 +54,5 @@ Détrak est un jeu Gigamic – https://www.gigamic.com/jeu/detrak
 Cette version numérique a été créée avec leur accord. Merci Gigamic !
 Copyright © Gigamic pour le jeu original
 Copyright © Zwyx.dev pour cette application
-Le code source est disponible à https://github.com/Zwyx/detrak
+Le code source est disponible à https://github.com/zwyx/detrak
 ```
