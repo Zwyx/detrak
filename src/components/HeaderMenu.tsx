@@ -64,8 +64,8 @@ export const HeaderMenu = () => {
 
 				<div className="mt-4">
 					{t("writeToMe")}
-					<a href="mailto:alex@detrak.net" className="font-bold">
-						{"alex@detrak.net"}
+					<a href="mailto:alex@zwyx.dev" className="font-bold">
+						{"alex@zwyx.dev"}
 					</a>
 				</div>
 
