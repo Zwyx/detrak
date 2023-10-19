@@ -4,7 +4,7 @@
 
 Roll the dice and note the symbols in your grid to score as many points as possible!
 
-<img src="./res/google-play-store/feature-graphic/light.png" alt="Detrak grid" width="500"/>
+<img src="./res/play.google.com/feature-graphic/light.png" alt="Detrak grid" width="500"/>
 
 To win, you will have to keep an eye on all the rows and columns and try to create sequences of 2, 3, 4 or even 5 identical symbols!
 
