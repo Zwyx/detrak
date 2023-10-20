@@ -27,6 +27,15 @@ export const ThemeSelector = () => {
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem
 					onClick={() => {
+						updateThemeChoice("system");
+					}}
+				>
+					<LucideLaptop className="mr-2 h-4 w-4" />
+					<span>{t("sameAsDevice")}</span>
+				</DropdownMenuItem>
+
+				<DropdownMenuItem
+					onClick={() => {
 						updateThemeChoice("light");
 					}}
 				>
@@ -41,15 +50,6 @@ export const ThemeSelector = () => {
 				>
 					<LucideMoon className="mr-2 h-4 w-4" />
 					<span>{t("dark")}</span>
-				</DropdownMenuItem>
-
-				<DropdownMenuItem
-					onClick={() => {
-						updateThemeChoice("system");
-					}}
-				>
-					<LucideLaptop className="mr-2 h-4 w-4" />
-					<span>{t("sameAsDevice")}</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

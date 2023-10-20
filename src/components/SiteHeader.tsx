@@ -1,5 +1,3 @@
-// https://github.com/shadcn/ui/blob/main/apps/www/components/site-header.tsx
-
 import { useTranslation } from "react-i18next";
 import { HeaderMenu } from "~/components/HeaderMenu";
 import { SettingsDialog } from "~/components/SettingsDialog";

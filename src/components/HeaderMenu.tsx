@@ -4,14 +4,14 @@ import { LucideMenu } from "lucide-react";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "~/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "./ui/dialog";
+} from "~/components/ui/dialog";
+import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 
 export const HeaderMenu = () => {
 	const { t } = useTranslation(["headerMenu"]);
