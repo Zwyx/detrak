@@ -14,11 +14,11 @@ export const SiteHeader = () => {
 
 				<span className="flex-[10] text-center font-bold">{t("detrak")}</span>
 
-				<nav className="flex flex-[1] items-center justify-end gap-1">
+				<div className="flex flex-[1] items-center justify-end gap-1">
 					<SettingsDialog />
 					<ThemeSelector />
 					<LanguageSelector />
-				</nav>
+				</div>
 			</div>
 		</header>
 	);

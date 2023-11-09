@@ -18,6 +18,7 @@ export default defineConfig({
 				short_name: "Detrak",
 				description: "The Detrak dice game",
 				categories: ["game", "casual game", "dice game"],
+				display: "standalone",
 				theme_color: "#0f1c2e",
 				background_color: "#0f1c2e",
 				icons: [
@@ -44,6 +45,20 @@ export default defineConfig({
 						sizes: "512x512",
 						type: "image/png",
 						purpose: "maskable",
+					},
+				],
+				screenshots: [
+					{
+						src: "en-light-landscape.webp",
+						sizes: "1920x1080",
+						type: "image/webp",
+						form_factor: "wide",
+					},
+					{
+						src: "en-light-portrait.webp",
+						sizes: "1081x2340",
+						type: "image/webp",
+						form_factor: "narrow",
 					},
 				],
 			},
