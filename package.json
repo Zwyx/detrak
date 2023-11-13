@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "VITE_APP_VERSION=$(jq -r '.version' package.json) vite",
 		"build": "npm run lint && tsc && VITE_DOMAIN=$DOMAIN VITE_SENTRY_DSN=$SENTRY_DSN VITE_SENTRY_ENVIRONMENT=$SENTRY_ENVIRONMENT VITE_APP_VERSION=$(jq -r '.version' package.json) vite build",
-		"lint": "eslint --report-unused-disable-directives --max-warnings 0 src",
+		"lint": "eslint --report-unused-disable-directives --max-warnings 0 .",
 		"preview": "vite preview",
 		"pwa-asset-generator": "npx pwa-asset-generator --opaque false --icon-only --favicon --padding '0' --type png res/dices.svg public && npx pwa-asset-generator --background '#0f1c2e' --padding '20%' --type png res/dices.svg public",
 		"eslint:print-active-rules": "eslint --print-config src/index.ts",
@@ -34,13 +34,14 @@
 		"tailwindcss-animate": "^1.0.6"
 	},
 	"devDependencies": {
+		"@types/eslint": "^8.44.7",
 		"@types/react": "^18.0.37",
 		"@types/react-dom": "^18.0.11",
 		"@typescript-eslint/eslint-plugin": "^6.7.0",
 		"@typescript-eslint/parser": "^6.7.0",
 		"@vitejs/plugin-react": "^4.0.0",
 		"autoprefixer": "^10.4.14",
-		"eslint": "^8.49.0",
+		"eslint": "^8.53.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-i18next": "^6.0.3",
 		"eslint-plugin-jsx-a11y": "^6.7.1",

@@ -12,21 +12,21 @@ module.exports = {
 		"plugin:jsx-a11y/recommended",
 		"prettier",
 	],
-	parser: "@typescript-eslint/parser",
-	parserOptions: {
-		ecmaVersion: "latest",
-		sourceType: "module",
-	},
 	plugins: ["react-refresh", "i18next"],
 	settings: {
 		react: {
 			version: "detect",
 		},
 	},
-	ignorePatterns: ["/src/components/ui", "/src/lib/confetti.min.js"],
+	ignorePatterns: [
+		"/src/components/ui",
+		"/src/lib/confetti.min.js",
+		"dev-dist",
+		"docs",
+	],
 	overrides: [
 		{
-			files: [".eslintrc.{js,cjs}"],
+			files: [".eslintrc.cjs"],
 			env: {
 				node: true,
 			},
