@@ -1,5 +1,6 @@
 /** @type {import('@types/eslint').Linter.BaseConfig} */
 module.exports = {
+	root: true,
 	env: {
 		browser: true,
 		es2020: true,
@@ -7,56 +8,54 @@ module.exports = {
 	extends: [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
+		// maybe later (a bit too annoying for a side project):
+		// "plugin:@typescript-eslint/recommended-type-checked",
+		// "plugin:@typescript-eslint/stylistic-type-checked",
 		"plugin:react/recommended",
+		"plugin:react/jsx-runtime",
 		"plugin:react-hooks/recommended",
 		"plugin:jsx-a11y/recommended",
 		"prettier",
 	],
-	plugins: ["react-refresh", "i18next"],
+	plugins: ["react-refresh", "i18next", "only-warn"],
+	parserOptions: {
+		ecmaVersion: "latest",
+		sourceType: "module",
+		project: ["./tsconfig.json", "./tsconfig.node.json"],
+		tsconfigRootDir: __dirname,
+	},
 	settings: {
 		react: {
 			version: "detect",
 		},
 	},
 	ignorePatterns: [
+		".eslintrc.cjs",
+		"tailwind.config.js",
+		"postcss.config.js",
 		"/src/components/ui",
 		"/src/lib/confetti.min.js",
 		"dev-dist",
 		"docs",
 	],
-	overrides: [
-		{
-			files: [".eslintrc.cjs"],
-			env: {
-				node: true,
-			},
-			parserOptions: {
-				sourceType: "script",
-			},
-		},
-	],
+	reportUnusedDisableDirectives: true,
 	rules: {
-		"react-refresh/only-export-components": "warn",
-
 		// ---------- JavaScript ----------
 
 		// Enforce consistent brace style for all control statements
-		curly: "error",
+		curly: "warn",
 
 		// Require `===` when `==` can be ambiguous
-		eqeqeq: ["error", "always"],
+		eqeqeq: ["warn", "always"],
 
-		// Disallow the use of `console.log`, which helps not forget them after debugging; for permanent logging, use `console.info/warn/error`
+		// Disallow the use of `console.log`, which helps not forget them after debugging; for permanent logging, use `console.info/warn/warn`
 		"no-console": ["warn", { allow: ["info", "warn", "error"] }],
 
-		// Disallow the use of `debugger`
-		"no-debugger": "warn",
-
 		// Disallow the use of `eval()`; if `eval()` is necessary, use `// eslint-disable-next-line no-eval` where it's needed
-		"no-eval": "error",
+		"no-eval": "warn",
 
 		// Disallow `new` operators with the `Function` object, as this is similar to `eval()`; if necessary, use `// eslint-disable-next-line no-new-func` where it's needed
-		"no-new-func": "error",
+		"no-new-func": "warn",
 
 		// The use of `@typescript-eslint/no-shadow` necessitates to disable `no-shadow`, see https://typescript-eslint.io/rules/no-shadow
 		"no-shadow": "off",
@@ -68,7 +67,7 @@ module.exports = {
 		"no-useless-rename": "warn",
 
 		// Disallow throwing anything else than the `Error object`
-		"no-throw-literal": "error",
+		"no-throw-literal": "warn",
 
 		// Require method and property shorthand syntax for object literals; example: prevent `a = { b: b };` in favour of `a = { b };`
 		"object-shorthand": "warn",
@@ -76,33 +75,40 @@ module.exports = {
 		// ---------- TypeScript ----------
 
 		// Enforce consistent usage of type imports
-		// Maybe later, VS Code automatic support isn't great; "@typescript-eslint/consistent-type-imports": "error",
+		// Maybe later, VS Code automatic support isn't great; "@typescript-eslint/consistent-type-imports": "warn",
 
 		// Disallow the declaration of empty interfaces, but allow to extend a single interface
 		"@typescript-eslint/no-empty-interface": [
-			"error",
+			"warn",
 			{ allowSingleExtends: true },
 		],
 
 		// Disallow non-null assertions using the `!` postfix operator
-		"@typescript-eslint/no-non-null-assertion": "error",
+		"@typescript-eslint/no-non-null-assertion": "warn",
 
 		// Disallow variable declarations from shadowing variables declared in the outer scope
 		"@typescript-eslint/no-shadow": "warn",
 
+		// Enforce using the nullish coalescing operator instead of logical assignments or chaining
+		"@typescript-eslint/prefer-nullish-coalescing": [
+			"warn",
+			{
+				// `a || b` and `a ?? b` doesn't have the same signification if `a` is of type `boolean | undefined`
+				ignorePrimitives: true,
+			},
+		],
+
 		// ---------- React ----------
 
-		// Not necessary in a Vite project
-		"react/react-in-jsx-scope": "off",
-
-		// Check effect dependencies — https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect
-		"react-hooks/exhaustive-deps": "error",
-
-		// Check rules of Hooks — https://reactjs.org/docs/hooks-rules.html
-		"react-hooks/rules-of-hooks": "error",
+		// Ensure React component can be updated with fast refresh
+		"react-refresh/only-export-components": [
+			"warn",
+			{ allowConstantExport: true },
+		],
 
 		// ---------- i18next ----------
 
+		// Warn when untranslated string are present in JSX
 		"i18next/no-literal-string": "warn",
 	},
 };
