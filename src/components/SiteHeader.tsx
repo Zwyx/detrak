@@ -9,12 +9,16 @@ export const SiteHeader = () => {
 
 	return (
 		<header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur">
-			<div className="container flex h-14 items-center gap-4 p-6">
-				<HeaderMenu />
+			<div className="container flex h-14 items-center justify-between gap-2 p-6">
+				<div className="flex flex-1 items-center justify-start">
+					<HeaderMenu />
+				</div>
 
-				<span className="flex-[10] text-center font-bold">{t("detrak")}</span>
+				<div className="flex flex-[10] justify-center">
+					<span className="text-center font-bold">{t("detrak")}</span>
+				</div>
 
-				<div className="flex flex-[1] items-center justify-end gap-1">
+				<div className="flex flex-1 items-center justify-end gap-1">
 					<SettingsDialog />
 					<ThemeSelector />
 					<LanguageSelector />
