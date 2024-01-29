@@ -28,7 +28,7 @@ if (import.meta.env.PROD) {
 			new Sentry.BrowserTracing({
 				tracePropagationTargets: [`https://${import.meta.env.VITE_DOMAIN}`],
 			}),
-			new Sentry.Replay(),
+			Sentry.replayIntegration(),
 		],
 		tracesSampleRate: 0.1,
 		replaysSessionSampleRate: 0.1,
