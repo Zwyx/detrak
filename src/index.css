@@ -2,92 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Although it seems to be working well here, this has broken dark theme in the past, and seems unnecessary */
-/* @layer base { */
-:root {
-	--background: 0 0% 100%;
-	--foreground: 216 50% 20%;
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 216 50% 20%;
 
-	--muted: 210 40% 96.1%;
-	--muted-foreground: 216 50% 30%;
+		--muted: 210 40% 96.1%;
+		--muted-foreground: 216 50% 30%;
 
-	--popover: 0 0% 100%;
-	--popover-foreground: 216 50% 20%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 216 50% 20%;
 
-	--card: 0 0% 100%;
-	--card-foreground: 216 50% 20%;
+		--card: 0 0% 100%;
+		--card-foreground: 216 50% 20%;
 
-	--border: 214.3 31.8% 91.4%;
-	--input: 214.3 31.8% 91.4%;
+		--border: 214.3 31.8% 91.4%;
+		--input: 214.3 31.8% 91.4%;
 
-	--primary: 216 50% 20%;
-	--primary-foreground: 210 40% 98%;
+		--primary: 216 50% 20%;
+		--primary-foreground: 210 40% 98%;
 
-	--secondary: 210 40% 96.1%;
-	--secondary-foreground: 216 50% 20%;
+		--secondary: 210 40% 96.1%;
+		--secondary-foreground: 216 50% 20%;
 
-	--accent: 210 40% 96.1%;
-	--accent-foreground: 216 50% 30%;
+		--accent: 210 40% 96.1%;
+		--accent-foreground: 216 50% 30%;
 
-	--destructive: 0 84.2% 60.2%;
-	--destructive-foreground: 210 40% 98%;
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 210 40% 98%;
 
-	--ring: 215 20.2% 65.1%;
+		--ring: 215 20.2% 65.1%;
 
-	--info: 208 78% 77%;
+		--info: 208 78% 77%;
 
-	--dice: 206 82% 65%;
+		--dice: 206 82% 65%;
 
-	--radius: 0.5rem;
+		--radius: 0.5rem;
+	}
+
+	:root[class~="dark"] {
+		--background: 216 50% 11.8%;
+		--foreground: 210 6% 80%;
+
+		--muted: 217.2 32.6% 17.5%;
+		--muted-foreground: 215 20.2% 65.1%;
+
+		--popover: 216 50% 11.8%;
+		--popover-foreground: 210 6% 80%;
+
+		--card: 216 50% 11.8%;
+		--card-foreground: 210 6% 80%;
+
+		--border: 217.2 32.6% 17.5%;
+		--input: 217.2 32.6% 17.5%;
+
+		--primary: 210 6% 80%;
+		--primary-foreground: 222.2 47.4% 11.2%;
+
+		--secondary: 217.2 32.6% 17.5%;
+		--secondary-foreground: 210 6% 80%;
+
+		--accent: 217.2 32.6% 17.5%;
+		--accent-foreground: 210 6% 80%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 85.7% 97.3%;
+
+		--info: 211 86% 27%;
+
+		--dice: 211 90% 34%;
+
+		--ring: 217.2 32.6% 17.5%;
+
+		--radius: 0.5rem;
+	}
 }
 
-:root.dark {
-	--background: 216 50% 11.8%;
-	--foreground: 210 6% 80%;
-
-	--muted: 217.2 32.6% 17.5%;
-	--muted-foreground: 215 20.2% 65.1%;
-
-	--popover: 216 50% 11.8%;
-	--popover-foreground: 210 6% 80%;
-
-	--card: 216 50% 11.8%;
-	--card-foreground: 210 6% 80%;
-
-	--border: 217.2 32.6% 17.5%;
-	--input: 217.2 32.6% 17.5%;
-
-	--primary: 210 6% 80%;
-	--primary-foreground: 222.2 47.4% 11.2%;
-
-	--secondary: 217.2 32.6% 17.5%;
-	--secondary-foreground: 210 6% 80%;
-
-	--accent: 217.2 32.6% 17.5%;
-	--accent-foreground: 210 6% 80%;
-
-	--destructive: 0 62.8% 30.6%;
-	--destructive-foreground: 0 85.7% 97.3%;
-
-	--info: 211 86% 27%;
-
-	--dice: 211 90% 34%;
-
-	--ring: 217.2 32.6% 17.5%;
-
-	--radius: 0.5rem;
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+		overscroll-behavior-y: none;
+	}
 }
-/* } */
-
-/* @layer base { */
-* {
-	@apply border-border;
-}
-body {
-	@apply bg-background text-foreground;
-	overscroll-behavior-y: none;
-}
-/* } */
 
 a {
 	@apply text-blue-600;

@@ -17,5 +17,12 @@
 	"editor.quickSuggestions": {
 		"strings": true
 	},
-	"cSpell.words": ["CCPA", "Detrak", "gigamic", "mxschmitt", "staticrypt"]
+	"cSpell.words": [
+		"behavior",
+		"CCPA",
+		"Detrak",
+		"gigamic",
+		"mxschmitt",
+		"staticrypt"
+	]
 }
