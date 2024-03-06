@@ -53,7 +53,7 @@ export const App = () => {
 	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
 		useSettingsContext();
 
-	const { t } = useTranslation(["app"]);
+	const { t } = useTranslation("app");
 
 	const initialGrid = Array(7)
 		.fill(0)

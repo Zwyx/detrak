@@ -10,7 +10,7 @@ import {
 import { useThemeContext } from "~/lib/ThemeContext.const";
 
 export const ThemeSelector = () => {
-	const { t } = useTranslation(["themeSelector"]);
+	const { t } = useTranslation("themeSelector");
 
 	const { updateThemeChoice } = useThemeContext();
 

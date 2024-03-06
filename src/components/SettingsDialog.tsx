@@ -49,7 +49,7 @@ const SettingCheckbox: FC<SettingCheckboxProps> = ({
 };
 
 export const SettingsDialog = () => {
-	const { t } = useTranslation(["settingsDialog"]);
+	const { t } = useTranslation("settingsDialog");
 
 	const { numberOfGames } = useSettingsContext();
 

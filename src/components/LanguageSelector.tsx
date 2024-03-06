@@ -11,7 +11,7 @@ import { I18nLocaleCode } from "~/i18n/i18n";
 import { LOCALE_KEY } from "~/lib/keys";
 
 export const LanguageSelector = () => {
-	const { t, i18n } = useTranslation(["languageSelector"]);
+	const { t, i18n } = useTranslation("languageSelector");
 
 	const changeLanguage = (localeCode: I18nLocaleCode) => {
 		i18n.changeLanguage(localeCode);
