@@ -57,6 +57,13 @@ export const en = {
 		},
 	},
 
+	error: {
+		error:
+			"An unexpected error occurred, please reload the page. Sorry for the inconvenience.",
+		oops: "Oops, something went wrong.",
+		reload: "Reload",
+	},
+
 	headerMenu: {
 		detrak: "Detrak",
 		digitalVersion: {
