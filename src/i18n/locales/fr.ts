@@ -56,6 +56,12 @@ export const fr: I18nLocale = {
 		},
 	},
 
+	error: {
+		error: "Une erreur inattendue s'est produite, veuillez recharger la page.",
+		oops: "Oups...",
+		reload: "Recharger",
+	},
+
 	headerMenu: {
 		detrak: "Détrak",
 		digitalVersion: {
