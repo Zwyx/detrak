@@ -84,7 +84,7 @@ export const Cell: FC<CellProps> = ({
 	helpStep,
 	onClick,
 }) => {
-	const { t } = useTranslation(["detrak"]);
+	const { t } = useTranslation("detrak");
 
 	const { settings } = useSettingsContext();
 
@@ -209,7 +209,7 @@ export const Grid: FC<GridProps> = ({
 	helpStep,
 	onClick,
 }) => {
-	const { t } = useTranslation(["detrak"]);
+	const { t } = useTranslation("detrak");
 
 	const { settings } = useSettingsContext();
 
