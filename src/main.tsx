@@ -25,12 +25,7 @@ if (import.meta.env.PROD) {
 	Sentry.init({
 		dsn: import.meta.env.VITE_SENTRY_DSN,
 		environment: import.meta.env.VITE_SENTRY_ENVIRONMENT,
-		integrations: [
-			new Sentry.BrowserTracing({
-				tracePropagationTargets: [`https://${import.meta.env.VITE_DOMAIN}`],
-			}),
-			Sentry.replayIntegration(),
-		],
+		integrations: [new Sentry.BrowserTracing(), Sentry.replayIntegration()],
 		tracesSampleRate: 0.1,
 		replaysSessionSampleRate: 0.01,
 		replaysOnErrorSampleRate: 1.0,
