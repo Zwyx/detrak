@@ -121,7 +121,7 @@ export const HeaderMenu = () => {
 							>
 								{"Sentry"}
 							</a>
-							{" is used for error reporting, and "}
+							{" and "}
 							<a
 								href="https://plausible.io"
 								target="_blank"
@@ -131,7 +131,7 @@ export const HeaderMenu = () => {
 								{"Plausible"}
 							</a>
 							{
-								" for analytics. These two services are both GDPR and CCPA compliant — they don't store cookies and respect user privacy."
+								" are used for error reporting and analytics. These two services are both GDPR and CCPA compliant — they don't store cookies and respect user privacy."
 							}
 						</div>
 					</DialogContent>
