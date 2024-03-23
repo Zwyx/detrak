@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
 
-export const Error = () => {
+export const UnexpectedError = () => {
 	const { t } = useTranslation("error");
 
 	return (

@@ -32,7 +32,7 @@ export const HeaderMenu = () => {
 				className="flex h-full w-auto flex-col items-start gap-0 overflow-auto"
 			>
 				<div className="flex items-center gap-4">
-					<img className="w-8" src="favicon-196.png" alt="Detrak logo" />
+					<img className="h-8 w-8" src="favicon-196.png" alt="Detrak logo" />
 					<span className="font-bold">{t("detrak")}</span>
 				</div>
 
