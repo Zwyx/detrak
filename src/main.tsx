@@ -8,7 +8,7 @@ import * as Sentry from "@sentry/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
-import { Error } from "./components/Error.tsx";
+import { UnexpectedError } from "./components/UnexpectedError.tsx";
 import "./i18n/i18n.ts";
 import "./index.css";
 import { PwaContextProvider } from "./lib/PwaContext.tsx";
@@ -39,7 +39,7 @@ if (import.meta.env.PROD) {
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
-		<Sentry.ErrorBoundary fallback={<Error />} showDialog>
+		<Sentry.ErrorBoundary fallback={<UnexpectedError />} showDialog>
 			<PwaContextProvider>
 				<ThemeContextProvider>
 					<SettingsContextProvider>
