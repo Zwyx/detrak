@@ -217,7 +217,7 @@ export const Grid: FC<GridProps> = ({
 		<div
 			className={cn(
 				"relative flex w-full min-w-[300px] max-w-[550px] flex-col",
-				startOfGame && "opacity-30 blur-sm",
+				startOfGame && "opacity-10",
 			)}
 		>
 			{grid.map((row, y) => (
