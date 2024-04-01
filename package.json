@@ -8,9 +8,9 @@
 		"build": "npm run lint && tsc && VITE_APP_VERSION=$APP_VERSION VITE_DOMAIN=$DOMAIN VITE_PLAUSIBLE_API_URL=$PLAUSIBLE_API_URL VITE_SENTRY_DSN=$SENTRY_DSN VITE_SENTRY_ENVIRONMENT=$SENTRY_ENVIRONMENT vite build",
 		"lint": "eslint --max-warnings=0 .",
 		"preview": "vite preview",
-		"pwa-asset-generator": "npx pwa-asset-generator --opaque false --icon-only --favicon --padding '0' --type png res/dices.svg public && npx pwa-asset-generator --background '#0f1c2e' --padding '20%' --type png res/dices.svg public",
 		"eslint:print-active-rules": "eslint --print-config src/index.ts",
-		"prettier": "prettier -w ."
+		"prettier": "prettier -w .",
+		"generate-pwa-assets": "./generate-pwa-assets.sh"
 	},
 	"dependencies": {
 		"@fontsource/caveat": "^5.0.3",
