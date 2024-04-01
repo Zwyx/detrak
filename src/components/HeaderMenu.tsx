@@ -21,8 +21,8 @@ export const HeaderMenu = () => {
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
 			<SheetTrigger asChild>
-				<Button variant="ghost" className="px-2">
-					<LucideMenu className="h-6 w-6" />
+				<Button variant="ghost" size="icon">
+					<LucideMenu />
 					<span className="sr-only">{t("openMenu")}</span>
 				</Button>
 			</SheetTrigger>
@@ -233,7 +233,7 @@ export const HeaderMenu = () => {
 
 				<div className="mt-2 w-full border-b" />
 
-				<div className="mt-4 w-full text-xs text-muted-foreground">
+				<div className="mt-3 w-full text-xs text-muted-foreground">
 					{"Original game © "}
 					<a
 						href="https://www.gigamic.com"
