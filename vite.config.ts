@@ -62,7 +62,6 @@ export default defineConfig({
 					},
 				],
 			},
-			// Keep an eye on the progress of PWA support in Safari, and remove all the Apple non-sense when we can
 			includeAssets: ["favicon-196.png", "apple-icon-180.png"],
 			workbox: {
 				globPatterns: ["**/*.{js,css,html,woff,woff2}"],
