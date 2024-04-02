@@ -43,6 +43,10 @@ jobs:
         id: SENTRY_ENVIRONMENT
 
       - env:
+          DOMAIN: "${{ secrets.DOMAIN }}"
+        run: sed -i "s/\$DOMAIN/${{ env.DOMAIN }}/" index.html
+
+      - env:
           SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
           APP_VERSION: "${{ env.APP_VERSION }}"
           DOMAIN: "${{ secrets.DOMAIN }}"
