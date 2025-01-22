@@ -47,13 +47,13 @@ jobs:
         run: sed -i "s/\$DOMAIN/${{ env.DOMAIN }}/" index.html
 
       - env:
-          SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
           APP_VERSION: "${{ env.APP_VERSION }}"
           DOMAIN: "${{ secrets.DOMAIN }}"
           PLAUSIBLE_API_URL: "${{ secrets.PLAUSIBLE_API_URL }}"
           SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
-          SENTRY_RELEASE: "${{ env.APP_VERSION }}"
           SENTRY_ENVIRONMENT: "${{ env.SENTRY_ENVIRONMENT }}"
+          SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
+          SENTRY_RELEASE: "${{ env.APP_VERSION }}"
         run: npm run build
 
       - run: |
@@ -63,7 +63,7 @@ jobs:
           git checkout main docs.gitignore netlify.toml
           mv -v docs.gitignore .gitignore
           git rm docs.gitignore
-          git add .gitignore docs
+          git add docs
           git config user.name "Zwyx - GitHub Actions"
           git config user.email "29386932+Zwyx@users.noreply.github.com>"
           git commit -m "Build website"
