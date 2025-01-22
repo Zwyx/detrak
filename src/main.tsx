@@ -1,12 +1,12 @@
 // At https://fontsource.org/docs/getting-started/subsets it is said that
 // it's not recommended to specify a subset when importing fonts, but I still
 // want to do it because the service worker downloads all font files on
-// everyone's machines; specifying the subsets saves transfering about 300kB
+// everyone's machines; specifying the subsets saves transferring about 300kB
 import "@fontsource/caveat/latin-400.css";
 import "@fontsource/inter/latin-400.css";
 import * as Sentry from "@sentry/react";
-import React from "react";
-import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 import { UnexpectedError } from "./components/UnexpectedError.tsx";
 import "./i18n/i18n.ts";
@@ -37,8 +37,13 @@ if (import.meta.env.PROD) {
 	Sentry.setTag("pwa", pwa);
 }
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<React.StrictMode>
+if (!Math.floor(Math.random() * 1000)) {
+	Sentry.captureMessage("Sentry health check");
+}
+
+createRoot(document.getElementById("root") as HTMLElement).render(
+	<StrictMode>
+		{/* Note: Sentry's error boundary only catches rendering errors; other errors are reported to Sentry but don't make the error boundary to show up */}
 		<Sentry.ErrorBoundary fallback={<UnexpectedError />} showDialog>
 			<PwaContextProvider>
 				<ThemeContextProvider>
@@ -48,5 +53,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				</ThemeContextProvider>
 			</PwaContextProvider>
 		</Sentry.ErrorBoundary>
-	</React.StrictMode>,
+	</StrictMode>,
 );

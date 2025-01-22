@@ -23,7 +23,9 @@
 		"Detrak",
 		"gigamic",
 		"magick",
+		"maskable",
 		"mxschmitt",
-		"staticrypt"
+		"staticrypt",
+		"workbox"
 	]
 }
