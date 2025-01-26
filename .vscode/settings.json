@@ -25,7 +25,11 @@
 		"magick",
 		"maskable",
 		"mxschmitt",
+		"nvmrc",
+		"objectname",
+		"objecttype",
 		"staticrypt",
-		"workbox"
+		"workbox",
+		"Zwyx"
 	]
 }
