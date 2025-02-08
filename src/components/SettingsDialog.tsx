@@ -1,17 +1,17 @@
-import { LucideSettings } from "lucide-react";
-import { FC, PropsWithChildren } from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "~/components/ui/button";
-import { Checkbox } from "~/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "~/components/ui/dialog";
-import { Settings } from "~/lib/SettingsContext";
-import { useSettingsContext } from "~/lib/SettingsContext.const";
+} from "@/components/ui/dialog";
+import { Settings } from "@/lib/SettingsContext";
+import { useSettingsContext } from "@/lib/SettingsContext.const";
+import { LucideSettings } from "lucide-react";
+import { FC, PropsWithChildren } from "react";
+import { useTranslation } from "react-i18next";
 
 interface SettingCheckboxProps extends PropsWithChildren {
 	name: keyof Settings;

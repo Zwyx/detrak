@@ -1,7 +1,7 @@
+import { useSettingsContext } from "@/lib/SettingsContext.const";
+import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSettingsContext } from "~/lib/SettingsContext.const";
-import { cn } from "~/lib/utils";
 import { HelpStep, HelpTooltip } from "./HelpTooltip";
 
 export type TCell = number | null;

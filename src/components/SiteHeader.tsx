@@ -1,7 +1,7 @@
+import { HeaderMenu } from "@/components/HeaderMenu";
+import { SettingsDialog } from "@/components/SettingsDialog";
+import { ThemeSelector } from "@/components/ThemeSelector";
 import { useTranslation } from "react-i18next";
-import { HeaderMenu } from "~/components/HeaderMenu";
-import { SettingsDialog } from "~/components/SettingsDialog";
-import { ThemeSelector } from "~/components/ThemeSelector";
 import { LanguageSelector } from "./LanguageSelector";
 
 export const SiteHeader = () => {
