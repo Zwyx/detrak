@@ -1,6 +1,6 @@
+import { LOCALE_KEY } from "@/lib/keys";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import { LOCALE_KEY } from "~/lib/keys";
 import { en } from "./locales/en";
 import { fr } from "./locales/fr";
 
