@@ -1,17 +1,15 @@
-// https://github.com/shadcn/ui/blob/main/apps/www/components/mobile-nav.tsx
-
-import { LucideMenu } from "lucide-react";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "~/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "~/components/ui/dialog";
-import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
+} from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { LucideMenu } from "lucide-react";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 export const HeaderMenu = () => {
 	const { t } = useTranslation("headerMenu");

@@ -1,4 +1,4 @@
-import { DeepReplace } from "~/lib/utils";
+import { DeepReplace } from "@/lib/utils";
 
 export const en = {
 	app: {
