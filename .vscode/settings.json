@@ -28,6 +28,8 @@
 		"nvmrc",
 		"objectname",
 		"objecttype",
+		"overscroll",
+		"popover",
 		"splitmix",
 		"staticrypt",
 		"workbox",
