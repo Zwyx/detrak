@@ -1,50 +1,16 @@
+import { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import {
-	Dispatch,
-	ReactNode,
-	createContext,
-	useCallback,
-	useEffect,
-	useState,
-} from "react";
-import { THEME_KEY } from "./keys";
+	ThemeChoice,
+	ThemeContext,
+	ThemeScheme,
+	darkThemeName,
+	getStartupThemeChoice,
+	getThemeSchemeFromChoice,
+	lightThemeName,
+} from "./ThemeContext.const";
+import { THEME_CHOICE_KEY } from "./local-storage-keys";
 
-const themeSchemes = ["light", "dark"] as const;
-type ThemeScheme = (typeof themeSchemes)[number];
-const isThemeScheme = (value: unknown): value is ThemeScheme =>
-	typeof value === "string" && themeSchemes.includes(value as ThemeScheme);
-
-const themeChoices = [...themeSchemes, "system"] as const;
-type ThemeChoice = (typeof themeChoices)[number];
-const isThemeChoice = (value: unknown): value is ThemeChoice =>
-	typeof value === "string" && themeChoices.includes(value as ThemeChoice);
-
-const lightThemeName: ThemeScheme = "light";
-const darkThemeName: ThemeScheme = "dark";
-const defaultThemeChoice: ThemeChoice = "system";
-
-export const ThemeContext = createContext<
-	| {
-			themeChoice: ThemeChoice;
-			themeScheme: ThemeScheme;
-			updateThemeChoice: Dispatch<ThemeChoice>;
-	  }
-	| undefined
->(undefined);
-
-const storedThemeChoice = localStorage.getItem(THEME_KEY);
-
-const getStartupThemeChoice: ThemeChoice = isThemeChoice(storedThemeChoice)
-	? storedThemeChoice
-	: defaultThemeChoice;
-
-const getThemeSchemeFromChoice = (themeChoice: ThemeChoice): ThemeScheme =>
-	isThemeScheme(themeChoice)
-		? themeChoice
-		: matchMedia("(prefers-color-scheme: dark)").matches
-		? "dark"
-		: "light";
-
-export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
+export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
 	const [themeChoice, setThemeChoice] = useState<ThemeChoice>(
 		getStartupThemeChoice,
 	);
@@ -88,7 +54,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
 	}, [themeScheme]);
 
 	const updateThemeChoice = useCallback((newThemeChoice: ThemeChoice) => {
-		localStorage.setItem(THEME_KEY, newThemeChoice);
+		localStorage.setItem(THEME_CHOICE_KEY, newThemeChoice);
 		setThemeChoice(newThemeChoice);
 	}, []);
 

@@ -1,41 +1,10 @@
+import { ReactNode, useCallback, useEffect, useReducer, useState } from "react";
 import {
-	Dispatch,
-	ReactNode,
-	createContext,
-	useCallback,
-	useEffect,
-	useReducer,
-	useState,
-} from "react";
-import { NUMBER_OF_GAMES_KEY, SETTINGS_KEY } from "./keys";
-
-export interface Settings {
-	alwaysShowScore: boolean;
-	showScoreLegend: boolean;
-	animateDice: boolean;
-	autoRollDice: boolean;
-	showDiceMarker: boolean;
-	showConfetti: boolean;
-}
-
-const defaultSettings: Settings = {
-	alwaysShowScore: false,
-	showScoreLegend: true,
-	animateDice: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-	autoRollDice: false,
-	showDiceMarker: true,
-	showConfetti: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-};
-
-export const SettingsContext = createContext<
-	| {
-			settings: Settings;
-			updateSettings: Dispatch<Partial<Settings>>;
-			numberOfGames: number;
-			incrementNumberOfGames: () => void;
-	  }
-	| undefined
->(undefined);
+	Settings,
+	SettingsContext,
+	defaultSettings,
+} from "./SettingsContext.const";
+import { NUMBER_OF_GAMES_KEY, SETTINGS_KEY } from "./local-storage-keys";
 
 export const SettingsContextProvider = ({
 	children,
