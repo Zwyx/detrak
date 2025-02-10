@@ -64,6 +64,11 @@ export const fr: I18nLocale = {
 
 	headerMenu: {
 		detrak: "Détrak",
+		newVersion: {
+			title: "Nouvelle version disponible",
+			description: "Terminez votre partie et rechargez l'application.",
+			action: "Recharger l'application",
+		},
 		digitalVersion: {
 			madeBy: "Cette version numérique a été créée par moi-même, ",
 			webDeveloper:

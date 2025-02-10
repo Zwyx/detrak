@@ -10,7 +10,7 @@ import { SiteHeader } from "./components/SiteHeader";
 import { Button } from "./components/ui/button";
 import { usePwaContext } from "./lib/PwaContext.const";
 import { useSettingsContext } from "./lib/SettingsContext.const";
-import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/keys";
+import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/local-storage-keys";
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -409,7 +409,7 @@ export const App = () => {
 								<Button
 									disabled={move !== 1 && move !== 2}
 									onClick={() => {
-										if (pwa.needsRefresh && pwa.refresh) {
+										if (pwa.refreshNeeded && pwa.refresh) {
 											pwa.refresh();
 											return;
 										}

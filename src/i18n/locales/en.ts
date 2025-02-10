@@ -66,6 +66,11 @@ export const en = {
 
 	headerMenu: {
 		detrak: "Detrak",
+		newVersion: {
+			title: "New version available",
+			description: "Finish your game and reload the app to update.",
+			action: "Reload app",
+		},
 		digitalVersion: {
 			madeBy: "This digital version has been made by me, ",
 			webDeveloper:

@@ -7,8 +7,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Settings } from "@/lib/SettingsContext";
-import { useSettingsContext } from "@/lib/SettingsContext.const";
+import { Settings, useSettingsContext } from "@/lib/SettingsContext.const";
 import { LucideSettings } from "lucide-react";
 import { FC, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
