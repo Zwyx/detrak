@@ -1,5 +1,5 @@
 import { useSettingsContext } from "@/lib/SettingsContext.const";
-import { cn } from "@/lib/utils";
+import { cn, getSymbolNames } from "@/lib/utils";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { HelpStep, HelpTooltip } from "./HelpTooltip";
@@ -92,14 +92,7 @@ export const Cell: FC<CellProps> = ({
 	const canPlay = symbol && onClick && (value === null || startOfGame);
 	const bgColor = x + y === 6 && "bg-accent";
 
-	const symbolNames = [
-		t("symbolNames.bar"),
-		t("symbolNames.cross"),
-		t("symbolNames.tripleBar"),
-		t("symbolNames.sharp"),
-		t("symbolNames.triangle"),
-		t("symbolNames.circle"),
-	];
+	const symbolNames = getSymbolNames(t);
 
 	return (
 		<button

@@ -1,6 +1,17 @@
 import { DeepReplace } from "@/lib/utils";
 
 export const en = {
+	common: {
+		symbolNames: {
+			bar: "bar",
+			circle: "circle",
+			cross: "cross",
+			sharp: "sharp",
+			triangle: "triangle",
+			tripleBar: "triple bar",
+		},
+	},
+
 	app: {
 		autoRollDice:
 			"Dice are now unanimated and rolled automatically to allow you to play quicker. You can change this in the settings dialog.",
@@ -46,14 +57,6 @@ export const en = {
 					"The diagonal's score appears on both ends, so it is counted twice!",
 				part2: "Roll the dice again to continue the game.",
 			},
-		},
-		symbolNames: {
-			bar: "bar",
-			circle: "circle",
-			cross: "cross",
-			sharp: "sharp",
-			triangle: "triangle",
-			tripleBar: "triple bar",
 		},
 	},
 
