@@ -1,5 +1,5 @@
 import { Confetti } from "@/lib/confetti.min.js";
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate, getSymbolNames } from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -54,8 +54,9 @@ export const App = () => {
 	const pwa = usePwaContext();
 	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
 		useSettingsContext();
-
 	const { t } = useTranslation("app");
+
+	const symbolNames = getSymbolNames(t);
 
 	const initialGrid = Array(7)
 		.fill(0)
@@ -135,6 +136,8 @@ export const App = () => {
 
 	const [newGameDialogOpen, setNewGameDialogOpen] = useState(true);
 
+	const [srText, setSrText] = useState<string>("");
+
 	const [dice, setDice] = useState<TCell[]>([null, null]);
 	const [diceTimestamp, setDiceTimestamp] = useState<number>(0);
 	const [diceHidden, setDiceHidden] = useState(false);
@@ -175,60 +178,69 @@ export const App = () => {
 	}, [endOfGame, incrementNumberOfGames]);
 
 	useEffect(() => {
-		if (endOfGame) {
-			if (
-				typeof score === "number" &&
-				(typeof highestScore !== "number" || score > highestScore)
-			) {
-				if (typeof highestScore === "number") {
-					setNewHighestScore(true);
-				}
+		if (!endOfGame || typeof score !== "number") {
+			return;
+		}
 
-				localStorage.setItem(HIGHEST_SCORE_KEY, score.toString());
+		if (typeof highestScore === "number" && score <= highestScore) {
+			setSrText(`Game finished! Score: ${score}`);
+			return;
+		}
 
-				setHighestScore(score);
+		if (typeof highestScore === "number") {
+			setNewHighestScore(true);
+			setSrText(`Game finished! New highest score! ${score}`);
+		} else {
+			setSrText(`Game finished! Score: ${score}`);
+		}
 
-				if (settings.showConfetti) {
-					setTimeout(() => {
-						const confetti = new Confetti("confetti");
+		localStorage.setItem(HIGHEST_SCORE_KEY, score.toString());
 
-						confetti.setCount(75);
-						confetti.setSize(1);
-						confetti.setPower(25);
-						confetti.setFade(false);
-						confetti.destroyTarget(false);
+		setHighestScore(score);
 
-						setTimeout(() => {
-							const confettiElement = document.getElementById("confetti");
+		if (settings.showConfetti) {
+			setTimeout(() => {
+				const confetti = new Confetti("confetti");
 
-							if (confettiElement) {
-								const boundingClientRect =
-									confettiElement.getBoundingClientRect();
+				confetti.setCount(75);
+				confetti.setSize(1);
+				confetti.setPower(25);
+				confetti.setFade(false);
+				confetti.destroyTarget(false);
 
-								confettiElement.dispatchEvent(
-									new PointerEvent("click", {
-										clientX:
-											boundingClientRect.x + boundingClientRect.width / 2,
-										clientY: boundingClientRect.y,
-									}),
-								);
-							}
-						}, 100);
-					}, 100);
-				}
-			}
+				setTimeout(() => {
+					const confettiElement = document.getElementById("confetti");
+
+					if (confettiElement) {
+						const boundingClientRect = confettiElement.getBoundingClientRect();
+
+						confettiElement.dispatchEvent(
+							new PointerEvent("click", {
+								clientX: boundingClientRect.x + boundingClientRect.width / 2,
+								clientY: boundingClientRect.y,
+							}),
+						);
+					}
+				}, 100);
+			}, 100);
 		}
 	}, [endOfGame, score, highestScore, settings.showConfetti]);
 
 	const rollDiceNow = useCallback(() => {
-		setDice([
+		const newDice = [
 			Math.floor(seededPrng.getNext() * 6),
 			Math.floor(seededPrng.getNext() * 6),
-		]);
+		];
+
+		setDice(newDice);
 		setDiceTimestamp(Date.now());
 		setDiceHidden(false);
 		setMove(0);
 		setMovesCoords([]);
+
+		const newSrText = `${t("New draw:")} ${symbolNames[newDice[0]]}, ${
+			symbolNames[newDice[1]]
+		}`;
 
 		if (settings.animateDice) {
 			setDiceRolling(true);
@@ -243,6 +255,7 @@ export const App = () => {
 
 			setTimeout(() => {
 				setDiceRolling(false);
+				setSrText(newSrText);
 
 				setHelpStep((prevHelpStep) =>
 					prevHelpStep === "diceRolling1"
@@ -253,6 +266,8 @@ export const App = () => {
 				);
 			}, 2000);
 		} else {
+			setSrText(newSrText);
+
 			setHelpStep((prevHelpStep) =>
 				prevHelpStep === "rollDice1"
 					? "clickGrid1"
@@ -263,7 +278,7 @@ export const App = () => {
 					: null,
 			);
 		}
-	}, [seededPrng, settings.animateDice]);
+	}, [seededPrng, t, symbolNames, settings.animateDice]);
 
 	const rollDice = useCallback(() => {
 		if (
@@ -310,11 +325,15 @@ export const App = () => {
 					setNewGameDialogOpen(false);
 					setGameId(newGameId);
 					setSeededPrng(getSeededPrng(newGameId));
-					setSrText(t("Select one on the six symbols to start."));
+					setSrText(t("Select one of the six symbols to start."));
 				}}
 				onClearGame={clearGame}
 				onOpenChange={setNewGameDialogOpen}
 			/>
+
+			<div className="sr-only" role="status">
+				{srText}
+			</div>
 
 			<div className="my-2 flex h-[120px] w-full flex-col items-center justify-center overflow-hidden xsm:h-[170px]">
 				{startOfGame && (

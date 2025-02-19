@@ -1,6 +1,17 @@
 import { I18nLocale } from "./en";
 
 export const fr: I18nLocale = {
+	common: {
+		symbolNames: {
+			bar: "barre",
+			circle: "cercle",
+			cross: "croix",
+			sharp: "dièse",
+			triangle: "triangle",
+			tripleBar: "triple barre",
+		},
+	},
+
 	app: {
 		autoRollDice:
 			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans la boîte de dialogue des paramètres.",
@@ -45,14 +56,6 @@ export const fr: I18nLocale = {
 					"Le score de la diagonale apparaît aux deux extrémités — il est compté deux fois !",
 				part2: "Lancez à nouveau les dés pour continuer le jeu.",
 			},
-		},
-		symbolNames: {
-			bar: "barre",
-			circle: "cercle",
-			cross: "croix",
-			sharp: "dièse",
-			triangle: "triangle",
-			tripleBar: "triple barre",
 		},
 	},
 

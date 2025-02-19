@@ -1,5 +1,6 @@
 import { ClassValue, clsx } from "clsx";
 import { format } from "date-fns";
+import { TFunction } from "i18next";
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -33,4 +34,15 @@ export function usePrevious<T>(newValue: T) {
 
 export function formatDate(date: Date | "today") {
 	return format(date === "today" ? new Date() : date, "yyyy-MM-dd");
+}
+
+export function getSymbolNames(t: TFunction) {
+	return [
+		t("symbolNames.bar", { ns: "common" }),
+		t("symbolNames.cross", { ns: "common" }),
+		t("symbolNames.tripleBar", { ns: "common" }),
+		t("symbolNames.sharp", { ns: "common" }),
+		t("symbolNames.triangle", { ns: "common" }),
+		t("symbolNames.circle", { ns: "common" }),
+	];
 }
