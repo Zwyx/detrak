@@ -1,16 +1,18 @@
 import { Confetti } from "@/lib/confetti.min.js";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Cell, Grid, TCell, TGrid, TLine } from "./components/Detrak";
 import { Dice } from "./components/Dice";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
+import { NewGameDialog } from "./components/NewGameDialog";
 import { SiteHeader } from "./components/SiteHeader";
 import { Button } from "./components/ui/button";
 import { usePwaContext } from "./lib/PwaContext.const";
 import { useSettingsContext } from "./lib/SettingsContext.const";
 import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/local-storage-keys";
+import { SeededPrng, getSeededPrng } from "./lib/prng";
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -126,6 +128,13 @@ export const App = () => {
 
 	const [grid, updateGrid] = useReducer(gridReducer, initialGrid);
 
+	const [gameId, setGameId] = useState<string | undefined>();
+	const [seededPrng, setSeededPrng] = useState<SeededPrng>(() =>
+		getSeededPrng(formatDate("today")),
+	);
+
+	const [newGameDialogOpen, setNewGameDialogOpen] = useState(true);
+
 	const [dice, setDice] = useState<TCell[]>([null, null]);
 	const [diceTimestamp, setDiceTimestamp] = useState<number>(0);
 	const [diceHidden, setDiceHidden] = useState(false);
@@ -212,7 +221,10 @@ export const App = () => {
 	}, [endOfGame, score, highestScore, settings.showConfetti]);
 
 	const rollDiceNow = useCallback(() => {
-		setDice([Math.floor(Math.random() * 6), Math.floor(Math.random() * 6)]);
+		setDice([
+			Math.floor(seededPrng.getNext() * 6),
+			Math.floor(seededPrng.getNext() * 6),
+		]);
 		setDiceTimestamp(Date.now());
 		setDiceHidden(false);
 		setMove(0);
@@ -251,7 +263,7 @@ export const App = () => {
 					: null,
 			);
 		}
-	}, [settings.animateDice]);
+	}, [seededPrng, settings.animateDice]);
 
 	const rollDice = useCallback(() => {
 		if (
@@ -271,11 +283,40 @@ export const App = () => {
 		}
 	}, [settings.autoRollDice, canRollDice, rollDice]);
 
+	const clearGame = () => {
+		setNewGameDialogOpen(true);
+		setGameId(undefined);
+		updateGrid({ x: -1, y: -1, newValue: null });
+		setDice([null, null]);
+		setMove(-1);
+		setMovesCoords([]);
+		setMiddleOfGame(false);
+		setNewHighestScore(false);
+	};
+
 	return (
 		<div className="flex flex-col items-center font-[inter]">
-			<SiteHeader />
+			<SiteHeader
+				gameId={gameId}
+				onGameIdClick={() => {
+					setNewGameDialogOpen(true);
+				}}
+			/>
 
-			<div className="my-2 flex h-[170px] w-full flex-col items-center justify-center overflow-hidden">
+			<NewGameDialog
+				open={newGameDialogOpen}
+				currentGameId={gameId}
+				onNewGame={(newGameId) => {
+					setNewGameDialogOpen(false);
+					setGameId(newGameId);
+					setSeededPrng(getSeededPrng(newGameId));
+					setSrText(t("Select one on the six symbols to start."));
+				}}
+				onClearGame={clearGame}
+				onOpenChange={setNewGameDialogOpen}
+			/>
+
+			<div className="my-2 flex h-[120px] w-full flex-col items-center justify-center overflow-hidden xsm:h-[170px]">
 				{startOfGame && (
 					<>
 						<div className="relative flex w-full min-w-[300px] max-w-[550px]">
@@ -414,12 +455,7 @@ export const App = () => {
 											return;
 										}
 
-										updateGrid({ x: -1, y: -1, newValue: null });
-										setDice([null, null]);
-										setMove(-1);
-										setMovesCoords([]);
-										setMiddleOfGame(false);
-										setNewHighestScore(false);
+										clearGame();
 									}}
 								>
 									{t("startNewGame")}

@@ -2,15 +2,20 @@ export interface SeededPrng {
 	getNext: () => number;
 }
 
-const ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz-";
+// `-` is placed last and not used when generating random IDs
+const GAME_ID_ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz-";
+
+export const GAME_ID_ALPHABET_REGEX = new RegExp(
+	`^[${GAME_ID_ALPHABET}]{1,10}$`,
+);
 
 function getSeed(text: string): number {
-	const base = ALPHABET.length;
+	const base = GAME_ID_ALPHABET.length;
 
 	let result = 0;
 
 	for (let i = 0; i < text.length; i++) {
-		result = result * base + ALPHABET.indexOf(text.charAt(i));
+		result = result * base + GAME_ID_ALPHABET.indexOf(text.charAt(i));
 	}
 
 	return result;
@@ -36,14 +41,21 @@ export function getSeededPrng(seedText: string) {
 	};
 }
 
+export function getRandomId(length?: number) {
+	return Array.from({ length: length || Math.floor(Math.random() * 10) }, () =>
+		// `- 1` because we don't include dash when generating random IDs
+		GAME_ID_ALPHABET.charAt(
+			Math.floor(Math.random() * (GAME_ID_ALPHABET.length - 1)),
+		),
+	).join("");
+}
+
 /**
  * Used to verify the repartition of the numbers drawn by the PRNG;
  * run `npm run check-prng`
  */
 export function checkPrngNumbersRepartition() {
-	const seedText = Array.from({ length: Math.floor(Math.random() * 10) }, () =>
-		ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length)),
-	).join("");
+	const seedText = getRandomId();
 
 	console.info(`Seed text: ${seedText}`);
 
