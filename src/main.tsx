@@ -28,7 +28,14 @@ if (import.meta.env.PROD) {
 	Sentry.init({
 		dsn: import.meta.env.VITE_SENTRY_DSN,
 		environment: import.meta.env.VITE_SENTRY_ENVIRONMENT,
-		integrations: [new Sentry.BrowserTracing(), Sentry.replayIntegration()],
+		integrations: [
+			Sentry.browserTracingIntegration(),
+			Sentry.replayIntegration({
+				// Detrak doesn't handle any personally identifiable or private data
+				maskAllText: false,
+				blockAllMedia: false,
+			}),
+		],
 		tracesSampleRate: 0.1,
 		replaysSessionSampleRate: 0.01,
 		replaysOnErrorSampleRate: 1.0,

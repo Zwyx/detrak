@@ -1,4 +1,5 @@
 import { ClassValue, clsx } from "clsx";
+import { format } from "date-fns";
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -28,4 +29,8 @@ export function usePrevious<T>(newValue: T) {
 	});
 
 	return previousRef.current;
+}
+
+export function formatDate(date: Date | "today") {
+	return format(date === "today" ? new Date() : date, "yyyy-MM-dd");
 }
