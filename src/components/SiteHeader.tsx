@@ -1,10 +1,18 @@
 import { HeaderMenu } from "@/components/HeaderMenu";
 import { SettingsDialog } from "@/components/SettingsDialog";
 import { ThemeSelector } from "@/components/ThemeSelector";
+import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "./LanguageSelector";
+import { Button } from "./ui/button";
 
-export const SiteHeader = () => {
+export const SiteHeader = ({
+	gameId,
+	onGameIdClick,
+}: {
+	gameId: string | undefined;
+	onGameIdClick: () => void;
+}) => {
 	const { t } = useTranslation("siteHeader");
 
 	return (
@@ -14,8 +22,26 @@ export const SiteHeader = () => {
 					<HeaderMenu />
 				</div>
 
-				<div className="flex flex-[10] justify-center">
-					<span className="text-center font-bold">{t("detrak")}</span>
+				<div className="flex flex-[10] items-center justify-center gap-4">
+					<span
+						className={cn(
+							"text-center font-bold",
+							gameId && "hidden xsm:inline",
+						)}
+					>
+						{t("detrak")}
+					</span>
+
+					{gameId && (
+						<Button
+							className="gap-1"
+							variant="outline"
+							size="sm"
+							onClick={onGameIdClick}
+						>
+							Game:<code className="font-semibold">{gameId}</code>
+						</Button>
+					)}
 				</div>
 
 				<div className="flex flex-1 items-center justify-end gap-1">
