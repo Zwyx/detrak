@@ -9,6 +9,7 @@ export interface Settings {
 	autoRollDice: boolean;
 	showDiceMarker: boolean;
 	showConfetti: boolean;
+	showNavigationAlert: boolean;
 }
 
 export const defaultSettings: Settings = {
@@ -18,6 +19,7 @@ export const defaultSettings: Settings = {
 	autoRollDice: false,
 	showDiceMarker: true,
 	showConfetti: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+	showNavigationAlert: true,
 };
 
 export const SettingsContext = createContext<

@@ -1,13 +1,3 @@
-import {
-	AlertDialog,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Calendar } from "@/components/ui/calendar";
 import {
 	Dialog,
@@ -24,9 +14,10 @@ import {
 	NUMBER_OF_GAMES_KEY,
 	VERSION_2_WELCOME_SHOWN_KEY,
 } from "@/lib/local-storage-keys";
-import { GAME_ID_ALPHABET_REGEX, getRandomId } from "@/lib/prng";
-import { formatDate, usePrevious } from "@/lib/utils";
-import { CalendarIcon, LucideArrowLeft } from "lucide-react";
+import { GAME_ID_REGEX, getRandomId } from "@/lib/prng";
+import { formatDate } from "@/lib/utils";
+import { fr } from "date-fns/locale";
+import { CalendarIcon, LucideArrowLeft, LucideLoader2 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -37,22 +28,29 @@ const DOMAIN = import.meta.env.VITE_DOMAIN;
 export const NewGameDialog = ({
 	open,
 	currentGameId,
+	previousGameId,
+	pwaRefreshing,
 	onNewGame,
-	onClearGame,
+	onStopGame,
 	onOpenChange,
 }: {
 	open: boolean;
 	currentGameId: string | undefined;
+	previousGameId: string | undefined;
+	pwaRefreshing: boolean;
 	onNewGame: (gameId: string) => void;
-	onClearGame: () => void;
+	onStopGame: () => void;
 	onOpenChange: (open: boolean) => void;
 }) => {
-	const { t } = useTranslation("newGameDialog");
-
-	const prevCurrentGameId = usePrevious(currentGameId);
+	const { t, i18n } = useTranslation("newGameDialog");
 
 	const [view, setView] = useState<
-		"welcome" | "new_game" | "share" | "share_create" | "share_join"
+		| "welcome"
+		| "new_game"
+		| "share"
+		| "share_create"
+		| "share_join"
+		| "pwa_refreshing"
 	>(
 		localStorage.getItem(NUMBER_OF_GAMES_KEY) &&
 			!localStorage.getItem(VERSION_2_WELCOME_SHOWN_KEY)
@@ -67,26 +65,28 @@ export const NewGameDialog = ({
 	const shareGameLink = `${DOMAIN}/${currentGameId || randomGameId}`;
 	const shareGameLinkHttps = `https://${shareGameLink}`;
 
-	const joinGameIdValid = !!joinGameId.match(GAME_ID_ALPHABET_REGEX);
+	const joinGameIdValid = !!joinGameId.match(GAME_ID_REGEX);
 
 	useEffect(() => {
-		if (currentGameId) {
+		if (pwaRefreshing) {
+			setView("pwa_refreshing");
+		} else if (currentGameId) {
 			setView("share_create");
-		} else if (prevCurrentGameId) {
+			// `previousGameId` prevents setting the view to `new_game` when showing the `welcome` one
+		} else if (previousGameId) {
 			setView("new_game");
 			setRandomGameId(getRandomId(8));
 		}
-	}, [currentGameId, prevCurrentGameId]);
+	}, [currentGameId, previousGameId, pwaRefreshing]);
+
+	useEffect(() => {
+		if (view === "new_game") {
+			localStorage.setItem(VERSION_2_WELCOME_SHOWN_KEY, "true");
+		}
+	}, [view]);
 
 	return (
 		<Dialog open={open} onOpenChange={currentGameId ? onOpenChange : undefined}>
-			{/* <DialogTrigger asChild>
-				<Button variant="ghost" size="sm" className="w-9 px-0">
-					<LucideSettings />
-					<span className="sr-only">{t("openSettingsDialog")}</span>
-				</Button>
-			</DialogTrigger> */}
-
 			<DialogContent
 				className="flex max-h-full flex-col items-center overflow-auto"
 				notClosable={!currentGameId}
@@ -112,43 +112,47 @@ export const NewGameDialog = ({
 								</Button>
 							)}
 
-						{currentGameId
-							? "Invite people to the current game"
+						{view === "pwa_refreshing"
+							? ""
+							: currentGameId
+							? t("title.inviteToGame")
 							: view === "welcome"
-							? "Welcome to the new version of Detrak!"
+							? t("title.welcomeToNewVersion")
 							: view === "share"
-							? "Play with friends"
+							? t("title.playWithFriends")
 							: view === "share_create"
-							? "Create a game"
+							? t("title.createGame")
 							: view === "share_join"
-							? "Join a game"
-							: t("newGame")}
+							? t("title.joinGame")
+							: t("title.newGame")}
 					</DialogTitle>
-					{/* <DialogDescription></DialogDescription> */}
 				</DialogHeader>
 
 				{view === "welcome" && (
 					<div className="mt-2 flex flex-col gap-4 text-left">
-						<div>There are two new ways of playing:</div>
+						<div>{t("welcome.intro")}</div>
 
 						<div>
-							<span className="pl-4 font-medium">• The daily game</span> – every
-							day, the game of the day will have the same sequence of symbols
-							drawn by the dice for everyone.
+							<span className="pl-4 font-medium">
+								• {t("welcome.dailyGame")}
+							</span>
+							{" – "}
+							{t("welcome.dailyGameDetails")}
 						</div>
 
 						<div>
-							<span className="pl-4 font-medium">• Play with friends</span> –
-							you can now create a game and invite people to join. Here too, the
-							sequence of symbols drawn during the game will be the same for
-							your friends and you. It even works without internet connection.
+							<span className="pl-4 font-medium">
+								• {t("welcome.playWithFriends")}
+							</span>
+							{" – "}
+							{t("welcome.playWithFriendsDetails")}
 						</div>
 
 						<Button
 							className="mt-2 h-12 w-full text-wrap"
 							onClick={() => setView("new_game")}
 						>
-							Start playing!
+							{t("welcome.startPlaying")}
 						</Button>
 					</div>
 				)}
@@ -159,7 +163,7 @@ export const NewGameDialog = ({
 							className="h-16 w-full text-wrap"
 							onClick={() => onNewGame(formatDate("today"))}
 						>
-							Play today's game
+							{t("playTodayGame")}
 						</Button>
 
 						<OrSeparator />
@@ -171,12 +175,13 @@ export const NewGameDialog = ({
 									variant="outline"
 								>
 									<CalendarIcon />
-									Pick another day
+									{t("pickAnotherDay")}
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent className="w-auto p-0" align="start">
 								{!date && (
 									<Calendar
+										locale={i18n.language === "fr" ? fr : undefined}
 										mode="single"
 										initialFocus
 										onSelect={(newDate) => {
@@ -197,14 +202,14 @@ export const NewGameDialog = ({
 								className="h-12 flex-1 text-wrap"
 								onClick={() => onNewGame(randomGameId)}
 							>
-								Play a random game
+								{t("playRandomGame")}
 							</Button>
 
 							<Button
 								className="h-12 flex-1 text-wrap"
 								onClick={() => setView("share")}
 							>
-								Play with friends
+								{t("playWithFriends")}
 							</Button>
 						</div>
 					</>
@@ -216,7 +221,7 @@ export const NewGameDialog = ({
 							className="h-12 w-full text-wrap"
 							onClick={() => setView("share_create")}
 						>
-							Create a game
+							{t("createGame")}
 						</Button>
 
 						<OrSeparator />
@@ -225,7 +230,7 @@ export const NewGameDialog = ({
 							className="h-12 w-full text-wrap"
 							onClick={() => setView("share_join")}
 						>
-							Join a game
+							{t("joinGame")}
 						</Button>
 					</>
 				)}
@@ -233,8 +238,8 @@ export const NewGameDialog = ({
 				{view === "share_create" && (
 					<>
 						<span className="text-center font-medium">
-							Ask your friends to scan this QR code, or share the link with
-							them. {!currentGameId && "Then click Play."}
+							{t("shareCreate.scanQrCode")}{" "}
+							{!currentGameId && t("shareCreate.clickPlay")}
 						</span>
 
 						<div className="rounded-md border bg-white p-4">
@@ -251,8 +256,8 @@ export const NewGameDialog = ({
 								onClick={() => {
 									if (navigator.share) {
 										navigator.share({
-											title: "Detrak",
-											text: "Play this game with me on Detrak",
+											title: t("shareCreate.title"),
+											text: t("shareCreate.joinMe"),
 											url: shareGameLinkHttps,
 										});
 									} else {
@@ -260,43 +265,24 @@ export const NewGameDialog = ({
 									}
 								}}
 							>
-								{navigator["share"] ? "Share link" : "Copy link to clipboard"}
+								{navigator["share"]
+									? t("shareCreate.shareLink")
+									: t("shareCreate.copyLink")}
 							</Button>
 						</div>
 
 						{currentGameId ? (
 							<div className="flex w-full justify-between">
-								<AlertDialog>
-									<AlertDialogTrigger asChild>
-										<Button
-											variant="outline"
-											className="border-destructive text-destructive hover:bg-background hover:text-destructive"
-										>
-											Stop this game
-										</Button>
-									</AlertDialogTrigger>
-
-									<AlertDialogContent>
-										<AlertDialogHeader>
-											<AlertDialogTitle>Are you sure?</AlertDialogTitle>
-
-											<AlertDialogDescription>
-												Please confirm that you want to stop the current game.
-											</AlertDialogDescription>
-										</AlertDialogHeader>
-
-										<AlertDialogFooter>
-											<AlertDialogCancel>Keep playing</AlertDialogCancel>
-
-											<Button variant="destructive" onClick={onClearGame}>
-												Stop this game
-											</Button>
-										</AlertDialogFooter>
-									</AlertDialogContent>
-								</AlertDialog>
+								<Button
+									variant="outline"
+									className="border-destructive text-destructive hover:bg-background hover:text-destructive"
+									onClick={onStopGame}
+								>
+									{t("stopGame")}
+								</Button>
 
 								<Button variant="outline" onClick={() => onOpenChange(false)}>
-									Close
+									{t("close")}
 								</Button>
 							</div>
 						) : (
@@ -304,7 +290,7 @@ export const NewGameDialog = ({
 								className="h-12 w-full text-wrap"
 								onClick={() => onNewGame(randomGameId)}
 							>
-								Play
+								{t("play")}
 							</Button>
 						)}
 					</>
@@ -313,9 +299,9 @@ export const NewGameDialog = ({
 				{view === "share_join" && (
 					<>
 						<ul className="list-disc font-medium">
-							<li>Use your device's camera to scan a game's QR code.</li>
-							<li>Or, open a game's link.</li>
-							<li>Or, enter a game's link below and click Play.</li>
+							<li>{t("shareJoin.useCamera")}</li>
+							<li>{t("shareJoin.openGameLink")}</li>
+							<li>{t("shareJoin.enterGameLink")}</li>
 						</ul>
 
 						<div className="flex h-10 items-center gap-0.5 rounded-md border border-input bg-background pl-3 pr-1 font-mono text-base ring-offset-background placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 md:text-sm">
@@ -365,9 +351,13 @@ export const NewGameDialog = ({
 							disabled={!joinGameIdValid}
 							onClick={() => onNewGame(joinGameId)}
 						>
-							Play
+							{t("play")}
 						</Button>
 					</>
+				)}
+
+				{view === "pwa_refreshing" && (
+					<LucideLoader2 className="h-8 w-8 animate-spin" />
 				)}
 			</DialogContent>
 		</Dialog>

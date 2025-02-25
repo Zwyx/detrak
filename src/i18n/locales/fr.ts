@@ -14,7 +14,7 @@ export const fr: I18nLocale = {
 
 	app: {
 		autoRollDice:
-			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans la boîte de dialogue des paramètres.",
+			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans la boite de dialogue des paramètres.",
 		bestScore: "meilleur score :",
 		endOnGame: "Terminé! Votre score est",
 		endOnGameWithNewScore: "Bravo! Votre nouveau record est",
@@ -25,7 +25,11 @@ export const fr: I18nLocale = {
 			part1: "Le symbole sélectionné a été placé dans la grille ci-dessous.",
 			part2: "Maintenant, lancez les dés !",
 		},
-		startNewGame: "Rejouer",
+		sr: {
+			selectSymbol: "Sélectionnez l'un des six symbols pour commencer.",
+			newDraw: "Nouveau tirage :",
+		},
+		startNewGame: "Nouvelle partie",
 		welcome: {
 			title: "Bienvenu dans le jeu Détrak !",
 			text: "Commencez par sélectionner l'un des six symboles ci-dessus.",
@@ -53,7 +57,7 @@ export const fr: I18nLocale = {
 				"Ceci est la légende du score. Exemple : cinq symboles identiques sur une ligne, une colonne, ou la diagonale, donne 10 points.",
 			right: {
 				part1:
-					"Le score de la diagonale apparaît aux deux extrémités — il est compté deux fois !",
+					"Le score de la diagonale apparait aux deux extrémités — il est compté deux fois !",
 				part2: "Lancez à nouveau les dés pour continuer le jeu.",
 			},
 		},
@@ -82,11 +86,67 @@ export const fr: I18nLocale = {
 		writeToMe: "J'espère que vous l'appréciez ! N'hésitez pas à m'écrire à",
 		version: "Version",
 		checkForUpdates: "Vérifier la présence d'une mise à jour",
-		updateAvailable: "mise à jour disponible, voir ci-dessus",
+		updateAvailable: "Mise à jour disponible, voir ci-dessus",
 	},
 
 	languageSelector: {
 		chooseLanguage: "Choisir la langue",
+	},
+
+	navigationBlocker: {
+		title: "Vous allez arrêter la partie en cours, êtes-vous sûr ?",
+		description:
+			"Veuillez confirmer que vous souhaitez interrompre la partie en cours.",
+		confirmationCheckbox:
+			"Toujours demander confirmation avant d'interrompre une partie",
+		keepPlaying: "Continuer la partie",
+		stopGame: "Arrêter la partie",
+	},
+
+	newGameDialog: {
+		close: "Fermer",
+		createGame: "Créer une partie",
+		joinGame: "Rejoindre une partie",
+		pickAnotherDay: "Choisir un autre jour",
+		play: "Jouer",
+		playRandomGame: "Jouer une partie aléatoire",
+		playTodayGame: "Jouer la partie du jour",
+		playWithFriends: "Jouer avec des amis",
+		shareCreate: {
+			scanQrCode:
+				"Demandez à vos amis de scanner ce QR code, ou partagez le lien avec eux.",
+			clickPlay: "Puis cliquez sur Jouer.",
+			title: "Detrak",
+			joinMe: "Rejoins-moi pour cette partie de Detrak",
+			shareLink: "Partager le lien",
+			copyLink: "Copier le lien dans le presse-papiers",
+		},
+		shareJoin: {
+			useCamera:
+				"Utilisez l'appareil photo de votre appareil pour scanner le QR code d'une partie.",
+			openGameLink: "Ou, ouvrez le lien d'une partie.",
+			enterGameLink:
+				"Ou, entrez le lien d'une partie ci-dessous et cliquez sur Jouer.",
+		},
+		stopGame: "Arrêter cette partie",
+		title: {
+			createGame: "Créer une partie",
+			inviteToGame: "Inviter des personnes à la partie en cours",
+			joinGame: "Rejoindre une partie",
+			newGame: "Nouvelle partie",
+			playWithFriends: "Jouer avec des amis",
+			welcomeToNewVersion: "Bienvenue dans la nouvelle version de Détrak !",
+		},
+		welcome: {
+			intro: "Il y a deux nouvelles façons de jouer :",
+			dailyGame: "La partie du jour",
+			dailyGameDetails:
+				"chaque jour, la séquence de symboles tirée par les dés sera la même pour tout le monde.",
+			playWithFriends: "Jouer avec des amis",
+			playWithFriendsDetails:
+				"vous pouvez maintenant créer une partie et inviter des personnes à rejoindre. Ici aussi, la séquence de symboles tirée pendant la partie sera la même pour vos amis et vous. Cela fonctionne même sans connexion internet.",
+			startPlaying: "Commencez à jouer !",
+		},
 	},
 
 	themeSelector: {
@@ -97,7 +157,7 @@ export const fr: I18nLocale = {
 	},
 
 	settingsDialog: {
-		openSettingsDialog: "Ouvrir la boîte de dialog des paramètres",
+		openSettingsDialog: "Ouvrir la boite de dialog des paramètres",
 		settings: "Paramètres",
 
 		alwaysShowScore: {
@@ -135,9 +195,18 @@ export const fr: I18nLocale = {
 			description:
 				"Jeter des confettis quand vous établissez un nouveau record !",
 		},
+
+		showNavigationAlert: {
+			title: "Demander confirmation avant d'interrompre une partie",
+			description:
+				"Afficher une boite de dialogue lorsque vous être sur le point de quitter la partie en cours.",
+		},
+
+		close: "Fermer",
 	},
 
 	siteHeader: {
 		detrak: "Détrak",
+		game: "Partie :",
 	},
 } as const;

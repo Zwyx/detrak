@@ -85,5 +85,6 @@
 }
 
 a {
+	/* Contrary to other projects, `dark:text-info` would be too dark here because of the background color */
 	@apply text-blue-600;
 }
