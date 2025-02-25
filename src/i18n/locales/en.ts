@@ -93,6 +93,7 @@ export const en = {
 
 	languageSelector: {
 		chooseLanguage: "Choose language",
+		language: "Language",
 	},
 
 	navigationBlocker: {
@@ -150,9 +151,10 @@ export const en = {
 
 	themeSelector: {
 		chooseTheme: "Choose theme",
-		dark: "Dark",
-		light: "Light",
+		theme: "Theme",
 		sameAsDevice: "Same as device",
+		light: "Light",
+		dark: "Dark",
 	},
 
 	settingsDialog: {
