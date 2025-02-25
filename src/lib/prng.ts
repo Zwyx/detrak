@@ -5,9 +5,7 @@ export interface SeededPrng {
 // `-` is placed last and not used when generating random IDs
 const GAME_ID_ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz-";
 
-export const GAME_ID_ALPHABET_REGEX = new RegExp(
-	`^[${GAME_ID_ALPHABET}]{1,10}$`,
-);
+export const GAME_ID_REGEX = new RegExp(`^[${GAME_ID_ALPHABET}]{1,10}$`);
 
 function getSeed(text: string): number {
 	const base = GAME_ID_ALPHABET.length;

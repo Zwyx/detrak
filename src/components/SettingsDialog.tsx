@@ -2,28 +2,29 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Settings, useSettingsContext } from "@/lib/SettingsContext.const";
+import { useHistoryState } from "@/lib/useHistoryState.const";
 import { LucideSettings } from "lucide-react";
-import { FC, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 
-interface SettingCheckboxProps extends PropsWithChildren {
-	name: keyof Settings;
-	disabled?: boolean;
-	title: string;
-}
-
-const SettingCheckbox: FC<SettingCheckboxProps> = ({
+export const SettingCheckbox = ({
 	name,
 	disabled,
 	title,
 	children,
-}) => {
+}: {
+	name: keyof Settings;
+	disabled?: boolean;
+	title: string;
+} & PropsWithChildren) => {
 	const { settings, updateSettings } = useSettingsContext();
 
 	return (
@@ -50,10 +51,19 @@ const SettingCheckbox: FC<SettingCheckboxProps> = ({
 export const SettingsDialog = () => {
 	const { t } = useTranslation("settingsDialog");
 
+	const { state, pushStateOrNavigateBack } = useHistoryState<{
+		settingsDialogOpen: boolean;
+	}>();
+
 	const { numberOfGames } = useSettingsContext();
 
 	return (
-		<Dialog>
+		<Dialog
+			open={!!state.settingsDialogOpen}
+			onOpenChange={(open) =>
+				pushStateOrNavigateBack(open, { settingsDialogOpen: true })
+			}
+		>
 			<DialogTrigger asChild>
 				<Button variant="ghost" size="sm" className="w-9 px-0">
 					<LucideSettings />
@@ -62,9 +72,8 @@ export const SettingsDialog = () => {
 			</DialogTrigger>
 
 			<DialogContent className="max-h-full overflow-auto">
-				<DialogHeader>
+				<DialogHeader className="mb-1">
 					<DialogTitle>{t("settings")}</DialogTitle>
-					{/* <DialogDescription></DialogDescription> */}
 				</DialogHeader>
 
 				<SettingCheckbox
@@ -107,6 +116,19 @@ export const SettingsDialog = () => {
 				<SettingCheckbox name="showConfetti" title={t("showConfetti.title")}>
 					{t("showConfetti.description")}
 				</SettingCheckbox>
+
+				<SettingCheckbox
+					name="showNavigationAlert"
+					title={t("showNavigationAlert.title")}
+				>
+					{t("showNavigationAlert.description")}
+				</SettingCheckbox>
+
+				<DialogFooter className="mt-1">
+					<DialogClose asChild>
+						<Button variant="secondary">{t("close")}</Button>
+					</DialogClose>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);

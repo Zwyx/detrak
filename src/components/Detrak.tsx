@@ -1,6 +1,5 @@
 import { useSettingsContext } from "@/lib/SettingsContext.const";
 import { cn, getSymbolNames } from "@/lib/utils";
-import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { HelpStep, HelpTooltip } from "./HelpTooltip";
 
@@ -9,12 +8,12 @@ export type TLine = TCell[];
 export type TGrid = TLine[];
 
 // Front: /
-export const SymbolFront: FC = () => (
+export const SymbolFront = () => (
 	<div className="h-[6%] w-[55%] -rotate-45 rounded-full bg-foreground" />
 );
 
 // Top: X
-export const SymbolTop: FC = () => (
+export const SymbolTop = () => (
 	<>
 		<div className="absolute h-[6%] w-[55%] rotate-45 rounded-full bg-foreground" />
 		<div className="absolute h-[6%] w-[55%] -rotate-45 rounded-full bg-foreground" />
@@ -22,7 +21,7 @@ export const SymbolTop: FC = () => (
 );
 
 // Right: |||
-export const SymbolRight: FC = () => (
+export const SymbolRight = () => (
 	<>
 		<div className="mr-[12%] h-[55%] w-[6%] rounded-full bg-foreground" />
 		<div className="h-[55%] w-[6%] rounded-full bg-foreground" />
@@ -31,7 +30,7 @@ export const SymbolRight: FC = () => (
 );
 
 // Left: #
-export const SymbolLeft: FC = () => (
+export const SymbolLeft = () => (
 	<>
 		<div className="absolute mb-[18%] h-[6%] w-[55%] rounded-full bg-foreground" />
 		<div className="absolute mt-[18%] h-[6%] w-[55%] rounded-full bg-foreground" />
@@ -41,16 +40,16 @@ export const SymbolLeft: FC = () => (
 );
 
 // Bottom /\
-export const SymbolBottom: FC = () => (
+export const SymbolBottom = () => (
 	<>
-		<div className="absolute mt-[30%] h-[6%] w-[55%]  rounded-full bg-foreground" />
-		<div className="absolute mb-[14%] mr-[26%] h-[6%] w-[55%] rotate-[120deg]  rounded-full bg-foreground" />
-		<div className="absolute mb-[14%] ml-[26%] h-[6%] w-[55%] rotate-[240deg]  rounded-full bg-foreground" />
+		<div className="absolute mt-[30%] h-[6%] w-[55%] rounded-full bg-foreground" />
+		<div className="absolute mb-[14%] mr-[26%] h-[6%] w-[55%] rotate-[120deg] rounded-full bg-foreground" />
+		<div className="absolute mb-[14%] ml-[26%] h-[6%] w-[55%] rotate-[240deg] rounded-full bg-foreground" />
 	</>
 );
 
 // Back: O
-export const SymbolBack: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
+export const SymbolBack = ({ bgColor }: { bgColor?: boolean | string }) => (
 	<div className="flex aspect-square w-[55%] items-center justify-center rounded-full bg-foreground">
 		<div
 			className={cn(
@@ -61,19 +60,7 @@ export const SymbolBack: FC<{ bgColor?: boolean | string }> = ({ bgColor }) => (
 	</div>
 );
 
-interface CellProps {
-	x?: number;
-	y?: number;
-	value: number | null;
-	startOfGame?: boolean;
-	endOfGame?: boolean;
-	left?: boolean;
-	right?: boolean;
-	helpStep?: HelpStep;
-	onClick?: () => void;
-}
-
-export const Cell: FC<CellProps> = ({
+export const Cell = ({
 	x = 1,
 	y = 1,
 	value,
@@ -83,6 +70,16 @@ export const Cell: FC<CellProps> = ({
 	right,
 	helpStep,
 	onClick,
+}: {
+	x?: number;
+	y?: number;
+	value: number | null;
+	startOfGame?: boolean;
+	endOfGame?: boolean;
+	left?: boolean;
+	right?: boolean;
+	helpStep?: HelpStep;
+	onClick?: () => void;
 }) => {
 	const { t } = useTranslation("detrak");
 
@@ -180,27 +177,25 @@ export const Cell: FC<CellProps> = ({
 	);
 };
 
-interface GridProps {
-	grid: TGrid;
-	startOfGame: boolean;
-	firstMoveCoords?: { x: number; y: number };
-	helpStep?: HelpStep;
-	onClick?: (x: number, y: number) => void;
-}
-
-const ScoreHelp: FC<{ value: string; score: string }> = ({ value, score }) => (
+const ScoreHelp = ({ value, score }: { value: string; score: string }) => (
 	<div className="font-[caveat]">
 		<span className="text-[14px] xsm:text-[16px]">{value}</span>
 		<span className="text-[20px] xsm:text-[24px]">{score}</span>
 	</div>
 );
 
-export const Grid: FC<GridProps> = ({
+export const Grid = ({
 	grid,
 	startOfGame,
 	firstMoveCoords,
 	helpStep,
 	onClick,
+}: {
+	grid: TGrid;
+	startOfGame: boolean;
+	firstMoveCoords?: { x: number; y: number };
+	helpStep?: HelpStep;
+	onClick?: (x: number, y: number) => void;
 }) => {
 	const { t } = useTranslation("detrak");
 

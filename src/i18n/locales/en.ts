@@ -26,6 +26,10 @@ export const en = {
 				"The symbol you have selected has been inserted in the grid below.",
 			part2: "Now, roll the dice!",
 		},
+		sr: {
+			selectSymbol: "Select one of the six symbols to start.",
+			newDraw: "New draw:",
+		},
 		startNewGame: "Start a new game",
 		welcome: {
 			title: "Welcome to Detrak!",
@@ -82,13 +86,66 @@ export const en = {
 				", an independent web developer from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
 		},
 		writeToMe: "I hope you're enjoying it! Feel free to write to me at",
-		version: "version",
+		version: "Version",
 		checkForUpdates: "Check for updates",
 		updateAvailable: "Update available, see above",
 	},
 
 	languageSelector: {
 		chooseLanguage: "Choose language",
+	},
+
+	navigationBlocker: {
+		title: "This will stop the current game, are you sure?",
+		description: "Please confirm that you want to stop the current game.",
+		confirmationCheckbox:
+			"Always ask for confirmation before interrupting a game",
+		keepPlaying: "Keep playing",
+		stopGame: "Stop this game",
+	},
+
+	newGameDialog: {
+		close: "Close",
+		createGame: "Create a game",
+		joinGame: "Join a game",
+		pickAnotherDay: "Pick another day",
+		play: "Play",
+		playRandomGame: "Play a random game",
+		playTodayGame: "Play today's game",
+		playWithFriends: "Play with friends",
+		shareCreate: {
+			scanQrCode:
+				"Ask your friends to scan this QR code, or share the link with them.",
+			clickPlay: "Then click Play.",
+			title: "Detrak",
+			joinMe: "Join me for this game of Detrak",
+			shareLink: "Share link",
+			copyLink: "Copy link to clipboard",
+		},
+		shareJoin: {
+			useCamera: "Use your device's camera to scan a game's QR code.",
+			openGameLink: "Or, open a game's link.",
+			enterGameLink: "Or, enter a game's link below and click Play.",
+		},
+		stopGame: "Stop this game",
+		title: {
+			createGame: "Create a game",
+			inviteToGame: "Invite people to the current game",
+			joinGame: "Join a game",
+			newGame: "New game",
+			playWithFriends: "Play with friends",
+			welcomeToNewVersion: "Welcome to the new version of Detrak!",
+		},
+		welcome: {
+			intro: "There are two new ways of playing:",
+			dailyGame: "The daily game",
+			dailyGameDetails:
+				"each day, the sequence of symbols drawn by the dice will be the same for everyone.",
+			playWithFriends: "Play with friends",
+			playWithFriendsDetails:
+				"you can now create a game and invite people to join. Here too, the sequence of symbols drawn during the game will be the same for your friends and you. It even works without internet connection.",
+			startPlaying: "Start playing!",
+		},
 	},
 
 	themeSelector: {
@@ -128,7 +185,7 @@ export const en = {
 		showDiceMarker: {
 			title: "Show dice marker",
 			description:
-				"Show a marker below the dice, the symbol of which you are about to play.",
+				"Show a marker below the dice's symbol to be placed on the grid.",
 		},
 
 		showConfetti: {
@@ -136,10 +193,19 @@ export const en = {
 			description:
 				"Show a confetti explosion when you beat your highest score!",
 		},
+
+		showNavigationAlert: {
+			title: "Ask for confirmation before interrupting a game",
+			description:
+				"Show a confirmation dialog when navigating away during a game.",
+		},
+
+		close: "Close",
 	},
 
 	siteHeader: {
 		detrak: "Detrak",
+		game: "Game:",
 	},
 } as const;
 

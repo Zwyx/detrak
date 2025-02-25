@@ -1,18 +1,25 @@
 import { Confetti } from "@/lib/confetti.min.js";
-import { cn, formatDate, getSymbolNames } from "@/lib/utils";
+import { cn, formatDate, getSymbolNames, usePrevious } from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import { Cell, Grid, TCell, TGrid, TLine } from "./components/Detrak";
 import { Dice } from "./components/Dice";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
+import { NavigationBlocker } from "./components/NavigationBlocker";
 import { NewGameDialog } from "./components/NewGameDialog";
 import { SiteHeader } from "./components/SiteHeader";
 import { Button } from "./components/ui/button";
 import { usePwaContext } from "./lib/PwaContext.const";
 import { useSettingsContext } from "./lib/SettingsContext.const";
-import { HELP_SHOWN_KEY, HIGHEST_SCORE_KEY } from "./lib/local-storage-keys";
-import { SeededPrng, getSeededPrng } from "./lib/prng";
+import {
+	HELP_SHOWN_KEY,
+	HIGHEST_SCORE_KEY,
+	NUMBER_OF_GAMES_KEY,
+} from "./lib/local-storage-keys";
+import { GAME_ID_REGEX, SeededPrng, getSeededPrng } from "./lib/prng";
+import { useHistoryState } from "./lib/useHistoryState.const";
 
 const getLineScore = (line: TLine): number => {
 	const symbols = line.slice(1, -1);
@@ -55,6 +62,17 @@ export const App = () => {
 	const { settings, updateSettings, numberOfGames, incrementNumberOfGames } =
 		useSettingsContext();
 	const { t } = useTranslation("app");
+
+	const firstRender = useRef(true);
+	const { gameId } = useParams();
+	const previousGameId = usePrevious(gameId);
+
+	const { state, navigate, pushState, replaceState, pushStateOrNavigateBack } =
+		useHistoryState<{
+			newGameDialogOpen: boolean;
+		}>();
+
+	const [pwaRefreshing, setPwaRefreshing] = useState(false);
 
 	const symbolNames = getSymbolNames(t);
 
@@ -129,14 +147,9 @@ export const App = () => {
 
 	const [grid, updateGrid] = useReducer(gridReducer, initialGrid);
 
-	const [gameId, setGameId] = useState<string | undefined>();
 	const [seededPrng, setSeededPrng] = useState<SeededPrng>(() =>
-		getSeededPrng(formatDate("today")),
+		getSeededPrng(gameId || formatDate("today")),
 	);
-
-	const [newGameDialogOpen, setNewGameDialogOpen] = useState(true);
-
-	const [srText, setSrText] = useState<string>("");
 
 	const [dice, setDice] = useState<TCell[]>([null, null]);
 	const [diceTimestamp, setDiceTimestamp] = useState<number>(0);
@@ -147,24 +160,22 @@ export const App = () => {
 		[],
 	);
 
+	const startOfGame = grid[1][1] === null;
+	const [middleOfGame, setMiddleOfGame] = useState(false);
+	const endOfGame = grid[0][0] !== null;
+	const [undoVisible, setUndoVisible] = useState(false);
+	const score = grid[6][6];
+	const canRollDice = move !== 0 && move !== 1 && !startOfGame && !endOfGame;
+	const diceRolled = useRef(false);
+	const canUndoMove = move === 1 || move === 2;
+
+	const [srText, setSrText] = useState<string>("");
 	const [helpStep, setHelpStep] = useState<HelpStep>(null);
 	const [highestScore, setHighestScore] = useState<number | undefined>();
 	const [newHighestScore, setNewHighestScore] = useState<boolean>(false);
 
-	const startOfGame = grid[1][1] === null;
-	const [middleOfGame, setMiddleOfGame] = useState(false);
-	const endOfGame = grid[0][0] !== null;
-	const score = grid[6][6];
-	const canRollDice = move !== 0 && move !== 1 && !startOfGame && !endOfGame;
-	const canUndoMove = move === 1 || move === 2;
-
 	useEffect(() => {
-		const helpShown = localStorage.getItem(HELP_SHOWN_KEY);
 		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
-
-		if (!helpShown) {
-			setHelpStep("welcome");
-		}
 
 		if (storedHighestScore !== null) {
 			setHighestScore(Number(storedHighestScore));
@@ -172,7 +183,45 @@ export const App = () => {
 	}, []);
 
 	useEffect(() => {
+		if (!gameId) {
+			updateGrid({ x: -1, y: -1, newValue: null });
+			setDice([null, null]);
+			setMove(-1);
+			setMovesCoords([]);
+			setUndoVisible(false);
+			setMiddleOfGame(false);
+			diceRolled.current = false;
+			setNewHighestScore(false);
+
+			if (!localStorage.getItem(NUMBER_OF_GAMES_KEY)) {
+				if (firstRender.current) {
+					navigate(`/${formatDate("today")}`, { replace: true });
+				}
+			} else {
+				replaceState({ newGameDialogOpen: true });
+			}
+
+			return;
+		}
+
+		firstRender.current = false;
+
+		if (!gameId.match(GAME_ID_REGEX)) {
+			navigate("/", { state: { newGameDialogOpen: true }, replace: true });
+			return;
+		}
+
+		setSeededPrng(getSeededPrng(gameId));
+		setSrText(t("sr.selectSymbol"));
+
+		if (!localStorage.getItem(HELP_SHOWN_KEY)) {
+			setHelpStep("welcome");
+		}
+	}, [gameId, navigate, replaceState, t]);
+
+	useEffect(() => {
 		if (endOfGame) {
+			setMiddleOfGame(false);
 			incrementNumberOfGames();
 		}
 	}, [endOfGame, incrementNumberOfGames]);
@@ -238,7 +287,7 @@ export const App = () => {
 		setMove(0);
 		setMovesCoords([]);
 
-		const newSrText = `${t("New draw:")} ${symbolNames[newDice[0]]}, ${
+		const newSrText = `${t("sr.newDraw")} ${symbolNames[newDice[0]]}, ${
 			symbolNames[newDice[1]]
 		}`;
 
@@ -293,42 +342,34 @@ export const App = () => {
 	}, [rollDiceNow, settings.animateDice]);
 
 	useEffect(() => {
-		if (settings.autoRollDice && canRollDice) {
+		// `diceRolled.current` prevents the dice from being rolled twice in dev because of React's strict
+		if (settings.autoRollDice && canRollDice && !diceRolled.current) {
+			diceRolled.current = true;
 			rollDice();
 		}
 	}, [settings.autoRollDice, canRollDice, rollDice]);
 
-	const clearGame = () => {
-		setNewGameDialogOpen(true);
-		setGameId(undefined);
-		updateGrid({ x: -1, y: -1, newValue: null });
-		setDice([null, null]);
-		setMove(-1);
-		setMovesCoords([]);
-		setMiddleOfGame(false);
-		setNewHighestScore(false);
-	};
-
 	return (
 		<div className="flex flex-col items-center font-[inter]">
+			<NavigationBlocker shouldBlock={middleOfGame} />
+
 			<SiteHeader
 				gameId={gameId}
-				onGameIdClick={() => {
-					setNewGameDialogOpen(true);
-				}}
+				onGameIdClick={() => pushState({ newGameDialogOpen: true })}
 			/>
 
 			<NewGameDialog
-				open={newGameDialogOpen}
+				open={!!state.newGameDialogOpen}
 				currentGameId={gameId}
-				onNewGame={(newGameId) => {
-					setNewGameDialogOpen(false);
-					setGameId(newGameId);
-					setSeededPrng(getSeededPrng(newGameId));
-					setSrText(t("Select one of the six symbols to start."));
-				}}
-				onClearGame={clearGame}
-				onOpenChange={setNewGameDialogOpen}
+				previousGameId={previousGameId}
+				pwaRefreshing={pwaRefreshing}
+				onNewGame={(newGameId) =>
+					navigate(`/${newGameId}`, { state: { newGameDialogOpen: false } })
+				}
+				onStopGame={() => navigate("/", { state: { newGameDialogOpen: true } })}
+				onOpenChange={(open) =>
+					pushStateOrNavigateBack(open, { newGameDialogOpen: true })
+				}
 			/>
 
 			<div className="sr-only" role="status">
@@ -351,6 +392,7 @@ export const App = () => {
 										right={i === a.length - 1}
 										onClick={() => {
 											updateGrid({ x: 1, y: 1, newValue: i });
+											setMiddleOfGame(true);
 
 											if (helpStep === "welcome") {
 												setHelpStep("rollDice1");
@@ -386,7 +428,7 @@ export const App = () => {
 									<Button
 										className={cn(
 											"ml-2 h-14 sm:ml-0",
-											(!middleOfGame ||
+											(!undoVisible ||
 												helpStep === "clickGrid2" ||
 												helpStep === "rollDice2" ||
 												helpStep === "diceRolling2" ||
@@ -469,12 +511,12 @@ export const App = () => {
 								<Button
 									disabled={move !== 1 && move !== 2}
 									onClick={() => {
-										if (pwa.refreshNeeded && pwa.refresh) {
-											pwa.refresh();
-											return;
-										}
+										navigate("/", { state: { newGameDialogOpen: true } });
 
-										clearGame();
+										if (pwa.refreshNeeded && pwa.refresh) {
+											setPwaRefreshing(true);
+											pwa.refresh();
+										}
 									}}
 								>
 									{t("startNewGame")}
@@ -499,7 +541,8 @@ export const App = () => {
 									updateGrid({ x, y, newValue: dice[move] });
 									setMovesCoords([...movesCoords, { x, y }]);
 									setMove(move + 1);
-									setMiddleOfGame(true);
+									setUndoVisible(true);
+									diceRolled.current = false;
 
 									if (helpStep === "clickGrid1") {
 										setHelpStep("clickGrid2");
