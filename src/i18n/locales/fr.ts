@@ -91,6 +91,7 @@ export const fr: I18nLocale = {
 
 	languageSelector: {
 		chooseLanguage: "Choisir la langue",
+		language: "Langue",
 	},
 
 	navigationBlocker: {
@@ -151,9 +152,10 @@ export const fr: I18nLocale = {
 
 	themeSelector: {
 		chooseTheme: "Choisir le thème",
-		dark: "Foncé",
-		light: "Clair",
+		theme: "Thème",
 		sameAsDevice: "Identique à l'appareil",
+		light: "Clair",
+		dark: "Sombre",
 	},
 
 	settingsDialog: {
