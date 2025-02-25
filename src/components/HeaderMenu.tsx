@@ -8,20 +8,17 @@ import {
 } from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePwaContext } from "@/lib/PwaContext.const";
-import { LucideMenu } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { LucideLoader2, LucideMenu } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export const HeaderMenu = () => {
-	const {
-		refreshNeeded,
-		refreshNeededAcknowledged,
-		setRefreshNeededAcknowledged,
-		refresh,
-	} = usePwaContext();
+	const pwa = usePwaContext();
 	const { t } = useTranslation("headerMenu");
 
 	const [open, setOpen] = useState(false);
+	const [checkForUpdateLoading, setCheckForUpdateLoading] = useState(false);
 
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
@@ -31,15 +28,15 @@ export const HeaderMenu = () => {
 					variant="ghost"
 					size="icon"
 					onClick={() => {
-						if (refreshNeeded && !refreshNeededAcknowledged) {
-							setRefreshNeededAcknowledged(true);
+						if (pwa.refreshNeeded && !pwa.refreshNeededAcknowledged) {
+							pwa.setRefreshNeededAcknowledged(true);
 						}
 					}}
 				>
 					<LucideMenu />
 					<span className="sr-only">{t("openMenu")}</span>
 
-					{refreshNeeded && !refreshNeededAcknowledged && (
+					{pwa.refreshNeeded && !pwa.refreshNeededAcknowledged && (
 						<span className="absolute right-0 top-0 flex h-3 w-3">
 							<span className="absolute h-full w-full animate-ping rounded-full bg-info opacity-75" />
 							<span className="absolute left-[2px] top-[2px] h-2 w-2 rounded-full bg-info" />
@@ -50,27 +47,27 @@ export const HeaderMenu = () => {
 
 			<SheetContent
 				side="left"
-				className="flex  w-auto flex-col items-start gap-0 overflow-auto"
+				className="flex w-auto flex-col items-start gap-0 overflow-auto"
 			>
 				<div className="mb-2 flex items-center gap-4">
 					<img className="h-8 w-8" src="favicon-196.png" alt="Detrak logo" />
 					<span className="font-bold">{t("detrak")}</span>
 				</div>
 
-				{refreshNeeded && (
+				{pwa.refreshNeeded && (
 					<div className="mt-2 flex w-full flex-col items-center gap-1 rounded-md border border-info bg-info/10 p-2">
 						<div className="w-full">{t("newVersion.title")}</div>
 						<div className="w-full text-sm text-muted-foreground">
 							{t("newVersion.description")}
 						</div>
-						<Button className="m-1" size="sm" onClick={refresh}>
+						<Button className="m-1" size="sm" onClick={pwa.refresh}>
 							{t("newVersion.action")}
 						</Button>
 					</div>
 				)}
 
 				<div className="mt-4">
-					{t("gigamicGame")}
+					{t("gigamicGame")}{" "}
 					<a
 						href="https://www.gigamic.com/jeu/detrak"
 						target="_blank"
@@ -83,7 +80,7 @@ export const HeaderMenu = () => {
 				</div>
 
 				<div className="mt-4">
-					{t("digitalVersion.madeBy")}
+					{t("digitalVersion.madeBy")}{" "}
 					<a
 						href="https://zwyx.dev"
 						target="_blank"
@@ -96,7 +93,7 @@ export const HeaderMenu = () => {
 				</div>
 
 				<div className="mt-4">
-					{t("writeToMe")}
+					{t("writeToMe")}{" "}
 					<a href="mailto:alex@zwyx.dev" className="font-bold">
 						{"alex@zwyx.dev"}
 					</a>
@@ -110,7 +107,7 @@ export const HeaderMenu = () => {
 							<Button
 								variant="link"
 								size="sm"
-								className="mt-0.5 h-fit p-0 text-right text-xs font-bold text-muted-foreground hover:no-underline"
+								className="mt-0.5 h-fit p-0 text-xs font-bold text-muted-foreground hover:no-underline"
 							>
 								{"Terms of use"}
 							</Button>
@@ -168,7 +165,7 @@ export const HeaderMenu = () => {
 							<Button
 								variant="link"
 								size="sm"
-								className="mt-0.5 h-fit p-0 text-right text-xs font-bold text-muted-foreground hover:no-underline"
+								className="mt-0.5 h-fit p-0 text-xs font-bold text-muted-foreground hover:no-underline"
 							>
 								{"Privacy policy"}
 							</Button>
@@ -305,6 +302,34 @@ export const HeaderMenu = () => {
 				<div className="mt-2 w-full text-right text-xs text-muted-foreground">
 					{t("version")}{" "}
 					<span className="font-bold">{import.meta.env.VITE_APP_VERSION}</span>
+					{" – "}
+					{pwa.refreshNeeded ? (
+						<span className="font-bold">{t("updateAvailable")}</span>
+					) : (
+						<Button
+							variant="link"
+							size="sm"
+							className="mt-0.5 h-fit p-0 text-xs font-bold text-blue-600 hover:no-underline"
+							disabled={checkForUpdateLoading}
+							onClick={() => {
+								setCheckForUpdateLoading(true);
+								setTimeout(() => setCheckForUpdateLoading(false), 2500);
+								pwa.update?.();
+							}}
+						>
+							<div className={cn(checkForUpdateLoading && "opacity-15")}>
+								{t("checkForUpdates")}
+							</div>
+
+							<LucideLoader2
+								className={cn(
+									"absolute",
+									!checkForUpdateLoading && "invisible",
+									checkForUpdateLoading && "animate-spin",
+								)}
+							/>
+						</Button>
+					)}
 				</div>
 			</SheetContent>
 		</Sheet>
