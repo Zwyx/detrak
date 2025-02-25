@@ -65,21 +65,23 @@ export const en = {
 	},
 
 	headerMenu: {
+		openMenu: "Open menu",
 		detrak: "Detrak",
 		newVersion: {
 			title: "New version available",
 			description: "Finish your game and reload the app to update.",
 			action: "Reload app",
 		},
+		gigamicGame: "Detrak is a copyrighted game published by",
 		digitalVersion: {
-			madeBy: "This digital version has been made by me, ",
+			madeBy: "This digital version has been made by me,",
 			webDeveloper:
 				", an independent web developer from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
 		},
-		gigamicGame: "Detrak is a copyrighted game published by ",
-		openMenu: "Open menu",
+		writeToMe: "I hope you're enjoying it! Feel free to write to me at",
 		version: "version",
-		writeToMe: "I hope you're enjoying it! Feel free to write to me at ",
+		checkForUpdates: "Check for updates",
+		updateAvailable: "Update available, see above",
 	},
 
 	languageSelector: {

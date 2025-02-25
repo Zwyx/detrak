@@ -63,22 +63,23 @@ export const fr: I18nLocale = {
 	},
 
 	headerMenu: {
+		openMenu: "Ouvrir le menu",
 		detrak: "Détrak",
 		newVersion: {
 			title: "Nouvelle version disponible",
 			description: "Terminez votre partie et rechargez l'application.",
 			action: "Recharger l'application",
 		},
+		gigamicGame: "Détrak est un jeu protégé par copyright et publié par",
 		digitalVersion: {
-			madeBy: "Cette version numérique a été créée par moi-même, ",
+			madeBy: "Cette version numérique a été créée par moi-même,",
 			webDeveloper:
 				", développeur web, avec l'accord de Gigamic. Merci encore, Gigamic !",
 		},
-		gigamicGame: "Détrak est un jeu protégé par copyright et publié par ",
-		openMenu: "Ouvrir le menu",
-		version: "version",
-		writeToMe:
-			"J'espère que vous apréciez Détrak ! N'hésitez pas à m'écrire à ",
+		writeToMe: "J'espère que vous l'appréciez ! N'hésitez pas à m'écrire à",
+		version: "Version",
+		checkForUpdates: "Vérifier la présence d'une mise à jour",
+		updateAvailable: "mise à jour disponible, voir ci-dessus",
 	},
 
 	languageSelector: {
