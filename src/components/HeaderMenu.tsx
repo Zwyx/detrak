@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePwaContext } from "@/lib/PwaContext.const";
+import { useHistoryState } from "@/lib/useHistoryState.const";
 import { cn } from "@/lib/utils";
 import { LucideLoader2, LucideMenu } from "lucide-react";
 import { useState } from "react";
@@ -17,11 +18,21 @@ export const HeaderMenu = () => {
 	const pwa = usePwaContext();
 	const { t } = useTranslation("headerMenu");
 
-	const [open, setOpen] = useState(false);
+	const { state, pushStateOrNavigateBack } = useHistoryState<{
+		headerMenuOpen: boolean;
+		termsOfUseDialogOpen?: boolean;
+		privacyPolicyDialogOpen?: boolean;
+	}>();
+
 	const [checkForUpdateLoading, setCheckForUpdateLoading] = useState(false);
 
 	return (
-		<Sheet open={open} onOpenChange={setOpen}>
+		<Sheet
+			open={!!state.headerMenuOpen}
+			onOpenChange={(open) =>
+				pushStateOrNavigateBack(open, { headerMenuOpen: true })
+			}
+		>
 			<SheetTrigger asChild>
 				<Button
 					className="relative"
@@ -102,7 +113,15 @@ export const HeaderMenu = () => {
 				<div className="flex-1" />
 
 				<div className="mt-6 flex w-full items-center justify-center gap-2">
-					<Dialog>
+					<Dialog
+						open={!!state.termsOfUseDialogOpen}
+						onOpenChange={(open) =>
+							pushStateOrNavigateBack(open, {
+								headerMenuOpen: true,
+								termsOfUseDialogOpen: true,
+							})
+						}
+					>
 						<DialogTrigger asChild>
 							<Button
 								variant="link"
@@ -160,7 +179,15 @@ export const HeaderMenu = () => {
 
 					<span className="font-bold text-muted-foreground">·</span>
 
-					<Dialog>
+					<Dialog
+						open={!!state.privacyPolicyDialogOpen}
+						onOpenChange={(open) =>
+							pushStateOrNavigateBack(open, {
+								headerMenuOpen: true,
+								privacyPolicyDialogOpen: true,
+							})
+						}
+					>
 						<DialogTrigger asChild>
 							<Button
 								variant="link"
@@ -309,7 +336,7 @@ export const HeaderMenu = () => {
 						<Button
 							variant="link"
 							size="sm"
-							className="mt-0.5 h-fit p-0 text-xs font-bold text-blue-600 hover:no-underline"
+							className="mt-0.5 h-fit p-0 text-xs font-bold text-blue-600 hover:no-underline disabled:opacity-100"
 							disabled={checkForUpdateLoading}
 							onClick={() => {
 								setCheckForUpdateLoading(true);

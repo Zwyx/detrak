@@ -1,5 +1,5 @@
 import { HoverCardArrow } from "@radix-ui/react-hover-card";
-import { FC, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 export type HelpStep =
@@ -14,20 +14,18 @@ export type HelpStep =
 	| "afterDiceRolling2"
 	| "autoRollDice";
 
-interface HelpTooltipProps extends PropsWithChildren {
-	open: boolean;
-	side?: "top" | "right" | "bottom" | "left";
-	align?: "start" | "center" | "end";
-	noArrow?: boolean;
-}
-
-export const HelpTooltip: FC<HelpTooltipProps> = ({
+export const HelpTooltip = ({
 	open,
 	side,
 	align,
 	noArrow,
 	children,
-}) => (
+}: {
+	open: boolean;
+	side?: "top" | "right" | "bottom" | "left";
+	align?: "start" | "center" | "end";
+	noArrow?: boolean;
+} & PropsWithChildren) => (
 	<HoverCard open={open}>
 		{/* `asChild` and `div` are only to fix the SEO warning in Lighthouse */}
 		<HoverCardTrigger asChild>

@@ -1,7 +1,7 @@
 import { useSettingsContext } from "@/lib/SettingsContext.const";
 import { cn, usePrevious } from "@/lib/utils";
 import { LucideChevronUp } from "lucide-react";
-import { FC, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
 	SymbolBack,
 	SymbolBottom,
@@ -15,14 +15,17 @@ import styles from "./Dice.module.css";
 const faces = ["front", "top", "right", "left", "bottom", "back"] as const;
 type Face = (typeof faces)[number];
 
-interface DiceProps {
+export const Dice = ({
+	value,
+	marked,
+	timestamp,
+	hidden,
+}: {
 	value: number;
 	marked: boolean;
 	timestamp: number;
 	hidden?: boolean;
-}
-
-export const Dice: FC<DiceProps> = ({ value, marked, timestamp, hidden }) => {
+}) => {
 	const { settings } = useSettingsContext();
 
 	const containerZ = useRef<HTMLDivElement>(null);

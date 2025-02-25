@@ -20,6 +20,7 @@
 	"cSpell.words": [
 		"behavior",
 		"CCPA",
+		"color",
 		"Detrak",
 		"gigamic",
 		"magick",
@@ -35,5 +36,12 @@
 		"staticrypt",
 		"workbox",
 		"Zwyx"
+	],
+	"cSpell.overrides": [
+		{
+			"filename": "src/i18n/locales/fr.ts",
+			"language": "fr-90",
+			"words": ["Détrak"]
+		}
 	]
 }
