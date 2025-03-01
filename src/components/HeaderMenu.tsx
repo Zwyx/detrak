@@ -17,18 +17,20 @@ import { usePwaContext } from "@/lib/PwaContext.const";
 import { useHistoryState } from "@/lib/useHistoryState.const";
 import { cn } from "@/lib/utils";
 import { LucideLoader2, LucideMenu } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export const HeaderMenu = () => {
 	const pwa = usePwaContext();
 	const { t } = useTranslation("headerMenu");
 
-	const { state, pushStateOrNavigateBack } = useHistoryState<{
+	const { state, navigate, pushStateOrNavigateBack } = useHistoryState<{
 		headerMenuOpen: boolean;
 		termsOfUseDialogOpen?: boolean;
 		privacyPolicyDialogOpen?: boolean;
 	}>();
+
+	const touchStartX = useRef(0);
 
 	const [checkForUpdateLoading, setCheckForUpdateLoading] = useState(false);
 
@@ -65,6 +67,19 @@ export const HeaderMenu = () => {
 			<SheetContent
 				side="left"
 				className="flex w-auto flex-col items-start gap-0 overflow-auto"
+				onTouchStart={(e) => {
+					touchStartX.current = e.changedTouches[0].screenX;
+				}}
+				onTouchEnd={(e) => {
+					const rem = getComputedStyle(document.documentElement).fontSize;
+
+					if (
+						e.changedTouches[0].screenX <
+						touchStartX.current - 2 * parseFloat(rem)
+					) {
+						navigate(-1);
+					}
+				}}
 				noDescription
 			>
 				<SheetHeader>
@@ -149,6 +164,7 @@ export const HeaderMenu = () => {
 
 						<DialogContent
 							className="max-h-full max-w-3xl overflow-auto"
+							onTouchEnd={(e) => e.stopPropagation()}
 							noDescription
 						>
 							<DialogHeader>
@@ -218,6 +234,7 @@ export const HeaderMenu = () => {
 
 						<DialogContent
 							className="max-h-full max-w-3xl overflow-auto"
+							onTouchEnd={(e) => e.stopPropagation()}
 							noDescription
 						>
 							<DialogHeader>
