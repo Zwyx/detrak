@@ -4,12 +4,8 @@ import {
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
+	DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
 import {
 	NUMBER_OF_GAMES_KEY,
 	VERSION_2_WELCOME_SHOWN_KEY,
@@ -169,8 +165,8 @@ export const NewGameDialog = ({
 
 						<OrSeparator />
 
-						<Popover>
-							<PopoverTrigger asChild>
+						<Dialog>
+							<DialogTrigger asChild>
 								<Button
 									className="w-full text-wrap font-normal text-muted-foreground"
 									variant="outline"
@@ -178,8 +174,12 @@ export const NewGameDialog = ({
 									<CalendarIcon />
 									{t("pickAnotherDay")}
 								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0" align="start">
+							</DialogTrigger>
+							<DialogContent
+								// Overriding `translate` to prevent shift as some months have 5 rows and others 6
+								className="w-fit translate-y-[-150px] rounded-lg p-1"
+								notClosable
+							>
 								{!date && (
 									<Calendar
 										locale={i18n.language === "fr" ? fr : undefined}
@@ -193,8 +193,8 @@ export const NewGameDialog = ({
 										}}
 									/>
 								)}
-							</PopoverContent>
-						</Popover>
+							</DialogContent>
+						</Dialog>
 
 						<OrSeparator />
 
