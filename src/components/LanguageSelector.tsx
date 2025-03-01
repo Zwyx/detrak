@@ -40,7 +40,7 @@ export const LanguageSelector = () => {
 
 				<DropdownMenuSeparator />
 
-				<DropdownMenuRadioGroup value={i18n.language}>
+				<DropdownMenuRadioGroup value={i18n.resolvedLanguage}>
 					{Object.entries(languages).map(([languageCode, languageName]) => (
 						<DropdownMenuRadioItem
 							key={languageCode}
