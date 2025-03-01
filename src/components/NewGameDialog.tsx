@@ -90,6 +90,7 @@ export const NewGameDialog = ({
 			<DialogContent
 				className="flex max-h-full flex-col items-center overflow-auto"
 				notClosable={!currentGameId}
+				noDescription
 			>
 				<DialogHeader className="w-full">
 					<DialogTitle className="flex items-center gap-4">

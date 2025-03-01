@@ -71,7 +71,7 @@ export const SettingsDialog = () => {
 				</Button>
 			</DialogTrigger>
 
-			<DialogContent className="max-h-full overflow-auto">
+			<DialogContent className="max-h-full overflow-auto" noDescription>
 				<DialogHeader className="mb-1">
 					<DialogTitle>{t("settings")}</DialogTitle>
 				</DialogHeader>
