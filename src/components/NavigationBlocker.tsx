@@ -54,13 +54,15 @@ export const NavigationBlocker = ({
 						{t("title")}
 					</AlertDialogTitle>
 
-					<AlertDialogDescription className="text-left">
-						<div className="mb-6 mt-2">{t("description")}</div>
+					<AlertDialogDescription asChild>
+						<div className="text-left">
+							<div className="mb-6 mt-2">{t("description")}</div>
 
-						<SettingCheckbox
-							name="showNavigationAlert"
-							title={t("confirmationCheckbox")}
-						/>
+							<SettingCheckbox
+								name="showNavigationAlert"
+								title={t("confirmationCheckbox")}
+							/>
+						</div>
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 

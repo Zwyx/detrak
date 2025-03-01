@@ -6,7 +6,13 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
 import { usePwaContext } from "@/lib/PwaContext.const";
 import { useHistoryState } from "@/lib/useHistoryState.const";
 import { cn } from "@/lib/utils";
@@ -59,11 +65,20 @@ export const HeaderMenu = () => {
 			<SheetContent
 				side="left"
 				className="flex w-auto flex-col items-start gap-0 overflow-auto"
+				noDescription
 			>
-				<div className="mb-2 flex items-center gap-4">
-					<img className="h-8 w-8" src="favicon-196.png" alt="Detrak logo" />
-					<span className="font-bold">{t("detrak")}</span>
-				</div>
+				<SheetHeader>
+					<SheetTitle>
+						<div className="mb-2 flex items-center gap-4">
+							<img
+								className="h-8 w-8"
+								src="favicon-196.png"
+								alt="Detrak logo"
+							/>
+							<span className="font-bold">{t("detrak")}</span>
+						</div>
+					</SheetTitle>
+				</SheetHeader>
 
 				{pwa.refreshNeeded && (
 					<div className="mt-2 flex w-full flex-col items-center gap-1 rounded-md border border-info bg-info/10 p-2">
@@ -132,7 +147,10 @@ export const HeaderMenu = () => {
 							</Button>
 						</DialogTrigger>
 
-						<DialogContent className="max-h-full max-w-3xl overflow-auto">
+						<DialogContent
+							className="max-h-full max-w-3xl overflow-auto"
+							noDescription
+						>
 							<DialogHeader>
 								<DialogTitle>{"Terms of use"}</DialogTitle>
 							</DialogHeader>
@@ -198,7 +216,10 @@ export const HeaderMenu = () => {
 							</Button>
 						</DialogTrigger>
 
-						<DialogContent className="max-h-full max-w-3xl overflow-auto">
+						<DialogContent
+							className="max-h-full max-w-3xl overflow-auto"
+							noDescription
+						>
 							<DialogHeader>
 								<DialogTitle>{"Privacy policy"}</DialogTitle>
 							</DialogHeader>
