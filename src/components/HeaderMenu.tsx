@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
@@ -19,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { LucideLoader2, LucideMenu } from "lucide-react";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ExternalLink } from "./common/ExternalLink";
 
 export const HeaderMenu = () => {
 	const pwa = usePwaContext();
@@ -26,6 +29,7 @@ export const HeaderMenu = () => {
 
 	const { state, navigate, pushStateOrNavigateBack } = useHistoryState<{
 		headerMenuOpen: boolean;
+		rulesDialogOpen?: boolean;
 		termsOfUseDialogOpen?: boolean;
 		privacyPolicyDialogOpen?: boolean;
 	}>();
@@ -109,36 +113,74 @@ export const HeaderMenu = () => {
 
 				<div className="mt-4">
 					{t("gigamicGame")}{" "}
-					<a
-						href="https://www.gigamic.com/jeu/detrak"
-						target="_blank"
-						rel="noreferrer nofollow"
-						className="font-bold"
-					>
+					<ExternalLink href="https://www.gigamic.com/jeu/detrak" showIcon>
 						{"Gigamic"}
-					</a>
+					</ExternalLink>
 					.
 				</div>
 
 				<div className="mt-4">
 					{t("digitalVersion.madeBy")}{" "}
-					<a
-						href="https://zwyx.dev"
-						target="_blank"
-						rel="noreferrer"
-						className="font-bold"
-					>
+					<ExternalLink href="https://zwyx.dev" showIcon>
 						{"Alex"}
-					</a>
+					</ExternalLink>
 					{t("digitalVersion.webDeveloper")}
 				</div>
 
 				<div className="mt-4">
 					{t("writeToMe")}{" "}
-					<a href="mailto:alex@zwyx.dev" className="font-bold">
+					<ExternalLink href="mailto:alex@zwyx.dev" showIcon>
 						{"alex@zwyx.dev"}
-					</a>
+					</ExternalLink>
 				</div>
+
+				<Dialog
+					open={!!state.rulesDialogOpen}
+					onOpenChange={(open) =>
+						pushStateOrNavigateBack(open, {
+							headerMenuOpen: true,
+							rulesDialogOpen: true,
+						})
+					}
+				>
+					<DialogTrigger asChild>
+						<Button size="sm" className="mx-auto mt-6">
+							{t("rules.readTheRules")}
+						</Button>
+					</DialogTrigger>
+
+					<DialogContent
+						className="max-h-full max-w-3xl overflow-auto"
+						onTouchEnd={(e) => e.stopPropagation()}
+						noDescription
+					>
+						<DialogHeader>
+							<DialogTitle>{t("rules.rules")}</DialogTitle>
+						</DialogHeader>
+
+						<div className="flex flex-col gap-3">
+							<p>{t("rules.part1")}</p>
+							<p>{t("rules.part2")}</p>
+							<ul className="list-disc pl-8">
+								<li>{t("rules.points.part1")}</li>
+								<li>{t("rules.points.part2")}</li>
+								<li>{t("rules.points.part3")}</li>
+								<li>{t("rules.points.part4")}</li>
+								<li>{t("rules.points.part5")}</li>
+							</ul>
+							<p>{t("rules.part3")}</p>
+							<p>{t("rules.part4")}</p>
+						</div>
+
+						<DialogFooter className="mt-1">
+							<DialogClose asChild>
+								<Button variant="secondary">
+									{t("close", { ns: "common" })}
+								</Button>
+							</DialogClose>
+						</DialogFooter>
+					</DialogContent>
+				</Dialog>
 
 				<div className="flex-1" />
 
@@ -158,7 +200,7 @@ export const HeaderMenu = () => {
 								size="sm"
 								className="mt-0.5 h-fit p-0 text-xs font-bold text-muted-foreground hover:no-underline"
 							>
-								{"Terms of use"}
+								{t("termsOfUse")}
 							</Button>
 						</DialogTrigger>
 
@@ -208,6 +250,14 @@ export const HeaderMenu = () => {
 									}
 								</p>
 							</div>
+
+							<DialogFooter className="mt-1">
+								<DialogClose asChild>
+									<Button variant="secondary">
+										{t("close", { ns: "common" })}
+									</Button>
+								</DialogClose>
+							</DialogFooter>
 						</DialogContent>
 					</Dialog>
 
@@ -228,7 +278,7 @@ export const HeaderMenu = () => {
 								size="sm"
 								className="mt-0.5 h-fit p-0 text-xs font-bold text-muted-foreground hover:no-underline"
 							>
-								{"Privacy policy"}
+								{t("privacyPolicy")}
 							</Button>
 						</DialogTrigger>
 
@@ -270,7 +320,7 @@ export const HeaderMenu = () => {
 									}
 								</p>
 
-								<ul className="ml-4 list-inside list-disc pl-4 indent-[-1.35rem]">
+								<ul className="list-disc pl-8">
 									<li>
 										{
 											"Device attributes, including information such as the operating system, hardware and software versions, browser type."
@@ -308,7 +358,7 @@ export const HeaderMenu = () => {
 
 								<p>{"We use the information described above for:"}</p>
 
-								<ul className="ml-4 list-inside list-disc pl-4 indent-[-1.35rem]">
+								<ul className="list-disc pl-8">
 									<li>
 										{
 											"analytics purposes, such as knowing the number of users, and which features are the most popular;"
@@ -322,6 +372,14 @@ export const HeaderMenu = () => {
 									</li>
 								</ul>
 							</div>
+
+							<DialogFooter className="mt-1">
+								<DialogClose asChild>
+									<Button variant="secondary">
+										{t("close", { ns: "common" })}
+									</Button>
+								</DialogClose>
+							</DialogFooter>
 						</DialogContent>
 					</Dialog>
 				</div>
@@ -329,39 +387,26 @@ export const HeaderMenu = () => {
 				<div className="mt-2 w-full border-b" />
 
 				<div className="mt-3 w-full text-xs text-muted-foreground">
-					{"Original game © "}
-					<a
-						href="https://www.gigamic.com"
-						target="_blank"
-						rel="noreferrer nofollow"
-						className="font-bold"
-					>
+					{t("copyright.originalGame")}
+					{" © "}
+					<ExternalLink href="https://www.gigamic.com" showIcon>
 						{"Gigamic"}
-					</a>
+					</ExternalLink>
 				</div>
 
 				<div className="mt-1 w-full text-xs text-muted-foreground">
-					{"Digital version © "}
-					<a
-						href="https://zwyx.dev"
-						target="_blank"
-						rel="noreferrer"
-						className="font-bold"
-					>
+					{t("copyright.digitalVersion")}
+					{" © "}
+					<ExternalLink href="https://zwyx.dev" showIcon>
 						{"Zwyx.dev"}
-					</a>
+					</ExternalLink>
 				</div>
 
 				<div className="mt-1 w-full text-xs text-muted-foreground">
-					{"Source code available at "}
-					<a
-						href="https://github.com/zwyx/detrak"
-						target="_blank"
-						rel="noreferrer"
-						className="font-bold"
-					>
+					{t("sourceCodeAvailableAt")}{" "}
+					<ExternalLink href="https://github.com/zwyx/detrak" showIcon>
 						{"github.com/zwyx/detrak"}
-					</a>
+					</ExternalLink>
 				</div>
 
 				<div className="mt-2 w-full text-right text-xs text-muted-foreground">

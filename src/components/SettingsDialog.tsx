@@ -126,7 +126,7 @@ export const SettingsDialog = () => {
 
 				<DialogFooter className="mt-1">
 					<DialogClose asChild>
-						<Button variant="secondary">{t("close")}</Button>
+						<Button variant="secondary">{t("close", { ns: "common" })}</Button>
 					</DialogClose>
 				</DialogFooter>
 			</DialogContent>

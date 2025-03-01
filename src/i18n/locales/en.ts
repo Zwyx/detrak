@@ -2,6 +2,7 @@ import { DeepReplace } from "@/lib/utils";
 
 export const en = {
 	common: {
+		close: "Close",
 		symbolNames: {
 			bar: "bar",
 			circle: "circle",
@@ -79,6 +80,25 @@ export const en = {
 			description: "Finish your game and reload the app to update.",
 			action: "Reload app",
 		},
+		rules: {
+			readTheRules: "Read the rules",
+			rules: "Game rules",
+			part1:
+				"Roll the dice and place the obtained symbols in the grid to score as many points as possible.",
+			part2:
+				"You score points when you place identical symbols next to each other, in a row, a column, or the diagonal from bottom left to top right:",
+			points: {
+				part1: "2 symbols: +2 points,",
+				part2: "3 symbols: +3 points,",
+				part3: "4 symbols: +8 points,",
+				part4: "5 symbols: +10 points,",
+				part5: "no symbols: -5 points,",
+			},
+			part3:
+				"The two symbols from the dice must be placed on adjacent free cells (horizontally or vertically).",
+			part4:
+				"It is impossible to place only one of the two symbols. Therefore, to avoid the game ending prematurely, it is necessary to avoid isolating cells.",
+		},
 		gigamicGame: "Detrak is a copyrighted game published by",
 		digitalVersion: {
 			madeBy: "This digital version has been made by me,",
@@ -86,6 +106,13 @@ export const en = {
 				", an independent web developer from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
 		},
 		writeToMe: "I hope you're enjoying it! Feel free to write to me at",
+		termsOfUse: "Terms of use",
+		privacyPolicy: "Privacy policy",
+		copyright: {
+			originalGame: "Original game",
+			digitalVersion: "Digital version",
+		},
+		sourceCodeAvailableAt: "Source code available at",
 		version: "Version",
 		checkForUpdates: "Check for updates",
 		updateAvailable: "Update available, see above",
@@ -201,8 +228,6 @@ export const en = {
 			description:
 				"Show a confirmation dialog when navigating away during a game.",
 		},
-
-		close: "Close",
 	},
 
 	siteHeader: {

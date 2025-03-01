@@ -2,6 +2,7 @@ import { I18nLocale } from "./en";
 
 export const fr: I18nLocale = {
 	common: {
+		close: "Fermer",
 		symbolNames: {
 			bar: "barre",
 			circle: "cercle",
@@ -77,13 +78,39 @@ export const fr: I18nLocale = {
 			description: "Terminez votre partie et rechargez l'application.",
 			action: "Recharger l'application",
 		},
+		rules: {
+			readTheRules: "Lire les règles",
+			rules: "Règles du jeu",
+			part1:
+				"Lancez les dés et placez les symboles obtenus dans la grille pour marquer le plus possible de points.",
+			part2:
+				"Vous marquez des points lorsque vous placez des symboles identiques l'un à côté de l'autre, sur une ligne, une colonne, ou la diagonale d'en bas à gauche à en haut à droite :",
+			points: {
+				part1: "2 symboles : +2 points,",
+				part2: "3 symboles : +3 points,",
+				part3: "4 symboles : +8 points,",
+				part4: "5 symboles : +10 points,",
+				part5: "aucun symbole : -5 points,",
+			},
+			part3:
+				"Les deux symboles des dés doivent être placés sur des cases libres adjacentes (horizontalement ou verticalement).",
+			part4:
+				"Il est impossible de ne placer qu'un seul des deux symboles. Ainsi, pour éviter que la partie ne s'arrête prématurément, il est nécessaire d'éviter d'isoler des cases.",
+		},
 		gigamicGame: "Détrak est un jeu protégé par copyright et publié par",
 		digitalVersion: {
 			madeBy: "Cette version numérique a été créée par moi-même,",
 			webDeveloper:
-				", développeur web, avec l'accord de Gigamic. Merci encore, Gigamic !",
+				", développeur web, avec l'accord de Gigamic. Merci encore, Gigamic !",
 		},
-		writeToMe: "J'espère que vous l'appréciez ! N'hésitez pas à m'écrire à",
+		writeToMe: "J'espère que vous l'appréciez ! N'hésitez pas à m'écrire à",
+		termsOfUse: "Conditions générales",
+		privacyPolicy: "Politique de confidentialité",
+		copyright: {
+			originalGame: "Jeu original",
+			digitalVersion: "Version numérique",
+		},
+		sourceCodeAvailableAt: "Code source disponible sur",
 		version: "Version",
 		checkForUpdates: "Vérifier la présence d'une mise à jour",
 		updateAvailable: "Mise à jour disponible, voir ci-dessus",
@@ -203,8 +230,6 @@ export const fr: I18nLocale = {
 			description:
 				"Afficher une boite de dialogue lorsque vous être sur le point de quitter la partie en cours.",
 		},
-
-		close: "Fermer",
 	},
 
 	siteHeader: {
