@@ -363,9 +363,17 @@ export const App = () => {
 				currentGameId={gameId}
 				previousGameId={previousGameId}
 				pwaRefreshing={pwaRefreshing}
-				onNewGame={(newGameId) =>
-					navigate(`/${newGameId}`, { state: { newGameDialogOpen: false } })
-				}
+				onNewGame={(newGameId) => {
+					pushState({ newGameDialogOpen: false });
+					setTimeout(
+						() =>
+							navigate(`/${newGameId}`, {
+								state: { newGameDialogOpen: false },
+								replace: true,
+							}),
+						100, // Prevents a flash of the QR code when the dialog closes
+					);
+				}}
 				onStopGame={() => navigate("/", { state: { newGameDialogOpen: true } })}
 				onOpenChange={(open) =>
 					pushStateOrNavigateBack(open, { newGameDialogOpen: true })
