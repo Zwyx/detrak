@@ -26,13 +26,29 @@ export const fr: I18nLocale = {
 			part1: "Le symbole sélectionné a été placé dans la grille ci-dessous.",
 			part2: "Maintenant, lancez les dés !",
 		},
+		share: {
+			shareYourScore: "Partager votre score",
+			title: "Détrak",
+			text_zero:
+				"🎲 {{count}} point à cette partie de Détrak ! Peux-tu faire mieux ? 🤞",
+			text_one:
+				"🎲 {{count}} point à cette partie de Détrak ! Peux-tu faire mieux ? 🤞",
+			text_other:
+				"🎲 {{count}} points à cette partie de Détrak ! Peux-tu faire mieux ? 🤞",
+			textToday_zero:
+				"🎲 {{count}} point à la partie du jour de Détrak ! Peux-tu faire mieux ? 🤞",
+			textToday_one:
+				"🎲 {{count}} point à la partie du jour de Détrak ! Peux-tu faire mieux ? 🤞",
+			textToday_other:
+				"🎲 {{count}} points à la partie du jour de Détrak ! Peux-tu faire mieux ? 🤞",
+		},
 		sr: {
 			selectSymbol: "Sélectionnez l'un des six symbols pour commencer.",
 			newDraw: "Nouveau tirage :",
 			gameFinished: "Partie terminée ! Votre score est de",
 			gameFinishedNewHighestScore: "Partie terminée ! Nouveau record !",
 		},
-		startNewGame: "Nouvelle partie",
+		startNewGame: "Jouer à nouveau",
 		welcome: {
 			title: "Bienvenu dans le jeu Détrak !",
 			text: "Commencez par sélectionner l'un des six symboles ci-dessus.",
@@ -148,7 +164,7 @@ export const fr: I18nLocale = {
 				"Demandez à vos ami·e·s de scanner ce QR code, ou envoyez-leur le lien.",
 			clickPlay: "Puis cliquez sur Jouer.",
 			title: "Detrak",
-			joinMe: "Rejoins-moi pour cette partie de Detrak",
+			joinMe: "Rejoins-moi pour cette partie de Détrak ! 🎲",
 			shareLink: "Partager le lien",
 			copyLink: "Copier le lien dans le presse-papiers",
 			lastVersion: {

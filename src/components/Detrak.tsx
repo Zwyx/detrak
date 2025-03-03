@@ -1,11 +1,8 @@
 import { useSettingsContext } from "@/lib/SettingsContext.const";
-import { cn, getSymbolNames } from "@/lib/utils";
+import { DetrakGrid } from "@/lib/common";
+import { cn, getCellColor, getSymbolNames } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { HelpStep, HelpTooltip } from "./HelpTooltip";
-
-export type TCell = number | null;
-export type TLine = TCell[];
-export type TGrid = TLine[];
 
 // Front: /
 export const SymbolFront = () => (
@@ -86,6 +83,8 @@ export const Cell = ({
 	const { settings } = useSettingsContext();
 
 	const symbol = x >= 1 && x <= 5 && y >= 1 && y <= 5;
+	const scoreCell =
+		(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && !!value;
 	const canPlay = symbol && onClick && (value === null || startOfGame);
 	const bgColor = x + y === 6 && "bg-accent";
 
@@ -101,6 +100,7 @@ export const Cell = ({
 				canPlay &&
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
 				bgColor,
+				scoreCell && getCellColor(value, "css"),
 			)}
 			aria-label={
 				startOfGame && typeof value === "number"
@@ -138,7 +138,7 @@ export const Cell = ({
 					value === 5 && <SymbolBack bgColor={bgColor} />
 				))}
 
-			{(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && (
+			{scoreCell && (
 				<span className="mr-3 font-[caveat] text-6xl max-[550px]:text-[8vw]">
 					{value}
 				</span>
@@ -191,7 +191,7 @@ export const Grid = ({
 	helpStep,
 	onClick,
 }: {
-	grid: TGrid;
+	grid: DetrakGrid;
 	startOfGame: boolean;
 	firstMoveCoords?: { x: number; y: number };
 	helpStep?: HelpStep;

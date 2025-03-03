@@ -27,6 +27,22 @@ export const en = {
 				"The symbol you have selected has been inserted in the grid below.",
 			part2: "Now, roll the dice!",
 		},
+		share: {
+			shareYourScore: "Share your score",
+			title: "Detrak",
+			text_zero:
+				"🎲 {{count}} points at this game of Detrak! Can you do better? 🤞",
+			text_one:
+				"🎲 {{count}} point at this game of Detrak! Can you do better? 🤞",
+			text_other:
+				"🎲 {{count}} points at this game of Detrak! Can you do better? 🤞",
+			textToday_zero:
+				"🎲 {{count}} points at Detrak's today's game! Can you do better? 🤞",
+			textToday_one:
+				"🎲 {{count}} point at Detrak's today's game! Can you do better? 🤞",
+			textToday_other:
+				"🎲 {{count}} points at Detrak's today's game! Can you do better? 🤞",
+		},
 		sr: {
 			selectSymbol: "Select one of the six symbols to start.",
 			newDraw: "New draw:",
@@ -149,7 +165,7 @@ export const en = {
 				"Ask your friends to scan this QR code, or share the link with them.",
 			clickPlay: "Then click Play.",
 			title: "Detrak",
-			joinMe: "Join me for this game of Detrak",
+			joinMe: "Join me for this game of Detrak! 🎲",
 			shareLink: "Share link",
 			copyLink: "Copy link to clipboard",
 			lastVersion: {

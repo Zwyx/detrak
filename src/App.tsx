@@ -1,18 +1,26 @@
 import { Confetti } from "@/lib/confetti.min.js";
-import { cn, formatDate, getSymbolNames, usePrevious } from "@/lib/utils";
+import {
+	cn,
+	formatDate,
+	getSymbolNames,
+	getUnicodeGrid,
+	usePrevious,
+} from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
-import { Cell, Grid, TCell, TGrid, TLine } from "./components/Detrak";
+import { Cell, Grid } from "./components/Detrak";
 import { Dice } from "./components/Dice";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
 import { NavigationBlocker } from "./components/NavigationBlocker";
 import { NewGameDialog } from "./components/NewGameDialog";
 import { SiteHeader } from "./components/SiteHeader";
+import { ButtonStatus } from "./components/common/ButtonStatus";
 import { Button } from "./components/ui/button";
 import { usePwaContext } from "./lib/PwaContext.const";
 import { useSettingsContext } from "./lib/SettingsContext.const";
+import { DetrakCell, DetrakGrid, DetrakLine } from "./lib/common";
 import {
 	HELP_SHOWN_KEY,
 	HIGHEST_SCORE_KEY,
@@ -21,10 +29,12 @@ import {
 import { GAME_ID_REGEX, SeededPrng, getSeededPrng } from "./lib/prng";
 import { useHistoryState } from "./lib/useHistoryState.const";
 
-const getLineScore = (line: TLine): number => {
+const DOMAIN = import.meta.env.VITE_DOMAIN;
+
+const getLineScore = (line: DetrakLine): number => {
 	const symbols = line.slice(1, -1);
 
-	let previousSymbol: TCell;
+	let previousSymbol: DetrakCell;
 	let numberOfPreviousSymbols: number;
 	let score = 0;
 
@@ -81,9 +91,9 @@ export const App = () => {
 		.map(() => Array(7).fill(null));
 
 	const gridReducer = (
-		prevGrid: TGrid,
-		{ x, y, newValue }: { x: number; y: number; newValue: TCell },
-	): TGrid => {
+		prevGrid: DetrakGrid,
+		{ x, y, newValue }: { x: number; y: number; newValue: DetrakCell },
+	): DetrakGrid => {
 		if (x < 0 || y < 0) {
 			return initialGrid;
 		}
@@ -92,7 +102,7 @@ export const App = () => {
 			row.map((value, c) => (r === y && c === x ? newValue : value)),
 		);
 
-		const computeRowScores = (grid2: TGrid): TCell[] =>
+		const computeRowScores = (grid2: DetrakGrid): DetrakCell[] =>
 			grid2.map((row, r) => (r >= 1 && r <= 5 ? getLineScore(row) : null));
 
 		const rowScores = computeRowScores(grid);
@@ -151,7 +161,7 @@ export const App = () => {
 		getSeededPrng(gameId || formatDate("today")),
 	);
 
-	const [dice, setDice] = useState<TCell[]>([null, null]);
+	const [dice, setDice] = useState<DetrakCell[]>([null, null]);
 	const [diceTimestamp, setDiceTimestamp] = useState<number>(0);
 	const [diceHidden, setDiceHidden] = useState(false);
 	const [diceRolling, setDiceRolling] = useState(false);
@@ -173,6 +183,10 @@ export const App = () => {
 	const [helpStep, setHelpStep] = useState<HelpStep>(null);
 	const [highestScore, setHighestScore] = useState<number | undefined>();
 	const [newHighestScore, setNewHighestScore] = useState<boolean>(false);
+
+	const shareGameLink = `${DOMAIN}/${gameId}`;
+	const shareGameLinkHttps = `https://${shareGameLink}`;
+	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
 
 	useEffect(() => {
 		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
@@ -358,6 +372,13 @@ export const App = () => {
 		}
 	}, [settings.autoRollDice, canRollDice, rollDice]);
 
+	const getShareText = () =>
+		(gameId === formatDate("today")
+			? t("share.textToday", { count: Number(score) })
+			: t("share.text", { count: Number(score) })) +
+		"\n" +
+		getUnicodeGrid(grid);
+
 	return (
 		<div className="flex flex-col items-center font-[inter]">
 			<NavigationBlocker shouldBlock={middleOfGame} />
@@ -525,19 +546,44 @@ export const App = () => {
 									{score}
 								</div>
 
-								<Button
-									disabled={move !== 1 && move !== 2}
-									onClick={() => {
-										navigate("/", { state: { newGameDialogOpen: true } });
-
-										if (pwa.refreshReady) {
-											setPwaRefreshing(true);
-											pwa.refresh?.();
+								<div className="flex gap-2">
+									<ButtonStatus
+										success={showShareSuccess}
+										onClick={() =>
+											(navigator.share
+												? navigator.share({
+														title: t("share.title"),
+														text: getShareText(),
+														url: shareGameLinkHttps,
+												  })
+												: navigator.clipboard.writeText(
+														`${getShareText()}\n${shareGameLinkHttps}`,
+												  )
+											).then(() => {
+												if (!showShareSuccess) {
+													setShowShareSuccess(true);
+													setTimeout(() => setShowShareSuccess(false), 2000);
+												}
+											})
 										}
-									}}
-								>
-									{t("startNewGame")}
-								</Button>
+									>
+										{t("share.shareYourScore")}
+									</ButtonStatus>
+
+									<Button
+										disabled={move !== 1 && move !== 2}
+										onClick={() => {
+											navigate("/", { state: { newGameDialogOpen: true } });
+
+											if (pwa.refreshReady) {
+												setPwaRefreshing(true);
+												pwa.refresh?.();
+											}
+										}}
+									>
+										{t("startNewGame")}
+									</Button>
+								</div>
 							</div>
 						)}
 					</>
