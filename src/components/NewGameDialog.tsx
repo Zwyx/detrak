@@ -17,6 +17,7 @@ import { CalendarIcon, LucideArrowLeft, LucideLoader2 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ButtonStatus } from "./common/ButtonStatus";
 import { Button } from "./ui/button";
 
 const DOMAIN = import.meta.env.VITE_DOMAIN;
@@ -57,6 +58,7 @@ export const NewGameDialog = ({
 	const [date, setDate] = useState<Date>();
 	const [randomGameId, setRandomGameId] = useState<string>(getRandomId(8));
 	const [joinGameId, setJoinGameId] = useState<string>("");
+	const [showCopySuccess, setShowCopySuccess] = useState<boolean>(false);
 
 	const shareGameLink = `${DOMAIN}/${currentGameId || randomGameId}`;
 	const shareGameLinkHttps = `https://${shareGameLink}`;
@@ -238,7 +240,7 @@ export const NewGameDialog = ({
 
 				{view === "share_create" && (
 					<>
-						<span className="text-center font-medium">
+						<span className="text-center">
 							{t("shareCreate.scanQrCode")}{" "}
 							{!currentGameId && t("shareCreate.clickPlay")}
 						</span>
@@ -252,24 +254,29 @@ export const NewGameDialog = ({
 								{shareGameLink}
 							</code>
 
-							<Button
+							<ButtonStatus
 								size="sm"
-								onClick={() => {
-									if (navigator.share) {
-										navigator.share({
-											title: t("shareCreate.title"),
-											text: t("shareCreate.joinMe"),
-											url: shareGameLinkHttps,
-										});
-									} else {
-										navigator.clipboard.writeText(shareGameLinkHttps);
-									}
-								}}
+								success={showCopySuccess}
+								onClick={() =>
+									(navigator.share
+										? navigator.share({
+												title: t("shareCreate.title"),
+												text: t("shareCreate.joinMe"),
+												url: shareGameLinkHttps,
+										  })
+										: navigator.clipboard.writeText(shareGameLinkHttps)
+									).then(() => {
+										if (!showCopySuccess) {
+											setShowCopySuccess(true);
+											setTimeout(() => setShowCopySuccess(false), 2000);
+										}
+									})
+								}
 							>
 								{navigator["share"]
 									? t("shareCreate.shareLink")
 									: t("shareCreate.copyLink")}
-							</Button>
+							</ButtonStatus>
 						</div>
 
 						{currentGameId ? (

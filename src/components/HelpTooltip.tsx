@@ -33,13 +33,13 @@ export const HelpTooltip = ({
 		</HoverCardTrigger>
 
 		<HoverCardContent
-			className="border-none bg-info p-2 text-center text-sm"
+			className="bg-tooltip border-none p-2 text-center text-sm"
 			side={side}
 			align={align}
 		>
 			{children}
 			{!noArrow && (
-				<HoverCardArrow width={16} height={12} className="fill-info" />
+				<HoverCardArrow width={16} height={12} className="fill-tooltip" />
 			)}
 		</HoverCardContent>
 	</HoverCard>
