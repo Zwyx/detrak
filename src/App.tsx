@@ -212,12 +212,11 @@ export const App = () => {
 		}
 
 		setSeededPrng(getSeededPrng(gameId));
-		setSrText(t("sr.selectSymbol"));
 
 		if (!localStorage.getItem(HELP_SHOWN_KEY)) {
 			setHelpStep("welcome");
 		}
-	}, [gameId, navigate, replaceState, t]);
+	}, [gameId, navigate, replaceState]);
 
 	useEffect(() => {
 		if (endOfGame) {
@@ -227,20 +226,18 @@ export const App = () => {
 	}, [endOfGame, incrementNumberOfGames]);
 
 	useEffect(() => {
-		if (!endOfGame || typeof score !== "number") {
-			return;
-		}
-
-		if (typeof highestScore === "number" && score <= highestScore) {
-			setSrText(`Game finished! Score: ${score}`);
+		if (
+			!(
+				endOfGame &&
+				typeof score === "number" &&
+				(typeof highestScore !== "number" || score > highestScore)
+			)
+		) {
 			return;
 		}
 
 		if (typeof highestScore === "number") {
 			setNewHighestScore(true);
-			setSrText(`Game finished! New highest score! ${score}`);
-		} else {
-			setSrText(`Game finished! Score: ${score}`);
 		}
 
 		localStorage.setItem(HIGHEST_SCORE_KEY, score.toString());
@@ -274,6 +271,18 @@ export const App = () => {
 			}, 100);
 		}
 	}, [endOfGame, score, highestScore, settings.showConfetti]);
+
+	useEffect(() => {
+		if (startOfGame) {
+			setSrText(t("sr.selectSymbol"));
+		} else if (endOfGame && typeof score === "number") {
+			if (typeof highestScore === "number" && score > highestScore) {
+				setSrText(`${t("sr.gameFinishedNewHighestScore")} ${score}`);
+			} else {
+				setSrText(`${t("sr.gameFinished")} ${score}`);
+			}
+		}
+	}, [startOfGame, endOfGame, score, highestScore, t]);
 
 	const rollDiceNow = useCallback(() => {
 		const newDice = [
