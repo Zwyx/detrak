@@ -18,6 +18,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonStatus } from "./common/ButtonStatus";
+import { Code } from "./common/Code";
 import { Button } from "./ui/button";
 
 const DOMAIN = import.meta.env.VITE_DOMAIN;
@@ -279,6 +280,12 @@ export const NewGameDialog = ({
 									? t("shareCreate.shareLink")
 									: t("shareCreate.copyLink")}
 							</ButtonStatus>
+						</div>
+
+						<div className="text-center text-sm font-medium">
+							{t("shareCreate.lastVersion.part1")}{" "}
+							<Code className="text-warning">2.0.0</Code>{" "}
+							{t("shareCreate.lastVersion.part2")}
 						</div>
 
 						{currentGameId ? (
