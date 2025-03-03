@@ -25,6 +25,15 @@
 		--accent: 210 40% 96.1%;
 		--accent-foreground: 216 50% 30%;
 
+		--info: 217 91% 60%; /* bg-blue-500 */
+		--info-dim: 213 94% 68%; /* bg-blue-400 */
+
+		--success: 142 71% 45%; /* bg-green-500 */
+		--success-dim: 142 69% 58%; /* bg-green-400 */
+
+		--warning: 25 95% 53%; /* bg-orange-500 */
+		--warning-dim: 27 96% 61%; /* bg-orange-400 */
+
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 40% 98%;
 
@@ -32,8 +41,8 @@
 		--input: 214.3 31.8% 91.4%;
 		--ring: 215 20.2% 65.1%;
 
-		--info: 208 78% 77%;
 		--dice: 206 82% 65%;
+		--tooltip: 208 78% 77%;
 
 		--radius: 0.5rem;
 	}
@@ -60,6 +69,15 @@
 		--accent: 217.2 32.6% 17.5%;
 		--accent-foreground: 210 6% 80%;
 
+		--info: 217 91% 60%; /* bg-blue-500 */
+		--info-dim: 221 83% 53%; /* bg-blue-600 */
+
+		--success: 142 71% 45%; /* bg-green-500 */
+		--success-dim: 142 76% 36%; /* bg-green-600 */
+
+		--warning: 25 95% 53%; /* bg-orange-500 */
+		--warning-dim: 21 90% 48%; /* bg-orange-600 */
+
 		--destructive: 0 62.8% 30.6%;
 		--destructive-foreground: 0 85.7% 97.3%;
 
@@ -67,10 +85,8 @@
 		--input: 217.2 32.6% 17.5%;
 		--ring: 217.2 32.6% 17.5%;
 
-		--info: 211 86% 27%;
 		--dice: 211 90% 34%;
-
-		--radius: 0.5rem;
+		--tooltip: 211 86% 27%;
 	}
 }
 
@@ -85,6 +101,5 @@
 }
 
 a {
-	/* Contrary to other projects, `dark:text-info` would be too dark here because of the background color */
-	@apply text-blue-600;
+	@apply text-blue-600 dark:text-info;
 }
