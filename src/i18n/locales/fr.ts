@@ -18,7 +18,7 @@ export const fr: I18nLocale = {
 			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans la boite de dialogue des paramètres.",
 		bestScore: "meilleur score :",
 		endOnGame: "Terminé ! Votre score est",
-		endOnGameWithNewScore: "Bravo ! Votre nouveau record est",
+		endOnGameWithNewScore: "Bravo ! Nouveau record :",
 		numberOfGames_one: "{{count}} partie",
 		numberOfGames_other: "{{count}} parties",
 		rollDice: "lancer les dés",

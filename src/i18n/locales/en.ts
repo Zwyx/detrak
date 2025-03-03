@@ -18,7 +18,7 @@ export const en = {
 			"Dice are now unanimated and rolled automatically to allow you to play quicker. You can change this in the settings dialog.",
 		bestScore: "best:",
 		endOnGame: "Finished! Your score is",
-		endOnGameWithNewScore: "Well done! Your new highest score is",
+		endOnGameWithNewScore: "Well done! New highest score:",
 		numberOfGames_one: "{{count}} game",
 		numberOfGames_other: "{{count}} games",
 		rollDice: "roll dice",
