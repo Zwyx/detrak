@@ -372,10 +372,14 @@ export const NewGameDialog = ({
 	);
 };
 
-const OrSeparator = () => (
-	<div className="flex w-full items-center gap-2">
-		<div className="h-0 flex-1 border-t" />
-		<span className="text-xs font-medium">OR</span>
-		<div className="h-0 flex-1 border-t" />
-	</div>
-);
+const OrSeparator = () => {
+	const { t } = useTranslation("newGameDialog");
+
+	return (
+		<div className="flex w-full items-center gap-2">
+			<div className="h-0 flex-1 border-t" />
+			<span className="text-xs font-medium uppercase">{t("or")}</span>
+			<div className="h-0 flex-1 border-t" />
+		</div>
+	);
+};
