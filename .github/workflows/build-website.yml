@@ -43,21 +43,31 @@ jobs:
       - run: echo "BRANCH=$(${{ github.event.base_ref == 'refs/heads/main' || github.ref == 'refs/heads/main' }} && echo "dist" || echo "staging-dist")" >> $GITHUB_ENV
         id: BRANCH
 
+      - env:
+          PROD_DOMAIN: "${{ secrets.PROD_DOMAIN }}"
+          STAGING_DOMAIN: "${{ secrets.STAGING_DOMAIN }}"
+        run: echo "DOMAIN=$([[ "${{ env.BRANCH }}" == "dist" ]] && echo "${{ env.PROD_DOMAIN }}" || echo "${{ env.STAGING_DOMAIN }}")" >> $GITHUB_ENV
+        id: DOMAIN
+
       - run: echo "SENTRY_ENVIRONMENT=$([[ "${{ env.BRANCH }}" == "dist" ]] && echo "production" || echo "staging")" >> $GITHUB_ENV
         id: SENTRY_ENVIRONMENT
 
       - env:
-          DOMAIN: "${{ secrets.DOMAIN }}"
+          DOMAIN: "${{ env.DOMAIN }}"
         run: sed -i "s/\$DOMAIN/${{ env.DOMAIN }}/" index.html
 
       - env:
           APP_VERSION: "${{ env.APP_VERSION }}"
-          DOMAIN: "${{ secrets.DOMAIN }}"
+        run: echo ${{ env.APP_VERSION }} > public/.well-known/version
+
+      - env:
+          APP_VERSION: "${{ env.APP_VERSION }}"
+          DOMAIN: "${{ env.DOMAIN }}"
+          SENTRY_ENVIRONMENT: "${{ env.SENTRY_ENVIRONMENT }}"
+          SENTRY_RELEASE: "${{ env.APP_VERSION }}"
           PLAUSIBLE_API_URL: "${{ secrets.PLAUSIBLE_API_URL }}"
           SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
-          SENTRY_ENVIRONMENT: "${{ env.SENTRY_ENVIRONMENT }}"
           SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
-          SENTRY_RELEASE: "${{ env.APP_VERSION }}"
         run: npm run build
 
       - run: |

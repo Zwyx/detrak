@@ -77,8 +77,8 @@ export const en = {
 	headerMenu: {
 		openMenu: "Open menu",
 		detrak: "Detrak",
-		newVersion: {
-			title: "New version available",
+		newFeatures: {
+			title: "New features available",
 			description: "Finish your game and reload the app to update.",
 			action: "Reload app",
 		},
@@ -117,7 +117,8 @@ export const en = {
 		sourceCodeAvailableAt: "Source code available at",
 		version: "Version",
 		checkForUpdates: "Check for updates",
-		updateAvailable: "Update available, see above",
+		updateAvailable:
+			"Update available, finish your game and click here to update",
 	},
 
 	languageSelector: {
@@ -151,6 +152,10 @@ export const en = {
 			joinMe: "Join me for this game of Detrak",
 			shareLink: "Share link",
 			copyLink: "Copy link to clipboard",
+			lastVersion: {
+				part1: "Note: your friends need Detrak version",
+				part2: "or superior. They can reload the app to update.",
+			},
 		},
 		shareJoin: {
 			useCamera: "Use your device's camera to scan a game's QR code.",
