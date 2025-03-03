@@ -58,7 +58,7 @@ export const NewGameDialog = ({
 	const [date, setDate] = useState<Date>();
 	const [randomGameId, setRandomGameId] = useState<string>(getRandomId(8));
 	const [joinGameId, setJoinGameId] = useState<string>("");
-	const [showCopySuccess, setShowCopySuccess] = useState<boolean>(false);
+	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
 
 	const shareGameLink = `${DOMAIN}/${currentGameId || randomGameId}`;
 	const shareGameLinkHttps = `https://${shareGameLink}`;
@@ -256,7 +256,7 @@ export const NewGameDialog = ({
 
 							<ButtonStatus
 								size="sm"
-								success={showCopySuccess}
+								success={showShareSuccess}
 								onClick={() =>
 									(navigator.share
 										? navigator.share({
@@ -264,11 +264,13 @@ export const NewGameDialog = ({
 												text: t("shareCreate.joinMe"),
 												url: shareGameLinkHttps,
 										  })
-										: navigator.clipboard.writeText(shareGameLinkHttps)
+										: navigator.clipboard.writeText(
+												`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
+										  )
 									).then(() => {
-										if (!showCopySuccess) {
-											setShowCopySuccess(true);
-											setTimeout(() => setShowCopySuccess(false), 2000);
+										if (!showShareSuccess) {
+											setShowShareSuccess(true);
+											setTimeout(() => setShowShareSuccess(false), 2000);
 										}
 									})
 								}
