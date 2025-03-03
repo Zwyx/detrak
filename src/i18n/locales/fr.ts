@@ -16,23 +16,25 @@ export const fr: I18nLocale = {
 	app: {
 		autoRollDice:
 			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans la boite de dialogue des paramètres.",
-		bestScore: "meilleur score :",
-		endOnGame: "Terminé! Votre score est",
-		endOnGameWithNewScore: "Bravo! Votre nouveau record est",
+		bestScore: "meilleur score :",
+		endOnGame: "Terminé ! Votre score est",
+		endOnGameWithNewScore: "Bravo ! Votre nouveau record est",
 		numberOfGames_one: "{{count}} partie",
 		numberOfGames_other: "{{count}} parties",
 		rollDice: "lancer les dés",
 		rollDice1: {
 			part1: "Le symbole sélectionné a été placé dans la grille ci-dessous.",
-			part2: "Maintenant, lancez les dés !",
+			part2: "Maintenant, lancez les dés !",
 		},
 		sr: {
 			selectSymbol: "Sélectionnez l'un des six symbols pour commencer.",
-			newDraw: "Nouveau tirage :",
+			newDraw: "Nouveau tirage :",
+			gameFinished: "Partie terminée ! Votre score est de",
+			gameFinishedNewHighestScore: "Partie terminée ! Nouveau record !",
 		},
 		startNewGame: "Nouvelle partie",
 		welcome: {
-			title: "Bienvenu dans le jeu Détrak !",
+			title: "Bienvenu dans le jeu Détrak !",
 			text: "Commencez par sélectionner l'un des six symboles ci-dessus.",
 		},
 	},
@@ -58,7 +60,7 @@ export const fr: I18nLocale = {
 				"Ceci est la légende du score. Exemple : cinq symboles identiques sur une ligne, une colonne, ou la diagonale, donne 10 points.",
 			right: {
 				part1:
-					"Le score de la diagonale apparait aux deux extrémités — il est compté deux fois !",
+					"Le score de la diagonale apparait aux deux extrémités — il est compté deux fois !",
 				part2: "Lancez à nouveau les dés pour continuer le jeu.",
 			},
 		},
@@ -139,10 +141,10 @@ export const fr: I18nLocale = {
 		play: "Jouer",
 		playRandomGame: "Jouer une partie aléatoire",
 		playTodayGame: "Jouer la partie du jour",
-		playWithFriends: "Jouer avec des amis",
+		playWithFriends: "Jouer avec des ami·e·s",
 		shareCreate: {
 			scanQrCode:
-				"Demandez à vos amis de scanner ce QR code, ou partagez le lien avec eux.",
+				"Demandez à vos ami·e·s de scanner ce QR code, ou envoyez-leur le lien.",
 			clickPlay: "Puis cliquez sur Jouer.",
 			title: "Detrak",
 			joinMe: "Rejoins-moi pour cette partie de Detrak",
@@ -162,7 +164,7 @@ export const fr: I18nLocale = {
 			inviteToGame: "Inviter des personnes à la partie en cours",
 			joinGame: "Rejoindre une partie",
 			newGame: "Nouvelle partie",
-			playWithFriends: "Jouer avec des amis",
+			playWithFriends: "Jouer avec des ami·e·s",
 			welcomeToNewVersion: "Bienvenue dans la nouvelle version de Détrak !",
 		},
 		welcome: {
@@ -170,11 +172,12 @@ export const fr: I18nLocale = {
 			dailyGame: "La partie du jour",
 			dailyGameDetails:
 				"chaque jour, la séquence de symboles tirée par les dés sera la même pour tout le monde.",
-			playWithFriends: "Jouer avec des amis",
+			playWithFriends: "Jouer avec des ami·e·s",
 			playWithFriendsDetails:
-				"vous pouvez maintenant créer une partie et inviter des personnes à rejoindre. Ici aussi, la séquence de symboles tirée pendant la partie sera la même pour vos amis et vous. Cela fonctionne même sans connexion internet.",
-			startPlaying: "Commencez à jouer !",
+				"vous pouvez maintenant créer une partie et inviter des personnes à rejoindre. Ici aussi, la séquence de symboles tirée pendant la partie sera la même pour vos ami·e·s et vous. Cela fonctionne même sans connexion internet.",
+			startPlaying: "Commencez à jouer !",
 		},
+		or: "ou",
 	},
 
 	themeSelector: {
@@ -210,7 +213,7 @@ export const fr: I18nLocale = {
 			notAvailableDuringTheFirstGame:
 				"(non disponible pendant la première partie)",
 			description:
-				"Les dés sont lancés automatiquement dès qu'un coup est complet (lorsque les deux symboles sont placés sur la grille). Ceci empêche l'annulation du placement du deuxième symbole.",
+				"Les dés sont lancés automatiquement dès que les deux symboles sont placés sur la grille. Ceci empêche l'annulation du placement du deuxième symbole.",
 		},
 
 		showDiceMarker: {
@@ -222,7 +225,7 @@ export const fr: I18nLocale = {
 		showConfetti: {
 			title: "Confettis",
 			description:
-				"Jeter des confettis quand vous établissez un nouveau record !",
+				"Jeter des confettis quand vous établissez un nouveau record !",
 		},
 
 		showNavigationAlert: {
@@ -234,6 +237,6 @@ export const fr: I18nLocale = {
 
 	siteHeader: {
 		detrak: "Détrak",
-		game: "Partie :",
+		game: "Partie :",
 	},
 } as const;

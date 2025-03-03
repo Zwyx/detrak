@@ -30,6 +30,8 @@ export const en = {
 		sr: {
 			selectSymbol: "Select one of the six symbols to start.",
 			newDraw: "New draw:",
+			gameFinished: "Game finished! Score:",
+			gameFinishedNewHighestScore: "Game finished! New highest score!",
 		},
 		startNewGame: "Start a new game",
 		welcome: {
@@ -174,6 +176,7 @@ export const en = {
 				"you can now create a game and invite people to join. Here too, the sequence of symbols drawn during the game will be the same for your friends and you. It even works without internet connection.",
 			startPlaying: "Start playing!",
 		},
+		or: "or",
 	},
 
 	themeSelector: {
@@ -208,7 +211,7 @@ export const en = {
 			title: "Automatically roll the dice",
 			notAvailableDuringTheFirstGame: "(not available during the first game)",
 			description:
-				"Dice will be rolled automatically once a move is complete (when the two symbols are placed on the grid). This removes the ability to undo the second symbol placement.",
+				"Dice will be rolled automatically once the two symbols are placed in the grid. This removes the ability to undo the second symbol placement.",
 		},
 
 		showDiceMarker: {
