@@ -36,6 +36,18 @@ export default {
 					DEFAULT: "hsl(var(--accent))",
 					foreground: "hsl(var(--accent-foreground))",
 				},
+				info: {
+					DEFAULT: "hsl(var(--info))",
+					dim: "hsl(var(--info-dim))",
+				},
+				success: {
+					DEFAULT: "hsl(var(--success))",
+					dim: "hsl(var(--success-dim))",
+				},
+				warning: {
+					DEFAULT: "hsl(var(--warning))",
+					dim: "hsl(var(--warning-dim))",
+				},
 				destructive: {
 					DEFAULT: "hsl(var(--destructive))",
 					foreground: "hsl(var(--destructive-foreground))",
@@ -43,8 +55,8 @@ export default {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
-				info: "hsl(var(--info))",
 				dice: "hsl(var(--dice))",
+				tooltip: "hsl(var(--tooltip))",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
