@@ -17,10 +17,10 @@ import {
 } from "@/components/ui/sheet";
 import { usePwaContext } from "@/lib/PwaContext.const";
 import { useHistoryState } from "@/lib/useHistoryState.const";
-import { cn } from "@/lib/utils";
-import { LucideLoader2, LucideMenu } from "lucide-react";
+import { LucideMenu } from "lucide-react";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ButtonStatus } from "./common/ButtonStatus";
 import { ExternalLink } from "./common/ExternalLink";
 
 export const HeaderMenu = () => {
@@ -34,9 +34,14 @@ export const HeaderMenu = () => {
 		privacyPolicyDialogOpen?: boolean;
 	}>();
 
+	const [checkForUpdatesLoading, setCheckForUpdatesLoading] = useState(false);
+	const [newFeaturesReloading, setNewFeaturesReloading] = useState(false);
+	const [updateReloading, setUpdateReloading] = useState(false);
+
 	const touchStartX = useRef(0);
 
-	const [checkForUpdateLoading, setCheckForUpdateLoading] = useState(false);
+	const showNewFeaturesPing =
+		pwa.newMajorVersionReady && !pwa.newMajorVersionAcknowledged;
 
 	return (
 		<Sheet
@@ -47,19 +52,19 @@ export const HeaderMenu = () => {
 		>
 			<SheetTrigger asChild>
 				<Button
-					className="relative"
 					variant="ghost"
 					size="icon"
+					className="relative"
 					onClick={() => {
-						if (pwa.refreshNeeded && !pwa.refreshNeededAcknowledged) {
-							pwa.setRefreshNeededAcknowledged(true);
+						if (showNewFeaturesPing) {
+							pwa.setNewMajorVersionAcknowledged(true);
 						}
 					}}
 				>
 					<LucideMenu />
 					<span className="sr-only">{t("openMenu")}</span>
 
-					{pwa.refreshNeeded && !pwa.refreshNeededAcknowledged && (
+					{showNewFeaturesPing && (
 						<span className="absolute right-0 top-0 flex h-3 w-3">
 							<span className="absolute h-full w-full animate-ping rounded-full bg-info opacity-75" />
 							<span className="absolute left-[2px] top-[2px] h-2 w-2 rounded-full bg-info" />
@@ -99,15 +104,24 @@ export const HeaderMenu = () => {
 					</SheetTitle>
 				</SheetHeader>
 
-				{pwa.refreshNeeded && (
+				{pwa.newMajorVersionReady && (
 					<div className="mt-2 flex w-full flex-col items-center gap-1 rounded-md border border-info bg-info/10 p-2">
-						<div className="w-full">{t("newVersion.title")}</div>
+						<div className="w-full">{t("newFeatures.title")}</div>
 						<div className="w-full text-sm text-muted-foreground">
-							{t("newVersion.description")}
+							{t("newFeatures.description")}
 						</div>
-						<Button className="m-1" size="sm" onClick={pwa.refresh}>
-							{t("newVersion.action")}
-						</Button>
+						<ButtonStatus
+							size="sm"
+							className="m-1"
+							disabled={updateReloading}
+							loading={newFeaturesReloading}
+							onClick={() => {
+								setNewFeaturesReloading(true);
+								pwa.refresh?.();
+							}}
+						>
+							{t("newFeatures.action")}
+						</ButtonStatus>
 					</div>
 				)}
 
@@ -409,37 +423,32 @@ export const HeaderMenu = () => {
 					</ExternalLink>
 				</div>
 
-				<div className="mt-2 w-full text-right text-xs text-muted-foreground">
-					{t("version")}{" "}
-					<span className="font-bold">{import.meta.env.VITE_APP_VERSION}</span>
-					{" – "}
-					{pwa.refreshNeeded ? (
-						<span className="font-bold">{t("updateAvailable")}</span>
-					) : (
-						<Button
-							variant="link"
-							size="sm"
-							className="mt-0.5 h-fit p-0 text-xs font-bold text-blue-600 hover:no-underline disabled:opacity-100"
-							disabled={checkForUpdateLoading}
-							onClick={() => {
-								setCheckForUpdateLoading(true);
-								setTimeout(() => setCheckForUpdateLoading(false), 2500);
-								pwa.update?.();
-							}}
-						>
-							<div className={cn(checkForUpdateLoading && "opacity-15")}>
-								{t("checkForUpdates")}
-							</div>
+				<div className="mt-3 flex w-full items-center justify-end gap-2 text-xs text-muted-foreground">
+					<span>
+						{t("version")} <span className="font-bold">{pwa.version}</span>
+					</span>
 
-							<LucideLoader2
-								className={cn(
-									"absolute",
-									!checkForUpdateLoading && "invisible",
-									checkForUpdateLoading && "animate-spin",
-								)}
-							/>
-						</Button>
-					)}
+					<span className="font-bold text-muted-foreground">·</span>
+
+					<ButtonStatus
+						variant="link"
+						size="sm"
+						className="h-fit max-w-48 text-wrap p-0 text-xs font-bold text-muted-foreground hover:no-underline"
+						disabled={newFeaturesReloading}
+						loading={checkForUpdatesLoading || updateReloading}
+						onClick={() => {
+							if (pwa.refreshReady) {
+								setUpdateReloading(true);
+								pwa.refresh?.();
+							} else {
+								setCheckForUpdatesLoading(true);
+								pwa.checkForNewVersion();
+								setTimeout(() => setCheckForUpdatesLoading(false), 2500);
+							}
+						}}
+					>
+						{pwa.refreshReady ? t("updateAvailable") : t("checkForUpdates")}
+					</ButtonStatus>
 				</div>
 			</SheetContent>
 		</Sheet>

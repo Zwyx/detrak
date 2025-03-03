@@ -1,42 +1,63 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { registerSW } from "virtual:pwa-register";
 import { PwaContext } from "./PwaContext.const";
 
+const APP_VERSION = import.meta.env.VITE_APP_VERSION;
+const DOMAIN = import.meta.env.VITE_DOMAIN;
+
 export const PwaContextProvider = ({ children }: PropsWithChildren) => {
+	const [newMajorVersionAvailable, setNewMajorVersionAvailable] =
+		useState(false);
+	const [newMajorVersionAcknowledged, setNewMajorVersionAcknowledged] =
+		useState(false);
+
 	const [update, setUpdate] = useState<() => Promise<void>>();
-	const [refreshNeeded, setRefreshNeeded] = useState<boolean>(false);
-	const [refreshNeededAcknowledged, setRefreshNeededAcknowledged] =
-		useState<boolean>(false);
+	const [refreshPending, setRefreshPending] = useState(false);
 	const [refresh, setRefresh] = useState<() => Promise<void>>();
+
+	const checkForNewVersion = useCallback(
+		() =>
+			fetch(`https://${DOMAIN}/.well-known/version`)
+				.then((res) => res.text())
+				.then((latestVersion) => {
+					if (APP_VERSION !== latestVersion) {
+						update?.();
+
+						const majorAppVersion = APP_VERSION.split(".")[0];
+						const majorLatestVersion = latestVersion.split(".")[0];
+
+						if (majorAppVersion !== majorLatestVersion) {
+							setNewMajorVersionAvailable(true);
+						}
+					}
+				}),
+		[update],
+	);
 
 	useEffect(() => {
 		setRefresh(() =>
 			registerSW({
 				onRegisteredSW: (_, serviceWorkerRegistration) => {
 					if (serviceWorkerRegistration) {
-						setUpdate(() => () => serviceWorkerRegistration.update());
-
-						setInterval(
-							() => serviceWorkerRegistration.update(),
-							24 * 60 * 60 * 1000,
-						);
+						setUpdate(() => serviceWorkerRegistration.update);
+						setInterval(checkForNewVersion, 24 * 60 * 60 * 1000);
 					}
 				},
-				onNeedRefresh: () => {
-					setRefreshNeeded(true);
-					setRefreshNeededAcknowledged(false);
-				},
+				onNeedRefresh: () => setRefreshPending(true),
 			}),
 		);
-	}, []);
+	}, [checkForNewVersion]);
 
 	return (
 		<PwaContext.Provider
 			value={{
-				update,
-				refreshNeeded,
-				refreshNeededAcknowledged,
-				setRefreshNeededAcknowledged,
+				version: APP_VERSION,
+				refreshReady: refreshPending && !!refresh,
+				newMajorVersionReady:
+					newMajorVersionAvailable && refreshPending && !!refresh,
+				newMajorVersionAcknowledged,
+				setNewMajorVersionAcknowledged,
+				checkForNewVersion,
 				refresh,
 			}}
 		>
