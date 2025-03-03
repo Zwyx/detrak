@@ -57,7 +57,7 @@ export const fr: I18nLocale = {
 		rollDice2: {
 			left: "Les scores s'afficheront dans la colonne de droite et la ligne du bas.",
 			legend:
-				"Ceci est la légende du score. Exemple : cinq symboles identiques sur une ligne, une colonne, ou la diagonale, donne 10 points.",
+				"Ceci est la légende du score. Exemple : cinq symboles identiques sur une ligne, une colonne, ou la diagonale, donne 10 points.",
 			right: {
 				part1:
 					"Le score de la diagonale apparait aux deux extrémités — il est compté deux fois !",
@@ -75,8 +75,8 @@ export const fr: I18nLocale = {
 	headerMenu: {
 		openMenu: "Ouvrir le menu",
 		detrak: "Détrak",
-		newVersion: {
-			title: "Nouvelle version disponible",
+		newFeatures: {
+			title: "Nouvelles fonctionnalités disponibles",
 			description: "Terminez votre partie et rechargez l'application.",
 			action: "Recharger l'application",
 		},
@@ -114,8 +114,9 @@ export const fr: I18nLocale = {
 		},
 		sourceCodeAvailableAt: "Code source disponible sur",
 		version: "Version",
-		checkForUpdates: "Vérifier la présence d'une mise à jour",
-		updateAvailable: "Mise à jour disponible, voir ci-dessus",
+		checkForUpdates: "Vérifier les mises à jour",
+		updateAvailable:
+			"Mise à jour disponible, terminez votre partie et cliquez ici pour recharger l'application",
 	},
 
 	languageSelector: {
@@ -124,7 +125,7 @@ export const fr: I18nLocale = {
 	},
 
 	navigationBlocker: {
-		title: "Vous allez arrêter la partie en cours, êtes-vous sûr ?",
+		title: "Vous allez arrêter la partie en cours, êtes-vous sûr ?",
 		description:
 			"Veuillez confirmer que vous souhaitez interrompre la partie en cours.",
 		confirmationCheckbox:
@@ -150,6 +151,11 @@ export const fr: I18nLocale = {
 			joinMe: "Rejoins-moi pour cette partie de Detrak",
 			shareLink: "Partager le lien",
 			copyLink: "Copier le lien dans le presse-papiers",
+			lastVersion: {
+				part1: "Note : vos ami·e·s doivent posséder Détrak version",
+				part2:
+					"or supérieure. Rafraichir l'applications permet de la mettre à jour.",
+			},
 		},
 		shareJoin: {
 			useCamera:
@@ -165,10 +171,10 @@ export const fr: I18nLocale = {
 			joinGame: "Rejoindre une partie",
 			newGame: "Nouvelle partie",
 			playWithFriends: "Jouer avec des ami·e·s",
-			welcomeToNewVersion: "Bienvenue dans la nouvelle version de Détrak !",
+			welcomeToNewVersion: "Bienvenue dans la nouvelle version de Détrak !",
 		},
 		welcome: {
-			intro: "Il y a deux nouvelles façons de jouer :",
+			intro: "Il y a deux nouvelles façons de joue :",
 			dailyGame: "La partie du jour",
 			dailyGameDetails:
 				"chaque jour, la séquence de symboles tirée par les dés sera la même pour tout le monde.",

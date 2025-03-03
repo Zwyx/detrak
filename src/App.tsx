@@ -530,9 +530,9 @@ export const App = () => {
 									onClick={() => {
 										navigate("/", { state: { newGameDialogOpen: true } });
 
-										if (pwa.refreshNeeded && pwa.refresh) {
+										if (pwa.refreshReady) {
 											setPwaRefreshing(true);
-											pwa.refresh();
+											pwa.refresh?.();
 										}
 									}}
 								>
