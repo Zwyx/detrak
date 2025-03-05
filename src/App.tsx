@@ -287,8 +287,8 @@ export const App = () => {
 	}, [endOfGame, score, highestScore, settings.showConfetti]);
 
 	useEffect(() => {
-		if (startOfGame) {
-			setSrText(t("sr.selectSymbol"));
+		if (gameId && startOfGame) {
+			setTimeout(() => setSrText(t("sr.selectSymbol")), 1000);
 		} else if (endOfGame && typeof score === "number") {
 			if (typeof highestScore === "number" && score > highestScore) {
 				setSrText(`${t("sr.gameFinishedNewHighestScore")} ${score}`);
@@ -296,7 +296,7 @@ export const App = () => {
 				setSrText(`${t("sr.gameFinished")} ${score}`);
 			}
 		}
-	}, [startOfGame, endOfGame, score, highestScore, t]);
+	}, [gameId, startOfGame, endOfGame, score, highestScore, t]);
 
 	const rollDiceNow = useCallback(() => {
 		const newDice = [
@@ -310,7 +310,7 @@ export const App = () => {
 		setMove(0);
 		setMovesCoords([]);
 
-		const newSrText = `${t("sr.newDraw")} ${symbolNames[newDice[0]]}, ${
+		const newDrawSrText = `${t("sr.newDraw")} ${symbolNames[newDice[0]]}, ${
 			symbolNames[newDice[1]]
 		}`;
 
@@ -327,7 +327,7 @@ export const App = () => {
 
 			setTimeout(() => {
 				setDiceRolling(false);
-				setSrText(newSrText);
+				setSrText(newDrawSrText);
 
 				setHelpStep((prevHelpStep) =>
 					prevHelpStep === "diceRolling1"
@@ -338,7 +338,7 @@ export const App = () => {
 				);
 			}, 2000);
 		} else {
-			setSrText(newSrText);
+			setSrText(newDrawSrText);
 
 			setHelpStep((prevHelpStep) =>
 				prevHelpStep === "rollDice1"
@@ -400,7 +400,10 @@ export const App = () => {
 						100, // Prevents a flash of the QR code when the dialog closes
 					);
 				}}
-				onStopGame={() => navigate("/", { state: { newGameDialogOpen: true } })}
+				onStopGame={() => {
+					setSrText("");
+					navigate("/", { state: { newGameDialogOpen: true } });
+				}}
 				onOpenChange={(open) =>
 					pushStateOrNavigateBack(open, { newGameDialogOpen: true })
 				}
