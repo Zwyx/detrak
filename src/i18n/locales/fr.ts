@@ -261,4 +261,4 @@ export const fr: I18nLocale = {
 		detrak: "Détrak",
 		game: "Partie :",
 	},
-} as const;
+};

@@ -7,7 +7,7 @@ import { fr } from "./locales/fr";
 export const resources = {
 	en,
 	fr,
-} as const;
+};
 
 export type I18nLocaleCode = keyof typeof resources;
 
