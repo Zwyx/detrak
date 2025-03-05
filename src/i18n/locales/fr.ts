@@ -15,7 +15,7 @@ export const fr: I18nLocale = {
 
 	app: {
 		autoRollDice:
-			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans la boite de dialogue des paramètres.",
+			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans les paramètres.",
 		bestScore: "meilleur score :",
 		endOnGame: "Terminé ! Votre score est",
 		endOnGameWithNewScore: "Bravo ! Nouveau record :",
@@ -29,18 +29,10 @@ export const fr: I18nLocale = {
 		share: {
 			shareYourScore: "Partager votre score",
 			title: "Détrak",
-			text_zero:
-				"🎲 {{count}} point à cette partie de Détrak ! Peux-tu faire mieux ? 🤞",
-			text_one:
-				"🎲 {{count}} point à cette partie de Détrak ! Peux-tu faire mieux ? 🤞",
-			text_other:
-				"🎲 {{count}} points à cette partie de Détrak ! Peux-tu faire mieux ? 🤞",
-			textToday_zero:
-				"🎲 {{count}} point à la partie du jour de Détrak ! Peux-tu faire mieux ? 🤞",
-			textToday_one:
-				"🎲 {{count}} point à la partie du jour de Détrak ! Peux-tu faire mieux ? 🤞",
-			textToday_other:
-				"🎲 {{count}} points à la partie du jour de Détrak ! Peux-tu faire mieux ? 🤞",
+			text: "🎲 {{count}} à Détrak ! Peux-tu faire mieux ? 🤞",
+			sendScore: "Envoyez votre score à vos amis !",
+			inviteFriends:
+				"Et invitez-les à vous défier sur la même partie (les symboles tirés pendant leur jeu seront les mêmes que les vôtres).",
 		},
 		sr: {
 			selectSymbol: "Sélectionnez l'un des six symbols pour commencer.",
