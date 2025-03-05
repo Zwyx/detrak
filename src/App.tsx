@@ -373,11 +373,7 @@ export const App = () => {
 	}, [settings.autoRollDice, canRollDice, rollDice]);
 
 	const getShareText = () =>
-		(gameId === formatDate("today")
-			? t("share.textToday", { count: Number(score) })
-			: t("share.text", { count: Number(score) })) +
-		"\n" +
-		getUnicodeGrid(grid);
+		t("share.text", { count: Number(score) }) + "\n" + getUnicodeGrid(grid);
 
 	return (
 		<div className="flex flex-col items-center font-[inter]">
@@ -547,28 +543,36 @@ export const App = () => {
 								</div>
 
 								<div className="flex gap-2">
-									<ButtonStatus
-										success={showShareSuccess}
-										onClick={() =>
-											(navigator.share
-												? navigator.share({
-														title: t("share.title"),
-														text: getShareText(),
-														url: shareGameLinkHttps,
-												  })
-												: navigator.clipboard.writeText(
-														`${getShareText()}\n${shareGameLinkHttps}`,
-												  )
-											).then(() => {
-												if (!showShareSuccess) {
-													setShowShareSuccess(true);
-													setTimeout(() => setShowShareSuccess(false), 2000);
-												}
-											})
-										}
-									>
-										{t("share.shareYourScore")}
-									</ButtonStatus>
+									<div>
+										<ButtonStatus
+											success={showShareSuccess}
+											onClick={() =>
+												(navigator.share
+													? navigator.share({
+															title: t("share.title"),
+															text: getShareText(),
+															url: shareGameLinkHttps,
+													  })
+													: navigator.clipboard.writeText(
+															`${getShareText()}\n${shareGameLinkHttps}`,
+													  )
+												).then(() => {
+													if (!showShareSuccess) {
+														setShowShareSuccess(true);
+														setTimeout(() => setShowShareSuccess(false), 2000);
+													}
+												})
+											}
+										>
+											{t("share.shareYourScore")}
+										</ButtonStatus>
+
+										<HelpTooltip open={numberOfGames === 1}>
+											<strong>{t("share.sendScore")}</strong>
+											<br />
+											{t("share.inviteFriends")}
+										</HelpTooltip>
+									</div>
 
 									<Button
 										disabled={move !== 1 && move !== 2}
