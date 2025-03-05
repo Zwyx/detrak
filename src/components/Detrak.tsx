@@ -84,7 +84,9 @@ export const Cell = ({
 
 	const symbol = x >= 1 && x <= 5 && y >= 1 && y <= 5;
 	const scoreCell =
-		(x === 6 || y === 6) && (endOfGame || settings.alwaysShowScore) && !!value;
+		(x === 6 || y === 6) &&
+		(endOfGame || settings.alwaysShowScore) &&
+		typeof value === "number";
 	const canPlay = symbol && onClick && (value === null || startOfGame);
 	const bgColor = x + y === 6 && "bg-accent";
 
