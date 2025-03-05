@@ -15,7 +15,7 @@ export const en = {
 
 	app: {
 		autoRollDice:
-			"Dice are now unanimated and rolled automatically to allow you to play quicker. You can change this in the settings dialog.",
+			"Dice are now unanimated and rolled automatically to allow you to play quicker. You can change this in the settings.",
 		bestScore: "best:",
 		endOnGame: "Finished! Your score is",
 		endOnGameWithNewScore: "Well done! New highest score:",
@@ -29,19 +29,11 @@ export const en = {
 		},
 		share: {
 			shareYourScore: "Share your score",
+			sendScore: "Send your score to your friends!",
+			inviteFriends:
+				"And invite them to challenge you on the same game (the symbols drawn during their game will be the same as yours).",
 			title: "Detrak",
-			text_zero:
-				"🎲 {{count}} points at this game of Detrak! Can you do better? 🤞",
-			text_one:
-				"🎲 {{count}} point at this game of Detrak! Can you do better? 🤞",
-			text_other:
-				"🎲 {{count}} points at this game of Detrak! Can you do better? 🤞",
-			textToday_zero:
-				"🎲 {{count}} points at Detrak's today's game! Can you do better? 🤞",
-			textToday_one:
-				"🎲 {{count}} point at Detrak's today's game! Can you do better? 🤞",
-			textToday_other:
-				"🎲 {{count}} points at Detrak's today's game! Can you do better? 🤞",
+			text: "🎲 Just did {{count}} on Detrak! Can you do better? 🤞",
 		},
 		sr: {
 			selectSymbol: "Select one of the six symbols to start.",
