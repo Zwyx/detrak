@@ -258,6 +258,6 @@ export const en = {
 		detrak: "Detrak",
 		game: "Game:",
 	},
-} as const;
+};
 
 export type I18nLocale = DeepReplace<typeof en, [string, string]>;
