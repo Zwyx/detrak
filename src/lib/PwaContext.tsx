@@ -3,7 +3,6 @@ import { registerSW } from "virtual:pwa-register";
 import { PwaContext } from "./PwaContext.const";
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION;
-const DOMAIN = import.meta.env.VITE_DOMAIN;
 
 export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 	const [newMajorVersionAvailable, setNewMajorVersionAvailable] =
@@ -17,7 +16,7 @@ export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 
 	const checkForNewVersion = useCallback(
 		() =>
-			fetch(`https://${DOMAIN}/.well-known/version`)
+			fetch(`https://${location.host}/.well-known/version`)
 				.then((res) => res.text())
 				.then((latestVersion) => {
 					if (APP_VERSION !== latestVersion) {
