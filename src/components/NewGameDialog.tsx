@@ -11,6 +11,7 @@ import {
 	VERSION_2_WELCOME_SHOWN_KEY,
 } from "@/lib/local-storage-keys";
 import { GAME_ID_REGEX, getRandomId } from "@/lib/prng";
+import { useHistoryState } from "@/lib/useHistoryState.const";
 import { formatDate } from "@/lib/utils";
 import { fr } from "date-fns/locale";
 import { CalendarIcon, LucideArrowLeft, LucideLoader2 } from "lucide-react";
@@ -23,10 +24,19 @@ import { Button } from "./ui/button";
 
 const DOMAIN = import.meta.env.VITE_DOMAIN;
 
+export interface NewGameDialogHistoryState {
+	newGameDialogView:
+		| "welcome"
+		| "new_game"
+		| "share"
+		| "share_create"
+		| "share_join"
+		| "pwa_refreshing";
+}
+
 export const NewGameDialog = ({
 	open,
 	currentGameId,
-	previousGameId,
 	pwaRefreshing,
 	onNewGame,
 	onStopGame,
@@ -34,7 +44,6 @@ export const NewGameDialog = ({
 }: {
 	open: boolean;
 	currentGameId: string | undefined;
-	previousGameId: string | undefined;
 	pwaRefreshing: boolean;
 	onNewGame: (gameId: string) => void;
 	onStopGame: () => void;
@@ -42,19 +51,8 @@ export const NewGameDialog = ({
 }) => {
 	const { t, i18n } = useTranslation("newGameDialog");
 
-	const [view, setView] = useState<
-		| "welcome"
-		| "new_game"
-		| "share"
-		| "share_create"
-		| "share_join"
-		| "pwa_refreshing"
-	>(
-		localStorage.getItem(NUMBER_OF_GAMES_KEY) &&
-			!localStorage.getItem(VERSION_2_WELCOME_SHOWN_KEY)
-			? "welcome"
-			: "new_game",
-	);
+	const { state, navigateBack, pushState, replaceState } =
+		useHistoryState<NewGameDialogHistoryState>();
 
 	const [date, setDate] = useState<Date>();
 	const [randomGameId, setRandomGameId] = useState<string>(getRandomId(8));
@@ -68,21 +66,26 @@ export const NewGameDialog = ({
 
 	useEffect(() => {
 		if (pwaRefreshing) {
-			setView("pwa_refreshing");
+			replaceState({ newGameDialogView: "pwa_refreshing" });
 		} else if (currentGameId) {
-			setView("share_create");
-			// `previousGameId` prevents setting the view to `new_game` when showing the `welcome` one
-		} else if (previousGameId) {
-			setView("new_game");
+			replaceState({ newGameDialogView: "share_create" });
+		} else {
+			replaceState({
+				newGameDialogView:
+					localStorage.getItem(NUMBER_OF_GAMES_KEY) &&
+					!localStorage.getItem(VERSION_2_WELCOME_SHOWN_KEY)
+						? "welcome"
+						: "new_game",
+			});
 			setRandomGameId(getRandomId(8));
 		}
-	}, [currentGameId, previousGameId, pwaRefreshing]);
+	}, [pwaRefreshing, currentGameId, replaceState]);
 
 	useEffect(() => {
-		if (view === "new_game") {
+		if (state.newGameDialogView === "new_game") {
 			localStorage.setItem(VERSION_2_WELCOME_SHOWN_KEY, "true");
 		}
-	}, [view]);
+	}, [state]);
 
 	return (
 		<Dialog open={open} onOpenChange={currentGameId ? onOpenChange : undefined}>
@@ -94,41 +97,35 @@ export const NewGameDialog = ({
 				<DialogHeader className="w-full">
 					<DialogTitle className="flex items-center gap-4">
 						{!currentGameId &&
-							(view === "share" ||
-								view === "share_create" ||
-								view === "share_join") && (
+							(state.newGameDialogView === "share" ||
+								state.newGameDialogView === "share_create" ||
+								state.newGameDialogView === "share_join") && (
 								<Button
 									variant="secondary"
 									size="icon"
-									onClick={() =>
-										setView((prev) =>
-											prev === "share_create" || prev === "share_join"
-												? "share"
-												: "new_game",
-										)
-									}
+									onClick={() => navigateBack()}
 								>
 									<LucideArrowLeft />
 								</Button>
 							)}
 
-						{view === "pwa_refreshing"
+						{state.newGameDialogView === "pwa_refreshing"
 							? ""
 							: currentGameId
 							? t("title.inviteToGame")
-							: view === "welcome"
+							: state.newGameDialogView === "welcome"
 							? t("title.welcomeToNewVersion")
-							: view === "share"
+							: state.newGameDialogView === "share"
 							? t("title.playWithFriends")
-							: view === "share_create"
+							: state.newGameDialogView === "share_create"
 							? t("title.createGame")
-							: view === "share_join"
+							: state.newGameDialogView === "share_join"
 							? t("title.joinGame")
 							: t("title.newGame")}
 					</DialogTitle>
 				</DialogHeader>
 
-				{view === "welcome" && (
+				{state.newGameDialogView === "welcome" && (
 					<div className="mt-2 flex flex-col gap-4 text-left">
 						<div>{t("welcome.intro")}</div>
 
@@ -150,14 +147,14 @@ export const NewGameDialog = ({
 
 						<Button
 							className="mt-2 h-12 w-full text-wrap"
-							onClick={() => setView("new_game")}
+							onClick={() => pushState({ newGameDialogView: "new_game" })}
 						>
 							{t("welcome.startPlaying")}
 						</Button>
 					</div>
 				)}
 
-				{view === "new_game" && (
+				{state.newGameDialogView === "new_game" && (
 					<>
 						<Button
 							className="h-16 w-full text-wrap"
@@ -211,7 +208,7 @@ export const NewGameDialog = ({
 
 							<Button
 								className="h-12 flex-1 text-wrap"
-								onClick={() => setView("share")}
+								onClick={() => pushState({ newGameDialogView: "share" })}
 							>
 								{t("playWithFriends")}
 							</Button>
@@ -219,11 +216,11 @@ export const NewGameDialog = ({
 					</>
 				)}
 
-				{view === "share" && (
+				{state.newGameDialogView === "share" && (
 					<>
 						<Button
 							className="h-12 w-full text-wrap"
-							onClick={() => setView("share_create")}
+							onClick={() => pushState({ newGameDialogView: "share_create" })}
 						>
 							{t("createGame")}
 						</Button>
@@ -232,14 +229,14 @@ export const NewGameDialog = ({
 
 						<Button
 							className="h-12 w-full text-wrap"
-							onClick={() => setView("share_join")}
+							onClick={() => pushState({ newGameDialogView: "share_join" })}
 						>
 							{t("joinGame")}
 						</Button>
 					</>
 				)}
 
-				{view === "share_create" && (
+				{state.newGameDialogView === "share_create" && (
 					<>
 						<span className="text-center">
 							{t("shareCreate.scanQrCode")}{" "}
@@ -313,9 +310,9 @@ export const NewGameDialog = ({
 					</>
 				)}
 
-				{view === "share_join" && (
+				{state.newGameDialogView === "share_join" && (
 					<>
-						<ul className="list-disc font-medium">
+						<ul className="list-disc pl-8 font-medium">
 							<li>{t("shareJoin.useCamera")}</li>
 							<li>{t("shareJoin.openGameLink")}</li>
 							<li>{t("shareJoin.enterGameLink")}</li>
@@ -373,7 +370,7 @@ export const NewGameDialog = ({
 					</>
 				)}
 
-				{view === "pwa_refreshing" && (
+				{state.newGameDialogView === "pwa_refreshing" && (
 					<LucideLoader2 className="h-8 w-8 animate-spin" />
 				)}
 			</DialogContent>

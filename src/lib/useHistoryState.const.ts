@@ -14,41 +14,61 @@ interface HistoryNavigateOptions<T> extends NavigateOptions {
 	state?: T;
 }
 
-// Couldn't find a way to extend React Router's NavigateFunction, replacing the type of `options`
-interface HistoryNavigateFunction<T> {
-	(to: To, options?: HistoryNavigateOptions<T>): void;
-	(delta: number): void;
-}
-
-export interface HistoryStateUserAction {
-	userAction: boolean;
+interface HistoryNavigateToFunction<T> {
+	(to: To, options?: HistoryNavigateOptions<T>): void | Promise<void>;
 }
 
 export function useHistoryState<T>() {
-	const { state, pathname }: Location<Partial<T>> = useLocation();
+	const { state }: Location<Partial<T>> = useLocation();
 	const originalNavigate = useNavigate();
 
 	const pushState = useCallback(
-		(newState: T) => originalNavigate(pathname, { state: newState }),
-		[originalNavigate, pathname],
+		(newState: T) => {
+			originalNavigate(location.pathname, {
+				state: { ...history.state.usr, ...newState },
+			});
+		},
+		[originalNavigate],
 	);
 
 	const replaceState = useCallback(
-		(newState: T) =>
-			originalNavigate(pathname, { state: newState, replace: true }),
-		[originalNavigate, pathname],
+		(newState: T) => {
+			originalNavigate(location.pathname, {
+				state: { ...history.state.usr, ...newState },
+				replace: true,
+			});
+		},
+		[originalNavigate],
 	);
 
-	const navigate: HistoryNavigateFunction<T> = originalNavigate;
+	const navigateTo: HistoryNavigateToFunction<T> = useCallback(
+		(to, options) =>
+			originalNavigate(to, {
+				...options,
+				...(options?.state
+					? { state: { ...history.state.usr, ...options.state } }
+					: { state: history.state.usr }),
+			}),
+		[originalNavigate],
+	);
 
-	const pushStateOrNavigateBack = (push: boolean, newState: T) =>
-		push ? pushState(newState) : navigate(-1);
+	const navigateBack = useCallback(
+		(delta: number = -1) => originalNavigate(delta),
+		[originalNavigate],
+	);
+
+	const pushStateOrNavigateBack = useCallback(
+		(push: boolean, newState: T) =>
+			push ? pushState(newState) : navigateBack(),
+		[pushState, navigateBack],
+	);
 
 	return {
 		state: state || {},
 		pushState,
 		replaceState,
-		navigate,
+		navigateTo,
+		navigateBack,
 		pushStateOrNavigateBack,
 		Link: HistoryStateLink<T>,
 	};

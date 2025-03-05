@@ -1,11 +1,5 @@
 import { Confetti } from "@/lib/confetti.min.js";
-import {
-	cn,
-	formatDate,
-	getSymbolNames,
-	getUnicodeGrid,
-	usePrevious,
-} from "@/lib/utils";
+import { cn, formatDate, getSymbolNames, getUnicodeGrid } from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -75,12 +69,16 @@ export const App = () => {
 
 	const firstRender = useRef(true);
 	const { gameId } = useParams();
-	const previousGameId = usePrevious(gameId);
 
-	const { state, navigate, pushState, replaceState, pushStateOrNavigateBack } =
-		useHistoryState<{
-			newGameDialogOpen: boolean;
-		}>();
+	const {
+		state,
+		navigateTo,
+		pushState,
+		replaceState,
+		pushStateOrNavigateBack,
+	} = useHistoryState<{
+		newGameDialogOpen: boolean;
+	}>();
 
 	const [pwaRefreshing, setPwaRefreshing] = useState(false);
 
@@ -208,8 +206,12 @@ export const App = () => {
 			setNewHighestScore(false);
 
 			if (!localStorage.getItem(NUMBER_OF_GAMES_KEY)) {
-				if (firstRender.current) {
-					navigate(`/${formatDate("today")}`, { replace: true });
+				if (
+					firstRender.current &&
+					// `newGameDialogOpen` can be `true` if the user stops their very first game and reloads the page
+					!history.state.usr.newGameDialogOpen
+				) {
+					navigateTo(`/${formatDate("today")}`, { replace: true });
 				}
 			} else {
 				replaceState({ newGameDialogOpen: true });
@@ -221,7 +223,7 @@ export const App = () => {
 		firstRender.current = false;
 
 		if (!gameId.match(GAME_ID_REGEX)) {
-			navigate("/", { state: { newGameDialogOpen: true }, replace: true });
+			navigateTo("/", { state: { newGameDialogOpen: true }, replace: true });
 			return;
 		}
 
@@ -230,7 +232,7 @@ export const App = () => {
 		if (!localStorage.getItem(HELP_SHOWN_KEY)) {
 			setHelpStep("welcome");
 		}
-	}, [gameId, navigate, replaceState]);
+	}, [gameId, navigateTo, replaceState]);
 
 	useEffect(() => {
 		if (endOfGame) {
@@ -387,22 +389,17 @@ export const App = () => {
 			<NewGameDialog
 				open={!!state.newGameDialogOpen}
 				currentGameId={gameId}
-				previousGameId={previousGameId}
 				pwaRefreshing={pwaRefreshing}
 				onNewGame={(newGameId) => {
 					pushState({ newGameDialogOpen: false });
 					setTimeout(
-						() =>
-							navigate(`/${newGameId}`, {
-								state: { newGameDialogOpen: false },
-								replace: true,
-							}),
-						100, // Prevents a flash of the QR code when the dialog closes
+						() => navigateTo(`/${newGameId}`, { replace: true }),
+						150, // Prevents a flash of the QR code when the dialog closes
 					);
 				}}
 				onStopGame={() => {
 					setSrText("");
-					navigate("/", { state: { newGameDialogOpen: true } });
+					navigateTo("/", { state: { newGameDialogOpen: true } });
 				}}
 				onOpenChange={(open) =>
 					pushStateOrNavigateBack(open, { newGameDialogOpen: true })
@@ -580,7 +577,7 @@ export const App = () => {
 									<Button
 										disabled={move !== 1 && move !== 2}
 										onClick={() => {
-											navigate("/", { state: { newGameDialogOpen: true } });
+											navigateTo("/", { state: { newGameDialogOpen: true } });
 
 											if (pwa.refreshReady) {
 												setPwaRefreshing(true);
