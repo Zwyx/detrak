@@ -18,12 +18,17 @@ interface HistoryNavigateToFunction<T> {
 	(to: To, options?: HistoryNavigateOptions<T>): void | Promise<void>;
 }
 
+const getCurrentPathname = () => location.pathname;
+
 export function useHistoryState<T>() {
 	const { state }: Location<Partial<T>> = useLocation();
 	const originalNavigate = useNavigate();
 
 	const pushState = useCallback(
 		(newState: T) => {
+			console.info("pushState");
+			console.info(getCurrentPathname());
+			console.info(location.pathname);
 			originalNavigate(location.pathname, {
 				state: { ...history.state.usr, ...newState },
 			});
@@ -33,6 +38,9 @@ export function useHistoryState<T>() {
 
 	const replaceState = useCallback(
 		(newState: T) => {
+			console.info("replaceState");
+			console.info(getCurrentPathname());
+			console.info(location.pathname);
 			originalNavigate(location.pathname, {
 				state: { ...history.state.usr, ...newState },
 				replace: true,
@@ -42,13 +50,17 @@ export function useHistoryState<T>() {
 	);
 
 	const navigateTo: HistoryNavigateToFunction<T> = useCallback(
-		(to, options) =>
+		(to, options) => {
+			console.info("navigateTo");
+			console.info(getCurrentPathname());
+			console.info(location.pathname);
 			originalNavigate(to, {
 				...options,
 				...(options?.state
 					? { state: { ...history.state.usr, ...options.state } }
 					: { state: history.state.usr }),
-			}),
+			});
+		},
 		[originalNavigate],
 	);
 
