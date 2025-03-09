@@ -3,7 +3,7 @@ import { cn, formatDate, getSymbolNames, getUnicodeGrid } from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Cell, Grid } from "./components/Detrak";
 import { Dice } from "./components/Dice";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
@@ -68,12 +68,14 @@ export const App = () => {
 	const firstRender = useRef(true);
 	const { gameId } = useParams();
 
+	const navigate = useNavigate();
+
 	const {
 		state,
 		navigateTo,
 		pushState,
 		replaceState,
-		pushStateOrNavigateBack,
+		// pushStateOrNavigateBack,
 	} = useHistoryState<{
 		newGameDialogOpen: boolean;
 	}>();
@@ -381,7 +383,13 @@ export const App = () => {
 
 			<SiteHeader
 				gameId={gameId}
-				onGameIdClick={() => pushState({ newGameDialogOpen: true })}
+				// onGameIdClick={() => pushState({ newGameDialogOpen: true })}
+				onGameIdClick={() =>
+					navigate(location.pathname, {
+						state: { newGameDialogOpen: true },
+						// state: { ...history.state.usr, ...{ newGameDialogOpen: true } },
+					})
+				}
 			/>
 
 			<NewGameDialog
@@ -399,8 +407,12 @@ export const App = () => {
 					setSrText("");
 					navigateTo("/", { state: { newGameDialogOpen: true } });
 				}}
-				onOpenChange={(open) =>
-					pushStateOrNavigateBack(open, { newGameDialogOpen: true })
+				onOpenChange={
+					(open) => {
+						console.info(`onOpenChange: ${open}`);
+						navigate(-1);
+					}
+					// pushStateOrNavigateBack(open, { newGameDialogOpen: true })
 				}
 			/>
 

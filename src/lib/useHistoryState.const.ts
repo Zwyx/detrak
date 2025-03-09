@@ -1,13 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Was extracted from the main file for React Refresh (see ESLint `react-refresh/only-export-components`)
 
 import { useCallback } from "react";
-import {
-	Location,
-	NavigateOptions,
-	To,
-	useLocation,
-	useNavigate,
-} from "react-router";
+import { Location, NavigateOptions, To, useLocation } from "react-router";
 import { HistoryStateLink } from "./useHistoryState";
 
 interface HistoryNavigateOptions<T> extends NavigateOptions {
@@ -20,56 +15,75 @@ interface HistoryNavigateToFunction<T> {
 
 export function useHistoryState<T>() {
 	const { state }: Location<Partial<T>> = useLocation();
-	const originalNavigate = useNavigate();
+	// const originalNavigate = useNavigate();
 
 	const pushState = useCallback(
-		(newState: T) => {
-			originalNavigate(location.pathname, {
-				state: { ...history.state.usr, ...newState },
-			});
-		},
-		[originalNavigate],
+		() => console.info("pushState"),
+		[],
+		// (newState: T) => {
+		// 	console.info("pushState");
+		// 	originalNavigate(location.pathname, {
+		// 		state: { ...history.state.usr, ...newState },
+		// 	});
+		// };
+		//  [originalNavigate],)
 	);
 
 	const replaceState = useCallback(
-		(newState: T) => {
-			originalNavigate(location.pathname, {
-				state: { ...history.state.usr, ...newState },
-				replace: true,
-			});
-		},
-		[originalNavigate],
+		() => console.info("replaceState"),
+		[],
+		// (newState: T) => {
+		// 	console.info("replaceState");
+		// 	originalNavigate(location.pathname, {
+		// 		state: { ...history.state.usr, ...newState },
+		// 		replace: true,
+		// 	});
+		// },
+		// [originalNavigate],
 	);
 
 	const navigateTo: HistoryNavigateToFunction<T> = useCallback(
-		(to, options) =>
-			originalNavigate(to, {
-				...options,
-				...(options?.state
-					? { state: { ...history.state.usr, ...options.state } }
-					: { state: history.state.usr }),
-			}),
-		[originalNavigate],
+		() => console.info("navigateTo"),
+		[],
+		// (to, options) => {
+		// 	console.info("navigateTo");
+		// 	originalNavigate(to, {
+		// 		...options,
+		// 		...(options?.state
+		// 			? { state: { ...history.state.usr, ...options.state } }
+		// 			: { state: history.state.usr }),
+		// 	});
+		// },
+		// [originalNavigate],
 	);
 
 	const navigateBack = useCallback(
-		(delta: number = -1) => originalNavigate(delta),
-		[originalNavigate],
+		() => console.info("navigateBack"),
+		[],
+		// (delta: number = -1) => {
+		// 	console.info("navigateBack");
+		// 	originalNavigate(delta);
+		// },
+		// [originalNavigate],
 	);
 
 	const pushStateOrNavigateBack = useCallback(
-		(push: boolean, newState: T) =>
-			push ? pushState(newState) : navigateBack(),
-		[pushState, navigateBack],
+		() => console.info("pushStateOrNavigateBack"),
+		[],
+		// (push: boolean, newState: T) => {
+		// 	console.info("pushStateOrNavigateBack");
+		// 	push ? pushState(newState) : navigateBack();
+		// },
+		// [pushState, navigateBack],
 	);
 
 	return {
 		state: state || {},
-		pushState,
-		replaceState,
-		navigateTo,
-		navigateBack,
-		pushStateOrNavigateBack,
+		pushState: pushState as any,
+		replaceState: replaceState as any,
+		navigateTo: navigateTo as any,
+		navigateBack: navigateBack as any,
+		pushStateOrNavigateBack: pushStateOrNavigateBack as any,
 		Link: HistoryStateLink<T>,
 	};
 }
