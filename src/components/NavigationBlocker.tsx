@@ -10,7 +10,7 @@ import {
 import { useSettingsContext } from "@/lib/SettingsContext.const";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { BlockerFunction, useBeforeUnload, useBlocker } from "react-router";
+import { BlockerFunction, useBeforeUnload, useBlocker } from "react-router-dom";
 import { SettingCheckbox } from "./SettingsDialog";
 import { Button } from "./ui/button";
 

@@ -14,7 +14,7 @@ import {
 	matchRoutes,
 	useLocation,
 	useNavigationType,
-} from "react-router";
+} from "react-router-dom";
 import { App } from "./App.tsx";
 import { RouteErrorElement } from "./components/error/RouteErrorElement.tsx";
 import "./i18n/i18n.ts";

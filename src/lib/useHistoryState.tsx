@@ -1,4 +1,4 @@
-import { Link, LinkProps } from "react-router";
+import { Link, LinkProps } from "react-router-dom";
 
 interface HistoryStateLinkProps<T> extends LinkProps {
 	state?: T;

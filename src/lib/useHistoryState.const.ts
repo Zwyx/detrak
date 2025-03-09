@@ -7,7 +7,7 @@ import {
 	To,
 	useLocation,
 	useNavigate,
-} from "react-router";
+} from "react-router-dom";
 import { HistoryStateLink } from "./useHistoryState";
 
 interface HistoryNavigateOptions<T> extends NavigateOptions {
