@@ -1,11 +1,9 @@
 export const initPlausible = (pwa: string) => {
 	const appVersion = import.meta.env.VITE_APP_VERSION;
-	const domain = import.meta.env.VITE_DOMAIN;
 	const apiUrl = import.meta.env.VITE_PLAUSIBLE_API_URL;
 
 	if (
 		!import.meta.env.PROD ||
-		!domain ||
 		!apiUrl ||
 		/^localhost$|^127(\.[0-9]+){0,2}\.[0-9]+$|^\[::1?\]$/.test(
 			location.hostname,
@@ -28,8 +26,8 @@ export const initPlausible = (pwa: string) => {
 			u: `${location.href}${
 				location.href.includes("?") ? "&" : "?"
 			}utm_medium=${pwa}&utm_campaign=${appVersion}`,
-			d: domain,
-			r: document.referrer.split("?")[0].split("#")[0] || null,
+			d: location.host,
+			r: document.referrer || null,
 		};
 
 		const request = new XMLHttpRequest();

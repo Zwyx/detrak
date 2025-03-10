@@ -62,7 +62,6 @@ jobs:
 
       - env:
           APP_VERSION: "${{ env.APP_VERSION }}"
-          DOMAIN: "${{ env.DOMAIN }}"
           SENTRY_ENVIRONMENT: "${{ env.SENTRY_ENVIRONMENT }}"
           SENTRY_RELEASE: "${{ env.APP_VERSION }}"
           PLAUSIBLE_API_URL: "${{ secrets.PLAUSIBLE_API_URL }}"
