@@ -29,8 +29,6 @@ import {
 import { GAME_ID_REGEX, SeededPrng, getSeededPrng } from "./lib/prng";
 import { useHistoryState } from "./lib/useHistoryState.const";
 
-const DOMAIN = import.meta.env.VITE_DOMAIN;
-
 const getLineScore = (line: DetrakLine): number => {
 	const symbols = line.slice(1, -1);
 
@@ -184,7 +182,7 @@ export const App = () => {
 	const [highestScore, setHighestScore] = useState<number | undefined>();
 	const [newHighestScore, setNewHighestScore] = useState<boolean>(false);
 
-	const shareGameLink = `${DOMAIN}/${gameId}`;
+	const shareGameLink = `${location.host}/${gameId}`;
 	const shareGameLinkHttps = `https://${shareGameLink}`;
 	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
 

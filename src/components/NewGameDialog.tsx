@@ -21,8 +21,6 @@ import { ButtonStatus } from "./common/ButtonStatus";
 import { Code } from "./common/Code";
 import { Button } from "./ui/button";
 
-const DOMAIN = import.meta.env.VITE_DOMAIN;
-
 export const NewGameDialog = ({
 	open,
 	currentGameId,
@@ -61,7 +59,7 @@ export const NewGameDialog = ({
 	const [joinGameId, setJoinGameId] = useState<string>("");
 	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
 
-	const shareGameLink = `${DOMAIN}/${currentGameId || randomGameId}`;
+	const shareGameLink = `${location.host}/${currentGameId || randomGameId}`;
 	const shareGameLinkHttps = `https://${shareGameLink}`;
 
 	const joinGameIdValid = !!joinGameId.match(GAME_ID_REGEX);
@@ -322,7 +320,7 @@ export const NewGameDialog = ({
 						</ul>
 
 						<div className="flex h-10 items-center gap-0.5 rounded-md border border-input bg-background pl-3 pr-1 font-mono text-base ring-offset-background placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 md:text-sm">
-							<label htmlFor="game_id">{DOMAIN}/</label>
+							<label htmlFor="game_id">{location.host}/</label>
 
 							<input
 								id="game_id"
@@ -334,9 +332,9 @@ export const NewGameDialog = ({
 									const newValue = e.target.value;
 
 									const prefixes = [
-										`${DOMAIN}/`,
-										`http://${DOMAIN}/`,
-										`https://${DOMAIN}/`,
+										`${location.host}/`,
+										`http://${location.host}/`,
+										`https://${location.host}/`,
 									];
 
 									for (const prefix of prefixes) {
