@@ -38,7 +38,9 @@ export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 			registerSW({
 				onRegisteredSW: (_, serviceWorkerRegistration) => {
 					if (serviceWorkerRegistration) {
-						setUpdate(() => serviceWorkerRegistration.update);
+						// Wrapping the call to `update` in a function is necessary to prevent
+						// an "illegal invocation" error
+						setUpdate(() => () => serviceWorkerRegistration.update());
 						setInterval(checkForNewVersion, 24 * 60 * 60 * 1000);
 					}
 				},
