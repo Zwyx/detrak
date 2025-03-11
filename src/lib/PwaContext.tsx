@@ -1,37 +1,37 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { registerSW } from "virtual:pwa-register";
 import { PwaContext } from "./PwaContext.const";
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 
 export const PwaContextProvider = ({ children }: PropsWithChildren) => {
+	const update = useRef<() => Promise<void>>();
+
 	const [newMajorVersionAvailable, setNewMajorVersionAvailable] =
 		useState(false);
 	const [newMajorVersionAcknowledged, setNewMajorVersionAcknowledged] =
 		useState(false);
-
-	const [update, setUpdate] = useState<() => Promise<void>>();
 	const [refreshPending, setRefreshPending] = useState(false);
 	const [refresh, setRefresh] = useState<() => Promise<void>>();
 
-	const checkForNewVersion = useCallback(
-		() =>
-			fetch(`https://${location.host}/.well-known/version`)
-				.then((res) => res.text())
-				.then((latestVersion) => {
-					if (APP_VERSION !== latestVersion) {
-						update?.();
+	const checkForNewVersion = () =>
+		fetch(`https://${location.host}/.well-known/version`)
+			.then((res) => res.text())
+			.then((latestVersion) => {
+				if (APP_VERSION !== latestVersion) {
+					update.current?.();
 
-						const majorAppVersion = APP_VERSION.split(".")[0];
-						const majorLatestVersion = latestVersion.split(".")[0];
+					const majorAppVersion = APP_VERSION.split(".")[0];
+					const majorLatestVersion = latestVersion.split(".")[0];
 
-						if (majorAppVersion !== majorLatestVersion) {
-							setNewMajorVersionAvailable(true);
-						}
+					if (majorAppVersion !== majorLatestVersion) {
+						setNewMajorVersionAvailable(true);
 					}
-				}),
-		[update],
-	);
+				}
+			})
+			.catch(() => {
+				update.current?.();
+			});
 
 	useEffect(() => {
 		setRefresh(() =>
@@ -40,14 +40,17 @@ export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 					if (serviceWorkerRegistration) {
 						// Wrapping the call to `update` in a function is necessary to prevent
 						// an "illegal invocation" error
-						setUpdate(() => () => serviceWorkerRegistration.update());
-						setInterval(checkForNewVersion, 24 * 60 * 60 * 1000);
+						update.current = () => serviceWorkerRegistration.update();
 					}
 				},
 				onNeedRefresh: () => setRefreshPending(true),
 			}),
 		);
-	}, [checkForNewVersion]);
+	}, []);
+
+	useEffect(() => {
+		setInterval(checkForNewVersion, 24 * 60 * 60 * 1000);
+	}, []);
 
 	return (
 		<PwaContext.Provider
