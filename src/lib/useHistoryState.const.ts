@@ -25,18 +25,18 @@ export interface HistoryStateUserAction {
 }
 
 export function useHistoryState<T>() {
-	const { state, pathname }: Location<Partial<T>> = useLocation();
+	const { state }: Location<Partial<T>> = useLocation();
 	const originalNavigate = useNavigate();
 
 	const pushState = useCallback(
-		(newState: T) => originalNavigate(pathname, { state: newState }),
-		[originalNavigate, pathname],
+		(newState: T) => originalNavigate(location.pathname, { state: newState }),
+		[originalNavigate],
 	);
 
 	const replaceState = useCallback(
 		(newState: T) =>
-			originalNavigate(pathname, { state: newState, replace: true }),
-		[originalNavigate, pathname],
+			originalNavigate(location.pathname, { state: newState, replace: true }),
+		[originalNavigate],
 	);
 
 	const navigate: HistoryNavigateFunction<T> = originalNavigate;
