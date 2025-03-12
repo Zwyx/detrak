@@ -75,10 +75,15 @@ export const App = () => {
 	const { gameId } = useParams();
 	const previousGameId = usePrevious(gameId);
 
-	const { state, navigate, pushState, replaceState, pushStateOrNavigateBack } =
-		useHistoryState<{
-			newGameDialogOpen: boolean;
-		}>();
+	const {
+		state,
+		navigateTo,
+		pushState,
+		replaceState,
+		pushStateOrNavigateBack,
+	} = useHistoryState<{
+		newGameDialogOpen: boolean;
+	}>();
 
 	const [pwaRefreshing, setPwaRefreshing] = useState(false);
 
@@ -207,7 +212,7 @@ export const App = () => {
 
 			if (!localStorage.getItem(NUMBER_OF_GAMES_KEY)) {
 				if (firstRender.current) {
-					navigate(`/${formatDate("today")}`, { replace: true });
+					navigateTo(`/${formatDate("today")}`, { replace: true });
 				}
 			} else {
 				replaceState({ newGameDialogOpen: true });
@@ -219,7 +224,7 @@ export const App = () => {
 		firstRender.current = false;
 
 		if (!gameId.match(GAME_ID_REGEX)) {
-			navigate("/", { state: { newGameDialogOpen: true }, replace: true });
+			navigateTo("/", { state: { newGameDialogOpen: true }, replace: true });
 			return;
 		}
 
@@ -228,7 +233,7 @@ export const App = () => {
 		if (!localStorage.getItem(HELP_SHOWN_KEY)) {
 			setHelpStep("welcome");
 		}
-	}, [gameId, navigate, replaceState]);
+	}, [gameId, navigateTo, replaceState]);
 
 	useEffect(() => {
 		if (endOfGame) {
@@ -391,7 +396,7 @@ export const App = () => {
 					pushState({ newGameDialogOpen: false });
 					setTimeout(
 						() =>
-							navigate(`/${newGameId}`, {
+							navigateTo(`/${newGameId}`, {
 								state: { newGameDialogOpen: false },
 								replace: true,
 							}),
@@ -400,7 +405,7 @@ export const App = () => {
 				}}
 				onStopGame={() => {
 					setSrText("");
-					navigate("/", { state: { newGameDialogOpen: true } });
+					navigateTo("/", { state: { newGameDialogOpen: true } });
 				}}
 				onOpenChange={(open) =>
 					pushStateOrNavigateBack(open, { newGameDialogOpen: true })
@@ -578,7 +583,7 @@ export const App = () => {
 									<Button
 										disabled={move !== 1 && move !== 2}
 										onClick={() => {
-											navigate("/", { state: { newGameDialogOpen: true } });
+											navigateTo("/", { state: { newGameDialogOpen: true } });
 
 											if (pwa.refreshReady) {
 												setPwaRefreshing(true);

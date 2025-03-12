@@ -27,7 +27,7 @@ export const HeaderMenu = () => {
 	const pwa = usePwaContext();
 	const { t } = useTranslation("headerMenu");
 
-	const { state, navigate, pushStateOrNavigateBack } = useHistoryState<{
+	const { state, navigateBack, pushStateOrNavigateBack } = useHistoryState<{
 		headerMenuOpen: boolean;
 		rulesDialogOpen?: boolean;
 		termsOfUseDialogOpen?: boolean;
@@ -86,7 +86,7 @@ export const HeaderMenu = () => {
 						e.changedTouches[0].screenX <
 						touchStartX.current - 2 * parseFloat(rem)
 					) {
-						navigate(-1);
+						navigateBack();
 					}
 				}}
 				noDescription
