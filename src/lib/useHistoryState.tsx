@@ -5,5 +5,14 @@ interface HistoryStateLinkProps<T> extends LinkProps {
 }
 
 export function HistoryStateLink<T>(props: HistoryStateLinkProps<T>) {
-	return <Link {...props} />;
+	return (
+		<Link
+			{...{
+				...props,
+				...(props.state
+					? { state: { ...history.state.usr, ...props.state } }
+					: { state: history.state.usr }),
+			}}
+		/>
+	);
 }
