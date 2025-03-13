@@ -260,12 +260,14 @@ export const NewGameDialog = ({
 										: navigator.clipboard.writeText(
 												`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
 										  )
-									).then(() => {
-										if (!showShareSuccess) {
-											setShowShareSuccess(true);
-											setTimeout(() => setShowShareSuccess(false), 2000);
-										}
-									})
+									)
+										.then(() => {
+											if (!showShareSuccess) {
+												setShowShareSuccess(true);
+												setTimeout(() => setShowShareSuccess(false), 2000);
+											}
+										})
+										.catch(() => {})
 								}
 							>
 								{navigator["share"]

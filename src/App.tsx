@@ -554,12 +554,17 @@ export const App = () => {
 													: navigator.clipboard.writeText(
 															`${getShareText()}\n${shareGameLinkHttps}`,
 													  )
-												).then(() => {
-													if (!showShareSuccess) {
-														setShowShareSuccess(true);
-														setTimeout(() => setShowShareSuccess(false), 2000);
-													}
-												})
+												)
+													.then(() => {
+														if (!showShareSuccess) {
+															setShowShareSuccess(true);
+															setTimeout(
+																() => setShowShareSuccess(false),
+																2000,
+															);
+														}
+													})
+													.catch(() => {})
 											}
 										>
 											{t("share.shareYourScore")}
