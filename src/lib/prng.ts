@@ -2,8 +2,14 @@ export interface SeededPrng {
 	getNext: () => number;
 }
 
-// `-` is placed last and not used when generating random IDs
-const GAME_ID_ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz-";
+/**
+ * Alphabet for game IDs
+ *
+ * - No vowels to prevent accidental insults
+ * - 31 characters → 31^10 = 8.2e14 combinations (`Number.MAX_SAFE_INTEGER` = 2^53 - 1 = 9e15)
+ * - `-` is placed last and not used when generating random IDs
+ */
+const GAME_ID_ALPHABET = "0123456789bcdfghjklmnpqrstvwxz-";
 
 export const GAME_ID_REGEX = new RegExp(`^[${GAME_ID_ALPHABET}]{1,10}$`);
 
