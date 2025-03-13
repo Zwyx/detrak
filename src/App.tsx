@@ -1,11 +1,5 @@
 import { Confetti } from "@/lib/confetti.min.js";
-import {
-	cn,
-	formatDate,
-	getSymbolNames,
-	getUnicodeGrid,
-	usePrevious,
-} from "@/lib/utils";
+import { cn, formatDate, getSymbolNames, getUnicodeGrid } from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -73,7 +67,6 @@ export const App = () => {
 
 	const firstRender = useRef(true);
 	const { gameId } = useParams();
-	const previousGameId = usePrevious(gameId);
 
 	const {
 		state,
@@ -394,7 +387,6 @@ export const App = () => {
 			<NewGameDialog
 				open={!!state.newGameDialogOpen}
 				currentGameId={gameId}
-				previousGameId={previousGameId}
 				pwaRefreshing={pwaRefreshing}
 				onNewGame={(newGameId) => {
 					pushState({ newGameDialogOpen: false });
