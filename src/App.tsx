@@ -399,12 +399,8 @@ export const App = () => {
 				onNewGame={(newGameId) => {
 					pushState({ newGameDialogOpen: false });
 					setTimeout(
-						() =>
-							navigateTo(`/${newGameId}`, {
-								state: { newGameDialogOpen: false },
-								replace: true,
-							}),
-						100, // Prevents a flash of the QR code when the dialog closes
+						() => navigateTo(`/${newGameId}`, { replace: true }),
+						150, // Prevents a flash of the QR code when the dialog closes
 					);
 				}}
 				onStopGame={() => {
