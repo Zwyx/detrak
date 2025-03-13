@@ -28,11 +28,13 @@ export const fr: I18nLocale = {
 		},
 		share: {
 			shareYourScore: "Partager votre score",
-			title: "Détrak",
-			text: "🎲 {{count}} à Détrak ! Peux-tu faire mieux ? 🤞",
 			sendScore: "Envoyez votre score à vos amis !",
 			inviteFriends:
 				"Et invitez-les à vous défier sur la même partie (les symboles tirés pendant leur jeu seront les mêmes que les vôtres).",
+			title: "Détrak",
+			text: "🎲 {{count}} à Détrak ! Peux-tu faire mieux ? 🤞",
+			newVersion:
+				"(Si tu y avais joué précédemment, ferme l'appli et relance-la pour obtenir la dernière version: 2.0.0)",
 		},
 		sr: {
 			selectSymbol: "Sélectionnez l'un des six symbols pour commencer.",
@@ -156,7 +158,9 @@ export const fr: I18nLocale = {
 				"Demandez à vos ami·e·s de scanner ce QR code, ou envoyez-leur le lien.",
 			clickPlay: "Puis cliquez sur Jouer.",
 			title: "Detrak",
-			joinMe: "Rejoins-moi pour cette partie de Détrak ! 🎲",
+			joinMe: "🎲 Rejoins-moi pour cette partie de Détrak !",
+			newVersion:
+				"(Si tu y avais joué précédemment, ferme l'appli et relance-la pour obtenir la dernière version: 2.0.0)",
 			shareLink: "Partager le lien",
 			copyLink: "Copier le lien dans le presse-papiers",
 			lastVersion: {

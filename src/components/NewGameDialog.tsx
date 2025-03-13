@@ -254,11 +254,15 @@ export const NewGameDialog = ({
 									(navigator.share
 										? navigator.share({
 												title: t("shareCreate.title"),
-												text: t("shareCreate.joinMe"),
+												text: `${t("shareCreate.joinMe")} ${t(
+													"shareCreate.newVersion",
+												)}`,
 												url: shareGameLinkHttps,
 										  })
 										: navigator.clipboard.writeText(
-												`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
+												`${t("shareCreate.joinMe")} ${shareGameLinkHttps}\n${t(
+													"shareCreate.newVersion",
+												)}`,
 										  )
 									)
 										.then(() => {
