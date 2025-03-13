@@ -18,10 +18,6 @@ interface HistoryNavigateToFunction<T> {
 	(to: To, options?: HistoryNavigateOptions<T>): void | Promise<void>;
 }
 
-export interface HistoryStateUserAction {
-	userAction: boolean;
-}
-
 export function useHistoryState<T>() {
 	const { state }: Location<Partial<T>> = useLocation();
 	const originalNavigate = useNavigate();
