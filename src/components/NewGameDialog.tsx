@@ -307,7 +307,7 @@ export const NewGameDialog = ({
 
 				{state.newGameDialogView === "share_join" && (
 					<>
-						<ul className="list-disc font-medium">
+						<ul className="list-disc pl-8 font-medium">
 							<li>{t("shareJoin.useCamera")}</li>
 							<li>{t("shareJoin.openGameLink")}</li>
 							<li>{t("shareJoin.enterGameLink")}</li>
