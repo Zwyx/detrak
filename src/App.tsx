@@ -211,7 +211,11 @@ export const App = () => {
 			setNewHighestScore(false);
 
 			if (!localStorage.getItem(NUMBER_OF_GAMES_KEY)) {
-				if (firstRender.current) {
+				if (
+					firstRender.current &&
+					// `newGameDialogOpen` can be `true` if the user stops their very first game and reloads the page
+					!history.state?.usr?.newGameDialogOpen
+				) {
 					navigateTo(`/${formatDate("today")}`, { replace: true });
 				}
 			} else {
