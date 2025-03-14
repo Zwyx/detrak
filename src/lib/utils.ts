@@ -48,21 +48,33 @@ export function getSymbolNames(t: TFunction) {
 	];
 }
 
-export const getCellColor = (score: number, mode: "css" | "unicode") =>
+export const getCellColor = (
+	score: number,
+	mode: "css" | "unicode",
+	contrast: boolean = false,
+) =>
 	score < -4
 		? mode === "css"
-			? "bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200"
+			? contrast
+				? "bg-slate-500 text-slate-100 dark:bg-slate-400 dark:text-slate-900"
+				: "bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200"
 			: "\ud83d\udd34"
 		: score < 4
 		? mode === "css"
-			? "bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200"
+			? contrast
+				? "bg-slate-300 text-slate-800 dark:bg-slate-600 dark:text-slate-300"
+				: "bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200"
 			: "\ud83d\udfe2"
 		: score < 35
 		? mode === "css"
-			? "bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200"
+			? contrast
+				? "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+				: "bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200"
 			: "\ud83d\udd35"
 		: mode === "css"
-		? "bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200"
+		? contrast
+			? "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+			: "bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200"
 		: "\ud83d\udfe3";
 
 /**

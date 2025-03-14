@@ -213,6 +213,11 @@ export const en = {
 			description: "Shows your current score during the game.",
 		},
 
+		showScoreWithContrast: {
+			title: "Show the score with contrast instead of color",
+			description: "Uses levels of grey instead of red, green, and blue.",
+		},
+
 		showScoreLegend: {
 			title: "Show the score's legend",
 			description: "Shows the legend placed above the grid.",

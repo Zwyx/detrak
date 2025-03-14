@@ -84,6 +84,13 @@ export const SettingsDialog = () => {
 				</SettingCheckbox>
 
 				<SettingCheckbox
+					name="showScoreWithContrast"
+					title={t("showScoreWithContrast.title")}
+				>
+					{t("showScoreWithContrast.description")}
+				</SettingCheckbox>
+
+				<SettingCheckbox
 					name="showScoreLegend"
 					title={t("showScoreLegend.title")}
 				>
