@@ -8,8 +8,8 @@ export interface Settings {
 	animateDice: boolean;
 	autoRollDice: boolean;
 	showDiceMarker: boolean;
-	showConfetti: boolean;
 	showNavigationAlert: boolean;
+	showConfetti: boolean;
 }
 
 export const defaultSettings: Settings = {
