@@ -34,7 +34,7 @@
 		--warning: 25 95% 53%; /* bg-orange-500 */
 		--warning-dim: 27 96% 61%; /* bg-orange-400 */
 
-		--destructive: 0 84.2% 60.2%;
+		--destructive: 0 84% 60%; /* bg-red-700 */
 		--destructive-foreground: 210 40% 98%;
 
 		--border: 214.3 31.8% 91.4%;
@@ -78,8 +78,8 @@
 		--warning: 25 95% 53%; /* bg-orange-500 */
 		--warning-dim: 21 90% 48%; /* bg-orange-600 */
 
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 0 85.7% 97.3%;
+		--destructive: 0 74% 42%; /* bg-red-700 */
+		--destructive-foreground: 210 40% 98%;
 
 		--border: 217.2 32.6% 17.5%;
 		--input: 217.2 32.6% 17.5%;
