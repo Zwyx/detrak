@@ -19,6 +19,7 @@ import {
 	HELP_SHOWN_KEY,
 	HIGHEST_SCORE_KEY,
 	NUMBER_OF_GAMES_KEY,
+	VERSION_2_WELCOME_SHOWN_KEY,
 } from "./lib/local-storage-keys";
 import { GAME_ID_REGEX, SeededPrng, getSeededPrng } from "./lib/prng";
 import { useHistoryState } from "./lib/useHistoryState.const";
@@ -210,6 +211,7 @@ export const App = () => {
 					!history.state?.usr?.newGameDialogOpen
 				) {
 					navigateTo(`/${formatDate("today")}`, { replace: true });
+					localStorage.setItem(VERSION_2_WELCOME_SHOWN_KEY, "true");
 				}
 			} else {
 				replaceState({ newGameDialogOpen: true });
