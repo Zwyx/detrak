@@ -4,6 +4,7 @@ import { Dispatch, createContext, useContext } from "react";
 
 export interface Settings {
 	alwaysShowScore: boolean;
+	showScoreWithContrast: boolean;
 	showScoreLegend: boolean;
 	animateDice: boolean;
 	autoRollDice: boolean;
@@ -14,6 +15,7 @@ export interface Settings {
 
 export const defaultSettings: Settings = {
 	alwaysShowScore: false,
+	showScoreWithContrast: false,
 	showScoreLegend: true,
 	animateDice: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 	autoRollDice: false,

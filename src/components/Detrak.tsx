@@ -102,7 +102,7 @@ export const Cell = ({
 				canPlay &&
 					"cursor-pointer hover:shadow-grid-focus focus-visible:shadow-grid-focus",
 				bgColor,
-				scoreCell && getCellColor(value, "css"),
+				scoreCell && getCellColor(value, "css", settings.showScoreWithContrast),
 			)}
 			aria-label={
 				startOfGame && typeof value === "number"

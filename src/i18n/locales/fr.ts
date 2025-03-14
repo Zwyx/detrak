@@ -215,6 +215,12 @@ export const fr: I18nLocale = {
 			description: "Permet de voir votre score pendant la partie.",
 		},
 
+		showScoreWithContrast: {
+			title: "Montrer le score avec un contraste",
+			description:
+				"Utilise des niveaux de gris plutôt que les couleurs rouge, vert, et blue.",
+		},
+
 		showScoreLegend: {
 			title: "Afficher la légende du score",
 			description: "Montre la légende placée au dessus de la grille.",
