@@ -98,18 +98,18 @@ export const en = {
 			part1:
 				"Roll the dice and place the obtained symbols in the grid to score as many points as possible.",
 			part2:
-				"You score points when you place identical symbols next to each other, in a row, a column, or the diagonal from bottom left to top right:",
+				"You score points when you place identical symbols next to each other, in a row, a column, or the diagonal from bottom-left to top-right:",
 			points: {
 				part1: "2 symbols: +2 points,",
 				part2: "3 symbols: +3 points,",
 				part3: "4 symbols: +8 points,",
 				part4: "5 symbols: +10 points,",
-				part5: "no symbols: -5 points,",
+				part5: "no symbols: -5 points.",
 			},
 			part3:
 				"The two symbols from the dice must be placed on adjacent free cells (horizontally or vertically).",
 			part4:
-				"It is impossible to place only one of the two symbols. Therefore, to avoid the game ending prematurely, it is necessary to avoid isolating cells.",
+				"It is impossible to place only one of the two symbols. Therefore, to prevent the game from ending prematurely, avoid isolating cells.",
 		},
 		gigamicGame: "Detrak is a copyrighted game published by",
 		digitalVersion: {
@@ -210,43 +210,41 @@ export const en = {
 
 		alwaysShowScore: {
 			title: "Always show the score",
-			description:
-				"Allow you to see your current score during the game, instead of only at the end.",
+			description: "Shows your current score during the game.",
 		},
 
 		showScoreLegend: {
-			title: "Show the score legend",
-			description: "The legend placed above the grid.",
+			title: "Show the score's legend",
+			description: "Shows the legend placed above the grid.",
 		},
 
 		animateDice: {
-			title: "Animate rolling dice",
-			description: "Roll dice with a 3D animation.",
+			title: "Animate the rolling dice",
+			description: "Rolls the dice with a 3D animation.",
 		},
 
 		autoRollDice: {
 			title: "Automatically roll the dice",
 			notAvailableDuringTheFirstGame: "(not available during the first game)",
 			description:
-				"Dice will be rolled automatically once the two symbols are placed in the grid. This removes the ability to undo the second symbol placement.",
+				"Rolls the dice automatically once the two symbols are placed in the grid. This removes the ability to undo the second symbol placement.",
 		},
 
 		showDiceMarker: {
-			title: "Show dice marker",
-			description:
-				"Show a marker below the dice's symbol to be placed on the grid.",
+			title: "Show the dice marker",
+			description: "Shows which symbol is to be placed on the grid.",
 		},
 
 		showConfetti: {
 			title: "Show confetti",
 			description:
-				"Show a confetti explosion when you beat your highest score!",
+				"Throws a confetti explosion when you beat your highest score!",
 		},
 
 		showNavigationAlert: {
-			title: "Ask for confirmation before interrupting a game",
+			title: "Ask for confirmation before leaving a game",
 			description:
-				"Show a confirmation dialog when navigating away during a game.",
+				"Shows a confirmation dialog when navigating away during a game.",
 		},
 	},
 

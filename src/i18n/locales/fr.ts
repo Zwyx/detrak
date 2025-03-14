@@ -102,12 +102,12 @@ export const fr: I18nLocale = {
 				part2: "3 symboles : +3 points,",
 				part3: "4 symboles : +8 points,",
 				part4: "5 symboles : +10 points,",
-				part5: "aucun symbole : -5 points,",
+				part5: "aucun symbole : -5 points.",
 			},
 			part3:
 				"Les deux symboles des dés doivent être placés sur des cases libres adjacentes (horizontalement ou verticalement).",
 			part4:
-				"Il est impossible de ne placer qu'un seul des deux symboles. Ainsi, pour éviter que la partie ne s'arrête prématurément, il est nécessaire d'éviter d'isoler des cases.",
+				"Il est impossible de ne placer qu'un seul des deux symboles. Ainsi, pour éviter que la partie ne s'arrête prématurément, évitez d'isoler des cases.",
 		},
 		gigamicGame: "Détrak est un jeu protégé par copyright et publié par",
 		digitalVersion: {
@@ -212,18 +212,17 @@ export const fr: I18nLocale = {
 
 		alwaysShowScore: {
 			title: "Toujours afficher le score",
-			description:
-				"Vous permettra de voir votre score en temps réel, au lieu de seulement à la fin de la partie.",
+			description: "Permet de voir votre score pendant la partie.",
 		},
 
 		showScoreLegend: {
 			title: "Afficher la légende du score",
-			description: "La légende placée au dessus de la grille de jeu.",
+			description: "Montre la légende placée au dessus de la grille.",
 		},
 
 		animateDice: {
 			title: "Animer les lancés de dés",
-			description: "Lancer les dés avec une animation 3D.",
+			description: "Lance les dés avec une animation 3D.",
 		},
 
 		autoRollDice: {
@@ -231,25 +230,25 @@ export const fr: I18nLocale = {
 			notAvailableDuringTheFirstGame:
 				"(non disponible pendant la première partie)",
 			description:
-				"Les dés sont lancés automatiquement dès que les deux symboles sont placés sur la grille. Ceci empêche l'annulation du placement du deuxième symbole.",
+				"Lance les dés automatiquement que les deux symboles sont placés sur la grille. Ceci empêche l'annulation du placement du deuxième symbole.",
 		},
 
 		showDiceMarker: {
-			title: "Afficher un marqueur sous les dés",
+			title: "Afficher le marqueur sous les dés",
 			description:
-				"Afficher un marquer sous le dé dont le symbole est celui sur le point d'être placé dans la grille.",
+				"Affiche un marqueur pointant le symbole à placer dans la grille.",
 		},
 
 		showConfetti: {
 			title: "Confettis",
 			description:
-				"Jeter des confettis quand vous établissez un nouveau record !",
+				"Jette des confettis quand vous établissez un nouveau record !",
 		},
 
 		showNavigationAlert: {
 			title: "Demander confirmation avant d'interrompre une partie",
 			description:
-				"Afficher une boite de dialogue lorsque vous être sur le point de quitter la partie en cours.",
+				"Affiche une boite de dialogue lorsque vous être sur le point de quitter la partie en cours.",
 		},
 	},
 
