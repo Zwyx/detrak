@@ -29,7 +29,7 @@ export const LanguageSelector = () => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="ghost" size="sm" className="w-9 px-0">
+				<Button variant="ghost" size="icon">
 					<LucideLanguages />
 					<span className="sr-only">{t("chooseLanguage")}</span>
 				</Button>

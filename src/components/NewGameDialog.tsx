@@ -325,7 +325,7 @@ export const NewGameDialog = ({
 
 							<input
 								id="game_id"
-								className="h-9 flex-1 bg-background font-semibold outline-none"
+								className="h-9 flex-1 bg-background font-bold outline-none"
 								spellCheck={false}
 								autoComplete="off"
 								value={joinGameId}
