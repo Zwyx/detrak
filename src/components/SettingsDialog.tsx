@@ -124,6 +124,15 @@ export const SettingsDialog = () => {
 					{t("showConfetti.description")}
 				</SettingCheckbox>
 
+				{navigator.wakeLock && (
+					<SettingCheckbox
+						name="enableWakeLock"
+						title={t("enableWakeLock.title")}
+					>
+						{t("enableWakeLock.description")}
+					</SettingCheckbox>
+				)}
+
 				<SettingCheckbox
 					name="showNavigationAlert"
 					title={t("showNavigationAlert.title")}

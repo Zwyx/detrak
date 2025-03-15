@@ -253,6 +253,12 @@ export const fr: I18nLocale = {
 				"Jette des confettis quand vous établissez un nouveau record !",
 		},
 
+		enableWakeLock: {
+			title: "Garder l'écran allumé pendant une partie",
+			description:
+				"Maintient votre écran allumé, pour 5 minutes, pendant que vous jouez. Notez que certains appareils Apple ne supportent pas cette fonctionnalité.",
+		},
+
 		showNavigationAlert: {
 			title: "Demander confirmation avant d'interrompre une partie",
 			description:
