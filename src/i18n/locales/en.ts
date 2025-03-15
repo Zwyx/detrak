@@ -90,8 +90,8 @@ export const en = {
 		openMenu: "Open menu",
 		detrak: "Detrak",
 		newFeatures: {
-			title: "New features available",
-			description: "Finish your game and reload the app to update.",
+			title: "New features available!",
+			description: "Finish your game and reload the app.",
 			action: "Reload app",
 		},
 		rules: {
@@ -168,7 +168,7 @@ export const en = {
 			copyLink: "Copy link to clipboard",
 			lastVersion: {
 				part1: "Note: your friends need Detrak version",
-				part2: "or superior. They can reload the app to update.",
+				part2: "or superior. They can close and reopen the app to update.",
 			},
 		},
 		shareJoin: {
@@ -189,10 +189,10 @@ export const en = {
 			intro: "There are two new ways of playing:",
 			dailyGame: "The daily game",
 			dailyGameDetails:
-				"each day, the sequence of symbols drawn by the dice will be the same for everyone.",
+				"each day, the sequence of symbols drawn by the dice is be the same for everyone.",
 			playWithFriends: "Play with friends",
 			playWithFriendsDetails:
-				"you can now create a game and invite people to join. Here too, the sequence of symbols drawn during the game will be the same for your friends and you. It even works without internet connection.",
+				"create a game and invite people to join. Here too, the sequence of symbols drawn during the game is the same for your friends and you. It works even without internet connection!",
 			startPlaying: "Start playing!",
 		},
 		or: "or",
