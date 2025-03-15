@@ -425,6 +425,11 @@ export const App = () => {
 										left={i === 0}
 										right={i === a.length - 1}
 										onClick={() => {
+											// Prevents a super quick person from clicking before the game ID is set (see above, in `NewGameDialog`'s `onNewGame`)
+											if (!gameId) {
+												return;
+											}
+
 											updateGrid({ x: 1, y: 1, newValue: i });
 											setMiddleOfGame(true);
 
