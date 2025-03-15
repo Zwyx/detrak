@@ -185,6 +185,8 @@ export const App = () => {
 	const shareGameLinkHttps = `https://${shareGameLink}`;
 	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
 
+	const wakeLockSentinel = useRef<WakeLockSentinel | undefined>();
+
 	useEffect(() => {
 		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
 
@@ -373,6 +375,47 @@ export const App = () => {
 			rollDice();
 		}
 	}, [settings.autoRollDice, canRollDice, rollDice]);
+
+	const requestWakeLock = () =>
+		navigator.wakeLock
+			?.request("screen")
+			.then((newWakeLockSentinel) => {
+				wakeLockSentinel.current = newWakeLockSentinel;
+
+				setTimeout(
+					() => {
+						if (wakeLockSentinel.current) {
+							wakeLockSentinel.current.release();
+							wakeLockSentinel.current = undefined;
+						}
+					},
+					5 * 60 * 1000,
+				);
+			})
+			.catch(() => {});
+
+	useEffect(() => {
+		if (middleOfGame && settings.enableWakeLock) {
+			requestWakeLock();
+		} else if (wakeLockSentinel.current) {
+			wakeLockSentinel.current.release();
+			wakeLockSentinel.current = undefined;
+		}
+	}, [middleOfGame, settings.enableWakeLock]);
+
+	useEffect(() => {
+		const handleVisibilityChange = () => {
+			if (wakeLockSentinel.current && document.visibilityState === "visible") {
+				requestWakeLock();
+			}
+		};
+
+		document.addEventListener("visibilitychange", handleVisibilityChange);
+
+		return () => {
+			document.removeEventListener("visibilitychange", handleVisibilityChange);
+		};
+	}, []);
 
 	const getShareText = () =>
 		t("share.text", { count: Number(score) }) + "\n" + getUnicodeGrid(grid);

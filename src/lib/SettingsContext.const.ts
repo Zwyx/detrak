@@ -9,8 +9,9 @@ export interface Settings {
 	animateDice: boolean;
 	autoRollDice: boolean;
 	showDiceMarker: boolean;
-	showNavigationAlert: boolean;
 	showConfetti: boolean;
+	enableWakeLock: boolean;
+	showNavigationAlert: boolean;
 }
 
 export const defaultSettings: Settings = {
@@ -21,6 +22,7 @@ export const defaultSettings: Settings = {
 	autoRollDice: false,
 	showDiceMarker: true,
 	showConfetti: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+	enableWakeLock: true,
 	showNavigationAlert: true,
 };
 

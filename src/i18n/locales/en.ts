@@ -248,6 +248,12 @@ export const en = {
 				"Throws a confetti explosion when you beat your highest score!",
 		},
 
+		enableWakeLock: {
+			title: "Keep the screen on while playing",
+			description:
+				"Prevents your device's screen from turing off, for five minutes, while a game is being played. Note that some Apple devices don't support this feature.",
+		},
+
 		showNavigationAlert: {
 			title: "Ask for confirmation before leaving a game",
 			description:
