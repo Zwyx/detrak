@@ -14,8 +14,6 @@ export const en = {
 	},
 
 	app: {
-		autoRollDice:
-			"Dice are now unanimated and rolled automatically to allow you to play quicker. You can change this in the settings.",
 		bestScore: "best:",
 		endOnGame: "Finished! Your score is",
 		endOnGameWithNewScore: "Well done! New highest score:",
@@ -27,6 +25,8 @@ export const en = {
 				"The symbol you have selected has been inserted in the grid below.",
 			part2: "Now, roll the dice!",
 		},
+		settingsChangeDice:
+			"Dice are now unanimated and rolled automatically to allow you to play quicker. You can change this in the settings.",
 		share: {
 			shareYourScore: "Share your score",
 			sendScore: "Send your score to your friends!",
@@ -75,6 +75,8 @@ export const en = {
 				part2: "Roll the dice again to continue the game.",
 			},
 		},
+		settingsChangeScore:
+			"Also, the score is now always shown, so you can quickly see which rows/columns need attention.",
 	},
 
 	error: {
