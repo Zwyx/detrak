@@ -175,6 +175,14 @@ export const Cell = ({
 					</HelpTooltip>
 				</div>
 			)}
+
+			{y === 6 && x === 3 && (
+				<div className="absolute h-[85%]">
+					<HelpTooltip open={helpStep === "settingsChange"} side="top">
+						{t("settingsChangeScore")}
+					</HelpTooltip>
+				</div>
+			)}
 		</button>
 	);
 };

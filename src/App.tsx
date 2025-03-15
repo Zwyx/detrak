@@ -347,8 +347,8 @@ export const App = () => {
 					? "clickGrid1"
 					: prevHelpStep === "rollDice2"
 					? "afterDiceRolling2"
-					: prevHelpStep === "autoRollDice"
-					? "autoRollDice"
+					: prevHelpStep === "settingsChange"
+					? "settingsChange"
 					: null,
 			);
 		}
@@ -434,11 +434,12 @@ export const App = () => {
 
 											if (numberOfGames === 1) {
 												updateSettings({
+													alwaysShowScore: true,
 													animateDice: false,
 													autoRollDice: true,
 												});
 
-												setHelpStep("autoRollDice");
+												setHelpStep("settingsChange");
 											}
 										}}
 									/>
@@ -529,8 +530,8 @@ export const App = () => {
 									</Button>
 								</div>
 
-								<HelpTooltip open={helpStep === "autoRollDice"}>
-									{t("autoRollDice")}
+								<HelpTooltip open={helpStep === "settingsChange"}>
+									{t("settingsChangeDice")}
 								</HelpTooltip>
 							</>
 						) : (
@@ -626,7 +627,7 @@ export const App = () => {
 										setHelpStep("rollDice2");
 									} else if (
 										helpStep === "afterDiceRolling2" ||
-										helpStep === "autoRollDice"
+										helpStep === "settingsChange"
 									) {
 										setHelpStep(null);
 										localStorage.setItem(HELP_SHOWN_KEY, "true");

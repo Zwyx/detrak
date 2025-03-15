@@ -14,8 +14,6 @@ export const fr: I18nLocale = {
 	},
 
 	app: {
-		autoRollDice:
-			"Les dés sont maintenant non animés et lancés automatiquement pour vous permettre de jouer plus rapidement. Ceci est configurable dans les paramètres.",
 		bestScore: "meilleur score :",
 		endOnGame: "Terminé ! Votre score est",
 		endOnGameWithNewScore: "Bravo ! Nouveau record :",
@@ -26,6 +24,8 @@ export const fr: I18nLocale = {
 			part1: "Le symbole sélectionné a été placé dans la grille ci-dessous.",
 			part2: "Maintenant, lancez les dés !",
 		},
+		settingsChangeDice:
+			"Les dés sont maintenant non-animés et lancés automatiquement pour vous permettre de jouer plus vite. Ceci est configurable dans les paramètres.",
 		share: {
 			shareYourScore: "Partager votre score",
 			sendScore: "Envoyez votre score à vos amis !",
@@ -74,6 +74,8 @@ export const fr: I18nLocale = {
 				part2: "Lancez à nouveau les dés pour continuer le jeu.",
 			},
 		},
+		settingsChangeScore:
+			"Aussi, le score est maintenant toujours affiché, afin vous puissiez voir rapidement quelles lignes/colonnes ont besoin d'attention.",
 	},
 
 	error: {

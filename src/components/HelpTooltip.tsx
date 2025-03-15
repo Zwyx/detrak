@@ -12,7 +12,7 @@ export type HelpStep =
 	| "rollDice2"
 	| "diceRolling2"
 	| "afterDiceRolling2"
-	| "autoRollDice";
+	| "settingsChange";
 
 export const HelpTooltip = ({
 	open,
@@ -33,7 +33,7 @@ export const HelpTooltip = ({
 		</HoverCardTrigger>
 
 		<HoverCardContent
-			className="bg-tooltip border-none p-2 text-center text-sm"
+			className="border-none bg-tooltip p-2 text-center text-sm"
 			side={side}
 			align={align}
 		>
