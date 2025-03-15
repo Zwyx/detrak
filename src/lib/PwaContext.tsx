@@ -17,7 +17,9 @@ export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 	const checkForNewVersion = () =>
 		fetch(`https://${location.host}/.well-known/version`)
 			.then((res) => res.text())
-			.then((latestVersion) => {
+			.then((rawLatestVersion) => {
+				const latestVersion = rawLatestVersion.replace(/\n/, "");
+
 				if (APP_VERSION !== latestVersion) {
 					update.current?.();
 
