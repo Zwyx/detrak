@@ -49,6 +49,7 @@ export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 	}, []);
 
 	useEffect(() => {
+		checkForNewVersion();
 		setInterval(checkForNewVersion, 24 * 60 * 60 * 1000);
 	}, []);
 
