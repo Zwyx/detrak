@@ -262,6 +262,5 @@ export const fr: I18nLocale = {
 
 	siteHeader: {
 		detrak: "Détrak",
-		game: "Partie :",
 	},
 };

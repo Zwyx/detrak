@@ -257,7 +257,6 @@ export const en = {
 
 	siteHeader: {
 		detrak: "Detrak",
-		game: "Game:",
 	},
 };
 

@@ -39,8 +39,7 @@ export const SiteHeader = ({
 							size="sm"
 							onClick={onGameIdClick}
 						>
-							{t("game")}
-							<code className="font-semibold">{gameId}</code>
+							<code className="font-bold">{gameId}</code>
 						</Button>
 					)}
 				</div>
