@@ -88,7 +88,7 @@ export const fr: I18nLocale = {
 		openMenu: "Ouvrir le menu",
 		detrak: "Détrak",
 		newFeatures: {
-			title: "Nouvelles fonctionnalités disponibles",
+			title: "Nouvelles fonctionnalités disponibles !",
 			description: "Terminez votre partie et rechargez l'application.",
 			action: "Recharger l'application",
 		},
@@ -166,9 +166,9 @@ export const fr: I18nLocale = {
 			shareLink: "Partager le lien",
 			copyLink: "Copier le lien dans le presse-papiers",
 			lastVersion: {
-				part1: "Note : vos ami·e·s doivent posséder Détrak version",
+				part1: "Note : vos ami·e·s doivent utiliser Détrak version",
 				part2:
-					"or supérieure. Rafraichir l'applications permet de la mettre à jour.",
+					"or supérieure. Fermer et rouvrir l'applications permet de la mettre à jour.",
 			},
 		},
 		shareJoin: {
@@ -188,13 +188,13 @@ export const fr: I18nLocale = {
 			welcomeToNewVersion: "Bienvenue dans la nouvelle version de Détrak !",
 		},
 		welcome: {
-			intro: "Il y a deux nouvelles façons de joue :",
+			intro: "Il y a deux nouvelles façons de jouer :",
 			dailyGame: "La partie du jour",
 			dailyGameDetails:
-				"chaque jour, la séquence de symboles tirée par les dés sera la même pour tout le monde.",
+				"chaque jour, la séquence de symboles tirée par les dés est la même pour tout le monde.",
 			playWithFriends: "Jouer avec des ami·e·s",
 			playWithFriendsDetails:
-				"vous pouvez maintenant créer une partie et inviter des personnes à rejoindre. Ici aussi, la séquence de symboles tirée pendant la partie sera la même pour vos ami·e·s et vous. Cela fonctionne même sans connexion internet.",
+				"créez une partie et invitez des personnes à la rejoindre. Ici aussi, la séquence de symboles tirée pendant la partie est la même pour vos ami·e·s et vous. Cela fonctionne même sans connexion internet !",
 			startPlaying: "Commencez à jouer !",
 		},
 		or: "ou",
