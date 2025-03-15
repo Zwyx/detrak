@@ -184,6 +184,7 @@ export const NewGameDialog = ({
 											if (newDate) {
 												setDate(newDate);
 												onNewGame(formatDate(newDate));
+												setTimeout(() => setDate(undefined), 500);
 											}
 										}}
 									/>
