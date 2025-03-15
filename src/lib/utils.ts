@@ -71,11 +71,17 @@ export const getCellColor = (
 				? "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
 				: "bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200"
 			: "\ud83d\udd35"
+		: score < 50
+		? mode === "css"
+			? contrast
+				? "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+				: "bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200"
+			: "\ud83d\udfe3"
 		: mode === "css"
 		? contrast
 			? "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-			: "bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200"
-		: "\ud83d\udfe3";
+			: "bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200"
+		: "\ud83d\udfe1";
 
 /**
  * Example grid:
@@ -91,6 +97,7 @@ export const getCellColor = (
  * -4+ 🟢
  *  4+ 🔵
  * 35+ 🟣
+ * 50+ 🟡
  *
  * ⬛       \u2b1b - ⚫       \u26ab
  * ⬜       \u2b1c - ⚪       \u26aa
