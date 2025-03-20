@@ -3,7 +3,7 @@ import { cn, formatDate, getSymbolNames, getUnicodeGrid } from "@/lib/utils";
 import { LucideDices, LucideUndo2 } from "lucide-react";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { Outlet, useParams } from "react-router";
 import { Cell, Grid } from "./components/Detrak";
 import { Dice } from "./components/Dice";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
@@ -694,6 +694,8 @@ export const App = () => {
 			)}
 
 			<div className="flex-1" />
+
+			<Outlet />
 		</div>
 	);
 };

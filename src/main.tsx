@@ -7,6 +7,7 @@ import * as Sentry from "@sentry/react";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import {
+	Navigate,
 	RouterProvider,
 	createBrowserRouter,
 	createRoutesFromChildren,
@@ -78,6 +79,10 @@ const router = sentryCreateBrowserRouter([
 			{
 				path: "/:gameId",
 				element: <div />,
+			},
+			{
+				path: "*",
+				element: <Navigate to="/" replace />,
 			},
 		],
 	},
