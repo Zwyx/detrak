@@ -222,7 +222,7 @@ export const Dice = ({
 			</div>
 
 			{marked && (
-				<div className="absolute mt-1 flex h-[60px] w-[60px] justify-center xsm:h-[86px] xsm:w-[86px]">
+				<div className="absolute mt-1 flex w-[60px] justify-center xsm:w-[86px]">
 					<LucideChevronUp />
 				</div>
 			)}
