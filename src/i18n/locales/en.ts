@@ -248,6 +248,11 @@ export const en = {
 				"Throws a confetti explosion when you beat your highest score!",
 		},
 
+		gridAtBottom: {
+			title: "Place the grid at the bottom of the screen",
+			description: "Useful to play with one hand on mobile.",
+		},
+
 		enableWakeLock: {
 			title: "Keep the screen on while playing",
 			description:

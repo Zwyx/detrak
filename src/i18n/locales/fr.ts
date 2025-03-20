@@ -248,9 +248,14 @@ export const fr: I18nLocale = {
 		},
 
 		showConfetti: {
-			title: "Confettis",
+			title: "Montrer les confettis",
 			description:
-				"Jette des confettis quand vous établissez un nouveau record !",
+				"Lance des confettis quand vous établissez un nouveau record !",
+		},
+
+		gridAtBottom: {
+			title: "Placer la grille en bas de l'écran",
+			description: "Utile pour jouer avec une main sur mobile.",
 		},
 
 		enableWakeLock: {
