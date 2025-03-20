@@ -5,11 +5,11 @@ export const fr: I18nLocale = {
 		close: "Fermer",
 		symbolNames: {
 			bar: "barre",
-			circle: "cercle",
 			cross: "croix",
+			tripleBar: "triple barre",
 			sharp: "dièse",
 			triangle: "triangle",
-			tripleBar: "triple barre",
+			circle: "cercle",
 		},
 	},
 
@@ -42,7 +42,8 @@ export const fr: I18nLocale = {
 			gameFinished: "Partie terminée ! Votre score est de",
 			gameFinishedNewHighestScore: "Partie terminée ! Nouveau record !",
 		},
-		startNewGame: "Jouer à nouveau",
+		replayGame: "Refaire cette partie",
+		startNewGame: "Jouer une nouvelle partie",
 		welcome: {
 			title: "Bienvenu dans le jeu Détrak !",
 			text: "Commencez par sélectionner l'un des six symboles ci-dessus.",

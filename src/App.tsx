@@ -195,16 +195,20 @@ export const App = () => {
 		}
 	}, []);
 
+	const clearGame = () => {
+		updateGrid({ x: -1, y: -1, newValue: null });
+		setDice([null, null]);
+		setMove(-1);
+		setMovesCoords([]);
+		setUndoVisible(false);
+		setMiddleOfGame(false);
+		diceRolled.current = false;
+		setNewHighestScore(false);
+	};
+
 	useEffect(() => {
 		if (!gameId) {
-			updateGrid({ x: -1, y: -1, newValue: null });
-			setDice([null, null]);
-			setMove(-1);
-			setMovesCoords([]);
-			setUndoVisible(false);
-			setMiddleOfGame(false);
-			diceRolled.current = false;
-			setNewHighestScore(false);
+			clearGame();
 
 			if (!localStorage.getItem(NUMBER_OF_GAMES_KEY)) {
 				if (
@@ -460,7 +464,7 @@ export const App = () => {
 
 			<div className="flex-1" />
 
-			<div className="my-2 flex h-[120px] w-full flex-col items-center justify-center overflow-hidden xsm:h-[170px]">
+			<div className="flex h-[135px] w-full flex-col items-center justify-center overflow-auto xsm:h-[150px]">
 				{startOfGame && (
 					<>
 						<div className="relative flex w-full min-w-[300px] max-w-[550px]">
@@ -590,15 +594,15 @@ export const App = () => {
 								</HelpTooltip>
 							</>
 						) : (
-							<div className="flex flex-col items-center gap-4">
-								<div className="mt-1 text-center font-[caveat] text-3xl">
+							<div className="flex flex-col items-center gap-1 xsm:gap-2">
+								<div className="text-center font-[caveat] text-3xl">
 									{newHighestScore
 										? t("endOnGameWithNewScore")
 										: t("endOnGame")}{" "}
 									{score}
 								</div>
 
-								<div className="flex gap-2">
+								<div className="flex flex-wrap justify-center gap-2">
 									<div>
 										<ButtonStatus
 											success={showShareSuccess}
@@ -638,6 +642,19 @@ export const App = () => {
 											{t("share.inviteFriends")}
 										</HelpTooltip>
 									</div>
+
+									<Button
+										disabled={move !== 1 && move !== 2}
+										onClick={() => {
+											clearGame();
+
+											if (gameId) {
+												setSeededPrng(getSeededPrng(gameId));
+											}
+										}}
+									>
+										{t("replayGame")}
+									</Button>
 
 									<Button
 										disabled={move !== 1 && move !== 2}

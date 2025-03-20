@@ -188,7 +188,7 @@ export const Cell = ({
 };
 
 const ScoreHelp = ({ value, score }: { value: string; score: string }) => (
-	<div className="font-[caveat]">
+	<div className="font-[caveat] leading-[16px] xsm:leading-[24px]">
 		<span className="text-[14px] xsm:text-[16px]">{value}</span>
 		<span className="text-[20px] xsm:text-[24px]">{score}</span>
 	</div>
@@ -231,13 +231,13 @@ export const Grid = ({
 						helpStep !== "clickGrid1" &&
 						helpStep !== "clickGrid2" ? (
 							<div key={x} className="flex flex-1 select-none justify-center">
-								<div className="absolute flex gap-2 xsm:gap-6">
-									<div className="text-right leading-[16px] xsm:leading-[24px]">
+								<div className="absolute mt-1 flex gap-2 xsm:gap-6">
+									<div className="text-right">
 										<ScoreHelp value="□ □ " score="=2" />
 										<ScoreHelp value="□ □ □ " score="=3" />
 									</div>
 
-									<div className="relative text-right leading-[16px] xsm:leading-[24px]">
+									<div className="relative text-right">
 										<ScoreHelp value="□ □ □ □ " score="=8  " />
 										<ScoreHelp value="□ □ □ □ □ " score="=10" />
 
@@ -248,7 +248,7 @@ export const Grid = ({
 										</div>
 									</div>
 
-									<div className="leading-[16px] xsm:leading-[24px]">
+									<div>
 										<ScoreHelp value=" " score="" />
 										<ScoreHelp value="" score="0=-5" />
 									</div>
