@@ -1,9 +1,8 @@
 // At https://fontsource.org/docs/getting-started/subsets it is said that
 // it's not recommended to specify a subset when importing fonts, but I still
-// want to do it because the service worker downloads all font files on
-// everyone's machines; specifying the subsets saves transferring about 300kB
+// do it because the service worker downloads all font files on
+// everyone's machines; specifying the subsets saves transferring 276kB
 import "@fontsource/caveat/latin-400.css";
-import "@fontsource/inter/latin-400.css";
 import * as Sentry from "@sentry/react";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";

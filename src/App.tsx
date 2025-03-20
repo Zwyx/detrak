@@ -421,7 +421,7 @@ export const App = () => {
 		t("share.text", { count: Number(score) }) + "\n" + getUnicodeGrid(grid);
 
 	return (
-		<div className="flex flex-col items-center font-[inter]">
+		<div className="flex flex-col items-center">
 			<NavigationBlocker shouldBlock={middleOfGame} />
 
 			<SiteHeader
