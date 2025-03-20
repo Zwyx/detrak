@@ -124,6 +124,10 @@ export const SettingsDialog = () => {
 					{t("showConfetti.description")}
 				</SettingCheckbox>
 
+				<SettingCheckbox name="gridAtBottom" title={t("gridAtBottom.title")}>
+					{t("gridAtBottom.description")}
+				</SettingCheckbox>
+
 				{navigator.wakeLock && (
 					<SettingCheckbox
 						name="enableWakeLock"

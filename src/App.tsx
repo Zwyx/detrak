@@ -421,7 +421,12 @@ export const App = () => {
 		t("share.text", { count: Number(score) }) + "\n" + getUnicodeGrid(grid);
 
 	return (
-		<div className="flex flex-col items-center">
+		<div
+			className={cn(
+				"flex flex-col items-center",
+				settings.gridAtBottom && "h-dvh",
+			)}
+		>
 			<NavigationBlocker shouldBlock={middleOfGame} />
 
 			<SiteHeader
@@ -452,6 +457,8 @@ export const App = () => {
 			<div className="sr-only" role="status">
 				{srText}
 			</div>
+
+			<div className="flex-1" />
 
 			<div className="my-2 flex h-[120px] w-full flex-col items-center justify-center overflow-hidden xsm:h-[170px]">
 				{startOfGame && (
@@ -687,13 +694,13 @@ export const App = () => {
 			</div>
 
 			{typeof highestScore === "number" && (
-				<div className="mt-1 text-center font-[caveat] text-3xl">
+				// `font-[caveat]` makes the root element taking 1 extra pixel in height when using `h-dvh`,
+				// which make the scroll bar visible; `h-[2.5rem]` is to prevent that
+				<div className="h-[2.5rem] text-center font-[caveat] text-3xl">
 					{t("numberOfGames", { count: numberOfGames })} – {t("bestScore")}{" "}
 					{highestScore}
 				</div>
 			)}
-
-			<div className="flex-1" />
 
 			<Outlet />
 		</div>

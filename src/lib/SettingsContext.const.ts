@@ -10,6 +10,7 @@ export interface Settings {
 	autoRollDice: boolean;
 	showDiceMarker: boolean;
 	showConfetti: boolean;
+	gridAtBottom: boolean;
 	enableWakeLock: boolean;
 	showNavigationAlert: boolean;
 }
@@ -22,6 +23,7 @@ export const defaultSettings: Settings = {
 	autoRollDice: false,
 	showDiceMarker: true,
 	showConfetti: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+	gridAtBottom: false,
 	enableWakeLock: true,
 	showNavigationAlert: true,
 };
