@@ -5,16 +5,16 @@ export const en = {
 		close: "Close",
 		symbolNames: {
 			bar: "bar",
-			circle: "circle",
 			cross: "cross",
+			tripleBar: "triple bar",
 			sharp: "sharp",
 			triangle: "triangle",
-			tripleBar: "triple bar",
+			circle: "circle",
 		},
 	},
 
 	app: {
-		bestScore: "best:",
+		bestScore: "best score:",
 		endOnGame: "Finished! Your score is",
 		endOnGameWithNewScore: "Well done! New highest score:",
 		numberOfGames_one: "{{count}} game",
@@ -43,6 +43,7 @@ export const en = {
 			gameFinished: "Game finished! Score:",
 			gameFinishedNewHighestScore: "Game finished! New highest score!",
 		},
+		replayGame: "Replay this game",
 		startNewGame: "Start a new game",
 		welcome: {
 			title: "Welcome to Detrak!",
