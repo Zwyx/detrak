@@ -186,6 +186,7 @@ export const App = () => {
 	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
 
 	const wakeLockSentinel = useRef<WakeLockSentinel | undefined>();
+	const [wls, setWls] = useState("");
 
 	useEffect(() => {
 		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
@@ -400,8 +401,12 @@ export const App = () => {
 
 	useEffect(() => {
 		if (middleOfGame && settings.enableWakeLock) {
+			setWls("request wake lock");
+			setTimeout(() => setWls(""), 3000);
 			requestWakeLock();
 		} else if (wakeLockSentinel.current) {
+			setWls("release wake lock");
+			setTimeout(() => setWls(""), 3000);
 			wakeLockSentinel.current.release();
 			wakeLockSentinel.current = undefined;
 		}
@@ -410,7 +415,12 @@ export const App = () => {
 	useEffect(() => {
 		const handleVisibilityChange = () => {
 			if (wakeLockSentinel.current && document.visibilityState === "visible") {
+				setWls("request wake lock after visibility change");
+				setTimeout(() => setWls(""), 3000);
 				requestWakeLock();
+			} else {
+				setWls(`visibility changed to ${document.visibilityState}`);
+				setTimeout(() => setWls(""), 3000);
 			}
 		};
 
@@ -461,6 +471,8 @@ export const App = () => {
 			<div className="sr-only" role="status">
 				{srText}
 			</div>
+
+			<div>{wls}</div>
 
 			<div className="flex-1" />
 
