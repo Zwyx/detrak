@@ -24,7 +24,7 @@ export const defaultSettings: Settings = {
 	showDiceMarker: true,
 	showConfetti: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 	gridAtBottom: false,
-	enableWakeLock: true,
+	enableWakeLock: false,
 	showNavigationAlert: true,
 };
 
