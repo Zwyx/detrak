@@ -23,6 +23,11 @@ import {
 } from "./lib/local-storage-keys";
 import { GAME_ID_REGEX, SeededPrng, getSeededPrng } from "./lib/prng";
 import { useHistoryState } from "./lib/useHistoryState.const";
+import {
+	releaseWakeLock,
+	requestWakeLock,
+	resetWakeLockTimeout,
+} from "./lib/wakeLock";
 
 const getLineScore = (line: DetrakLine): number => {
 	const symbols = line.slice(1, -1);
@@ -184,8 +189,6 @@ export const App = () => {
 	const shareGameLink = `${location.host}/${gameId}`;
 	const shareGameLinkHttps = `https://${shareGameLink}`;
 	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
-
-	const wakeLockSentinel = useRef<WakeLockSentinel | undefined>();
 
 	useEffect(() => {
 		const storedHighestScore = localStorage.getItem(HIGHEST_SCORE_KEY);
@@ -380,46 +383,27 @@ export const App = () => {
 		}
 	}, [settings.autoRollDice, canRollDice, rollDice]);
 
-	const requestWakeLock = () =>
-		navigator.wakeLock
-			?.request("screen")
-			.then((newWakeLockSentinel) => {
-				wakeLockSentinel.current = newWakeLockSentinel;
-
-				setTimeout(
-					() => {
-						if (wakeLockSentinel.current) {
-							wakeLockSentinel.current.release();
-							wakeLockSentinel.current = undefined;
-						}
-					},
-					5 * 60 * 1000,
-				);
-			})
-			.catch(() => {});
-
 	useEffect(() => {
-		if (middleOfGame && settings.enableWakeLock) {
-			requestWakeLock();
-		} else if (wakeLockSentinel.current) {
-			wakeLockSentinel.current.release();
-			wakeLockSentinel.current = undefined;
-		}
-	}, [middleOfGame, settings.enableWakeLock]);
-
-	useEffect(() => {
-		const handleVisibilityChange = () => {
-			if (wakeLockSentinel.current && document.visibilityState === "visible") {
+		const manageWakeLock = () => {
+			if (
+				middleOfGame &&
+				settings.enableWakeLock &&
+				document.visibilityState === "visible"
+			) {
 				requestWakeLock();
+			} else {
+				releaseWakeLock();
 			}
 		};
 
-		document.addEventListener("visibilitychange", handleVisibilityChange);
+		manageWakeLock();
+
+		document.addEventListener("visibilitychange", manageWakeLock);
 
 		return () => {
-			document.removeEventListener("visibilitychange", handleVisibilityChange);
+			document.removeEventListener("visibilitychange", manageWakeLock);
 		};
-	}, []);
+	}, [middleOfGame, settings.enableWakeLock]);
 
 	const getShareText = () =>
 		t("share.text", { count: Number(score) }) + "\n" + getUnicodeGrid(grid);
@@ -692,6 +676,7 @@ export const App = () => {
 									setMove(move + 1);
 									setUndoVisible(true);
 									diceRolled.current = false;
+									resetWakeLockTimeout();
 
 									if (helpStep === "clickGrid1") {
 										setHelpStep("clickGrid2");
