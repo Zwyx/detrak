@@ -19,7 +19,6 @@ import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonStatus } from "./common/ButtonStatus";
-import { Code } from "./common/Code";
 import { Button } from "./ui/button";
 
 export const NewGameDialog = ({
@@ -255,15 +254,11 @@ export const NewGameDialog = ({
 									(navigator.share
 										? navigator.share({
 												title: t("shareCreate.title"),
-												text: `${t("shareCreate.joinMe")} ${t(
-													"shareCreate.newVersion",
-												)}`,
+												text: t("shareCreate.joinMe"),
 												url: shareGameLinkHttps,
 										  })
 										: navigator.clipboard.writeText(
-												`${t("shareCreate.joinMe")} ${shareGameLinkHttps}\n${t(
-													"shareCreate.newVersion",
-												)}`,
+												`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
 										  )
 									)
 										.then(() => {
@@ -279,12 +274,6 @@ export const NewGameDialog = ({
 									? t("shareCreate.shareLink")
 									: t("shareCreate.copyLink")}
 							</ButtonStatus>
-						</div>
-
-						<div className="text-center text-sm font-medium">
-							{t("shareCreate.lastVersion.part1")}{" "}
-							<Code className="text-warning">2.0.0</Code>{" "}
-							{t("shareCreate.lastVersion.part2")}
 						</div>
 
 						{currentGameId ? (

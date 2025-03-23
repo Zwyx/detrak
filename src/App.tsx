@@ -594,15 +594,11 @@ export const App = () => {
 												(navigator.share
 													? navigator.share({
 															title: t("share.title"),
-															text: `${getShareText()}\n${t(
-																"share.newVersion",
-															)}`,
+															text: getShareText(),
 															url: shareGameLinkHttps,
 													  })
 													: navigator.clipboard.writeText(
-															`${getShareText()}\n${shareGameLinkHttps}\n${t(
-																"share.newVersion",
-															)}`,
+															`${getShareText()}\n${shareGameLinkHttps}`,
 													  )
 												)
 													.then(() => {

@@ -34,8 +34,6 @@ export const en = {
 				"And invite them to challenge you on the same game (the symbols drawn during their game will be the same as yours).",
 			title: "Detrak",
 			text: "🎲 Just did {{count}} on Detrak! Can you do better? 🤞",
-			newVersion:
-				"(If you played before, close the app and reload it to get the latest version: 2.0.0)",
 		},
 		sr: {
 			selectSymbol: "Select one of the six symbols to start.",
@@ -163,14 +161,8 @@ export const en = {
 			clickPlay: "Then click Play.",
 			title: "Detrak",
 			joinMe: "🎲 Join me for this game of Detrak!",
-			newVersion:
-				"(If you played before, close the app and reload it to get the latest version: 2.0.0)",
 			shareLink: "Share link",
 			copyLink: "Copy link to clipboard",
-			lastVersion: {
-				part1: "Note: your friends need Detrak version",
-				part2: "or superior. They can close and reopen the app to update.",
-			},
 		},
 		shareJoin: {
 			useCamera: "Use your device's camera to scan a game's QR code.",
