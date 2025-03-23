@@ -33,8 +33,6 @@ export const fr: I18nLocale = {
 				"Et invitez-les à vous défier sur la même partie (les symboles tirés pendant leur jeu seront les mêmes que les vôtres).",
 			title: "Détrak",
 			text: "🎲 {{count}} à Détrak ! Peux-tu faire mieux ? 🤞",
-			newVersion:
-				"(Si tu y avais joué précédemment, ferme l'appli et relance-la pour obtenir la dernière version: 2.0.0)",
 		},
 		sr: {
 			selectSymbol: "Sélectionnez l'un des six symbols pour commencer.",
@@ -162,15 +160,8 @@ export const fr: I18nLocale = {
 			clickPlay: "Puis cliquez sur Jouer.",
 			title: "Detrak",
 			joinMe: "🎲 Rejoins-moi pour cette partie de Détrak !",
-			newVersion:
-				"(Si tu y avais joué précédemment, ferme l'appli et relance-la pour obtenir la dernière version: 2.0.0)",
 			shareLink: "Partager le lien",
 			copyLink: "Copier le lien dans le presse-papiers",
-			lastVersion: {
-				part1: "Note : vos ami·e·s doivent utiliser Détrak version",
-				part2:
-					"or supérieure. Fermer et rouvrir l'applications permet de la mettre à jour.",
-			},
 		},
 		shareJoin: {
 			useCamera:
