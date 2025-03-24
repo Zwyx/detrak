@@ -412,7 +412,7 @@ export const App = () => {
 		<div
 			className={cn(
 				"flex flex-col items-center",
-				settings.gridAtBottom && "h-dvh",
+				settings.gridAtBottom && "h-dvh min-h-fit",
 			)}
 		>
 			<NavigationBlocker shouldBlock={middleOfGame} />
