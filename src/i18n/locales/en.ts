@@ -79,9 +79,11 @@ export const en = {
 	},
 
 	error: {
+		oops: "Oops, something went wrong.",
 		error:
 			"An unexpected error occurred, please reload the page. Sorry for the inconvenience.",
-		oops: "Oops, something went wrong.",
+		googleTranslateNote:
+			"Note: if you are using Google Chrome's translate feature to translate this page, then this feature is probably the cause of this error.",
 		reload: "Reload",
 	},
 
