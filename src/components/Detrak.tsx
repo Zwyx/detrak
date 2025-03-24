@@ -1,6 +1,7 @@
 import { useSettingsContext } from "@/lib/SettingsContext.const";
 import { DetrakGrid } from "@/lib/common";
 import { cn, getCellColor, getSymbolNames } from "@/lib/utils";
+import { memo } from "react";
 import { useTranslation } from "react-i18next";
 import { HelpStep, HelpTooltip } from "./HelpTooltip";
 
@@ -57,7 +58,7 @@ export const SymbolBack = ({ bgColor }: { bgColor?: boolean | string }) => (
 	</div>
 );
 
-export const Cell = ({
+export const Cell = memo(function Cell({
 	x = 1,
 	y = 1,
 	value,
@@ -77,7 +78,7 @@ export const Cell = ({
 	right?: boolean;
 	helpStep?: HelpStep;
 	onClick?: () => void;
-}) => {
+}) {
 	const { t } = useTranslation("detrak");
 
 	const { settings } = useSettingsContext();
@@ -185,7 +186,7 @@ export const Cell = ({
 			)}
 		</button>
 	);
-};
+});
 
 const ScoreHelp = ({ value, score }: { value: string; score: string }) => (
 	<div className="font-[caveat] leading-[16px] xsm:leading-[24px]">
@@ -194,7 +195,7 @@ const ScoreHelp = ({ value, score }: { value: string; score: string }) => (
 	</div>
 );
 
-export const Grid = ({
+export const Grid = memo(function Grid({
 	grid,
 	startOfGame,
 	firstMoveCoords,
@@ -206,7 +207,7 @@ export const Grid = ({
 	firstMoveCoords?: { x: number; y: number };
 	helpStep?: HelpStep;
 	onClick?: (x: number, y: number) => void;
-}) => {
+}) {
 	const { t } = useTranslation("detrak");
 
 	const { settings } = useSettingsContext();
@@ -292,4 +293,4 @@ export const Grid = ({
 			<div className="absolute bottom-[-1%] left-[-0.5%] h-[16.3%] w-[1%] flex-1 rounded bg-accent-foreground" />
 		</div>
 	);
-};
+});
