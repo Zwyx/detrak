@@ -11,12 +11,12 @@ module.exports = {
 	extends: [
 		"eslint:recommended",
 		// Type-checked rules disabled – see above
-		// "plugin:@typescript-eslint/recommended-type-checked",
-		"plugin:@typescript-eslint/recommended",
+		// "plugin:@typescript-eslint/strict-type-checked",
+		"plugin:@typescript-eslint/strict",
 		"plugin:react/recommended",
 		"plugin:react/jsx-runtime",
 		"plugin:react-hooks/recommended",
-		"plugin:jsx-a11y/recommended",
+		"plugin:jsx-a11y/strict",
 		"plugin:react-ref/recommended-legacy",
 		"prettier",
 	],
@@ -76,30 +76,19 @@ module.exports = {
 		// ---------- TypeScript ----------
 
 		// Enforce consistent usage of type imports
-		// Maybe later, VS Code automatic support isn't great; "@typescript-eslint/consistent-type-imports": "warn",
+		// Will activate when VS Code's feature "organise imports" manages that automatically
+		// "@typescript-eslint/consistent-type-imports": "warn",
 
 		// Disallow the declaration of empty interfaces, but allow to extend a single interface
+		// Replaced by `@typescript-eslint/no-empty-object-type` in future versions (is in the recommended config)
 		"@typescript-eslint/no-empty-interface": [
 			"warn",
 			{ allowSingleExtends: true },
 		],
 
-		// Disallow non-null assertions using the `!` postfix operator
-		"@typescript-eslint/no-non-null-assertion": "warn",
-
 		// Disallow variable declarations from shadowing variables declared in the outer scope; necessitates to disable `no-shadow`, see https://typescript-eslint.io/rules/no-shadow
 		"no-shadow": "off",
 		"@typescript-eslint/no-shadow": "warn",
-
-		// Type-checked rules disabled – see above
-		// Enforce using the nullish coalescing operator instead of logical assignments or chaining
-		// "@typescript-eslint/prefer-nullish-coalescing": [
-		// 	"warn",
-		// 	{
-		// 		// `a || b` and `a ?? b` doesn't have the same signification if `a` is of type `boolean | undefined`
-		// 		ignorePrimitives: true,
-		// 	},
-		// ],
 
 		// ---------- React ----------
 
