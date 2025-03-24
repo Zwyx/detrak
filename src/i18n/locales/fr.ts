@@ -78,8 +78,10 @@ export const fr: I18nLocale = {
 	},
 
 	error: {
-		error: "Une erreur inattendue s'est produite, veuillez recharger la page.",
 		oops: "Oups...",
+		error: "Une erreur inattendue s'est produite, veuillez recharger la page.",
+		googleTranslateNote:
+			"Note : si vous utilisez la fonctionnalité de traduction de Google Chrome pour traduire cette page, alors cette fonctionnalité est probablement la cause de l'erreur.",
 		reload: "Recharger",
 	},
 

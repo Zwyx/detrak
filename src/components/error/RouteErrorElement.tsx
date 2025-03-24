@@ -19,6 +19,8 @@ export const RouteErrorElement = () => {
 
 			<p className="mt-4">{t("error")}</p>
 
+			<p className="mt-4">{t("googleTranslateNote")}</p>
+
 			<Button className="mt-6" onClick={() => location.reload()}>
 				{t("reload")}
 			</Button>
