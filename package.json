@@ -12,7 +12,8 @@
 		"eslint:print-active-rules": "eslint --print-config src/index.ts",
 		"prettier": "prettier -w .",
 		"generate-pwa-assets": "res/generate-pwa-assets.sh",
-		"check-prng": "bun -e 'import { checkPrngNumbersRepartition } from \"./src/lib/prng\"; checkPrngNumbersRepartition()'"
+		"check-prng": "bun -e 'import { checkPrngNumbersRepartition } from \"./src/lib/prng\"; checkPrngNumbersRepartition()'",
+		"find-remarkable-games": "bun -e 'import { findRemarkableGames } from \"./src/lib/prng\"; findRemarkableGames()'"
 	},
 	"dependencies": {
 		"@fontsource/caveat": "^5.0.3",
