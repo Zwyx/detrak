@@ -16,8 +16,12 @@ const isLocaleCode = (value: unknown): value is I18nLocaleCode =>
 
 const storedLocaleCode = localStorage.getItem(LOCALE_KEY);
 
+i18n.on("languageChanged", (lng) => {
+	document.documentElement.lang = lng;
+});
+
 i18n.use(initReactI18next).init({
-	// debug: true,
+	debug: true,
 	lng: isLocaleCode(storedLocaleCode) ? storedLocaleCode : navigator.language,
 	fallbackLng: "en",
 	ns: Object.keys(resources.en),
