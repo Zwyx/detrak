@@ -16,7 +16,7 @@
 
 		/* Linting */
 		"strict": true,
-		// "noUncheckedIndexedAccess": true,
+		// "noUncheckedIndexedAccess": true, // See note in `.eslintrc.cjs`
 
 		"allowJs": true, // This is for `confetti.min.js`
 

@@ -105,9 +105,9 @@ export const SettingsDialog = () => {
 					name="autoRollDice"
 					disabled={numberOfGames === 0}
 					title={`${t("autoRollDice.title")} ${
-						numberOfGames === 0
-							? t("autoRollDice.notAvailableDuringTheFirstGame")
-							: ""
+						numberOfGames === 0 ?
+							t("autoRollDice.notAvailableDuringTheFirstGame")
+						:	""
 					}`}
 				>
 					{t("autoRollDice.description")}

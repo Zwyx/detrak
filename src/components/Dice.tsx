@@ -1,5 +1,6 @@
 import { useSettingsContext } from "@/lib/SettingsContext.const";
-import { cn, usePrevious } from "@/lib/utils";
+import { usePrevious } from "@/lib/usePrevious";
+import { cn } from "@/lib/utils";
 import { LucideChevronUp } from "lucide-react";
 import { useEffect, useRef } from "react";
 import {
@@ -54,15 +55,15 @@ export const Dice = ({
 		};
 
 		const previousY =
-			previousFace === "front" ||
-			previousFace === "top" ||
-			previousFace === "bottom"
-				? { transform: `rotate3d(0, 0, 0, 0deg)` }
-				: previousFace === "right"
-				? { transform: `rotate3d(0, 1, 0, -90deg)` }
-				: previousFace === "left"
-				? { transform: `rotate3d(0, 1, 0, 90deg)` }
-				: { transform: `rotate3d(0, 1, 0, 180deg)` };
+			(
+				previousFace === "front" ||
+				previousFace === "top" ||
+				previousFace === "bottom"
+			) ?
+				{ transform: `rotate3d(0, 0, 0, 0deg)` }
+			: previousFace === "right" ? { transform: `rotate3d(0, 1, 0, -90deg)` }
+			: previousFace === "left" ? { transform: `rotate3d(0, 1, 0, 90deg)` }
+			: { transform: `rotate3d(0, 1, 0, 180deg)` };
 
 		containerZ.current.animate(
 			[
@@ -201,19 +202,17 @@ export const Dice = ({
 								)}
 							>
 								<div className="absolute flex h-full w-full items-center justify-center rounded-2xl bg-dice">
-									{face === "front" ? (
+									{face === "front" ?
 										<SymbolFront />
-									) : face === "top" ? (
+									: face === "top" ?
 										<SymbolTop />
-									) : face === "right" ? (
+									: face === "right" ?
 										<SymbolRight />
-									) : face === "left" ? (
+									: face === "left" ?
 										<SymbolLeft />
-									) : face === "bottom" ? (
+									: face === "bottom" ?
 										<SymbolBottom />
-									) : (
-										face === "back" && <SymbolBack bgColor={"bg-dice"} />
-									)}
+									:	face === "back" && <SymbolBack bgColor={"bg-dice"} />}
 								</div>
 							</div>
 						))}

@@ -1,5 +1,5 @@
-// Type-checked rules are disabled; they are a bit too strict for a side project,
-// and they have a toll on VS Code's performance (using three to five times more CPU when typing)
+// We have tried to add type-checked rules (and TypeScript's `noUncheckedIndexedAccess`),
+// but it would be a lot of effort which is not justified as development is mostly done.
 
 /** @type {import('@types/eslint').Linter.BaseConfig} */
 module.exports = {

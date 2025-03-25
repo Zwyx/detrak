@@ -24,10 +24,9 @@ import { SettingsContextProvider } from "./lib/SettingsContext.tsx";
 import { ThemeContextProvider } from "./lib/ThemeContext.tsx";
 import { initPlausible } from "./lib/plausible.ts";
 
-const pwa = document.referrer.startsWith("android-app://")
-	? "twa"
-	: window.matchMedia("(display-mode: standalone)").matches
-	? "standalone"
+const pwa =
+	document.referrer.startsWith("android-app://") ? "twa"
+	: window.matchMedia("(display-mode: standalone)").matches ? "standalone"
 	: "browser";
 
 initPlausible(pwa);
