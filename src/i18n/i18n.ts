@@ -21,7 +21,7 @@ i18n.on("languageChanged", (lng) => {
 });
 
 i18n.use(initReactI18next).init({
-	debug: true,
+	// debug: true,
 	lng: isLocaleCode(storedLocaleCode) ? storedLocaleCode : navigator.language,
 	fallbackLng: "en",
 	ns: Object.keys(resources.en),
