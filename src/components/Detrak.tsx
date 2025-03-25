@@ -106,13 +106,13 @@ export const Cell = memo(function Cell({
 				scoreCell && getCellColor(value, "css", settings.showScoreWithContrast),
 			)}
 			aria-label={
-				startOfGame && typeof value === "number"
-					? symbolNames[value]
-					: `${t("ariaLabel.row")} ${y} ${t("ariaLabel.column")} ${x} ${
-							typeof value === "number"
-								? symbolNames[value]
-								: t("ariaLabel.empty")
-					  }`
+				startOfGame && typeof value === "number" ?
+					symbolNames[value]
+				:	`${t("ariaLabel.row")} ${y} ${t("ariaLabel.column")} ${x} ${
+						typeof value === "number" ?
+							symbolNames[value]
+						:	t("ariaLabel.empty")
+					}`
 			}
 			disabled={!canPlay}
 			onClick={onClick}
@@ -127,19 +127,12 @@ export const Cell = memo(function Cell({
 			}
 		>
 			{symbol &&
-				(value === 0 ? (
-					<SymbolFront />
-				) : value === 1 ? (
-					<SymbolTop />
-				) : value === 2 ? (
-					<SymbolRight />
-				) : value === 3 ? (
-					<SymbolLeft />
-				) : value === 4 ? (
-					<SymbolBottom />
-				) : (
-					value === 5 && <SymbolBack bgColor={bgColor} />
-				))}
+				(value === 0 ? <SymbolFront />
+				: value === 1 ? <SymbolTop />
+				: value === 2 ? <SymbolRight />
+				: value === 3 ? <SymbolLeft />
+				: value === 4 ? <SymbolBottom />
+				: value === 5 && <SymbolBack bgColor={bgColor} />)}
 
 			{scoreCell && (
 				<span className="mr-3 font-[caveat] text-6xl max-[550px]:text-[8vw]">
@@ -223,14 +216,16 @@ export const Grid = memo(function Grid({
 				// it's ok to use the index as key, as the size of the array will never and items will never be reordered
 				<div key={y} className="flex flex-1">
 					{row.map((value, x) =>
-						y === 0 &&
-						x === 3 &&
-						settings.showScoreLegend &&
-						helpStep !== "welcome" &&
-						helpStep !== "rollDice1" &&
-						helpStep !== "diceRolling1" &&
-						helpStep !== "clickGrid1" &&
-						helpStep !== "clickGrid2" ? (
+						(
+							y === 0 &&
+							x === 3 &&
+							settings.showScoreLegend &&
+							helpStep !== "welcome" &&
+							helpStep !== "rollDice1" &&
+							helpStep !== "diceRolling1" &&
+							helpStep !== "clickGrid1" &&
+							helpStep !== "clickGrid2"
+						) ?
 							<div key={x} className="flex flex-1 select-none justify-center">
 								<div className="absolute mt-1 flex gap-2 xsm:gap-6">
 									<div className="text-right">
@@ -255,8 +250,7 @@ export const Grid = memo(function Grid({
 									</div>
 								</div>
 							</div>
-						) : (
-							<Cell
+						:	<Cell
 								key={x}
 								x={x}
 								y={y}
@@ -264,17 +258,21 @@ export const Grid = memo(function Grid({
 								endOfGame={grid[0][0] !== null}
 								helpStep={helpStep}
 								onClick={
-									onClick &&
-									(!firstMoveCoords ||
-										(x === firstMoveCoords.x && y === firstMoveCoords.y - 1) ||
-										(x === firstMoveCoords.x && y === firstMoveCoords.y + 1) ||
-										(x === firstMoveCoords.x - 1 && y === firstMoveCoords.y) ||
-										(x === firstMoveCoords.x + 1 && y === firstMoveCoords.y))
-										? () => onClick(x, y)
-										: undefined
+									(
+										onClick &&
+										(!firstMoveCoords ||
+											(x === firstMoveCoords.x &&
+												y === firstMoveCoords.y - 1) ||
+											(x === firstMoveCoords.x &&
+												y === firstMoveCoords.y + 1) ||
+											(x === firstMoveCoords.x - 1 &&
+												y === firstMoveCoords.y) ||
+											(x === firstMoveCoords.x + 1 && y === firstMoveCoords.y))
+									) ?
+										() => onClick(x, y)
+									:	undefined
 								}
-							/>
-						),
+							/>,
 					)}
 				</div>
 			))}

@@ -31,9 +31,9 @@ function getSeed(text: string): number {
  */
 export function getSeededPrng(seedText: string, overrideForTestOnly?: number) {
 	let seed =
-		typeof overrideForTestOnly === "number"
-			? overrideForTestOnly
-			: getSeed(seedText);
+		typeof overrideForTestOnly === "number" ? overrideForTestOnly : (
+			getSeed(seedText)
+		);
 
 	return {
 		getNext: () => {

@@ -34,7 +34,7 @@ export const ButtonStatus = ({
 
 			<svg
 				className={cn(
-					"stroke-success-dim pointer-events-none absolute z-20 animate-[showIcon_2s_ease-in-out_forwards]",
+					"pointer-events-none absolute z-20 animate-[showIcon_2s_ease-in-out_forwards] stroke-success-dim",
 					!success && "hidden",
 				)}
 				xmlns="http://www.w3.org/2000/svg"
