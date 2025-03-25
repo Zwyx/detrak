@@ -1,4 +1,10 @@
-import { PropsWithChildren, useEffect, useRef, useState } from "react";
+import {
+	PropsWithChildren,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { registerSW } from "virtual:pwa-register";
 import { PwaContext } from "./PwaContext.const";
 
@@ -14,26 +20,29 @@ export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 	const [refreshPending, setRefreshPending] = useState(false);
 	const [refresh, setRefresh] = useState<() => Promise<void>>();
 
-	const checkForNewVersion = () =>
-		fetch(`https://${location.host}/.well-known/version`)
-			.then((res) => res.text())
-			.then((rawLatestVersion) => {
-				const latestVersion = rawLatestVersion.replace(/\n/, "");
+	const checkForNewVersion = useCallback(
+		() =>
+			fetch(`https://${location.host}/.well-known/version`)
+				.then((res) => res.text())
+				.then((rawLatestVersion) => {
+					const latestVersion = rawLatestVersion.replace(/\n/, "");
 
-				if (APP_VERSION !== latestVersion) {
-					update.current?.();
+					if (APP_VERSION !== latestVersion) {
+						update.current?.();
 
-					const majorAppVersion = APP_VERSION.split(".")[0];
-					const majorLatestVersion = latestVersion.split(".")[0];
+						const majorAppVersion = APP_VERSION.split(".")[0];
+						const majorLatestVersion = latestVersion.split(".")[0];
 
-					if (majorAppVersion !== majorLatestVersion) {
-						setNewMajorVersionAvailable(true);
+						if (majorAppVersion !== majorLatestVersion) {
+							setNewMajorVersionAvailable(true);
+						}
 					}
-				}
-			})
-			.catch(() => {
-				update.current?.();
-			});
+				})
+				.catch(() => {
+					update.current?.();
+				}),
+		[],
+	);
 
 	useEffect(() => {
 		setRefresh(() =>
@@ -53,7 +62,7 @@ export const PwaContextProvider = ({ children }: PropsWithChildren) => {
 	useEffect(() => {
 		checkForNewVersion();
 		setInterval(checkForNewVersion, 24 * 60 * 60 * 1000);
-	}, []);
+	}, [checkForNewVersion]);
 
 	return (
 		<PwaContext.Provider
