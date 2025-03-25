@@ -9,9 +9,9 @@ export function HistoryStateLink<T>(props: HistoryStateLinkProps<T>) {
 		<Link
 			{...{
 				...props,
-				...(props.state
-					? { state: { ...history.state.usr, ...props.state } }
-					: { state: history.state.usr }),
+				...(props.state ?
+					{ state: { ...history.state.usr, ...props.state } }
+				:	{ state: history.state.usr }),
 			}}
 		/>
 	);

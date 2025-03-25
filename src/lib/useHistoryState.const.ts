@@ -43,9 +43,9 @@ export function useHistoryState<T>() {
 		(to, options) =>
 			originalNavigate(to, {
 				...options,
-				...(options?.state
-					? { state: { ...history.state.usr, ...options.state } }
-					: { state: history.state.usr }),
+				...(options?.state ?
+					{ state: { ...history.state.usr, ...options.state } }
+				:	{ state: history.state.usr }),
 			}),
 		[originalNavigate],
 	);

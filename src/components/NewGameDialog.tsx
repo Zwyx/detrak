@@ -66,10 +66,12 @@ export const NewGameDialog = ({
 		} else {
 			replaceState({
 				newGameDialogView:
-					localStorage.getItem(NUMBER_OF_GAMES_KEY) &&
-					!localStorage.getItem(VERSION_2_WELCOME_SHOWN_KEY)
-						? "welcome"
-						: "new_game",
+					(
+						localStorage.getItem(NUMBER_OF_GAMES_KEY) &&
+						!localStorage.getItem(VERSION_2_WELCOME_SHOWN_KEY)
+					) ?
+						"welcome"
+					:	"new_game",
 			});
 			setRandomGameId(getRandomId(8));
 		}
@@ -97,19 +99,19 @@ export const NewGameDialog = ({
 								</Button>
 							)}
 
-						{state.newGameDialogView === "pwa_refreshing"
-							? ""
-							: currentGameId
-							? t("title.inviteToGame")
-							: state.newGameDialogView === "welcome"
-							? t("title.welcomeToNewVersion")
-							: state.newGameDialogView === "share"
-							? t("title.playWithFriends")
-							: state.newGameDialogView === "share_create"
-							? t("title.createGame")
-							: state.newGameDialogView === "share_join"
-							? t("title.joinGame")
-							: t("title.newGame")}
+						{state.newGameDialogView === "pwa_refreshing" ?
+							""
+						: currentGameId ?
+							t("title.inviteToGame")
+						: state.newGameDialogView === "welcome" ?
+							t("title.welcomeToNewVersion")
+						: state.newGameDialogView === "share" ?
+							t("title.playWithFriends")
+						: state.newGameDialogView === "share_create" ?
+							t("title.createGame")
+						: state.newGameDialogView === "share_join" ?
+							t("title.joinGame")
+						:	t("title.newGame")}
 					</DialogTitle>
 				</DialogHeader>
 
@@ -245,15 +247,15 @@ export const NewGameDialog = ({
 								size="sm"
 								success={showShareSuccess}
 								onClick={() =>
-									(navigator.share
-										? navigator.share({
-												title: t("shareCreate.title"),
-												text: t("shareCreate.joinMe"),
-												url: shareGameLinkHttps,
-										  })
-										: navigator.clipboard.writeText(
-												`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
-										  )
+									(navigator.share ?
+										navigator.share({
+											title: t("shareCreate.title"),
+											text: t("shareCreate.joinMe"),
+											url: shareGameLinkHttps,
+										})
+									:	navigator.clipboard.writeText(
+											`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
+										)
 									)
 										.then(() => {
 											if (!showShareSuccess) {
@@ -264,13 +266,13 @@ export const NewGameDialog = ({
 										.catch(() => {})
 								}
 							>
-								{navigator["share"]
-									? t("shareCreate.shareLink")
-									: t("shareCreate.copyLink")}
+								{navigator["share"] ?
+									t("shareCreate.shareLink")
+								:	t("shareCreate.copyLink")}
 							</ButtonStatus>
 						</div>
 
-						{currentGameId ? (
+						{currentGameId ?
 							<div className="flex w-full justify-between">
 								<Button
 									variant="outline"
@@ -284,14 +286,13 @@ export const NewGameDialog = ({
 									{t("close")}
 								</Button>
 							</div>
-						) : (
-							<Button
+						:	<Button
 								className="h-12 w-full text-wrap"
 								onClick={() => onNewGame(randomGameId)}
 							>
 								{t("play")}
 							</Button>
-						)}
+						}
 					</>
 				)}
 

@@ -43,15 +43,11 @@ const getLineScore = (line: DetrakLine): number => {
 
 		if (symbol !== previousSymbol || index === symbols.length - 1) {
 			score +=
-				numberOfPreviousSymbols === 2
-					? 2
-					: numberOfPreviousSymbols === 3
-					? 3
-					: numberOfPreviousSymbols === 4
-					? 8
-					: numberOfPreviousSymbols === 5
-					? 10
-					: 0;
+				numberOfPreviousSymbols === 2 ? 2
+				: numberOfPreviousSymbols === 3 ? 3
+				: numberOfPreviousSymbols === 4 ? 8
+				: numberOfPreviousSymbols === 5 ? 10
+				: 0;
 
 			previousSymbol = symbol;
 			numberOfPreviousSymbols = 1;
@@ -149,11 +145,9 @@ export const App = () => {
 			(emptyCells.length % 2 === 0 && !consecutiveEmptyCellsRemaining);
 
 		return grid.map((row, index) =>
-			index === 0
-				? [endOfGame ? 1 : null, ...row.slice(1, -1), diagonalScore]
-				: index >= 1 && index <= 5
-				? [...row.slice(0, -1), rowScores[index]]
-				: [diagonalScore, ...columnScores.slice(1, -1), totalScore],
+			index === 0 ? [endOfGame ? 1 : null, ...row.slice(1, -1), diagonalScore]
+			: index >= 1 && index <= 5 ? [...row.slice(0, -1), rowScores[index]]
+			: [diagonalScore, ...columnScores.slice(1, -1), totalScore],
 		);
 	};
 
@@ -329,11 +323,9 @@ export const App = () => {
 			setDiceRolling(true);
 
 			setHelpStep((prevHelpStep) =>
-				prevHelpStep === "rollDice1"
-					? "diceRolling1"
-					: prevHelpStep === "rollDice2"
-					? "diceRolling2"
-					: null,
+				prevHelpStep === "rollDice1" ? "diceRolling1"
+				: prevHelpStep === "rollDice2" ? "diceRolling2"
+				: null,
 			);
 
 			setTimeout(() => {
@@ -341,24 +333,19 @@ export const App = () => {
 				setSrText(newDrawSrText);
 
 				setHelpStep((prevHelpStep) =>
-					prevHelpStep === "diceRolling1"
-						? "clickGrid1"
-						: prevHelpStep === "diceRolling2"
-						? "afterDiceRolling2"
-						: null,
+					prevHelpStep === "diceRolling1" ? "clickGrid1"
+					: prevHelpStep === "diceRolling2" ? "afterDiceRolling2"
+					: null,
 				);
 			}, 2000);
 		} else {
 			setSrText(newDrawSrText);
 
 			setHelpStep((prevHelpStep) =>
-				prevHelpStep === "rollDice1"
-					? "clickGrid1"
-					: prevHelpStep === "rollDice2"
-					? "afterDiceRolling2"
-					: prevHelpStep === "settingsChange"
-					? "settingsChange"
-					: null,
+				prevHelpStep === "rollDice1" ? "clickGrid1"
+				: prevHelpStep === "rollDice2" ? "afterDiceRolling2"
+				: prevHelpStep === "settingsChange" ? "settingsChange"
+				: null,
 			);
 		}
 	}, [seededPrng, t, symbolNames, settings.animateDice]);
@@ -500,7 +487,7 @@ export const App = () => {
 
 				{!startOfGame && (
 					<>
-						{!endOfGame ? (
+						{!endOfGame ?
 							<>
 								<div className="relative flex w-full min-w-[300px] max-w-[550px] items-center">
 									<Button
@@ -577,12 +564,11 @@ export const App = () => {
 									{t("settingsChangeDice")}
 								</HelpTooltip>
 							</>
-						) : (
-							<div className="flex flex-col items-center gap-1 xsm:gap-2">
+						:	<div className="flex flex-col items-center gap-1 xsm:gap-2">
 								<div className="text-center font-[caveat] text-3xl">
-									{newHighestScore
-										? t("endOnGameWithNewScore")
-										: t("endOnGame")}{" "}
+									{newHighestScore ?
+										t("endOnGameWithNewScore")
+									:	t("endOnGame")}{" "}
 									{score}
 								</div>
 
@@ -591,15 +577,15 @@ export const App = () => {
 										<ButtonStatus
 											success={showShareSuccess}
 											onClick={() =>
-												(navigator.share
-													? navigator.share({
-															title: t("share.title"),
-															text: getShareText(),
-															url: shareGameLinkHttps,
-													  })
-													: navigator.clipboard.writeText(
-															`${getShareText()}\n${shareGameLinkHttps}`,
-													  )
+												(navigator.share ?
+													navigator.share({
+														title: t("share.title"),
+														text: getShareText(),
+														url: shareGameLinkHttps,
+													})
+												:	navigator.clipboard.writeText(
+														`${getShareText()}\n${shareGameLinkHttps}`,
+													)
 												)
 													.then(() => {
 														if (!showShareSuccess) {
@@ -651,7 +637,7 @@ export const App = () => {
 									</Button>
 								</div>
 							</div>
-						)}
+						}
 					</>
 				)}
 			</div>
@@ -665,28 +651,28 @@ export const App = () => {
 					firstMoveCoords={movesCoords[0]}
 					helpStep={helpStep}
 					onClick={
-						move > -1 && move < 2 && !diceRolling
-							? (x, y) => {
-									updateGrid({ x, y, newValue: dice[move] });
-									setMovesCoords([...movesCoords, { x, y }]);
-									setMove(move + 1);
-									setUndoVisible(true);
-									diceRolled.current = false;
-									resetWakeLockTimeout();
+						move > -1 && move < 2 && !diceRolling ?
+							(x, y) => {
+								updateGrid({ x, y, newValue: dice[move] });
+								setMovesCoords([...movesCoords, { x, y }]);
+								setMove(move + 1);
+								setUndoVisible(true);
+								diceRolled.current = false;
+								resetWakeLockTimeout();
 
-									if (helpStep === "clickGrid1") {
-										setHelpStep("clickGrid2");
-									} else if (helpStep === "clickGrid2") {
-										setHelpStep("rollDice2");
-									} else if (
-										helpStep === "afterDiceRolling2" ||
-										helpStep === "settingsChange"
-									) {
-										setHelpStep(null);
-										localStorage.setItem(HELP_SHOWN_KEY, "true");
-									}
-							  }
-							: undefined
+								if (helpStep === "clickGrid1") {
+									setHelpStep("clickGrid2");
+								} else if (helpStep === "clickGrid2") {
+									setHelpStep("rollDice2");
+								} else if (
+									helpStep === "afterDiceRolling2" ||
+									helpStep === "settingsChange"
+								) {
+									setHelpStep(null);
+									localStorage.setItem(HELP_SHOWN_KEY, "true");
+								}
+							}
+						:	undefined
 					}
 				/>
 			</div>

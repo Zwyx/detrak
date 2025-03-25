@@ -28,20 +28,15 @@ export const ThemeContext = createContext<
 
 const storedThemeChoice = localStorage.getItem(THEME_CHOICE_KEY);
 
-export const getStartupThemeChoice: ThemeChoice = isThemeChoice(
-	storedThemeChoice,
-)
-	? storedThemeChoice
-	: defaultThemeChoice;
+export const getStartupThemeChoice: ThemeChoice =
+	isThemeChoice(storedThemeChoice) ? storedThemeChoice : defaultThemeChoice;
 
 export const getThemeSchemeFromChoice = (
 	themeChoice: ThemeChoice,
 ): ThemeScheme =>
-	isThemeScheme(themeChoice)
-		? themeChoice
-		: matchMedia("(prefers-color-scheme: dark)").matches
-		? "dark"
-		: "light";
+	isThemeScheme(themeChoice) ? themeChoice
+	: matchMedia("(prefers-color-scheme: dark)").matches ? "dark"
+	: "light";
 
 export const useThemeContext = () => {
 	const context = useContext(ThemeContext);

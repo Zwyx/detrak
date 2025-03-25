@@ -18,6 +18,7 @@ export default defineConfig({
 				description: "The Detrak dice game",
 				categories: ["game", "casual game", "dice game"],
 				display: "standalone",
+				handle_links: "preferred",
 				theme_color: "#0f1c2e",
 				background_color: "#0f1c2e",
 				icons: [
