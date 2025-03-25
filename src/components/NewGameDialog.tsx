@@ -75,12 +75,6 @@ export const NewGameDialog = ({
 		}
 	}, [pwaRefreshing, currentGameId, replaceState]);
 
-	useEffect(() => {
-		if (state.newGameDialogView === "new_game") {
-			localStorage.setItem(VERSION_2_WELCOME_SHOWN_KEY, "true");
-		}
-	}, [state.newGameDialogView]);
-
 	return (
 		<Dialog open={open} onOpenChange={currentGameId ? onOpenChange : undefined}>
 			<DialogContent
