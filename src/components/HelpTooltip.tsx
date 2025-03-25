@@ -1,5 +1,5 @@
 import { HoverCardArrow } from "@radix-ui/react-hover-card";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 export type HelpStep =
@@ -25,22 +25,28 @@ export const HelpTooltip = ({
 	side?: "top" | "right" | "bottom" | "left";
 	align?: "start" | "center" | "end";
 	noArrow?: boolean;
-} & PropsWithChildren) => (
-	<HoverCard open={open}>
-		{/* `asChild` and `div` are only to fix the SEO warning in Lighthouse */}
-		<HoverCardTrigger asChild>
-			<div />
-		</HoverCardTrigger>
+} & PropsWithChildren) => {
+	const [acknowledged, setAcknowledged] = useState(false);
 
-		<HoverCardContent
-			className="border-none bg-tooltip p-2 text-center text-sm"
-			side={side}
-			align={align}
-		>
-			{children}
-			{!noArrow && (
-				<HoverCardArrow width={16} height={12} className="fill-tooltip" />
-			)}
-		</HoverCardContent>
-	</HoverCard>
-);
+	return (
+		<HoverCard open={open && !acknowledged}>
+			{/* `asChild` and `div` are only to fix the SEO warning in Lighthouse */}
+			<HoverCardTrigger asChild>
+				<div />
+			</HoverCardTrigger>
+
+			<HoverCardContent
+				className="cursor-pointer border-none bg-tooltip p-2 text-center text-sm"
+				side={side}
+				align={align}
+				// Needs to be `onPointerDown` to override the default behaviour, which can prevent `onClick` from being triggered
+				onPointerDown={() => setAcknowledged(true)}
+			>
+				{children}
+				{!noArrow && (
+					<HoverCardArrow width={16} height={12} className="fill-tooltip" />
+				)}
+			</HoverCardContent>
+		</HoverCard>
+	);
+};
