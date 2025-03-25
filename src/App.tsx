@@ -220,7 +220,6 @@ export const App = () => {
 					!history.state?.usr?.newGameDialogOpen
 				) {
 					navigateTo(`/${formatDate("today")}`, { replace: true });
-					localStorage.setItem(VERSION_2_WELCOME_SHOWN_KEY, "true");
 				}
 			} else {
 				replaceState({ newGameDialogOpen: true });
@@ -237,6 +236,7 @@ export const App = () => {
 		}
 
 		setSeededPrng(getSeededPrng(gameId));
+		localStorage.setItem(VERSION_2_WELCOME_SHOWN_KEY, "true");
 
 		if (!localStorage.getItem(HELP_SHOWN_KEY)) {
 			setHelpStep("welcome");
