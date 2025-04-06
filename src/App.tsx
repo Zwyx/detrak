@@ -580,7 +580,7 @@ export const App = () => {
 												(navigator.share ?
 													navigator.share({
 														title: t("share.title"),
-														text: getShareText(),
+														text: `${getShareText()}\n`,
 														url: shareGameLinkHttps,
 													})
 												:	navigator.clipboard.writeText(
