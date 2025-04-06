@@ -24,12 +24,12 @@ import { SettingsContextProvider } from "./lib/SettingsContext.tsx";
 import { ThemeContextProvider } from "./lib/ThemeContext.tsx";
 import { initPlausible } from "./lib/plausible.ts";
 
-const pwa =
+const appMode =
 	document.referrer.startsWith("android-app://") ? "twa"
-	: window.matchMedia("(display-mode: standalone)").matches ? "standalone"
+	: window.matchMedia("(display-mode: standalone)").matches ? "pwa"
 	: "browser";
 
-initPlausible(pwa);
+initPlausible(appMode);
 
 if (import.meta.env.PROD) {
 	Sentry.init({
@@ -55,7 +55,7 @@ if (import.meta.env.PROD) {
 		replaysOnErrorSampleRate: 1.0,
 	});
 
-	Sentry.setTag("pwa", pwa);
+	Sentry.setTag("app_mode", appMode);
 }
 
 if (!Math.floor(Math.random() * 1000)) {
