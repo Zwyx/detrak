@@ -51,7 +51,7 @@ if (import.meta.env.PROD) {
 			}),
 		],
 		tracesSampleRate: 0.1,
-		replaysSessionSampleRate: 0.01,
+		replaysSessionSampleRate: 0.001,
 		replaysOnErrorSampleRate: 1.0,
 	});
 
