@@ -25,7 +25,7 @@ export function useHistoryState<T>() {
 	const pushState = useCallback(
 		(newState: T) =>
 			originalNavigate(location.pathname, {
-				state: { ...history.state.usr, ...newState },
+				state: { ...(history.state.usr || {}), ...newState },
 			}),
 		[originalNavigate],
 	);
@@ -33,7 +33,7 @@ export function useHistoryState<T>() {
 	const replaceState = useCallback(
 		(newState: T) =>
 			originalNavigate(location.pathname, {
-				state: { ...history.state.usr, ...newState },
+				state: { ...(history.state.usr || {}), ...newState },
 				replace: true,
 			}),
 		[originalNavigate],
@@ -44,8 +44,8 @@ export function useHistoryState<T>() {
 			originalNavigate(to, {
 				...options,
 				...(options?.state ?
-					{ state: { ...history.state.usr, ...options.state } }
-				:	{ state: history.state.usr }),
+					{ state: { ...(history.state.usr || {}), ...options.state } }
+				:	{ state: history.state.usr || {} }),
 			}),
 		[originalNavigate],
 	);
