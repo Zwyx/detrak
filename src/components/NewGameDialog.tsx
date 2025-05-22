@@ -277,7 +277,10 @@ export const NewGameDialog = ({
 								<Button
 									variant="outline"
 									className="border-destructive text-destructive hover:bg-background hover:text-destructive"
-									onClick={onStopGame}
+									onClick={() => {
+										pushState({ newGameDialogView: "new_game" });
+										onStopGame();
+									}}
 								>
 									{t("stopGame")}
 								</Button>
