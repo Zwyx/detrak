@@ -12,6 +12,7 @@ import {
 } from "@/lib/local-storage-keys";
 import { GAME_ID_REGEX, getRandomId } from "@/lib/prng";
 import { useHistoryState } from "@/lib/useHistoryState.const";
+import { usePreviousDefined } from "@/lib/usePrevious";
 import { formatDate } from "@/lib/utils";
 import { fr } from "date-fns/locale";
 import { CalendarIcon, LucideArrowLeft, LucideLoader2 } from "lucide-react";
@@ -45,16 +46,16 @@ export const NewGameDialog = ({
 			| "share"
 			| "share_create"
 			| "share_join"
+			| "invite"
 			| "pwa_refreshing";
 	}>();
 
 	const [date, setDate] = useState<Date>();
 	const [randomGameId, setRandomGameId] = useState<string>(getRandomId(8));
 	const [joinGameId, setJoinGameId] = useState<string>("");
-	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
 
-	const shareGameLink = `${location.host}/${currentGameId || randomGameId}`;
-	const shareGameLinkHttps = `https://${shareGameLink}`;
+	/** Used to prevent a flash of link and QR code changing in the `invite` view when stopping a game */
+	const previousGameId = usePreviousDefined(currentGameId);
 
 	const joinGameIdValid = !!joinGameId.match(GAME_ID_REGEX);
 
@@ -62,7 +63,7 @@ export const NewGameDialog = ({
 		if (pwaRefreshing) {
 			replaceState({ newGameDialogView: "pwa_refreshing" });
 		} else if (currentGameId) {
-			replaceState({ newGameDialogView: "share_create" });
+			replaceState({ newGameDialogView: "invite" });
 		} else {
 			replaceState({
 				newGameDialogView:
@@ -101,8 +102,6 @@ export const NewGameDialog = ({
 
 						{state.newGameDialogView === "pwa_refreshing" ?
 							""
-						: currentGameId ?
-							t("title.inviteToGame")
 						: state.newGameDialogView === "welcome" ?
 							t("title.welcomeToNewVersion")
 						: state.newGameDialogView === "share" ?
@@ -111,6 +110,8 @@ export const NewGameDialog = ({
 							t("title.createGame")
 						: state.newGameDialogView === "share_join" ?
 							t("title.joinGame")
+						: state.newGameDialogView === "invite" ?
+							t("title.inviteToGame")
 						:	t("title.newGame")}
 					</DialogTitle>
 				</DialogHeader>
@@ -230,72 +231,17 @@ export const NewGameDialog = ({
 				{state.newGameDialogView === "share_create" && (
 					<>
 						<span className="text-center">
-							{t("shareCreate.scanQrCode")}{" "}
-							{!currentGameId && t("shareCreate.clickPlay")}
+							{t("shareCreate.scanQrCode")} {t("shareCreate.clickPlay")}
 						</span>
 
-						<div className="rounded-md border bg-white p-4">
-							<QRCodeSVG value={shareGameLinkHttps} />
-						</div>
+						<LinkSharing gameId={randomGameId} />
 
-						<div className="flex flex-wrap justify-center gap-4">
-							<code className="flex items-center rounded-md border px-3 py-1">
-								{shareGameLink}
-							</code>
-
-							<ButtonStatus
-								size="sm"
-								success={showShareSuccess}
-								onClick={() =>
-									(navigator.share ?
-										navigator.share({
-											title: t("shareCreate.title"),
-											text: t("shareCreate.joinMe"),
-											url: shareGameLinkHttps,
-										})
-									:	navigator.clipboard.writeText(
-											`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
-										)
-									)
-										.then(() => {
-											if (!showShareSuccess) {
-												setShowShareSuccess(true);
-												setTimeout(() => setShowShareSuccess(false), 2000);
-											}
-										})
-										.catch(() => {})
-								}
-							>
-								{navigator["share"] ?
-									t("shareCreate.shareLink")
-								:	t("shareCreate.copyLink")}
-							</ButtonStatus>
-						</div>
-
-						{currentGameId ?
-							<div className="flex w-full justify-between">
-								<Button
-									variant="outline"
-									className="border-destructive text-destructive hover:bg-background hover:text-destructive"
-									onClick={() => {
-										pushState({ newGameDialogView: "new_game" });
-										onStopGame();
-									}}
-								>
-									{t("stopGame")}
-								</Button>
-
-								<Button variant="outline" onClick={() => onOpenChange(false)}>
-									{t("close")}
-								</Button>
-							</div>
-						:	<Button
-								className="h-12 w-full text-wrap"
-								onClick={() => onNewGame(randomGameId)}
-							>
-								{t("play")}
-							</Button>
-						}
+						<Button
+							className="h-12 w-full text-wrap"
+							onClick={() => onNewGame(randomGameId)}
+						>
+							{t("play")}
+						</Button>
 					</>
 				)}
 
@@ -359,6 +305,30 @@ export const NewGameDialog = ({
 					</>
 				)}
 
+				{state.newGameDialogView === "invite" && (
+					<>
+						<span className="text-center">
+							{t("shareCreate.scanQrCode")} {t("shareCreate.clickPlay")}
+						</span>
+
+						<LinkSharing gameId={currentGameId || previousGameId || ""} />
+
+						<div className="flex w-full justify-between">
+							<Button
+								variant="outline"
+								className="border-destructive text-destructive hover:bg-background hover:text-destructive"
+								onClick={() => onStopGame()}
+							>
+								{t("stopGame")}
+							</Button>
+
+							<Button variant="outline" onClick={() => onOpenChange(false)}>
+								{t("close")}
+							</Button>
+						</div>
+					</>
+				)}
+
 				{state.newGameDialogView === "pwa_refreshing" && (
 					<LucideLoader2 className="h-8 w-8 animate-spin" />
 				)}
@@ -376,5 +346,56 @@ const OrSeparator = () => {
 			<span className="text-xs font-medium uppercase">{t("or")}</span>
 			<div className="h-0 flex-1 border-t" />
 		</div>
+	);
+};
+
+const LinkSharing = ({ gameId }: { gameId: string }) => {
+	const { t } = useTranslation("newGameDialog");
+
+	const [showShareSuccess, setShowShareSuccess] = useState<boolean>(false);
+
+	const shareGameLink = `${location.host}/${gameId}`;
+	const shareGameLinkHttps = `https://${shareGameLink}`;
+
+	return (
+		<>
+			<div className="rounded-md border bg-white p-4">
+				<QRCodeSVG value={shareGameLinkHttps} />
+			</div>
+
+			<div className="flex flex-wrap justify-center gap-4">
+				<code className="flex items-center rounded-md border px-3 py-1">
+					{shareGameLink}
+				</code>
+
+				<ButtonStatus
+					size="sm"
+					success={showShareSuccess}
+					onClick={() =>
+						(navigator.share ?
+							navigator.share({
+								title: t("shareCreate.title"),
+								text: t("shareCreate.joinMe"),
+								url: shareGameLinkHttps,
+							})
+						:	navigator.clipboard.writeText(
+								`${t("shareCreate.joinMe")} ${shareGameLinkHttps}`,
+							)
+						)
+							.then(() => {
+								if (!showShareSuccess) {
+									setShowShareSuccess(true);
+									setTimeout(() => setShowShareSuccess(false), 2000);
+								}
+							})
+							.catch(() => {})
+					}
+				>
+					{navigator["share"] ?
+						t("shareCreate.shareLink")
+					:	t("shareCreate.copyLink")}
+				</ButtonStatus>
+			</div>
+		</>
 	);
 };
