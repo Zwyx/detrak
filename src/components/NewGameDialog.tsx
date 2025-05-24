@@ -4,7 +4,6 @@ import {
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from "@/components/ui/dialog";
 import {
 	NUMBER_OF_GAMES_KEY,
@@ -50,7 +49,7 @@ export const NewGameDialog = ({
 			| "pwa_refreshing";
 	}>();
 
-	const [date, setDate] = useState<Date>();
+	const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 	const [randomGameId, setRandomGameId] = useState<string>(getRandomId(8));
 	const [joinGameId, setJoinGameId] = useState<string>("");
 
@@ -156,35 +155,32 @@ export const NewGameDialog = ({
 
 						<OrSeparator />
 
-						<Dialog>
-							<DialogTrigger asChild>
-								<Button
-									className="w-full text-wrap font-normal text-muted-foreground"
-									variant="outline"
-								>
-									<CalendarIcon />
-									{t("pickAnotherDay")}
-								</Button>
-							</DialogTrigger>
+						<Dialog open={open && calendarOpen}>
+							<Button
+								className="w-full text-wrap font-normal text-muted-foreground"
+								variant="outline"
+								onClick={() => setCalendarOpen(true)}
+							>
+								<CalendarIcon />
+								{t("pickAnotherDay")}
+							</Button>
+
 							<DialogContent
 								// Overriding `translate` to prevent shift as some months have 5 rows and others 6
 								className="w-fit translate-y-[-150px] rounded-lg p-1"
 								notClosable
 							>
-								{!date && (
-									<Calendar
-										locale={i18n.language === "fr" ? fr : undefined}
-										mode="single"
-										initialFocus
-										onSelect={(newDate) => {
-											if (newDate) {
-												setDate(newDate);
-												onNewGame(formatDate(newDate));
-												setTimeout(() => setDate(undefined), 500);
-											}
-										}}
-									/>
-								)}
+								<Calendar
+									locale={i18n.language === "fr" ? fr : undefined}
+									mode="single"
+									initialFocus
+									onSelect={(newDate) => {
+										if (newDate) {
+											onNewGame(formatDate(newDate));
+											setTimeout(() => setCalendarOpen(false), 1000);
+										}
+									}}
+								/>
 							</DialogContent>
 						</Dialog>
 
