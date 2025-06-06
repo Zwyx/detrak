@@ -18,10 +18,15 @@ import {
 import { usePwaContext } from "@/lib/PwaContext.const";
 import { useHistoryState } from "@/lib/useHistoryState.const";
 import { LucideMenu } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AlertFrame } from "./common/AlertFrame";
 import { ButtonStatus } from "./common/ButtonStatus";
 import { ExternalLink } from "./common/ExternalLink";
+
+interface BeforeInstallPromptEvent extends Event {
+	prompt(): Promise<{ outcome: "accepted" | "dismissed" }>;
+}
 
 export const HeaderMenu = () => {
 	const pwa = usePwaContext();
@@ -37,11 +42,25 @@ export const HeaderMenu = () => {
 	const [checkForUpdatesLoading, setCheckForUpdatesLoading] = useState(false);
 	const [newFeaturesReloading, setNewFeaturesReloading] = useState(false);
 	const [updateReloading, setUpdateReloading] = useState(false);
+	const [pwaInstallPrompt, setPwaInstallPrompt] =
+		useState<BeforeInstallPromptEvent>();
 
 	const touchStartX = useRef(0);
 
+	useEffect(() => {
+		window.addEventListener("beforeinstallprompt", (e) => {
+			// If we want to prevent the default install dialog
+			// e.preventDefault();
+
+			setPwaInstallPrompt(e as BeforeInstallPromptEvent);
+		});
+	}, []);
+
 	const showNewFeaturesPing =
 		pwa.newMajorVersionReady && !pwa.newMajorVersionAcknowledged;
+
+	const triggerInstallPrompt = () =>
+		pwaInstallPrompt?.prompt().finally(() => setPwaInstallPrompt(undefined));
 
 	return (
 		<Sheet
@@ -105,11 +124,10 @@ export const HeaderMenu = () => {
 				</SheetHeader>
 
 				{pwa.newMajorVersionReady && (
-					<div className="mt-2 flex w-full flex-col items-center gap-1 rounded-md border border-info bg-info/10 p-2">
-						<div className="w-full">{t("newFeatures.title")}</div>
-						<div className="w-full text-sm text-muted-foreground">
-							{t("newFeatures.description")}
-						</div>
+					<AlertFrame
+						title={t("newFeatures.title")}
+						description={t("newFeatures.description")}
+					>
 						<ButtonStatus
 							size="sm"
 							className="m-1"
@@ -122,7 +140,18 @@ export const HeaderMenu = () => {
 						>
 							{t("newFeatures.action")}
 						</ButtonStatus>
-					</div>
+					</AlertFrame>
+				)}
+
+				{pwaInstallPrompt && (
+					<AlertFrame
+						title={t("install.installableWebApp")}
+						description={t("install.description")}
+					>
+						<Button size="sm" className="m-1" onClick={triggerInstallPrompt}>
+							{t("install.install")}
+						</Button>
+					</AlertFrame>
 				)}
 
 				<div className="mt-4">

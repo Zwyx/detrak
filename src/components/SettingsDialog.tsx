@@ -65,7 +65,7 @@ export const SettingsDialog = () => {
 			}
 		>
 			<DialogTrigger asChild>
-				<Button variant="ghost" size="sm" className="w-9 px-0">
+				<Button variant="ghost" size="icon">
 					<LucideSettings />
 					<span className="sr-only">{t("openSettingsDialog")}</span>
 				</Button>

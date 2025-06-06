@@ -95,6 +95,19 @@ export const en = {
 			description: "Finish your game and reload the app.",
 			action: "Reload app",
 		},
+		install: {
+			installableWebApp: "Detrak is an installable web app!",
+			description:
+				"You can add it to your home screen and play even while offline.",
+			install: "Install Detrak",
+		},
+		gigamicGame: "Detrak is a copyrighted game published by",
+		digitalVersion: {
+			madeBy: "This digital version has been made by me,",
+			webDeveloper:
+				", an independent web developer from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
+		},
+		writeToMe: "I hope you're enjoying it! Feel free to write to me at",
 		rules: {
 			readTheRules: "Read the rules",
 			rules: "Game rules",
@@ -114,13 +127,6 @@ export const en = {
 			part4:
 				"It is impossible to place only one of the two symbols. Therefore, to prevent the game from ending prematurely, avoid isolating cells.",
 		},
-		gigamicGame: "Detrak is a copyrighted game published by",
-		digitalVersion: {
-			madeBy: "This digital version has been made by me,",
-			webDeveloper:
-				", an independent web developer from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
-		},
-		writeToMe: "I hope you're enjoying it! Feel free to write to me at",
 		termsOfUse: "Terms of use",
 		privacyPolicy: "Privacy policy",
 		copyright: {
