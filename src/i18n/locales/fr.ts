@@ -93,6 +93,19 @@ export const fr: I18nLocale = {
 			description: "Terminez votre partie et rechargez l'application.",
 			action: "Recharger l'application",
 		},
+		install: {
+			installableWebApp: "Détrak est une application web installable !",
+			description:
+				"Vous pouvez l'ajouter à votre écran d'accueil et jouer même sans connection Internet.",
+			install: "Installer Détrak",
+		},
+		gigamicGame: "Détrak est un jeu protégé par copyright et publié par",
+		digitalVersion: {
+			madeBy: "Cette version numérique a été créée par moi-même,",
+			webDeveloper:
+				", développeur web, avec l'accord de Gigamic. Merci encore, Gigamic !",
+		},
+		writeToMe: "J'espère que vous l'appréciez ! N'hésitez pas à m'écrire à",
 		rules: {
 			readTheRules: "Lire les règles",
 			rules: "Règles du jeu",
@@ -112,13 +125,6 @@ export const fr: I18nLocale = {
 			part4:
 				"Il est impossible de ne placer qu'un seul des deux symboles. Ainsi, pour éviter que la partie ne s'arrête prématurément, évitez d'isoler des cases.",
 		},
-		gigamicGame: "Détrak est un jeu protégé par copyright et publié par",
-		digitalVersion: {
-			madeBy: "Cette version numérique a été créée par moi-même,",
-			webDeveloper:
-				", développeur web, avec l'accord de Gigamic. Merci encore, Gigamic !",
-		},
-		writeToMe: "J'espère que vous l'appréciez ! N'hésitez pas à m'écrire à",
 		termsOfUse: "Conditions générales",
 		privacyPolicy: "Politique de confidentialité",
 		copyright: {
