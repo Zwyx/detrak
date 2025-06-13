@@ -20,8 +20,7 @@ Detrak is a PWA — a Progressive Web App — hosted at [detrak.net](https://det
 
 You can play online directly, and if you want, install it on your device — search for "Install" or "Add to home screen" in your browser's menu.
 
-> [!NOTE]
-> Detrak used to be present on the Google Play store, but I had to remove it because Google starting requiring independent developers to publicly disclose personal information, including our home address.
+_Note: Detrak used to be present on the Google Play store, but I had to remove it due to the fact that Google started requiring independent developers to publicly disclose personal information, including home addresses._
 
 <!-- <img src="./public/favicon-196.png" alt="Detrak logo" width="48px"/> -->
 
