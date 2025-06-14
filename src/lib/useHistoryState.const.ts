@@ -18,6 +18,11 @@ interface HistoryNavigateToFunction<T> {
 	(to: To, options?: HistoryNavigateOptions<T>): void | Promise<void>;
 }
 
+/**
+ * Every time `history.state.usr` is access, we do `history.state?.usr || {}` instead,
+ * because of the error `null is not an object (evaluating 'history.state.usr')` observed
+ * in the wild coming from Apple IE.
+ */
 export function useHistoryState<T>() {
 	const { state }: Location<Partial<T>> = useLocation();
 	const originalNavigate = useNavigate();
@@ -25,7 +30,7 @@ export function useHistoryState<T>() {
 	const pushState = useCallback(
 		(newState: T) =>
 			originalNavigate(location.pathname, {
-				state: { ...(history.state.usr || {}), ...newState },
+				state: { ...(history.state?.usr || {}), ...newState },
 			}),
 		[originalNavigate],
 	);
@@ -33,7 +38,7 @@ export function useHistoryState<T>() {
 	const replaceState = useCallback(
 		(newState: T) =>
 			originalNavigate(location.pathname, {
-				state: { ...(history.state.usr || {}), ...newState },
+				state: { ...(history.state?.usr || {}), ...newState },
 				replace: true,
 			}),
 		[originalNavigate],
@@ -44,8 +49,8 @@ export function useHistoryState<T>() {
 			originalNavigate(to, {
 				...options,
 				...(options?.state ?
-					{ state: { ...(history.state.usr || {}), ...options.state } }
-				:	{ state: history.state.usr || {} }),
+					{ state: { ...(history.state?.usr || {}), ...options.state } }
+				:	{ state: history.state?.usr || {} }),
 			}),
 		[originalNavigate],
 	);
