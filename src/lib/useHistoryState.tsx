@@ -10,8 +10,8 @@ export function HistoryStateLink<T>(props: HistoryStateLinkProps<T>) {
 			{...{
 				...props,
 				...(props.state ?
-					{ state: { ...(history.state.usr || {}), ...props.state } }
-				:	{ state: history.state.usr || {} }),
+					{ state: { ...(history.state?.usr || {}), ...props.state } }
+				:	{ state: history.state?.usr || {} }),
 			}}
 		/>
 	);
