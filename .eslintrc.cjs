@@ -64,6 +64,15 @@ module.exports = {
 		// Disallow reassigning function parameters
 		"no-param-reassign": "warn",
 
+		// "no-restricted-syntax": [
+		// 	"warn",
+		// 	{
+		// 		// "selector": ":not(BinaryExpression:matches([operator='!=='], [operator='==='])) > Literal[value=null]",
+		// 		selector: "Literal[value=null]",
+		// 		message: "Don't use 'null', use 'undefined'.",
+		// 	},
+		// ],
+
 		// Disallow ternary operators when simpler alternatives exist; example: prevent `const x = y === 1 ? true : false` in favour of `const x = y === 1`
 		"no-unneeded-ternary": "warn",
 
@@ -92,6 +101,13 @@ module.exports = {
 		// Disallow variable declarations from shadowing variables declared in the outer scope; necessitates to disable `no-shadow`, see https://typescript-eslint.io/rules/no-shadow
 		"no-shadow": "off",
 		"@typescript-eslint/no-shadow": "warn",
+
+		// Type-checked rules disabled – see above
+		// Disallow certain types in boolean expressions
+		// "@typescript-eslint/strict-boolean-expressions": [
+		// 	"warn",
+		// 	{ allowNullableBoolean: true },
+		// ],
 
 		// ---------- React ----------
 
