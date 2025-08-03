@@ -105,7 +105,7 @@ export const en = {
 		digitalVersion: {
 			madeBy: "This digital version has been made by me,",
 			webDeveloper:
-				", an independent web developer from Australia, with the approval of Gigamic. Thank you again, Gigamic!",
+				", an independent web developer, with the approval of Gigamic. Thank you again, Gigamic!",
 		},
 		writeToMe: "I hope you're enjoying it! Feel free to write to me at",
 		rules: {
