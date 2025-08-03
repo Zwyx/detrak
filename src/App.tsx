@@ -435,7 +435,7 @@ export const App = () => {
 
 			<div className="flex-1" />
 
-			<div className="flex h-[135px] w-full flex-col items-center justify-center overflow-auto xsm:h-[150px]">
+			<div className="flex min-h-[135px] w-full flex-col items-center justify-center overflow-auto xsm:min-h-[150px]">
 				{startOfGame && (
 					<>
 						<div className="relative flex w-full min-w-[300px] max-w-[550px]">
@@ -679,8 +679,8 @@ export const App = () => {
 
 			{typeof highestScore === "number" && (
 				// `font-[caveat]` makes the root element taking 1 extra pixel in height when using `h-dvh`,
-				// which make the scroll bar visible; `h-[2.5rem]` is to prevent that
-				<div className="h-[2.5rem] text-center font-[caveat] text-3xl">
+				// which make the scroll bar visible; `pb-4` is to prevent that
+				<div className="pb-4 text-center font-[caveat] text-3xl">
 					{t("numberOfGames", { count: numberOfGames })} – {t("bestScore")}{" "}
 					{highestScore}
 				</div>
