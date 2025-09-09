@@ -140,6 +140,10 @@ export const ja: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "言語を選択",
 		language: "言語",
+		changeLanguageOffline:
+			"翻訳を読み込めませんでした：デバイスがオフラインのようです。インターネットに接続されていることを確認して、もう一度お試しください。",
+		changeLanguageError:
+			"新しい言語の設定中にエラーが発生しました。アプリを再起動して、もう一度お試しください。",
 	},
 
 	navigationBlocker: {

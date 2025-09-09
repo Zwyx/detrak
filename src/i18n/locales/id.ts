@@ -141,6 +141,10 @@ export const id: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Pilih bahasa",
 		language: "Bahasa",
+		changeLanguageOffline:
+			"Tidak dapat memuat terjemahan: perangkat Anda sepertinya sedang offline. Pastikan perangkat Anda memiliki akses Internet dan coba lagi.",
+		changeLanguageError:
+			"Terjadi kesalahan saat mengatur bahasa baru. Silakan mulai ulang aplikasi dan coba lagi.",
 	},
 
 	navigationBlocker: {

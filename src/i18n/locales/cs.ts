@@ -145,6 +145,10 @@ export const cs: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Vyberte jazyk",
 		language: "Jazyk",
+		changeLanguageOffline:
+			"Nelze načíst překlad: vaše zařízení je zřejmě offline. Ujistěte se prosím, že má vaše zařízení přístup k internetu a zkuste to znovu",
+		changeLanguageError:
+			"Při nastavování nového jazyka došlo k chybě. Restartujte prosím aplikaci a zkuste to znovu",
 	},
 
 	navigationBlocker: {

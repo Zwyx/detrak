@@ -136,6 +136,10 @@ export const th: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "เลือกภาษา",
 		language: "ภาษา",
+		changeLanguageOffline:
+			"ไม่สามารถโหลดการแปลได้: อุปกรณ์ของคุณดูเหมือนจะออฟไลน์ กรุณาตรวจสอบว่าอุปกรณ์ของคุณมีการเชื่อมต่ออินเทอร์เน็ตและลองอีกครั้ง",
+		changeLanguageError:
+			"เกิดข้อผิดพลาดในการตั้งค่าภาษาใหม่ กรุณาเริ่มแอปใหม่และลองอีกครั้ง",
 	},
 
 	navigationBlocker: {

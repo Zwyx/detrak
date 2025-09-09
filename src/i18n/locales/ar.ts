@@ -142,6 +142,10 @@ export const ar: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "اختر اللغة",
 		language: "اللغة",
+		changeLanguageOffline:
+			"تعذر تحميل الترجمة: يبدو أن جهازك غير متصل بالإنترنت. يرجى التأكد من اتصال جهازك بالإنترنت والمحاولة مرة أخرى.",
+		changeLanguageError:
+			"حدث خطأ أثناء إعداد اللغة الجديدة. يرجى إعادة تشغيل التطبيق والمحاولة مرة أخرى.",
 	},
 
 	navigationBlocker: {

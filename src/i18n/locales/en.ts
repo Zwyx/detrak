@@ -1,4 +1,4 @@
-import { DeepReplace } from "@/lib/utils";
+import { DeepOptional, DeepReplace } from "@/lib/utils";
 
 export const en = {
 	common: {
@@ -17,7 +17,11 @@ export const en = {
 		bestScore: "best score:",
 		endOnGame: "Finished! Your score is",
 		endOnGameWithNewScore: "Well done! New highest score:",
-		numberOfGames_one: "{{count}} game",
+		numberOfGames_zero: "0 games",
+		numberOfGames_one: "1 game",
+		numberOfGames_two: "2 games",
+		numberOfGames_few: "{{count}} games",
+		numberOfGames_many: "{{count}} games",
 		numberOfGames_other: "{{count}} games",
 		rollDice: "roll dice",
 		rollDice1: {
@@ -143,6 +147,10 @@ export const en = {
 	languageSelector: {
 		chooseLanguage: "Choose language",
 		language: "Language",
+		changeLanguageOffline:
+			"Unable to load translation: your device seems to be offline. Please make sure your device has access to Internet and try again.",
+		changeLanguageError:
+			"An error occurred while setting up the new language. Please restart the app and try again.",
 	},
 
 	navigationBlocker: {
@@ -272,4 +280,13 @@ export const en = {
 	},
 };
 
-export type I18nLocale = DeepReplace<typeof en, [string, string]>;
+export type I18nLocale = DeepOptional<
+	DeepReplace<typeof en, [string, string]>,
+	[
+		"app.numberOfGames_zero",
+		"app.numberOfGames_one",
+		"app.numberOfGames_two",
+		"app.numberOfGames_few",
+		"app.numberOfGames_many",
+	]
+>;

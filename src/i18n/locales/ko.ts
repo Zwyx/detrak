@@ -140,6 +140,10 @@ export const ko: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "언어 선택",
 		language: "언어",
+		changeLanguageOffline:
+			"번역을 불러올 수 없습니다: 기기가 오프라인 상태인 것 같습니다. 기기가 인터넷에 연결되어 있는지 확인하고 다시 시도해 주세요",
+		changeLanguageError:
+			"새로운 언어를 설정하는 동안 오류가 발생했습니다. 앱을 다시 시작하고 다시 시도해 주세요",
 	},
 
 	navigationBlocker: {

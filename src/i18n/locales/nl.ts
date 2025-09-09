@@ -145,6 +145,10 @@ export const nl: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Kies taal",
 		language: "Taal",
+		changeLanguageOffline:
+			"Kan vertaling niet laden: je apparaat lijkt offline te zijn. Controleer of je apparaat toegang heeft tot internet en probeer het opnieuw.",
+		changeLanguageError:
+			"Er is een fout opgetreden bij het instellen van de nieuwe taal. Start de app opnieuw op en probeer het opnieuw.",
 	},
 
 	navigationBlocker: {

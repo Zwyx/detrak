@@ -144,6 +144,10 @@ export const sk: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Vybrať jazyk",
 		language: "Jazyk",
+		changeLanguageOffline:
+			"Nepodarilo sa načítať preklad: vaše zariadenie sa zdá byť offline. Prosím, uistite sa, že vaše zariadenie má prístup k internetu a skúste to znova.",
+		changeLanguageError:
+			"Pri nastavovaní nového jazyka sa vyskytla chyba. Prosím, reštartujte aplikáciu a skúste to znova.",
 	},
 
 	navigationBlocker: {
