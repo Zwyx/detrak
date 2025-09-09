@@ -142,6 +142,10 @@ export const fr: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Choisir la langue",
 		language: "Langue",
+		changeLanguageOffline:
+			"Impossible de charger la traduction : votre appareil semble hors ligne. Veuillez vérifier votre connexion Internet et réessayer.",
+		changeLanguageError:
+			"Une erreur s'est produite lors du changement de langue. Veuillez redémarrer l'application et réessayer.",
 	},
 
 	navigationBlocker: {

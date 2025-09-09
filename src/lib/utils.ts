@@ -4,18 +4,54 @@ import { TFunction } from "i18next";
 import { twMerge } from "tailwind-merge";
 import { DetrakGrid } from "./common";
 
-// https://stackoverflow.com/questions/60437172/typescript-deep-replace-multiple-types
 type Replacement<M extends [unknown, unknown], T> =
 	M extends unknown ?
 		[T] extends [M[0]] ?
 			M[1]
 		:	never
 	:	never;
+
+// https://stackoverflow.com/questions/60437172/typescript-deep-replace-multiple-types
 export type DeepReplace<T, M extends [unknown, unknown]> = {
 	[P in keyof T]: T[P] extends M[0] ? Replacement<M, T[P]>
 	: T[P] extends object ? DeepReplace<T[P], M>
 	: T[P];
 };
+
+// Utility to split a dot-separated path into an array of keys
+type SplitPath<T extends string> =
+	T extends `${infer Head}.${infer Tail}` ? [Head, ...SplitPath<Tail>] : [T];
+
+type DeepOptionalSimpleHelper<T, PathArray extends readonly string[]> =
+	PathArray extends readonly [infer Head, ...infer Tail] ?
+		Head extends keyof T ?
+			Tail extends readonly string[] ?
+				Tail extends readonly [] ?
+					// Make the final key optional
+					Omit<T, Head> & { [K in Head]?: T[Head] }
+				:	// Recursively process nested object
+					Omit<T, Head> & {
+						[K in Head]: DeepOptionalSimpleHelper<T[Head], Tail>;
+					}
+			:	never
+		:	T
+	:	T;
+
+type DeepOptionalSingle<T, Path extends string> = DeepOptionalSimpleHelper<
+	T,
+	SplitPath<Path>
+>;
+
+// I could have simply added the few extra plural keys to all the locales files...
+// but Claude's `DeepOptional` is cute.
+export type DeepOptional<T, P extends string[]> =
+	P extends readonly [infer Head, ...infer Tail] ?
+		Head extends string ?
+			Tail extends string[] ?
+				DeepOptional<DeepOptionalSingle<T, Head>, Tail>
+			:	DeepOptionalSingle<T, Head>
+		:	T
+	:	T;
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
