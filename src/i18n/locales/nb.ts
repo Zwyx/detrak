@@ -1,0 +1,271 @@
+import { I18nLocale } from "./en";
+
+export const nb: I18nLocale = {
+	common: {
+		close: "Lukk",
+		symbolNames: {
+			bar: "strek",
+			cross: "kryss",
+			tripleBar: "tre streker",
+			sharp: "firkant",
+			triangle: "trekant",
+			circle: "sirkel",
+		},
+	},
+
+	app: {
+		bestScore: "beste poengsum:",
+		endOnGame: "Ferdig! Din poengsum er",
+		endOnGameWithNewScore: "Bra jobbet! Ny høyeste poengsum:",
+		numberOfGames_other: "{{count}} spill",
+		rollDice: "kast terning",
+		rollDice1: {
+			part1: "Symbolet du har valgt er satt inn i rutenettet nedenfor.",
+			part2: "Nå, kast terningene!",
+		},
+		settingsChangeDice:
+			"Terningene er nå ikke animert og kastes automatisk for at du skal kunne spille raskere. Du kan endre dette i innstillingene.",
+		share: {
+			shareYourScore: "Del poengsummen din",
+			sendScore: "Send poengsummen din til vennene dine!",
+			inviteFriends:
+				"Og inviter dem til å utfordre deg på samme spill (symbolene som trekkes under spillet deres vil være de samme som dine).",
+			title: "Detrak",
+			text: "🎲 Fikk akkurat {{count}} på Detrak! Kan du gjøre det bedre? 🤞",
+		},
+		sr: {
+			selectSymbol: "Velg ett av de seks symbolene for å starte.",
+			newDraw: "Nytt trekk:",
+			gameFinished: "Spillet ferdig! Poengsum:",
+			gameFinishedNewHighestScore: "Spillet ferdig! Ny høyeste poengsum!",
+		},
+		replayGame: "Spill dette spillet på nytt",
+		startNewGame: "Start et nytt spill",
+		welcome: {
+			title: "Velkommen til Detrak!",
+			text: "Start med å velge ett av de seks symbolene ovenfor.",
+		},
+	},
+
+	detrak: {
+		ariaLabel: {
+			column: "kolonne",
+			empty: "tom",
+			row: "rad",
+		},
+		clickGrid1: {
+			part1:
+				"Velg en tom celle i rutenettet for å sette inn symbolet fra den første terningen.",
+			part2: "Målet er å gruppere identiske symboler sammen.",
+		},
+		clickGrid2: {
+			part1: "Velg en annen tom celle for det andre symbolet.",
+			part2: "Den må være rett ved siden av den første.",
+		},
+		rollDice2: {
+			left: "Poeng vil vises i kolonnen lengst til høyre, og raden nederst.",
+			legend:
+				"Dette er forklaringen for poengsummen. For eksempel gir fem identiske symboler på en rad, en kolonne eller diagonalen 10 poeng.",
+			right: {
+				part1:
+					"Diagonalens poengsum vises i begge ender, så den telles to ganger!",
+				part2: "Kast terningene igjen for å fortsette spillet.",
+			},
+		},
+		settingsChangeScore:
+			"Poengsummen vises også alltid nå, så du kan raskt se hvilke rader/kolonner som trenger oppmerksomhet.",
+	},
+
+	error: {
+		oops: "Oisann, noe gikk galt.",
+		error:
+			"En uventet feil oppstod, vennligst last inn siden på nytt. Beklager bryderiet.",
+		googleTranslateNote:
+			"Merk: hvis du bruker Google Chromes oversettingsfunksjon for å oversette denne siden, er denne funksjonen sannsynligvis årsaken til denne feilen.",
+		reload: "Last inn på nytt",
+	},
+
+	headerMenu: {
+		openMenu: "Åpne meny",
+		detrak: "Detrak",
+		newFeatures: {
+			title: "Nye funksjoner tilgjengelig!",
+			description: "Fullfør spillet ditt og last inn appen på nytt.",
+			action: "Last inn appen på nytt",
+		},
+		install: {
+			installableWebApp: "Detrak er en installerbar web-app!",
+			description:
+				"Du kan legge den til på hjemskjermen din og spille selv når du er offline.",
+			install: "Installer Detrak",
+		},
+		gigamicGame: "Detrak er et opphavsrettsbeskyttet spill utgitt av",
+		digitalVersion: {
+			madeBy: "Denne digitale versjonen er laget av meg,",
+			webDeveloper:
+				", en uavhengig webutvikler, med godkjenning fra Gigamic. Takk igjen, Gigamic!",
+		},
+		writeToMe: "Jeg håper du liker det! Skriv gjerne til meg på",
+		rules: {
+			readTheRules: "Les reglene",
+			rules: "Spillregler",
+			part1:
+				"Kast terningene og plasser de oppnådde symbolene i rutenettet for å score så mange poeng som mulig.",
+			part2:
+				"Du scorer poeng når du plasserer identiske symboler ved siden av hverandre, i en rad, en kolonne eller diagonalen fra nedre venstre til øvre høyre:",
+			points: {
+				part1: "2 symboler: +2 poeng,",
+				part2: "3 symboler: +3 poeng,",
+				part3: "4 symboler: +8 poeng,",
+				part4: "5 symboler: +10 poeng,",
+				part5: "ingen symboler: -5 poeng.",
+			},
+			part3:
+				"De to symbolene fra terningene må plasseres på tilstøtende ledige celler (horisontalt eller vertikalt).",
+			part4:
+				"Det er umulig å plassere bare ett av de to symbolene. For å hindre at spillet slutter for tidlig, unngå å isolere celler.",
+		},
+		termsOfUse: "Bruksvilkår",
+		privacyPolicy: "Personvernpolicy",
+		copyright: {
+			originalGame: "Originalspill",
+			digitalVersion: "Digital versjon",
+		},
+		sourceCodeAvailableAt: "Kildekode tilgjengelig på",
+		version: "Versjon",
+		checkForUpdates: "Se etter oppdateringer",
+		updateAvailable:
+			"Oppdatering tilgjengelig, fullfør spillet ditt og klikk her for å oppdatere",
+	},
+
+	languageSelector: {
+		chooseLanguage: "Velg språk",
+		language: "Språk",
+	},
+
+	navigationBlocker: {
+		title: "Dette vil stoppe det gjeldende spillet, er du sikker?",
+		description: "Vennligst bekreft at du vil stoppe det gjeldende spillet.",
+		confirmationCheckbox: "Spør alltid om bekreftelse før du avbryter et spill",
+		keepPlaying: "Fortsett å spille",
+		stopGame: "Stopp dette spillet",
+	},
+
+	newGameDialog: {
+		close: "Lukk",
+		createGame: "Opprett et spill",
+		joinGame: "Bli med i et spill",
+		pickAnotherDay: "Velg en annen dag",
+		play: "Spill",
+		playRandomGame: "Spill et tilfeldig spill",
+		playTodayGame: "Spill dagens spill",
+		playWithFriends: "Spill med venner",
+		shareCreate: {
+			scanQrCode:
+				"Be vennene dine om å skanne denne QR-koden, eller del lenken med dem.",
+			clickPlay: "Klikk deretter Spill.",
+			title: "Detrak",
+			joinMe: "🎲 Bli med meg i dette Detrak-spillet!",
+			shareLink: "Del lenke",
+			copyLink: "Kopier lenke til utklippstavle",
+		},
+		shareJoin: {
+			useCamera: "Bruk enhetens kamera for å skanne et spills QR-kode.",
+			openGameLink: "Eller åpne en spillenke.",
+			enterGameLink: "Eller skriv inn en spillenke nedenfor og klikk Spill.",
+		},
+		stopGame: "Stopp dette spillet",
+		title: {
+			createGame: "Opprett et spill",
+			inviteToGame: "Inviter folk til det gjeldende spillet",
+			joinGame: "Bli med i et spill",
+			newGame: "Nytt spill",
+			playWithFriends: "Spill med venner",
+			welcomeToNewVersion: "Velkommen til den nye versjonen av Detrak!",
+		},
+		welcome: {
+			intro: "Det er to nye måter å spille på:",
+			dailyGame: "Det daglige spillet",
+			dailyGameDetails:
+				"hver dag vil rekkefølgen av symboler trukket av terningene være den samme for alle.",
+			playWithFriends: "Spill med venner",
+			playWithFriendsDetails:
+				"opprett et spill og inviter folk til å bli med. Her også er rekkefølgen av symboler trukket under spillet den samme for vennene dine og deg. Det fungerer selv uten internettforbindelse!",
+			startPlaying: "Start å spille!",
+		},
+		or: "eller",
+	},
+
+	themeSelector: {
+		chooseTheme: "Velg tema",
+		theme: "Tema",
+		sameAsDevice: "Samme som enhet",
+		light: "Lyst",
+		dark: "Mørkt",
+	},
+
+	settingsDialog: {
+		openSettingsDialog: "Åpne innstillingsdialog",
+		settings: "Innstillinger",
+
+		alwaysShowScore: {
+			title: "Vis alltid poengsummen",
+			description: "Viser din nåværende poengsum under spillet.",
+		},
+
+		showScoreWithContrast: {
+			title: "Vis poengsummen med kontrast i stedet for farge",
+			description: "Bruker gråtoner i stedet for rød, grønn og blå.",
+		},
+
+		showScoreLegend: {
+			title: "Vis poengsummens forklaring",
+			description: "Viser forklaringen plassert over rutenettet.",
+		},
+
+		animateDice: {
+			title: "Animer rullende terninger",
+			description: "Ruller terningene med en 3D-animasjon.",
+		},
+
+		autoRollDice: {
+			title: "Kast terningene automatisk",
+			notAvailableDuringTheFirstGame:
+				"(ikke tilgjengelig under det første spillet)",
+			description:
+				"Kaster terningene automatisk når de to symbolene er plassert i rutenettet. Dette fjerner muligheten til å angre den andre symbolplasseringen.",
+		},
+
+		showDiceMarker: {
+			title: "Vis terningmarkør",
+			description: "Viser hvilket symbol som skal plasseres på rutenettet.",
+		},
+
+		showConfetti: {
+			title: "Vis konfetti",
+			description:
+				"Kaster en konfettieksplosjon når du slår din høyeste poengsum!",
+		},
+
+		gridAtBottom: {
+			title: "Plasser rutenettet nederst på skjermen",
+			description: "Nyttig for å spille med én hånd på mobilen.",
+		},
+
+		enableWakeLock: {
+			title: "Hold skjermen på mens du spiller",
+			description:
+				"Forhindrer at enhetens skjerm slås av, i fem minutter, mens et spill spilles. Merk at noen Apple-enheter ikke støtter denne funksjonen.",
+		},
+
+		showNavigationAlert: {
+			title: "Be om bekreftelse før du forlater et spill",
+			description:
+				"Viser en bekreftelsesboks når du navigerer bort under et spill.",
+		},
+	},
+
+	siteHeader: {
+		detrak: "Detrak",
+	},
+};
