@@ -134,6 +134,10 @@ export const zhHant: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "選擇語言",
 		language: "語言",
+		changeLanguageOffline:
+			"無法載入翻譯：你的裝置似乎處於離線狀態。請確保你的裝置可以連接到網路，然後再試一次。",
+		changeLanguageError:
+			"設定新語言時發生錯誤。請重新啟動應用程式，然後再試一次。",
 	},
 
 	navigationBlocker: {

@@ -142,6 +142,10 @@ export const da: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Vælg sprog",
 		language: "Sprog",
+		changeLanguageOffline:
+			"Kan ikke indlæse oversættelse: din enhed ser ud til at være offline. Sørg venligst for at din enhed har adgang til internettet og prøv igen",
+		changeLanguageError:
+			"Der opstod en fejl under opsætning af det nye sprog. Genstart venligst appen og prøv igen",
 	},
 
 	navigationBlocker: {

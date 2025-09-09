@@ -1,9 +1,15 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
+// import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+	esbuild: {
+		supported: {
+			"top-level-await": true,
+		},
+	},
 	plugins: [
 		react(),
 		VitePWA({
@@ -65,12 +71,20 @@ export default defineConfig({
 			includeAssets: ["favicon-196.png", "apple-icon-180.png"],
 			workbox: {
 				globPatterns: ["**/*.{js,css,html,woff,woff2}"],
+				globIgnores: ["locales/*.js"],
+				runtimeCaching: [
+					{
+						urlPattern: /\/locales\/.*\.js$/,
+						handler: "CacheFirst",
+					},
+				],
 			},
 		}),
 		sentryVitePlugin({
 			org: "zwyx",
 			project: "detrak",
 		}),
+		// visualizer(),
 	],
 	resolve: {
 		alias: [
@@ -82,6 +96,14 @@ export default defineConfig({
 	},
 	build: {
 		outDir: "docs",
+		rollupOptions: {
+			output: {
+				chunkFileNames: (chunkInfo) =>
+					chunkInfo.facadeModuleId?.includes("/i18n/locales/") ?
+						"locales/[name]-[hash].js"
+					:	"assets/[name]-[hash].js",
+			},
+		},
 
 		// Sourcemaps are sent to Sentry but not included in the bundle (see `.github/workflows/build-website.yml`)
 		sourcemap: true,

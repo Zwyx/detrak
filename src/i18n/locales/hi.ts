@@ -144,6 +144,10 @@ export const hi: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "भाषा चुनें",
 		language: "भाषा",
+		changeLanguageOffline:
+			"अनुवाद लोड करने में असमर्थ: आपका डिवाइस ऑफ़लाइन प्रतीत होता है। कृपया सुनिश्चित करें कि आपके डिवाइस में इंटरनेट एक्सेस है और पुनः प्रयास करें।",
+		changeLanguageError:
+			"नई भाषा सेट करते समय एक त्रुटि हुई। कृपया ऐप को पुनः प्रारंभ करें और फिर से प्रयास करें।",
 	},
 
 	navigationBlocker: {

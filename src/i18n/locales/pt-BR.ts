@@ -144,6 +144,10 @@ export const ptBR: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Escolher idioma",
 		language: "Idioma",
+		changeLanguageOffline:
+			"Não foi possível carregar a tradução: seu dispositivo parece estar offline. Por favor, certifique-se de que seu dispositivo tem acesso à Internet e tente novamente.",
+		changeLanguageError:
+			"Ocorreu um erro ao configurar o novo idioma. Por favor, reinicie o aplicativo e tente novamente.",
 	},
 
 	navigationBlocker: {

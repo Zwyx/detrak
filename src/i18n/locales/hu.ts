@@ -142,6 +142,10 @@ export const hu: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Nyelv kiválasztása",
 		language: "Nyelv",
+		changeLanguageOffline:
+			"Nem sikerült betölteni a fordítást: úgy tűnik, az eszközöd offline állapotban van. Kérjük, ellenőrizd, hogy az eszközödnek van-e internetkapcsolata, és próbáld újra.",
+		changeLanguageError:
+			"Hiba történt az új nyelv beállítása közben. Kérjük, indítsd újra az alkalmazást és próbáld újra.",
 	},
 
 	navigationBlocker: {
