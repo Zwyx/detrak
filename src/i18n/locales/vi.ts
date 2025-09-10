@@ -140,10 +140,8 @@ export const vi: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Chọn ngôn ngữ",
 		language: "Ngôn ngữ",
-		changeLanguageOffline:
-			"Không thể tải bản dịch: thiết bị của bạn dường như đang ngoại tuyến. Vui lòng đảm bảo thiết bị của bạn có kết nối Internet và thử lại.",
 		changeLanguageError:
-			"Đã xảy ra lỗi khi thiết lập ngôn ngữ mới. Vui lòng khởi động lại ứng dụng và thử lại.",
+			"Đã xảy ra lỗi khi thiết lập ngôn ngữ mới. Vui lòng đảm bảo thiết bị của bạn có kết nối Internet, khởi động lại ứng dụng và thử lại.",
 	},
 
 	navigationBlocker: {

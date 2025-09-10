@@ -55,7 +55,7 @@ export const resources = { en };
 
 i18n.use(initReactI18next).init({
 	// debug: true,
-	lng: isLocaleCode(storedLocaleCode) ? storedLocaleCode : navigator.language,
+	lng: "en",
 	fallbackLng: "en",
 	ns: Object.keys(resources.en),
 	resources,
@@ -65,13 +65,10 @@ i18n.use(initReactI18next).init({
 });
 
 export const changeLanguage = async (
-	localeCode: string,
-): Promise<"ok" | "offline" | "error"> => {
+	localeCode: I18nLocaleCode,
+	source: "auto" | "user",
+): Promise<boolean> => {
 	if (!i18n.hasResourceBundle(localeCode, Object.keys(resources.en)[0])) {
-		if (!navigator.onLine) {
-			return "offline";
-		}
-
 		try {
 			const translation = (await import(`./locales/${localeCode}.ts`))[
 				localeCode.replace("-", "")
@@ -81,18 +78,34 @@ export const changeLanguage = async (
 				i18n.addResourceBundle(localeCode, namespace, translation[namespace]);
 			}
 		} catch {
-			return "error";
+			return false;
 		}
 	}
 
 	i18n.changeLanguage(localeCode);
-	localStorage.setItem(LOCALE_KEY, localeCode);
 
-	return "ok";
+	if (source === "user") {
+		localStorage.setItem(LOCALE_KEY, localeCode);
+	}
+
+	return true;
 };
 
-if (isLocaleCode(storedLocaleCode) && storedLocaleCode !== "en") {
-	changeLanguage(storedLocaleCode);
+const splitNavigatorLanguage = navigator.language.split("-")[0];
+
+const startupLocale =
+	isLocaleCode(storedLocaleCode) ? storedLocaleCode
+	: isLocaleCode(navigator.language) ? navigator.language
+	: isLocaleCode(splitNavigatorLanguage) ? splitNavigatorLanguage
+	: splitNavigatorLanguage === "es" ? "es-419"
+	: splitNavigatorLanguage === "pt" ? "pt-BR"
+	: splitNavigatorLanguage === "zh" ? "zh-Hans"
+	: undefined;
+
+if (startupLocale) {
+	// We lazy load locales, and top level await isn't possible (see commit 8b6f64c1ed),
+	// so we can't set the startup locale above when initialising i18n
+	changeLanguage(startupLocale, "auto");
 }
 
 export default i18n;

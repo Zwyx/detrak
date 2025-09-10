@@ -143,10 +143,8 @@ export const es419: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Elegir idioma",
 		language: "Idioma",
-		changeLanguageOffline:
-			"No se pudo cargar la traducción: tu dispositivo parece estar sin conexión. Por favor, asegúrate de tener acceso a Internet e inténtalo de nuevo.",
 		changeLanguageError:
-			"Ocurrió un error al configurar el nuevo idioma. Por favor, reinicia la aplicación e inténtalo de nuevo.",
+			"Ocurrió un error al configurar el nuevo idioma. Por favor, asegúrate de tener acceso a Internet, reinicia la aplicación e inténtalo de nuevo.",
 	},
 
 	navigationBlocker: {
