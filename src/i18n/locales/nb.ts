@@ -141,10 +141,8 @@ export const nb: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Velg språk",
 		language: "Språk",
-		changeLanguageOffline:
-			"Kunne ikke laste oversettelsen: enheten din ser ut til å være offline. Sørg for at enheten din har tilgang til Internett og prøv igjen.",
 		changeLanguageError:
-			"Det oppstod en feil under oppsett av det nye språket. Start programmet på nytt og prøv igjen.",
+			"Det oppstod en feil under oppsett av det nye språket. Sørg for at enheten din har tilgang til Internett, start programmet på nytt og prøv igjen.",
 	},
 
 	navigationBlocker: {

@@ -145,10 +145,8 @@ export const ro: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Alege limba",
 		language: "Limba",
-		changeLanguageOffline:
-			"Nu s-a putut încărca traducerea: dispozitivul tău pare să fie offline. Te rugăm să te asiguri că dispozitivul tău are acces la Internet și încearcă din nou.",
 		changeLanguageError:
-			"A apărut o eroare la configurarea noii limbi. Te rugăm să repornești aplicația și să încerci din nou.",
+			"A apărut o eroare la configurarea noii limbi. Te rugăm să te asiguri că dispozitivul tău are acces la Internet, repornești aplicația și să încerci din nou.",
 	},
 
 	navigationBlocker: {

@@ -147,10 +147,8 @@ export const en = {
 	languageSelector: {
 		chooseLanguage: "Choose language",
 		language: "Language",
-		changeLanguageOffline:
-			"Unable to load translation: your device seems to be offline. Please make sure your device has access to Internet and try again.",
 		changeLanguageError:
-			"An error occurred while setting up the new language. Please restart the app and try again.",
+			"An error occurred while setting up the new language. Please make sure your device is connected to the internet, restart the app, and try again.",
 	},
 
 	navigationBlocker: {
