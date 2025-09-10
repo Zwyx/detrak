@@ -51,15 +51,7 @@ i18n.on("languageChanged", (lng) => {
 });
 
 // Exported for the `t` function to be type-safe, see `src/@types/i18next.d.ts`
-export const mainResources = { en };
-
-let extraResources = {};
-
-if (isLocaleCode(storedLocaleCode) && storedLocaleCode !== "en") {
-	extraResources = await import(`./locales/${storedLocaleCode}.ts`);
-}
-
-const resources = { ...mainResources, ...extraResources };
+export const resources = { en };
 
 i18n.use(initReactI18next).init({
 	// debug: true,
@@ -98,5 +90,9 @@ export const changeLanguage = async (
 
 	return "ok";
 };
+
+if (isLocaleCode(storedLocaleCode) && storedLocaleCode !== "en") {
+	changeLanguage(storedLocaleCode);
+}
 
 export default i18n;

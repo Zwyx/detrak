@@ -5,11 +5,6 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-	esbuild: {
-		supported: {
-			"top-level-await": true,
-		},
-	},
 	plugins: [
 		react(),
 		VitePWA({
