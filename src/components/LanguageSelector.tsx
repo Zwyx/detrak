@@ -63,12 +63,15 @@ export const LanguageSelector = () => {
 				</ButtonStatus>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent align="end">
+			<DropdownMenuContent align="end" className="flex max-h-[85dvh] flex-col">
 				<DropdownMenuLabel>{t("language")}</DropdownMenuLabel>
 
 				<DropdownMenuSeparator />
 
-				<DropdownMenuRadioGroup value={i18n.resolvedLanguage}>
+				<DropdownMenuRadioGroup
+					className="overflow-auto"
+					value={i18n.resolvedLanguage}
+				>
 					{Object.entries(languages).map(([languageCode, languageName]) => (
 						<DropdownMenuRadioItem
 							key={languageCode}
@@ -87,7 +90,10 @@ export const LanguageSelector = () => {
 								setTranslationLoading(false);
 							}}
 						>
-							<span>{languageName}</span>
+							{languageName}
+							{languageCode !== "en" && languageCode !== "fr" && (
+								<sup className="ml-1">AI</sup>
+							)}
 						</DropdownMenuRadioItem>
 					))}
 				</DropdownMenuRadioGroup>
