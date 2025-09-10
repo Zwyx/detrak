@@ -134,9 +134,8 @@ export const zhHans: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "选择语言",
 		language: "语言",
-		changeLanguageOffline:
-			"无法加载翻译：你的设备似乎处于离线状态。请确保你的设备可以连接到互联网，然后再试一次。",
-		changeLanguageError: "设置新语言时发生错误。请重新启动应用并再试一次。",
+		changeLanguageError:
+			"设置新语言时发生错误。请确保你的设备已连接到互联网，重新启动应用并再试一次。",
 	},
 
 	navigationBlocker: {

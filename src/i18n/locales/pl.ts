@@ -144,10 +144,8 @@ export const pl: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Wybierz język",
 		language: "Język",
-		changeLanguageOffline:
-			"Nie można wczytać tłumaczenia: Twoje urządzenie wydaje się być offline. Upewnij się, że Twoje urządzenie ma dostęp do Internetu i spróbuj ponownie.",
 		changeLanguageError:
-			"Wystąpił błąd podczas konfigurowania nowego języka. Uruchom ponownie aplikację i spróbuj ponownie.",
+			"Wystąpił błąd podczas konfigurowania nowego języka. Upewnij się, że Twoje urządzenie ma dostęp do Internetu, uruchom ponownie aplikację i spróbuj ponownie.",
 	},
 
 	navigationBlocker: {

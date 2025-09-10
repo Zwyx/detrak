@@ -79,11 +79,12 @@ export const LanguageSelector = () => {
 							onClick={async () => {
 								setTranslationLoading(true);
 
-								const result = await changeLanguage(languageCode);
+								const hasSucceeded = await changeLanguage(
+									languageCode as I18nLocaleCode,
+									"user",
+								);
 
-								if (result === "offline") {
-									alert(t("changeLanguageOffline"));
-								} else if (result === "error") {
+								if (!hasSucceeded) {
 									alert(t("changeLanguageError"));
 								}
 

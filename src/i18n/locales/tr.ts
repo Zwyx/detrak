@@ -144,10 +144,8 @@ export const tr: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Dil seç",
 		language: "Dil",
-		changeLanguageOffline:
-			"Çeviri yüklenemedi: cihazınız çevrimdışı görünüyor. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.",
 		changeLanguageError:
-			"Yeni dili ayarlarken bir hata oluştu. Lütfen uygulamayı yeniden başlatın ve tekrar deneyin.",
+			"Yeni dili ayarlarken bir hata oluştu. Lütfen cihazınızın internete bağlı olduğundan emin olun, uygulamayı yeniden başlatın ve tekrar deneyin.",
 	},
 
 	navigationBlocker: {

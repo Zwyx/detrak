@@ -145,10 +145,8 @@ export const hr: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Odaberite jezik",
 		language: "Jezik",
-		changeLanguageOffline:
-			"Nije moguće učitati prijevod: čini se da je vaš uređaj izvan mreže. Molimo provjerite ima li vaš uređaj pristup internetu i pokušajte ponovno",
 		changeLanguageError:
-			"Došlo je do pogreške prilikom postavljanja novog jezika. Molimo ponovno pokrenite aplikaciju i pokušajte ponovno",
+			"Došlo je do pogreške prilikom postavljanja novog jezika. Molimo provjerite je li vaš uređaj povezan s internetom, ponovno pokrenite aplikaciju i pokušajte ponovno",
 	},
 
 	navigationBlocker: {

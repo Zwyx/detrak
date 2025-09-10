@@ -144,10 +144,8 @@ export const it: I18nLocale = {
 	languageSelector: {
 		chooseLanguage: "Scegli la lingua",
 		language: "Lingua",
-		changeLanguageOffline:
-			"Impossibile caricare la traduzione: il tuo dispositivo sembra essere offline. Assicurati che il tuo dispositivo abbia accesso a Internet e riprova.",
 		changeLanguageError:
-			"Si è verificato un errore durante l'impostazione della nuova lingua. Riavvia l'app e riprova.",
+			"Si è verificato un errore durante l'impostazione della nuova lingua. Assicurati che il tuo dispositivo abbia accesso a Internet, riavvia l'app e riprova.",
 	},
 
 	navigationBlocker: {
