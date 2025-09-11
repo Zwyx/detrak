@@ -18,7 +18,7 @@ import {
 import { App } from "./App.tsx";
 import { RouteErrorElement } from "./components/error/RouteErrorElement.tsx";
 import "./i18n/i18n.ts";
-import i18n from "./i18n/i18n.ts";
+import { localeForAnalytics } from "./i18n/i18n.ts";
 import "./index.css";
 import { PwaContextProvider } from "./lib/PwaContext.tsx";
 import { SettingsContextProvider } from "./lib/SettingsContext.tsx";
@@ -30,7 +30,7 @@ const appMode =
 	: window.matchMedia("(display-mode: standalone)").matches ? "pwa"
 	: "browser";
 
-initPlausible(appMode, i18n.language);
+initPlausible(appMode, localeForAnalytics);
 
 if (import.meta.env.PROD) {
 	Sentry.init({
