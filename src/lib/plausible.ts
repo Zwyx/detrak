@@ -1,4 +1,4 @@
-export const initPlausible = (appMode: string, localeCode: string) => {
+export const initPlausible = (appMode: string, localeForAnalytics: string) => {
 	const appVersion = import.meta.env.VITE_APP_VERSION;
 	const apiUrl = import.meta.env.VITE_PLAUSIBLE_API_URL;
 
@@ -25,7 +25,7 @@ export const initPlausible = (appMode: string, localeCode: string) => {
 			n: eventName,
 			u: `${location.href}${
 				location.href.includes("?") ? "&" : "?"
-			}utm_medium=${appMode}&utm_campaign=${appVersion}&utm_content=${localeCode}`,
+			}utm_medium=${appMode}&utm_campaign=${appVersion}&utm_content=${localeForAnalytics}`,
 			d: location.host,
 			r: document.referrer || null,
 		};
