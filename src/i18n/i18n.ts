@@ -108,4 +108,6 @@ if (startupLocale) {
 	changeLanguage(startupLocale, "auto");
 }
 
+export const localeForAnalytics = `${navigator.language}_${storedLocaleCode}_${startupLocale}`;
+
 export default i18n;
