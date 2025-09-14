@@ -46,6 +46,7 @@ export const HeaderMenu = () => {
 		useState<BeforeInstallPromptEvent>();
 
 	const touchStartX = useRef(0);
+	const touchStartY = useRef(0);
 
 	useEffect(() => {
 		window.addEventListener("beforeinstallprompt", (e) => {
@@ -97,13 +98,16 @@ export const HeaderMenu = () => {
 				className="flex w-auto flex-col items-start gap-0 overflow-auto"
 				onTouchStart={(e) => {
 					touchStartX.current = e.changedTouches[0].screenX;
+					touchStartY.current = e.changedTouches[0].screenY;
 				}}
 				onTouchEnd={(e) => {
 					const rem = getComputedStyle(document.documentElement).fontSize;
 
 					if (
-						e.changedTouches[0].screenX <
-						touchStartX.current - 2 * parseFloat(rem)
+						e.changedTouches[0].screenX - touchStartX.current <
+							-2 * parseFloat(rem) &&
+						Math.abs(e.changedTouches[0].screenY - touchStartY.current) <
+							2 * parseFloat(rem)
 					) {
 						navigateBack();
 					}
