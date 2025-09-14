@@ -176,7 +176,7 @@ export const HeaderMenu = () => {
 					}
 				>
 					<DialogTrigger asChild>
-						<Button size="sm" className="mx-auto mt-6">
+						<Button size="sm" className="mt-6 w-full">
 							{t("rules.readTheRules")}
 						</Button>
 					</DialogTrigger>
