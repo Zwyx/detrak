@@ -143,17 +143,6 @@ export const HeaderMenu = () => {
 					</AlertFrame>
 				)}
 
-				{pwaInstallPrompt && (
-					<AlertFrame
-						title={t("install.installableWebApp")}
-						description={t("install.description")}
-					>
-						<Button size="sm" className="m-1" onClick={triggerInstallPrompt}>
-							{t("install.install")}
-						</Button>
-					</AlertFrame>
-				)}
-
 				<div className="mt-4">
 					{t("gigamicGame")}{" "}
 					<ExternalLink href="https://www.gigamic.com/jeu/detrak" showIcon>
@@ -224,6 +213,18 @@ export const HeaderMenu = () => {
 						</DialogFooter>
 					</DialogContent>
 				</Dialog>
+
+				{pwaInstallPrompt && (
+					<AlertFrame
+						className="mt-8"
+						title={t("install.installableWebApp")}
+						description={t("install.description")}
+					>
+						<Button size="sm" className="m-1" onClick={triggerInstallPrompt}>
+							{t("install.install")}
+						</Button>
+					</AlertFrame>
+				)}
 
 				<div className="flex-1" />
 
