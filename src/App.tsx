@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 import { Outlet, useParams } from "react-router";
 import { Cell, Grid } from "./components/Detrak";
 import { Dice } from "./components/Dice";
+import { Header } from "./components/Header";
 import { HelpStep, HelpTooltip } from "./components/HelpTooltip";
 import { NavigationBlocker } from "./components/NavigationBlocker";
 import { NewGameDialog } from "./components/NewGameDialog";
-import { SiteHeader } from "./components/SiteHeader";
 import { ButtonStatus } from "./components/common/ButtonStatus";
 import { Button } from "./components/ui/button";
 import { usePwaContext } from "./lib/PwaContext.const";
@@ -404,7 +404,7 @@ export const App = () => {
 		>
 			<NavigationBlocker shouldBlock={middleOfGame} />
 
-			<SiteHeader
+			<Header
 				gameId={gameId}
 				onGameIdClick={() => pushState({ newGameDialogOpen: true })}
 			/>
