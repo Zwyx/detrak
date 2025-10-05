@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "./LanguageSelector";
 import { Button } from "./ui/button";
 
-export const SiteHeader = ({
+export const Header = ({
 	gameId,
 	onGameIdClick,
 }: {
