@@ -3,6 +3,9 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { en } from "./locales/en";
 
+// For better SEO, we could implement SSR/SSG, use subpath for routing,
+// and `<link rel="alternate" hreflang="fr" href="https://detrak.net/fr/...">`
+
 const i18nLocaleCodes = [
 	// "ar", Arabic is disabled because adding `dir="rtl"` to `<html>` messes up with the game grid and the main menu (which still opens on the left); not using `dir="rtl"` leads to unreadable strings like "x game - best score: y" below the grid
 	"bn",
