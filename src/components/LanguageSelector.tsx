@@ -91,7 +91,8 @@ export const LanguageSelector = () => {
 								setTranslationLoading(false);
 							}}
 						>
-							{languageName}
+							<span lang={languageCode}>{languageName}</span>
+
 							{languageCode !== "en" && languageCode !== "fr" && (
 								<sup className="ml-1">AI</sup>
 							)}
