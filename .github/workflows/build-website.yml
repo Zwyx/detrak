@@ -1,5 +1,7 @@
+# This workflow is triggered when a new version tag (`vX.Y.Z`) is push on branch `main`.
+# This relies on lightweight tags (see below, and see the `postversion` script in `package.json`).
 # The site is built on branch `dist`, in folder `docs`,
-# which makes the build compatible with Github Pages and Netlify
+# which makes the build compatible with Github Pages and Netlify.
 
 name: Build website
 
