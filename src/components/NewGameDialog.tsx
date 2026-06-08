@@ -157,7 +157,7 @@ export const NewGameDialog = ({
 
 						<Dialog open={open && calendarOpen}>
 							<Button
-								className="w-full text-wrap font-normal text-muted-foreground"
+								className="w-full text-wrap font-normal"
 								variant="outline"
 								onClick={() => setCalendarOpen(true)}
 							>
