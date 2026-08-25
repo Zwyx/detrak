@@ -1,0 +1,5 @@
+minimumReleaseAge: 10080 # 10080 minutes = 1 week
+
+allowBuilds:
+  "@sentry/cli": false # No need, the native binary is automatically downloaded as an optional dependency
+  esbuild: true # Hardlinks the platform binary over the JS bin shim (perf only) + version sanity check

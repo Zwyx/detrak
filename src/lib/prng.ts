@@ -59,7 +59,7 @@ export function getRandomId(length?: number) {
 
 /**
  * Used to verify the repartition of the numbers drawn by the PRNG;
- * run `npm run check-prng`
+ * run `pnpm run check-prng`
  */
 export function checkPrngNumbersRepartition() {
 	const seedText = getRandomId();
@@ -115,7 +115,7 @@ function toBase(value: number): string {
 }
 
 /**
- * run `npm run find-remarkable-games`
+ * run `pnpm run find-remarkable-games`
  *
  * Remarkable games found so far:
  *
