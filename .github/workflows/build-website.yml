@@ -25,18 +25,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: pnpm/setup@v2
-        with:
-          version: 11
-          install: false # We want to run `ci`
-
       - run: echo "nvmrc=$(cat .nvmrc)" >> $GITHUB_ENV
         id: nvmrc
 
-      - uses: actions/setup-node@v7
+      - uses: pnpm/setup@v2
         with:
-          node-version: "${{ env.nvmrc }}"
-          cache: pnpm
+          version: 11.10.0
+          runtime: "node@${{ env.nvmrc }}"
+          cache: true
+          install: false # We want to run `ci`
 
       - run: pnpm ci
 
