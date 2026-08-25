@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# We stopped using `apple-touch-startup-image` in August 2026 to not support
+# Apple non-sense – https://open-web-advocacy.org
+# We still have the `apple-touch-icon` though.
+
 npx pwa-asset-generator --opaque false --icon-only --favicon --padding '0' --type png res/dices.svg public
 
 npx pwa-asset-generator --background '#0f1c2e' --padding '20%' --type png res/dices.svg public
