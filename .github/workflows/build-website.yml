@@ -1,5 +1,3 @@
-# This workflow is triggered when a new version tag (`vX.Y.Z`) is created on branch `main`.
-# This relies on lightweight tags (see below, and see the `postversion` script in `package.json`).
 # The site is built on branch `dist`, in folder `docs`,
 # which makes the build compatible with Github Pages and Netlify.
 
@@ -7,10 +5,11 @@ name: Build website
 
 on:
   push:
+    branches:
+      - "main"
+      - "staging**"
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
-    branches:
-      - "staging**"
   workflow_dispatch:
 
 permissions:
@@ -22,9 +21,6 @@ concurrency:
 
 jobs:
   build-website:
-    # Note: `github.event.base_ref` is equal to `refs/heads/main` when the workflow is triggered
-    # by a branch, or a lightweight tag (_not_ an annotated tag), placed on the last commit of the `main` branch
-    if: github.event.base_ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/staging') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -76,7 +72,13 @@ jobs:
           SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
         run: pnpm run build
 
-      - run: |
+      # The app is published only when a new version tag (`vX.Y.Z`) is created on branch `main`,
+      # or when the workflow is triggered manually.
+      # Note: `github.event.base_ref` is equal to `refs/heads/main` when the workflow is triggered
+      # by a branch, or a lightweight tag (_not_ an annotated tag, see the `postversion` script in `package.json`),
+      # placed on the last commit of the `main` branch
+      - if: github.event.base_ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/staging') || github.event_name == 'workflow_dispatch'
+        run: |
           git checkout index.html
           [[ "$(git branch --show-current)" != "main" ]] && git fetch && git branch main remotes/origin/main
           git switch --orphan ${{ env.BRANCH }}
