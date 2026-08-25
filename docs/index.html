@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" translate="no">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Detrak</title>
+		<meta name="description" content="The Detrak dice game" />
+		<meta property="og:title" content="Detrak" />
+		<meta property="og:description" content="The Detrak dice game" />
+		<meta
+			property="og:image"
+			content="https://detrak.net/en-light-landscape.webp"
+		/>
+		<meta name="theme-color" content="#0f1c2e" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content"
+		/>
+		<link rel="icon" type="image/png" sizes="196x196" href="favicon-196.png" />
+		<link rel="apple-touch-icon" href="apple-icon-180.png" />
+		<script>
+			var lightThemeName = "light";
+			var darkThemeName = "dark";
+			var storedTheme = localStorage.getItem("theme");
+			var theme;
+			if (storedTheme === lightThemeName || storedTheme === darkThemeName) {
+				theme = storedTheme;
+			} else if (matchMedia("(prefers-color-scheme: dark)").matches) {
+				theme = darkThemeName;
+			} else {
+				theme = lightThemeName;
+			}
+			document.documentElement.classList.add(theme);
+			if (theme === lightThemeName) {
+				document
+					.querySelector('meta[name="theme-color"]')
+					?.setAttribute("content", "#ffffff");
+			}
+		</script>
+		<script type="module" crossorigin src="/assets/index-CDi9Zuja.js"></script>
+		<link rel="stylesheet" crossorigin href="/assets/index-DP57kNtF.css">
+	<link rel="manifest" href="/manifest.json"></head>
+	<body>
+		<div id="root"></div>
+	</body>
+</html>
